@@ -1,0 +1,25 @@
+base <- ggplot(pressure, aes(temperature, pressure))
+
+test_that("geom_pointpath adds geom to plot", {
+  g <- base + geom_pointpath()
+  expect_is(g$layers[[1]]$geom, "GeomPointPath")
+  # Check inherits GeomPoint
+  expect_is(g$layers[[1]]$geom, "GeomPoint")
+})
+
+test_that("geom_pointpath plots can be build", {
+  g <- base + geom_pointpath()
+  gt <- ggplotGrob(g)
+  expect_is(gt, "gtable")
+  grob <- layer_grob(g)[[1]]$children
+  expect_is(grob[[2]], "points")
+  expect_is(grob[[1]], "pointpath")
+})
+
+test_that("geom_pointpath makeContent works", {
+  g <- base + geom_pointpath()
+  grob <- layer_grob(g)[[1]]$children[[1]]
+  expect_is(grob, "pointpath")
+  out <- grid::makeContent(grob)
+  expect_is(out, "segments")
+})
