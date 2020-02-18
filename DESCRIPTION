@@ -17,7 +17,8 @@ Suggests:
     rlang,
     MASS,
     utils,
-    stats
+    stats,
+    covr
 RoxygenNote: 7.0.2
 Depends: 
     ggplot2
