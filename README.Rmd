@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # ggh4x
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/teunbrand/ggh4x.svg?branch=master)](https://travis-ci.org/teunbrand/ggh4x)
 <!-- badges: end -->
 
 The goal of ggh4x is to ...

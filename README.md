@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/teunbrand/ggh4x.svg?branch=master)](https://travis-ci.org/teunbrand/ggh4x)
 <!-- badges: end -->
 
 The goal of ggh4x is to …
@@ -25,6 +27,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(ggh4x)
+#> Loading required package: ggplot2
 ## basic example code
 ```
 
