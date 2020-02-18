@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggh4x
+# ggh4x <img src="man/figures/logo_300px.png" align = "right" width = "150" />
 
 <!-- badges: start -->
 
