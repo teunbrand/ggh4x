@@ -1,0 +1,16 @@
+Package: ggh4x
+Title: Hacks for ggplot2
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Teun",
+           family = "van den Brand",
+           role = c("aut", "cre"),
+           email = "tahvdbrand@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: A ggplot2 extensions with some stats, geoms and hacks.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat
+RoxygenNote: 7.0.2
