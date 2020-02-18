@@ -20,7 +20,7 @@ Suggests:
     covr
 RoxygenNote: 7.0.2
 Depends: 
-    ggplot2
+    ggplot2 (>= 3.2.1)
 Imports: 
     scales,
     gtable,
