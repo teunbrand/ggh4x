@@ -12,5 +12,16 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat
+    testthat,
+    fitdistrplus,
+    rlang,
+    MASS,
+    utils,
+    stats
 RoxygenNote: 7.0.2
+Depends: 
+    ggplot2
+Imports: 
+    scales,
+    gtable,
+    grid

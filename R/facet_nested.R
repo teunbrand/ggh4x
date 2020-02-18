@@ -135,7 +135,7 @@ FacetNested <- ggproto(
                         intersect(names(cols), names(data)))
 
     # Add variables
-    data <- reshape2::add_margins(data, margin_vars, params$margins)
+    data <- .int$reshape_add_margins(data, margin_vars, params$margins)
     facet_vals <- .int$eval_facets(c(rows, cols), data, params$plot$env)
 
     # Only set as missing if it has no variable in that direction
@@ -177,10 +177,12 @@ FacetNested <- ggproto(
     rows <- params$rows
     cols <- params$cols
     dups <- intersect(names(rows), names(cols))
+
     if (length(dups) > 0) {
       stop("Facetting variables can only appear in row or cols, not both.\n",
            "Problems: ", paste0(dups, collapse = "'"), call. = FALSE)
     }
+
     base_rows <- combine_nested_vars(data, params$plot_env,
                                      rows, drop = params$drop)
     if (!params$as.table) {
@@ -189,24 +191,34 @@ FacetNested <- ggproto(
     base_cols <- combine_nested_vars(data, params$plot_env, cols,
                                      drop = params$drop)
     base <- .int$df.grid(base_rows, base_cols)
-    base <- reshape2::add_margins(base,
-                                  list(names(rows), names(cols)),
-                                  params$margins)
+
+    if (nrow(base) == 0) {
+      return(.int$new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L,
+                                      SCALE_X = 1L, SCALE_Y = 1L)))
+    }
+
+    base <- .int$reshape_add_margins(
+      base, list(names(rows), names(cols)), params$margins
+    )
     base <- unique(base)
-    panel <- plyr::id(base, drop = TRUE)
+
+    panel <- .int$id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
+
     rows <- if (!length(names(rows))) {
-      1L
+      rep(1L, length(panel))
     } else {
-      plyr::id(base[names(rows)], drop = TRUE)
+      .int$id(base[names(rows)], drop = TRUE)
     }
     cols <- if (!length(names(cols))) {
-      1L
+      rep(1L, length(panel))
     } else {
-      plyr::id(base[names(cols)], drop = TRUE)
+      .int$id(base[names(cols)], drop = TRUE)
     }
-    panels <- data.frame(PANEL = panel, ROW = rows, COL = cols,
-                         base, check.names = FALSE, stringsAsFactors = FALSE)
+
+    panels <- .int$new_data_frame(
+      c(list(PANEL = panel, ROW = rows, COL = cols), base)
+    )
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
     panels$SCALE_X <- if (params$free$x) {

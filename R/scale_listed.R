@@ -28,7 +28,13 @@
 #'
 #' @examples
 #' # Annotation of heatmap
-#' df <- reshape2::melt(cor(t(iris[,1:4])))
+#' iriscor <- cor(t(iris[, 1:4]))
+#'
+#' df <- data.frame(
+#'   x = as.vector(row(iriscor)),
+#'   y = as.vector(col(iriscor)),
+#'   value = as.vector(iriscor)
+#' )
 #'
 #' annotation <- data.frame(
 #'   z = seq_len(nrow(iris)),
@@ -36,7 +42,7 @@
 #'   Leaves = ifelse(iris$Species == "setosa", "Short", "Long")
 #' )
 #'
-#' ggplot(df, aes(Var1, Var2)) +
+#' ggplot(df, aes(x, y)) +
 #'   geom_raster(aes(fill = value)) +
 #'   geom_tile(data = annotation,
 #'             aes(x = z, y = -5, spec = Species), height = 5) +

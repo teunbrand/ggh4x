@@ -25,14 +25,14 @@
 #'
 #'   Note that this positioning is only particularly useful when y-coordinates
 #'   do not encode relevant information. Geoms that pair well with this
-#'   positioning are \code{\link[ggplot2]{geom_rect}},
-#'   \code{\link[ggplot2]{geom_tile}}, \code{\link[ggh4x]{geom_genemodel}}.
+#'   positioning are \code{\link[ggplot2]{geom_rect}} and
+#'   \code{\link[ggplot2]{geom_tile}}.
 #'
 #'   This positioning function was inspired by the \code{disjointBins()}
 #'   function in the \code{IRanges} package, but has been written such that it
 #'   accepts any numeric input next to solely integer input.
 #'
-#' @seealso \code{\link[IRanges::inter-range-methods]{disjointBins}}
+#' @seealso The \code{disjointBins} function the Bioconductor IRanges package.
 #'
 #' @examples
 #' # Even though geom_tile() is parametrised by middle-x values, it is
