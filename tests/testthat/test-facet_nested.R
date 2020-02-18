@@ -69,9 +69,9 @@ test_that("facet_nested returns helpful error messages", {
   test <- basic + facet_nested(~ Nester + Species)
   ctrl <- expect_silent(layer_data(ctrl))
   test <- expect_error(layer_data(test), "Plot is missing")
-  
+
   # Upon invalid switch
-  test <- substitute(basic + facet_nested(~ nester + Species, 
+  test <- substitute(basic + facet_nested(~ nester + Species,
                                           switch = "Nonsense"))
   expect_error(eval(test), "switch must be either")
 })

@@ -14,7 +14,6 @@ LazyData: true
 Suggests: 
     testthat,
     fitdistrplus,
-    rlang,
     MASS,
     utils,
     stats,
@@ -25,4 +24,6 @@ Depends:
 Imports: 
     scales,
     gtable,
-    grid
+    grid,
+    tibble,
+    rlang

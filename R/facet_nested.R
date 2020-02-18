@@ -283,9 +283,12 @@ FacetNested <- ggproto(
 combine_nested_vars <- function(
   data, env = emptyenv(), vars = NULL, drop = TRUE
 ) {
+  if (length(vars) == 0) {
+    return(.int$new_data_frame())
+  }
+
   possible_columns <- unique(unlist(lapply(data, names)))
-  if (length(vars) == 0)
-    return(data.frame())
+
   values <- .int$compact(lapply(data, .int$eval_facets, facets = vars,
                                 possible_columns = possible_columns))
   has_all <- unlist(lapply(values, length)) == length(vars)
