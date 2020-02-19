@@ -6,7 +6,7 @@ Authors@R:
            family = "van den Brand",
            role = c("aut", "cre"),
            email = "tahvdbrand@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "0000-0002-9335-7468"))
 Description: A ggplot2 extensions with some stats, geoms and hacks.
 License: GPL-3
 Encoding: UTF-8
