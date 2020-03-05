@@ -175,8 +175,6 @@ test_that("facet_nested line resection works", {
   ctrl_width <- grid::convertWidth(ctrl$x, "mm", valueOnly = TRUE)
 
   # Tests
-  expect_is(test$x, "unit.arithmetic")
-  expect_is(ctrl$x, "unit.arithmetic")
   expect_false(any(test_width == ctrl_width))
   expect_equal(test$x[1], unit(0, "npc") +  1 * unit(10, "mm"))
   expect_equal(test$x[2], unit(1, "npc") + -1 * unit(10, "mm"))
