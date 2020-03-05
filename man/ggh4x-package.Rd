@@ -7,10 +7,10 @@
 \title{ggh4x: Hacks for 'ggplot2'}
 \description{
 A 'ggplot2' extension that does a variety of little helpful things.
-    The package extends 'ggplot2' facet customisation, by setting individual
-    scales per panel, resizing panels and providing nested facets. Also allows
-    multiple colour and fill scales per plot. Also hosts a smaller collection
-    of `stat_*`, `position_*` and `geom_*` functions.
+    The package extends 'ggplot2' facets through customisation, by setting 
+    individual scales per panel, resizing panels and providing nested facets. 
+    Also allows multiple colour and fill scales per plot. Also hosts a smaller 
+    collection of `stat_*`, `position_*` and `geom_*` functions.
 }
 \author{
 \strong{Maintainer}: Teun van den Brand \email{tahvdbrand@gmail.com} (\href{https://orcid.org/0000-0002-9335-7468}{ORCID})
