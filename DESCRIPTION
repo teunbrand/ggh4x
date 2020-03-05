@@ -1,6 +1,6 @@
 Package: ggh4x
 Title: Hacks for ggplot2
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Teun",
            family = "van den Brand",
@@ -17,13 +17,12 @@ Suggests:
     MASS,
     utils,
     stats,
+    rlang,
     covr
 RoxygenNote: 7.0.2
 Depends: 
-    ggplot2 (>= 3.2.1)
+    ggplot2 (>= 3.3.0)
 Imports: 
     scales,
     gtable,
-    grid,
-    tibble,
-    rlang
+    grid

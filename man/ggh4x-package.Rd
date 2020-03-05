@@ -6,7 +6,7 @@
 \alias{ggh4x-package}
 \title{ggh4x: Hacks for ggplot2}
 \description{
-A ggplot2 extensions with some stats, geoms and hacks.
+A ggplot2 extension with some stats, geoms and hacks.
 }
 \author{
 \strong{Maintainer}: Teun van den Brand \email{tahvdbrand@gmail.com} (\href{https://orcid.org/0000-0002-9335-7468}{ORCID})
