@@ -71,6 +71,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
+\value{
+A \emph{Layer} ggproto object.
+}
 \description{
 \code{geom_polygonraster} takes data that describes a raster with pixels of
 the same size and reparametrises the data as a polygon. This allows for more

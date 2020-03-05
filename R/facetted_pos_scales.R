@@ -36,6 +36,9 @@
 #'
 #' @seealso \code{\link[ggplot2]{scale_continuous}} and \code{scale_x_discrete}.
 #'
+#' @return A \emph{facetted_pos_scales} object, instructing a ggplot how to
+#'   adjust the scales per facet.
+#'
 #' @examples
 #' # Reversing the y-axis in the second panel
 #' ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
@@ -51,11 +54,11 @@ facetted_pos_scales <- function(x = NULL, y = NULL) {
   y_test <- vapply(y, function(yi){
     inherits(yi, "Scale") | is.null(yi)
   }, logical(1)) | is.null(y)
-  
+
   if (!(all(x_test) & all(y_test))) {
     stop("Invalid facetted scale specifications.")
   }
-  
+
   structure(list(x = x, y = y), class = "facetted_pos_scales")
 }
 
@@ -67,26 +70,26 @@ facetted_pos_scales <- function(x = NULL, y = NULL) {
 #' @export
 #' @keywords internal
 ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
-  
+
   if (is.null(object$x) & is.null(object$y)) {
     return(plot)
   }
   # Check if we can overide core functions
-  valid_init <- identical(body(environment(Facet$init_scales)$f), 
+  valid_init <- identical(body(environment(Facet$init_scales)$f),
                           body(environment(plot$facet$init_scales)$f))
   valid_train <- identical(body(environment(Facet$train_scales)$f),
                            body(environment(plot$facet$train_scales)$f))
   valid_finish <- identical(body(environment(Facet$finish_data)$f),
                             body(environment(plot$facet$finish_data)$f))
-  
+
   if (!all(c(valid_init, valid_train, valid_finish))) {
     warning("Unknown facet, overriding facetted scales may be unstable.",
             call. = FALSE)
   }
-  
+
   # Copy facet
   oldfacet <- plot$facet
-  
+
   # Reconstitute new facet
   newfacet <- ggproto(
     paste0("FreeScaled", class(oldfacet)[[1]]),
@@ -97,7 +100,7 @@ ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
     train_scales = train_scales_individual,
     finish_data  = finish_data_individual
   )
-  
+
   plot$facet <- newfacet
   plot
 }
@@ -105,22 +108,22 @@ ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
 # ggproto methods ---------------------------------------------------------
 
 #' @keywords internal
-init_scales_individual <- function(layout, 
-                                   x_scale = NULL, y_scale = NULL, 
+init_scales_individual <- function(layout,
+                                   x_scale = NULL, y_scale = NULL,
                                    params, self) {
   scales <- list()
-  
+
   # Handle x
   if (!is.null(x_scale)) {
     new_x <- self$new_x_scales
     xidx <- seq_len(max(layout$SCALE_X))
-    
+
     if (is.null(new_x)) {
       # Setup scales as per usual
       scales$x <- lapply(xidx, function(i) {
         x_scale$clone()
       })
-      
+
     } else {
       # Substituting scales if needed
       scales$x <- lapply(xidx, function(i) {
@@ -137,18 +140,18 @@ init_scales_individual <- function(layout,
       })
     }
   }
-  
+
   # Handle y
   if (!is.null(y_scale)) {
     new_y <- self$new_y_scales
     yidx <- seq_len(max(layout$SCALE_Y))
-    
+
     if (is.null(new_y)) {
       # Setup scales as per usual
       scales$y <- lapply(yidx, function(i) {
         y_scale$clone()
       })
-      
+
     } else {
       # Substitute scales if needed
       scales$y <- lapply(yidx, function(i) {
@@ -172,12 +175,12 @@ init_scales_individual <- function(layout,
 train_scales_individual <- function(x_scales, y_scales, layout, data, params, self) {
   # Transform data first
   data <- lapply(data, function(layer_data) {
-    self$finish_data(layer_data, layout, 
+    self$finish_data(layer_data, layout,
                      x_scales, y_scales, params)
   })
-  
+
   # Then use parental method for scale training
-  ggproto_parent(Facet, self)$train_scales(x_scales, y_scales, 
+  ggproto_parent(Facet, self)$train_scales(x_scales, y_scales,
                                            layout, data, params)
 }
 
@@ -187,16 +190,16 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
   panels <- split(data, data$PANEL, drop = FALSE)
   panels <- lapply(names(panels), function(i) {
     dat  <- panels[[i]]
-    
+
     # Match panel to their scales
     panel_id <- match(as.numeric(i), layout$PANEL)
     xidx <- layout[panel_id, "SCALE_X"]
     yidx <- layout[panel_id, "SCALE_Y"]
-    
+
     # Decide what variables need to be transformed
     y_vars <- intersect(y_scales[[yidx]]$aesthetics, names(dat))
     x_vars <- intersect(x_scales[[xidx]]$aesthetics, names(dat))
-    
+
     # Transform variables by appropriate scale
     for (j in y_vars) {
       dat[, j] <- y_scales[[yidx]]$transform(dat[, j])
@@ -206,7 +209,7 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
     }
     dat
   })
-  
+
   # Recombine the data
   data <- unsplit(panels, data$PANEL)
   data

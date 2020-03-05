@@ -35,6 +35,9 @@ left, or right.}
 \item{dendro}{Relevant plotting data for a dendrogram such as those returned
 by \code{\link[ggdendro]{dendro_data}}.}
 }
+\value{
+A \emph{dendroguide} class object.
+}
 \description{
 Visual representation of a discrete variable with hierarchical relationships
 between members, like those detailed in
@@ -50,6 +53,6 @@ df <- reshape2::melt(df, id.vars = "State")
 # The guide function can be used to customise the axis
 ggplot(df, aes(variable, State, fill = value)) +
   geom_raster() +
-scale_y_dendrogram(hclust = clust, 
+scale_y_dendrogram(hclust = clust,
                    guide = guide_dendro(n.dodge = 2))
 }

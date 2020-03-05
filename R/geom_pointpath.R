@@ -26,6 +26,8 @@
 #'   dynamically adapts the interpoint segments so these  don't deform under
 #'   different aspect ratios or device sizes.
 #'
+#' @return A \emph{Layer} ggproto object.
+#'
 #' @examples
 #' ggplot(pressure, aes(temperature, pressure)) +
 #'   geom_pointpath()

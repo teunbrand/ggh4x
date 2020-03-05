@@ -25,6 +25,6 @@ ggnomics relies on the extension mechanism of ggplot2 through
   coord_\* and scale_\* functions.
 }
 \seealso{
-\link[ggplot2]{ggplot2-ggproto}
+\link[ggplot2]{ggproto}
 }
 \keyword{datasets}

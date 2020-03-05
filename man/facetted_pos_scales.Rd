@@ -13,6 +13,10 @@ facetted_pos_scales(x = NULL, y = NULL)
 \item{y}{A \code{list} wherein elements are either y position scales or
 \code{NULL}s.}
 }
+\value{
+A \emph{facetted_pos_scales} object, instructing a ggplot how to
+  adjust the scales per facet.
+}
 \description{
 Under default circumstances, using facets in a plot limits the freedom with
 which the position scales (x and y) can be defined. Calling this function

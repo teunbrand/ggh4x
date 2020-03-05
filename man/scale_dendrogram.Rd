@@ -83,6 +83,9 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 }
+\value{
+A \emph{ScaleDendrogram} ggproto object.
+}
 \description{
 When discrete data has some inherent hierarchy to the relationship between
   discrete categories, you can display a dendrogram instead of a tick axis.
@@ -97,6 +100,7 @@ The dendrogram type of scale does two things, first it reorders the
 }
 \examples{
 # Hierarchically cluster data
+require(reshape2)
 yclus <- hclust(dist(USArrests), "ave")
 xclus <- hclust(dist(t(USArrests)), "ave")
 

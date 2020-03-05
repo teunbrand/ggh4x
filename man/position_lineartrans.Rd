@@ -20,6 +20,9 @@ the input clockwise.}
 \item{M}{A \code{2} x \code{2} real \code{matrix}: the transformation matrix
 for linear mapping. Overrides other arguments if provided.}
 }
+\value{
+A \emph{PositionLinearTrans} ggproto object.
+}
 \description{
 Transforms coordinates in two dimensions in a linear manner for layers that
 have an \code{x} and \code{y} parametrisation.

@@ -32,6 +32,8 @@
 #'
 #' @export
 #'
+#' @return A \emph{Layer} ggproto object.
+#'
 #' @examples
 #' # Combining with coord_polar()
 #' ggplot(faithfuld, aes(waiting, eruptions)) +

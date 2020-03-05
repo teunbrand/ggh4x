@@ -44,6 +44,8 @@
 #'
 #' @export
 #'
+#' @return A \emph{FacetNested} ggproto object.
+#'
 #' @seealso See \code{\link[ggplot2]{facet_grid}} for descriptions of the
 #'   original arguments. See \code{\link[grid]{unit}} for the construction of a
 #'   \code{unit} vector.

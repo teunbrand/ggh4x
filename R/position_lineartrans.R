@@ -69,6 +69,9 @@
 #'   \tab\tab | \cr | \tab\tab \eqn{sin\theta} \tab\tab \eqn{cos\theta} \tab\tab
 #'   | \cr } or \cr\cr \code{M <- matrix(c(cos(theta), sin(theta), -sin(theta),
 #'   cos(theta)), 2)} \cr with '\code{theta}' defined in radians. }
+#'
+#' @return A \emph{PositionLinearTrans} ggproto object.
+#'
 #' @export
 #'
 #' @examples

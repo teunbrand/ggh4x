@@ -60,6 +60,8 @@
 #'
 #' @export
 #'
+#' @return A \emph{Layer} ggproto object.
+#'
 #' @examples
 #' # A mixture of normal distributions where the standard deviation is
 #' # inverse gamma distributed resembles a cauchy distribution.

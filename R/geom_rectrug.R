@@ -33,6 +33,8 @@
 #'
 #' @export
 #'
+#' @return A \emph{Layer} ggproto object.
+#'
 #' @importFrom ggplot2 layer
 #'
 #' @section Aesthetics:

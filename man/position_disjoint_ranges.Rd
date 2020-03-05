@@ -16,6 +16,9 @@ is added between bins in the y-direction. A positive value grows the bins
 from bottom to top, while a negative value grows the bins from top to
 bottom.}
 }
+\value{
+A \emph{PositionDisjointRanges} object.
+}
 \description{
 One-dimensional ranged data in the x-direction is segregated in
   the y-direction such that no overlap in twodimensional space occurs. This

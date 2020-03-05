@@ -61,6 +61,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
+\value{
+A \emph{Layer} ggproto object.
+}
 \description{
 The point path geom is used to make a scatterplot wherein the points are
 connected with lines in some order. This geom intends to mimick the

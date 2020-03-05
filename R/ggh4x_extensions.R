@@ -9,5 +9,5 @@
 #'   with these objects is preferred through various geom_\*, stat_\*, facet_\*,
 #'   coord_\* and scale_\* functions.
 #'
-#' @seealso \link[ggplot2]{ggplot2-ggproto}
+#' @seealso \link[ggplot2]{ggproto}
 NULL

@@ -104,6 +104,9 @@ nesting line should be shortened.}
 of lower-level variables is allowed when the higher-level variables are
 seperate. See details.}
 }
+\value{
+A \emph{FacetNested} ggproto object.
+}
 \description{
 \code{facet_nest()} form a matrix of panels defined by row and
   column faceting variables and nests grouped facets.

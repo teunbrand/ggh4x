@@ -17,6 +17,8 @@
 #'
 #' @export
 #'
+#' @return A \emph{PositionDisjointRanges} object.
+#'
 #' @details An object is considered disjoint from a second object when the range
 #'   between their \code{xmin} and \code{xmax} coordinates don't overlap.
 #'   Objects that overlap are assigned to different bins in the y-direction,
