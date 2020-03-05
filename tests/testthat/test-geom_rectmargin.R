@@ -118,11 +118,7 @@ test_that("geom_tilemargin size can be set", {
   a <- layer_grob(a, 2)[[1]]$children[[1]]$height
   b <- layer_grob(b, 2)[[1]]$children[[1]]$height
   expect_identical(a, unit(1, "inch"))
-<<<<<<< HEAD
   expect_identical(b, unit(5, "mm"))
-=======
-  expect_identical(b, unit(1, "mm"))
->>>>>>> dd39fe86125a0c4ee21f2a7e3ab519ecdeed9e98
 })
 
 test_that("coord flip flips tilemargins", {
