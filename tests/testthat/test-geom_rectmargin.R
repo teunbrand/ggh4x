@@ -49,10 +49,8 @@ test_that("geom_rectmargin size can be set", {
   b <- base + geom_rectmargin(length = unit(5, "mm"))
   a <- layer_grob(a, 2)[[1]]$children[[1]]$height
   b <- layer_grob(b, 2)[[1]]$children[[1]]$height
-  expect_equal(attr(a, "unit"), "inch")
-  expect_equal(attr(b, "unit"), "mm")
-  expect_equal(as.numeric(a), 1)
-  expect_equal(as.numeric(b), 5)
+  expect_identical(a, unit(1, "inch"))
+  expect_identical(b, unit(5, "mm"))
 })
 
 test_that("coord flip flips rectmargins", {
@@ -119,10 +117,8 @@ test_that("geom_tilemargin size can be set", {
   b <- base + geom_tilemargin(length = unit(5, "mm"))
   a <- layer_grob(a, 2)[[1]]$children[[1]]$height
   b <- layer_grob(b, 2)[[1]]$children[[1]]$height
-  expect_equal(attr(a, "unit"), "inch")
-  expect_equal(attr(b, "unit"), "mm")
-  expect_equal(as.numeric(a), 1)
-  expect_equal(as.numeric(b), 5)
+  expect_identical(a, unit(1, "inch"))
+  expect_identical(b, unit(1, "mm"))
 })
 
 test_that("coord flip flips tilemargins", {
