@@ -139,6 +139,9 @@ ScaleDendrogram <- ggproto(
   transform = function(self, x) {
     hclust <- self$hclust
     if (!inherits(hclust, "waiver") && inherits(hclust, "hclust")) {
+      if (is.character(x)) {
+        x <- factor(x)
+      }
       x <- order(hclust$order)[as.integer(x)]
     }
     return(x)

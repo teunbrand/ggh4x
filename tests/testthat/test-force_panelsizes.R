@@ -133,13 +133,20 @@ test_that("force_panelsizes can set units on columns", {
   ctrl_units <- attr(ctrl, "unit")
   test_units <- sapply(test, function(x){attr(x, "unit")})
 
-  expect_identical(
-    ctrl, grid::unit.c(unit(1, "null"), unit(1, "null"), unit(1, "null"))
-  )
-  expect_equivalent(
-    list(test[[1]], test[[2]], test[[3]]),
-    list(unit(1, "inch"), unit(2, "cm"), unit(3, "mm"))
-  )
+  if (as.numeric(version$major) < 4) {
+    expect_identical(
+      ctrl, grid::unit.c(unit(1, "null"), unit(1, "null"), unit(1, "null"))
+    )
+    expect_equivalent(
+      list(test[[1]], test[[2]], test[[3]]),
+      list(unit(1, "inch"), unit(2, "cm"), unit(3, "mm"))
+    )
+  } else {
+    expect_identical(as.numeric(ctrl), c(1, 1, 1))
+    expect_true(all(grid::unitType(ctrl) == c("null", "null", "null")))
+    expect_identical(as.numeric(test), c(1, 2, 3))
+    expect_true(all(grid::unitType(test) == c("inches", "cm", "mm")))
+  }
 })
 
 test_that("force_panelsizes can set units on rows", {
@@ -160,11 +167,18 @@ test_that("force_panelsizes can set units on rows", {
   ctrl_num <- as.numeric(ctrl)
   test_num <- as.numeric(test)
 
-  expect_identical(
-    ctrl, grid::unit.c(unit(1, "null"), unit(1, "null"), unit(1, "null"))
-  )
-  expect_equivalent(
-    list(test[[1]], test[[2]], test[[3]]),
-    list(unit(1, "inch"), unit(2, "cm"), unit(3, "mm"))
-  )
+  if (as.numeric(version$major) < 4) {
+    expect_identical(
+      ctrl, grid::unit.c(unit(1, "null"), unit(1, "null"), unit(1, "null"))
+    )
+    expect_equivalent(
+      list(test[[1]], test[[2]], test[[3]]),
+      list(unit(1, "inch"), unit(2, "cm"), unit(3, "mm"))
+    )
+  } else {
+    expect_identical(as.numeric(ctrl), c(1, 1, 1))
+    expect_true(all(grid::unitType(ctrl) == c("null", "null", "null")))
+    expect_identical(as.numeric(test), c(1, 2, 3))
+    expect_true(all(grid::unitType(test) == c("inches", "cm", "mm")))
+  }
 })

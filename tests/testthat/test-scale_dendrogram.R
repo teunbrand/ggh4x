@@ -46,7 +46,7 @@ test_that("scale_xy_dendrogram sets guide correctly", {
 
 test_that("scale_xy_dendrogram reorders axis", {
   df <- data.frame(
-    x = rownames(USArrests),
+    x = factor(rownames(USArrests)),
     y = rnorm(nrow(USArrests))
   )
 
