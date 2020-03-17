@@ -501,6 +501,10 @@ merge_strips <- function(
       return(any(rle(x)$lengths > 1))
     })
   }
+  if (where == "r") {
+    vars <- rev(vars)
+    merge <- rev(merge)
+  }
 
   # Make indicator
   indicator <- linesGrob(
@@ -567,7 +571,7 @@ merge_strips <- function(
     return(substrp)
   })
 
-  if (where %in% c("r", "b")) {
+  if (where == "b") {
     substrps <- rev(substrps)
   }
 
