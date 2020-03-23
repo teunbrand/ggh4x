@@ -481,7 +481,7 @@ merge_strips <- function(
   for (i in seq_len(nrow(strp$layout))) {
     lay <- strp$layout[1,]
     grb <- strp$grobs[[1]]$grobs
-    strp <- gtable_filter(strp, lay$name, fixed = TRUE,
+    strp <- gtable_filter(strp, paste0("^", lay$name, "$"), fixed = FALSE,
                           trim = FALSE, invert = TRUE)
     strp <- gtable_add_grob(
       strp, grb,
@@ -536,9 +536,10 @@ merge_strips <- function(
 
       sublay <- substrp$layout
       for (delete_me in delete_this) {
-        substrp <- gtable_filter(substrp,
-                                 pattern = sublay$name[delete_me],
-                                 fixed = TRUE, trim = FALSE, invert = TRUE)
+        substrp <- gtable_filter(
+          substrp,
+          pattern = paste0("^", sublay$name[delete_me], "$"),
+          fixed = FALSE, trim = FALSE, invert = TRUE)
       }
 
       if (orient == "x") {
