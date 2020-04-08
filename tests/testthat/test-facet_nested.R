@@ -118,7 +118,7 @@ test_that("facet_nested can nest strips", {
   # Test
   expect_equal(test_npanels, ctrl_npanels)
   expect_equal(test_npanels, 3)
-  expect_equal(test_nstrips, 1)
+  expect_equal(test_nstrips, 5)
   expect_equal(ctrl_nstrips, 3)
 })
 
@@ -128,32 +128,30 @@ test_that("facet_nested can draw nesting lines horizontally", {
   # Build gtable
   g <- basic + facet_nested(~ nester + Species, nest_line = TRUE)
   g <- ggplotGrob(g)
-  strp <- g$grobs[g$layout$name == "strip-t"][[1]]
+  strp <- g$grobs[g$layout$name == "strip-t-1-1"][[1]]
 
   # Grab metrics
-  is_indicator <- grepl("nestline", strp$layout$name)
+  is_indicator <- grepl("nester", strp$layout$name)
   panel_xpos <- panel_cols(g)$l
   nestr_xpos <- strp$layout[is_indicator, c("l", "r")]
 
   # Test
   expect_equal(sum(is_indicator), 1)
-  expect_false(nestr_xpos[[1]] == nestr_xpos[[2]])
 })
 
 test_that("facet_nested can draw nesting lines vertically", {
   # Build gtable
   g <- basic + facet_nested(nester + Species ~., nest_line = TRUE)
   g <- ggplotGrob(g)
-  strp <- g$grobs[g$layout$name == "strip-r"][[1]]
+  strp <- g$grobs[g$layout$name == "strip-r-1-2"][[1]]
 
   # Grab metrics
-  is_indicator <- grepl("nestline", strp$layout$name)
+  is_indicator <- grepl("nester", strp$layout$name)
   panel_ypos <- panel_rows(g)$t
   nestr_ypos <- strp$layout[is_indicator, c("t", "b")]
 
   # Test
   expect_equal(sum(is_indicator), 1)
-  expect_false(nestr_ypos[[1]] == nestr_ypos[[2]])
 })
 
 test_that("facet_nested line resection works", {
@@ -166,12 +164,12 @@ test_that("facet_nested line resection works", {
                                resect = grid::unit(0, "mm"))
   test <- ggplotGrob(test)
   ctrl <- ggplotGrob(ctrl)
-  test <- test$grobs[test$layout$name == "strip-t"][[1]]
-  ctrl <- ctrl$grobs[ctrl$layout$name == "strip-t"][[1]]
+  test <- test$grobs[test$layout$name == "strip-t-1-1"][[1]]
+  ctrl <- ctrl$grobs[ctrl$layout$name == "strip-t-1-1"][[1]]
 
   # Grab metrics
-  test <- test$grobs[[grep("nestline", test$layout$name)]]
-  ctrl <- ctrl$grobs[[grep("nestline", ctrl$layout$name)]]
+  test <- test$grobs[[grep("nester", test$layout$name)]]
+  ctrl <- ctrl$grobs[[grep("nester", ctrl$layout$name)]]
 
   test_width <- grid::convertWidth(test$x, "mm", valueOnly = TRUE)
   ctrl_width <- grid::convertWidth(ctrl$x, "mm", valueOnly = TRUE)
@@ -204,12 +202,12 @@ test_that("facet_nested can bleed horizontally", {
 
   ctrl <- ggplotGrob(ctrl)
   test <- ggplotGrob(test)
-  ctrl <- ctrl$grobs[grepl("strip", ctrl$layout$name)][[1]]$layout$name
-  test <- test$grobs[grepl("strip", test$layout$name)][[1]]$layout$name
+  ctrl <- ctrl$layout[grepl("strip", ctrl$layout$name),]
+  test <- test$layout[grepl("strip", test$layout$name),]
 
   # Grab metrics
-  ctrl_nstrips <- sum(grepl("strip", ctrl))
-  test_nstrips <- sum(grepl("strip", test))
+  ctrl_nstrips <- nrow(ctrl)
+  test_nstrips <- nrow(test)
 
   expect_false(ctrl_nstrips == test_nstrips)
   expect_gt(ctrl_nstrips, test_nstrips)
@@ -224,12 +222,12 @@ test_that("facet_nested horizontal bleeding works", {
 
   ctrl <- ggplotGrob(ctrl)
   test <- ggplotGrob(test)
-  ctrl <- ctrl$grobs[grepl("strip", ctrl$layout$name)][[1]]$layout
-  test <- test$grobs[grepl("strip", test$layout$name)][[1]]$layout
+  ctrl <- ctrl$layout[grepl("strip", ctrl$layout$name),]
+  test <- test$layout[grepl("strip", test$layout$name),]
 
-  # Grab strips
-  ctrl <- ctrl[grepl("strip", ctrl$name),]
-  test <- test[grepl("strip", test$name),]
+  # Grab metrics
+  ctrl_nstrips <- nrow(ctrl)
+  test_nstrips <- nrow(test)
 
   # Top and bottom positions should be the same
   expect_equal(test$t, test$b)
@@ -244,8 +242,8 @@ test_that("facet_nested horizontal bleeding works", {
   expect_lt(test$l[2], test$r[2])
   expect_lt(test$l[3], test$r[3])
 
-  expect_equal(which(ctrl$l != ctrl$r), 2)
-  expect_lt(ctrl$l[2], ctrl$r[2])
+  expect_equal(which(ctrl$l != ctrl$r), 3)
+  expect_lt(ctrl$l[3], ctrl$r[3])
 })
 
 test_that("facet_nested can bleed vertically", {
@@ -255,12 +253,12 @@ test_that("facet_nested can bleed vertically", {
 
   ctrl <- ggplotGrob(ctrl)
   test <- ggplotGrob(test)
-  ctrl <- ctrl$grobs[grepl("strip", ctrl$layout$name)][[1]]$layout$name
-  test <- test$grobs[grepl("strip", test$layout$name)][[1]]$layout$name
+  ctrl <- ctrl$layout[grepl("strip", ctrl$layout$name),]
+  test <- test$layout[grepl("strip", test$layout$name),]
 
   # Grab metrics
-  ctrl_nstrips <- sum(grepl("strip", ctrl))
-  test_nstrips <- sum(grepl("strip", test))
+  ctrl_nstrips <- nrow(ctrl)
+  test_nstrips <- nrow(test)
 
   expect_false(ctrl_nstrips == test_nstrips)
   expect_gt(ctrl_nstrips, test_nstrips)
@@ -275,12 +273,8 @@ test_that("facet_nested vertical bleeding works", {
 
   ctrl <- ggplotGrob(ctrl)
   test <- ggplotGrob(test)
-  ctrl <- ctrl$grobs[grepl("strip", ctrl$layout$name)][[1]]$layout
-  test <- test$grobs[grepl("strip", test$layout$name)][[1]]$layout
-
-  # Grab strips
-  ctrl <- ctrl[grepl("strip", ctrl$name),]
-  test <- test[grepl("strip", test$name),]
+  ctrl <- ctrl$layout[grepl("strip", ctrl$layout$name),]
+  test <- test$layout[grepl("strip", test$layout$name),]
 
   # Left and right positions should be the same
   expect_equal(test$l, test$r)
@@ -291,12 +285,12 @@ test_that("facet_nested vertical bleeding works", {
   expect_equal(sum(ctrl$t == ctrl$b), 4)
 
   # Test unequal strips
-  expect_equal(which(test$t != test$b), c(1, 4))
+  expect_equal(which(test$t != test$b), c(1, 3))
   expect_lt(test$t[1], test$b[1])
-  expect_lt(test$t[4], test$b[4])
+  expect_lt(test$t[3], test$b[3])
 
-  expect_equal(which(ctrl$t != ctrl$b), 5)
-  expect_lt(ctrl$t[5], ctrl$b[5])
+  expect_equal(which(ctrl$t != ctrl$b), 4)
+  expect_lt(ctrl$t[4], ctrl$b[4])
 })
 
 
@@ -315,14 +309,15 @@ test_that("facet_nested handles combined datasets with missing inner variables",
 
   test <- ggplotGrob(g + facet_nested(~ outer + inner))
   ctrl <- ggplotGrob(g + facet_grid(~ outer + inner))
-  strp_test <- test$grobs[grepl("strip", test$layout$name)][[1]]
+  strp_test <- test$grobs[grepl("strip", test$layout$name)]
   strp_ctrl <- ctrl$grobs[grepl("strip", ctrl$layout$name)]
   test_is_strip <- grepl("strip", strp_test$layout$name)
   ctrl_is_strip <- grepl("strip", strp_ctrl$layout$name)
 
-  test_striplabels <- sapply(strp_test$grobs[test_is_strip], function(strip){
-    title <- strip$children[[2]]
-    return(title$children[[1]]$label)
+  test_striplabels <- sapply(strp_test, function(strip){
+    titles <- sapply(strip$grobs, function(grob){
+      title <- grob$children[[2]]$children[[1]]$label
+    })
   })
 
   ctrl_striplabels <- sapply(strp_ctrl, function(strip){
@@ -335,5 +330,5 @@ test_that("facet_nested handles combined datasets with missing inner variables",
   expect_false(length(test_striplabels) == length(ctrl_striplabels))
   expect_equal(length(ctrl_striplabels) - length(test_striplabels), 3)
   expect_equal(ctrl_striplabels, c("1", "A", "1", "B", "2", "A", "2", 'B'))
-  expect_equal(test_striplabels, c("1", "2", "A", "B", ""))
+  expect_equal(test_striplabels, c("1", "A", "B", "2", ""))
 })

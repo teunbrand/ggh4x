@@ -25,7 +25,7 @@ Suggests:
     covr,
     ggdendro,
     reshape2
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Depends: 
     ggplot2 (>= 3.3.0)
 Imports: 

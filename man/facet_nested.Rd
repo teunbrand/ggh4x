@@ -95,7 +95,9 @@ variables for which margins are to be created.}
 and \code{cols} instead.}
 
 \item{nest_line}{a \code{logical} vector of length 1, indicating whether to
-draw a nesting line to indicate the nesting of variables.}
+draw a nesting line to indicate the nesting of variables. Control the look
+of the nesting line by setting the \code{ggh4x.facet.nestline} theme
+element.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
@@ -149,6 +151,12 @@ df$nester <- ifelse(df$Species == "setosa",
 ggplot(df, aes(Sepal.Length, Petal.Length)) +
   geom_point() +
   facet_nested(~ nester + Species)
+
+# Controlling the nest line
+ggplot(df, aes(Sepal.Length, Petal.Length)) +
+  geom_point() +
+  facet_nested(~ nester + Species, nest_line = TRUE) +
+  theme(ggh4x.facet.nestline = element_line(linetype = 3))
 }
 \seealso{
 See \code{\link[ggplot2]{facet_grid}} for descriptions of the
