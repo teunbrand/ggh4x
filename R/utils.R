@@ -25,6 +25,7 @@ try_require <- function(package, fun) {
     ".all_aesthetics",
     "as_facets_list",
     "as_gg_data_frame",
+    "axis_label_element_overrides",
     "check_aesthetics",
     "check_labeller",
     "check_subclass",
