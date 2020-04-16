@@ -140,3 +140,92 @@ ggsubset <- function(rowtest = NULL, omit = NULL) {
 
   function(x) subset.data.frame(x, eval(rowtest), eval(omit))
 }
+
+
+#' Bind together factors
+#'
+#' Computes a new factor out of combinations of input factors.
+#'
+#' @param ... The vectors
+#' @param drop A \code{logical} of length 1 which when \code{TRUE} will remove
+#'   combinations of factors not occurring in the input data.
+#' @param sep A \code{character} of length 1 with a string to delimit the new
+#'   level labels.
+#' @param replaceNA A \code{logical} of length 1: replace \code{NA} values with
+#'   empty strings?
+#'
+#' @details \code{weave_factors()} broadly resembles \code{interaction(...,
+#'   lex.order = TRUE)}, with a slightly altered approach to non-factor inputs.
+#'   In other words, this function orders the new levels such that the levels of
+#'   the first input variable in \code{...} is given priority over the second
+#'   input, the second input has priority over the third, etc.
+#'
+#'   This function treats non-factor inputs as if their levels were
+#'   \code{unique(as.character(x))}, wherein \code{x} represents an input.
+#'
+#' @return A \code{factor} representing combinations of input factors.
+#' @export
+#'
+#' @seealso \code{\link{interaction}}
+#'
+#' @examples
+#' f1 <- c("banana", "apple", "apple", "kiwi")
+#' f2 <- factor(c(1, 1:3), labels = c("house", "cat", "dog"))
+#'
+#' # Notice the difference in level ordering between the following:
+#' interaction(f1, f2, drop = TRUE, lex.order = TRUE)
+#' interaction(f1, f2, drop = TRUE, lex.order = FALSE)
+#' weave_factors(f1, f2)
+#'
+#' # The difference is in how characters are interpreted
+#' # The following are equivalent
+#' interaction(f1, f2, drop = TRUE, lex.order = TRUE)
+#' weave_factors(as.factor(f1), f2)
+weave_factors <- function(..., drop = TRUE, sep = ".", replaceNA = TRUE) {
+  args <- list(...)
+  nargs <- length(args)
+  if (nargs < 1L) {
+    return(NULL)
+  }
+  lengths <- lengths(args)
+  if (!all(lengths %in% c(1L, max(lengths)))) {
+    stop("All inputs to 'weave_factors' should either be the",
+         "same length or length 1", call. = FALSE)
+  }
+  if (replaceNA) {
+    args <- lapply(args, function(x) {
+      # Kind of assuming factors don't have NA levels
+      if (is.factor(x)) {
+        lvls <- levels(x)
+        x <- as.integer(x)
+        if (anyNA(x)) {
+          if ("" %in% lvls) {
+            i <- which("" %in% lvls)
+          } else {
+            i <- length(lvls) + 1
+          }
+          x[is.na(x)] <- i
+        }
+        structure(x, levels = c(lvls, ""), class = "factor")
+      } else {
+        ifelse(is.na(x), "", as.character(x))
+      }
+    })
+  }
+  vals <- do.call(paste, c(args, sep = sep))
+  unique_vals <- unique(vals)
+  unique_lvls <- lapply(args, function(x) {
+    levels(x) %||% as.character(unique(x))
+  })
+  lvls <- do.call(
+    expand.grid, c(rev(unique_lvls),
+                   KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
+  )
+  lvls <- do.call(paste, c(rev(lvls), sep = sep))
+  if (drop) {
+    lvls <- lvls[lvls %in% unique_vals]
+  }
+  lvls <- unique(lvls)
+  i <- match(vals, lvls)
+  structure(i, levels = lvls, class = "factor")
+}

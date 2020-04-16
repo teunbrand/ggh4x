@@ -15,10 +15,14 @@
 #'   nesting lines relative to the smallest difference in break positions.
 #'
 #' @details The guide itself makes no effort to group and order labels. To get
-#'   nice groupings, consider re-ordering the levels of factor variables, or
-#'   try setting the 'breaks' argument of a scale appropriately.
+#'   nice groupings, consider re-ordering the levels of factor variables, or try
+#'   setting the 'breaks' argument of a scale appropriately.
 #'
 #' @return A \emph{axis_nested} guide class object.
+#' @seealso \code{\link[ggplot2]{guide_axis}} for the classic axis
+#'   documentation. \cr \code{\link[ggh4x]{weave_factors}} for an alternative to
+#'   \code{interaction()}.
+#'
 #' @export
 #'
 #' @examples
