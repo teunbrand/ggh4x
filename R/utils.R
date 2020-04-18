@@ -229,3 +229,7 @@ weave_factors <- function(..., drop = TRUE, sep = ".", replaceNA = TRUE) {
   i <- match(vals, lvls)
   structure(i, levels = lvls, class = "factor")
 }
+
+.onLoad <- function(...) {
+  ggh4x_theme_elements()
+}
