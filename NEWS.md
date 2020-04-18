@@ -2,6 +2,7 @@
 
 * Updated functions for ggplot2 v3.3.0 (#1)
 * Fixed compatibility issue for facet_nested() and patchwork (#4)
+* Fixed bug in facet_nested(bleed = FALSE) (#7)
 * Added scale_(x/y)_dendrogram() and associated guide guide_dendro() (#1)
 * Added guide_axis_nested() and convenience function weave_factors() (#3)
 

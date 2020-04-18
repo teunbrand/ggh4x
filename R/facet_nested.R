@@ -381,15 +381,13 @@ merge_strips <- function(
     )
   }
 
-  if (params$bleed) {
-    merge <- apply(vars, 2, function(x) any(rle(x)$lengths > 1))
-  } else {
-    merge <- vapply(1:ncol(vars), function(i) {
-      x <- apply(subset.data.frame(vars, select = seq(i)), 1,
-                 paste0, collapse = "")
-      return(any(rle(x)$lengths > 1))
-    }, logical(1))
+  if (!params$bleed) {
+    vars[] <- lapply(seq_len(ncol(vars)), function(i) {
+      do.call(paste0, vars[, seq(i), drop = FALSE])
+    })
   }
+  merge <- apply(vars, 2, function(x) any(rle(x)$lengths > 1))
+
   if (where == "r") {
     vars <- rev(vars)
     merge <- rev(merge)
@@ -412,6 +410,7 @@ merge_strips <- function(
 
     # Figure out what to merge
     j <- as.numeric(as.factor(vars[, i]))
+
     ends <- cumsum(rle(j)$lengths)
     starts <- c(1, which(diff(j) != 0) + 1)
 
