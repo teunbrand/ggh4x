@@ -37,7 +37,7 @@ top-to-bottom), if more than one  guide must be drawn at the same location.}
 left, or right.}
 }
 \value{
-A \emph{axis_minor} guide class object.
+An \emph{axis_minor} guide class object.
 }
 \description{
 These are similar the the normal axis guides for position scales, but also
@@ -62,3 +62,9 @@ p + scale_y_continuous(guide = "axis_minor",
 p + scale_y_continuous(guide = "axis_minor") +
   theme(ggh4x.axis.ticks.length.minor = rel(0.1))
 }
+\seealso{
+Other axis-guides: 
+\code{\link{guide_axis_logticks}()},
+\code{\link{guide_axis_nested}()}
+}
+\concept{axis-guides}

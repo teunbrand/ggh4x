@@ -6,6 +6,7 @@
 * Added scale_(x/y)_dendrogram() and associated guide guide_dendro() (#1)
 * Added guide_axis_nested() and convenience function weave_factors() (#3)
 * Added guide_axis_minor() for minor break tickmarks
+* Added guide_axis_logticks for logarithmic tickamrks
 
 # ggh4x 0.1.0
 
