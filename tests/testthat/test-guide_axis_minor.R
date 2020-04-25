@@ -68,3 +68,23 @@ test_that("minor tick theme element works", {
   expect_length(unique(ctrl$grobs[[1]]$y), 3)
   expect_length(unique(test$grobs[[1]]$y), 3)
 })
+
+test_that("NULL breaks return zeroGrob as labels", {
+  g <- base + scale_x_continuous(guide = "axis_minor", breaks = NULL)
+  g <- ggplotGrob(g)
+  g <- g$grobs[[which(g$layout$name == "axis-b")]]$children[[1]]
+  expect_is(g, "zeroGrob")
+})
+
+test_that("guide_axis_minor errors upon misuse", {
+  g <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
+    geom_point(aes(colour = Species)) +
+    scale_colour_discrete(guide = "axis_minor")
+  expect_error(ggplotGrob(g), "Guide 'axis' cannot be used for 'colour'.")
+
+  gui <- guide_axis_minor()
+  gui$available_aes <- "z"
+
+  g <- base + scale_x_continuous(guide = gui)
+  expect_warning(ggplotGrob(g), "axis_minor guide needs appropriate scales: z")
+})

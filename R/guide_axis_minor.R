@@ -11,8 +11,10 @@
 #'   of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
 #'   \code{rel} object.
 #'
-#' @return A \emph{axis_minor} guide class object.
+#' @return An \emph{axis_minor} guide class object.
 #' @export
+#'
+#' @family axis-guides
 #'
 #' @examples
 #' # Using the minor breaks axis
@@ -57,6 +59,7 @@ guide_axis_minor <- function(
 guide_train.axis_minor <- function(
   guide, scale, aesthetic = NULL
 ) {
+  try_require("digest", "guide_axis_minor")
   aesthetic <- aesthetic %||% scale$aesthetics[1]
   # Get major and minor breaks
   breaks_major <- scale$get_breaks()
@@ -65,12 +68,14 @@ guide_train.axis_minor <- function(
   breaks <- union(breaks_major, breaks_minor)
   is_major <- breaks %in% breaks_major
 
-  empty_ticks <- ggplot2:::new_data_frame(
-    list(aesthetic = numeric(), .value = numeric(0), .label = character())
+  empty_ticks <- .int$new_data_frame(
+    list(aesthetic = numeric(), .value = numeric(0), .label = character(),
+         .minority = logical(0))
   )
+  names(empty_ticks)[1] <- aesthetic
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warn(glue("axis guide needs appropriate scales: ",
-              glue_collapse(guide$available_aes, ", ", last = " or ")))
+    warning("axis_minor guide needs appropriate scales: ",
+            guide$available_aes)
     guide$key <- empty_ticks
   } else if (length(breaks) == 0) {
     guide$key <- empty_ticks
@@ -80,13 +85,12 @@ guide_train.axis_minor <- function(
     } else {
       breaks
     }
-    ticks <- ggplot2:::new_data_frame(setNames(list(mapped_breaks),
-                                               aesthetic))
+    ticks <- .int$new_data_frame(setNames(list(mapped_breaks),
+                                          aesthetic))
     ticks$.value <- breaks
     ticks$.label <- ""
     ticks$.label[is_major] <- scale$get_labels(breaks[is_major])
 
-    # Now this is the bit where we set minor breaks to have empty labls
     ticks$.minority <- as.numeric(!is_major)
 
     guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
@@ -134,7 +138,7 @@ draw_axis_minor <- function(
   } else {
     elements$minor_len <- minor_len
   }
-  mini_len <- theme[["ggh4x.axis.ticks.length.minor"]]
+  mini_len <- theme[["ggh4x.axis.ticks.length.mini"]]
   if (inherits(mini_len, "rel")) {
     elements$mini_len <- elements$tick_length * unclass(mini_len)
   } else {
@@ -144,12 +148,12 @@ draw_axis_minor <- function(
   params <- setup_axis_params(axis_position)
   line_grob <- build_axis_line(elements$line, params)
 
-  if ({n_breaks <- length(break_positions[minority == 0])} == 0) {
+  if ({n_breaks <- length(break_positions)} == 0) {
     out <- grid::gTree(
       children = grid::gList(line_grob),
       width = grid::grobWidth(line_grob),
       height = grid::grobHeight(line_grob),
-      cl = "abosluteGrob"
+      cl = "absoluteGrob"
     )
     return(out)
   }
