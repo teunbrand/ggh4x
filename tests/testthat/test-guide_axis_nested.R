@@ -77,3 +77,28 @@ test_that("guide_axis_nested works as secundary y-axis", {
   expect_equal(length(small), nlevels(interaction(mpg$cyl, mpg$class, drop = T)))
   expect_true(all(large %in% unique(mpg$class)))
 })
+
+test_that("guide_axis_nested errors upon misuse", {
+  base <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
+    geom_boxplot(aes(fill = class))
+  g <- base + scale_fill_discrete(guide = "axis_nested")
+  expect_error(ggplotGrob(g), "Guide 'axis' cannot be used for 'fill'.")
+
+  gui <- guide_axis_nested()
+  gui$available_aes <- "z"
+
+  g <- base + scale_x_discrete(guide = gui)
+  expect_warning(ggplotGrob(g), "axis guide needs appropriate scales: z")
+})
+
+test_that("NULL breaks return zeroGrob as labels", {
+  g <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
+    geom_boxplot() +
+    scale_x_discrete(guide = "axis_nested", breaks = NULL)
+  g <- ggplotGrob(g)
+  g <- g$grobs[[which(g$layout$name == "axis-b")]]$children[[1]]
+  expect_is(g, "zeroGrob")
+})
+
+
+

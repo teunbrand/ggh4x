@@ -86,4 +86,9 @@ ggplot(mpg, aes(interaction(cyl, class), hwy)) +
 \code{\link[ggplot2]{guide_axis}} for the classic axis
   documentation. \cr \code{\link[ggh4x]{weave_factors}} for an alternative to
   \code{interaction()}.
+
+Other axis-guides: 
+\code{\link{guide_axis_logticks}()},
+\code{\link{guide_axis_minor}()}
 }
+\concept{axis-guides}

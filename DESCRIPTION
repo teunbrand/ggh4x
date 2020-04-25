@@ -24,7 +24,8 @@ Suggests:
     rlang,
     covr,
     ggdendro,
-    reshape2
+    reshape2,
+    digest
 RoxygenNote: 7.1.0
 Depends: 
     ggplot2 (>= 3.3.0)
