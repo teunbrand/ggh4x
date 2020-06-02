@@ -6,7 +6,11 @@
 * Added scale_(x/y)_dendrogram() and associated guide guide_dendro() (#1)
 * Added guide_axis_nested() and convenience function weave_factors() (#3)
 * Added guide_axis_minor() for minor break tickmarks
-* Added guide_axis_logticks for logarithmic tickamrks
+* Added guide_axis_logticks for logarithmic tickmarks
+* Added element_part_rect() for using rectangles with a subset of edges as theme
+  element (#13).
+* Added stat_rollingkernel() for different smoothing lines.
+* Added stat_rle() for runlength calculation.
 
 # ggh4x 0.1.0
 
