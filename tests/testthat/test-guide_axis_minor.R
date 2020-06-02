@@ -60,7 +60,7 @@ test_that("guide_axis_minor works on right y-scales", {
 
 test_that("minor tick theme element works", {
   ctrl <- base + scale_x_continuous(guide = "axis_minor")
-  test <- ctrl + theme(ggh4x.axis.ticks.length.minor = rel(1))
+  test <- ctrl + theme(ggh4x.axis.ticks.length.minor = rel(2))
 
   ctrl <- grab_axis(ctrl, "b")
   test <- grab_axis(test, "b")
