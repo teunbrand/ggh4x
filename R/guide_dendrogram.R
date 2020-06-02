@@ -10,6 +10,10 @@
 #' @param dendro Relevant plotting data for a dendrogram such as those returned
 #'   by \code{\link[ggdendro]{dendro_data}}.
 #'
+#' @details The dendrogram guide inherits graphical elements from the
+#' \code{axis.ticks} theme element. However, the size of the dendrogram is
+#' set to 10 times the \code{axis.ticks.length} theme element.
+#'
 #' @export
 #'
 #' @return A \emph{dendroguide} class object.
@@ -22,10 +26,16 @@
 #' df <- reshape2::melt(df, id.vars = "State")
 #'
 #' # The guide function can be used to customise the axis
-#' ggplot(df, aes(variable, State, fill = value)) +
+#' g <- ggplot(df, aes(variable, State, fill = value)) +
 #'   geom_raster() +
-#' scale_y_dendrogram(hclust = clust,
-#'                    guide = guide_dendro(n.dodge = 2))
+#'   scale_y_dendrogram(hclust = clust,
+#'                      guide = guide_dendro(n.dodge = 2))
+#'
+#' # The looks of the dendrogram are controlled through ticks
+#' g + theme(axis.ticks = element_line(colour = "red"))
+#'
+#' # The size of the dendrogram is controlled through tick size * 10
+#' g + theme(axis.ticks.length = unit(5, "pt"))
 guide_dendro <- function(
   title = waiver(),
   check.overlap = FALSE,
@@ -121,148 +131,47 @@ draw_dendroguide <- function(
   break_positions, break_labels, axis_position, theme,
   check.overlap = FALSE, n.dodge = 1, dendro = NULL
 ) {
-  axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
-  aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
+  axis_position <- match.arg(substr(axis_position, 1, 1),
+                             c("t", "b", "r", "l"))
+  aes <- if (axis_position %in% c("t", "b")) "x" else "y"
 
-  # Resolve elements
-  line_element_name  <- paste0("axis.line.",  aesthetic, ".", axis_position)
-  label_element_name <- paste0("axis.text.",  aesthetic, ".", axis_position)
-  tick_element_name  <- paste0("axis.ticks.", aesthetic, ".", axis_position)
+  elements <- build_axis_elements(axis_position, angle = NULL, theme)
 
-  line_element  <- calc_element(line_element_name, theme)
-  label_element <- calc_element(label_element_name, theme)
-  tick_element  <- calc_element(tick_element_name, theme)
+  params <- setup_axis_params(axis_position)
+  params$labels_first <- !params$labels_first
 
-  # Set vertical labels
-  is_vertical <- axis_position %in% c("left", "right")
+  line_grob <- build_axis_line(elements$line, params)
 
-  position_dim <- if (is_vertical) "y" else "x"
-  non_position_dim <- if (is_vertical) "x" else "y"
-  position_size <- if (is_vertical) "height" else "width"
-  non_position_size <- if (is_vertical) "width" else "height"
-  gtable_element <- if (is_vertical) {
-    gtable::gtable_row
-  } else {
-    gtable::gtable_col
-  }
-  measure_gtable <- if (is_vertical) {
-    gtable::gtable_width
-  } else {
-    gtable::gtable_height
-  }
-  measure_labels_non_pos <- if (is_vertical) {
-    grid::grobWidth
-  } else {
-    grid::grobHeight
-  }
-
-  # Set horizontal labels
-  is_second <- axis_position %in% c("right", "top")
-
-  tick_direction <- if (is_second) 1 else -1
-  non_position_panel <- if (is_second) unit(0, "npc") else unit(1, "npc")
-  tick_coordinate_order <- if (is_second) c(2, 1) else c(1, 2)
-
-  # Set gtable ordering
-  labels_first_gtable <- axis_position %in% c("right", "bottom")
-
-  # Set common parameters
-  n_breaks <- length(break_positions)
-  opposite_positions <- c("top" = "bottom",
-                          "bottom" = "top",
-                          "right" = "left",
-                          "left" = "right")
-  axis_position_opposite <- unname(opposite_positions[axis_position])
-
-  # Draw elements
-  line_grob <- do.call(
-    element_grob,
-    setNames(
-      list(
-        line_element,
-        unit(c(0, 1), "npc"),
-        grid::unit.c(non_position_panel, non_position_panel)
-      ),
-      c("element", position_dim, non_position_dim)
+  if ({n_breaks <- length(break_positions)} == 0) {
+    out <- grid::gTree(
+      children = grid::gList(line_grob),
+      width = grid::grobWidth(line_grob),
+      height = grid::grobHeight(line_grob),
+      cl = "absoluteGrob"
     )
+    return(out)
+  }
+
+  label_grobs <- build_axis_labels(
+    elements,
+    labels = break_labels,
+    position = break_positions,
+    dodge = n.dodge, check.overlap = check.overlap, params = params
   )
-
-  if (n_breaks < 1L) {
-    return(
-      gTree(
-        gList(line_grob),
-        width = grobWidth(line_grob),
-        height = grobHeight(line_grob),
-        xmin = NULL, ymin = NULL, vp = NULL, cl = "absoluteGrob"
-      )
-    )
-  }
-
-  if (is.list(break_labels)) {
-    if (any(vapply(break_labels, is.language, logical(1)))) {
-      break_labels <- do.call(expression, break_labels)
-    } else {
-      break_labels <- unlist(break_labels)
-    }
-  }
-
-  # calculate rows/columns of labels
-  dodge_pos <- rep(seq_len(n.dodge), length.out = n_breaks)
-  dodge_indices <- split(seq_len(n_breaks), dodge_pos)
-
-  label_grobs <- lapply(dodge_indices, function(indices) {
-    .int$draw_axis_labels(
-      break_positions = break_positions[indices],
-      break_labels = break_labels[indices],
-      label_element = label_element,
-      is_vertical = is_vertical,
-      check.overlap = check.overlap
-    )
-  })
 
   dendro_grob <- grid::segmentsGrob(
-    x0 = if (axis_position == "left") 1 - dendro$x else dendro$x,
-    y0 = if (axis_position == "bottom") 1 - dendro$y else dendro$y,
-    x1 = if (axis_position == "left") 1 - dendro$xend else dendro$xend,
-    y1 = if (axis_position == "bottom") 1 - dendro$yend else dendro$yend,
-    gp = grid::gpar(
-      col = tick_element$colour, fill = tick_element$colour,
-      lwd = if (length(tick_element$size) == 0) NULL
-      else tick_element$size * .pt,
-      lty = tick_element$linetype,
-      lineend = tick_element$lineend
-    )
+    x0 = if (axis_position == "l") 1 - dendro$x else dendro$x,
+    y0 = if (axis_position == "b") 1 - dendro$y else dendro$y,
+    x1 = if (axis_position == "l") 1 - dendro$xend else dendro$xend,
+    y1 = if (axis_position == "b") 1 - dendro$yend else dendro$yend,
+    gp = element_grob(elements$ticks)$gp
   )
 
-  # create gtable
-  non_position_sizes <- paste0(non_position_size, "s")
-  label_dims <- do.call(grid::unit.c, lapply(label_grobs,
-                                             measure_labels_non_pos))
-  grobs <- c(list(dendro_grob), label_grobs)
-  grob_dims <- grid::unit.c(unit(1, "cm"), label_dims)
+  elements$tick_length <- elements$tick_length * 10
 
-  if (labels_first_gtable) {
-    grobs <- rev(grobs)
-    grob_dims <- rev(grob_dims)
-  }
-
-  gt <- base::do.call(
-    gtable_element,
-    setNames(list("axis", grobs, grob_dims, unit(1, "npc")),
-             c("name", "grobs", non_position_sizes, position_size))
+  assemble_axis_grobs(
+    ticks = dendro_grob, labels = label_grobs,
+    lines = line_grob, elements = elements,
+    params = params
   )
-
-  # create viewport
-  justvp <- base::do.call(
-    grid::viewport,
-    setNames(list(non_position_panel, measure_gtable(gt),
-                  axis_position_opposite),
-             c(non_position_dim, non_position_size, "just"))
-  )
-
-  gTree(children = gList(line_grob, gt),
-        width = gtable::gtable_width(gt),
-        height = gtable::gtable_height(gt),
-        xmin = NULL, ymin = NULL, vp = justvp,
-        cl = "absoluteGrob")
 }

@@ -8,6 +8,7 @@
 #'   discrete categories, you can display a dendrogram instead of a tick axis.
 #'
 #' @inheritParams ggplot2::scale_x_discrete
+#' @inheritDotParams ggplot2::discrete_scale -breaks
 #' @param hclust An object of the type produced by the
 #'   \code{\link[stats]{hclust}} function.
 #'

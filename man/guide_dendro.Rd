@@ -43,6 +43,11 @@ Visual representation of a discrete variable with hierarchical relationships
 between members, like those detailed in
 \code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)}}.
 }
+\details{
+The dendrogram guide inherits graphical elements from the
+\code{axis.ticks} theme element. However, the size of the dendrogram is
+set to 10 times the \code{axis.ticks.length} theme element.
+}
 \examples{
 clust <- hclust(dist(USArrests), "ave")
 
@@ -51,8 +56,14 @@ df <- cbind(State = rownames(USArrests),
 df <- reshape2::melt(df, id.vars = "State")
 
 # The guide function can be used to customise the axis
-ggplot(df, aes(variable, State, fill = value)) +
+g <- ggplot(df, aes(variable, State, fill = value)) +
   geom_raster() +
-scale_y_dendrogram(hclust = clust,
-                   guide = guide_dendro(n.dodge = 2))
+  scale_y_dendrogram(hclust = clust,
+                     guide = guide_dendro(n.dodge = 2))
+
+# The looks of the dendrogram are controlled through ticks
+g + theme(axis.ticks = element_line(colour = "red"))
+
+# The size of the dendrogram is controlled through tick size * 10
+g + theme(axis.ticks.length = unit(5, "pt"))
 }
