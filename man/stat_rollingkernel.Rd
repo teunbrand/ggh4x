@@ -112,6 +112,7 @@ datapoints do not need to be constant.
   \itemize{
     \item \strong{x}
     \item \strong{y}
+    \item group
   }
 }
 

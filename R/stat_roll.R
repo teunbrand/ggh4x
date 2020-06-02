@@ -42,6 +42,7 @@
 #'   \itemize{
 #'     \item \strong{x}
 #'     \item \strong{y}
+#'     \item group
 #'   }
 #'
 #' @section Computed variables: \describe{
@@ -102,10 +103,13 @@ stat_rollingkernel <-
 
 # ggproto -----------------------------------------------------------------
 
+#' @usage NULL
+#' @format NULL
+#' @export
+#' @rdname ggh4x_extensions
 StatRollingkernel <- ggproto(
   "StatRollingkernel", Stat,
   required_aes = c("x", "y"),
-  default_aes = aes(x = after_stat(roll), y = after_stat(roll)),
   setup_params = function(data, params, scales) {
     params$flipped_aes <- isTRUE(params$orientation == "y")
     if (is.character(params$kernel)) {
