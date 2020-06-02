@@ -17,6 +17,26 @@ try_require <- function(package, fun) {
   else x
 }
 
+# R4.4.0 minimal data.frame constructor
+list2df <- function (x = list(), nrow = NULL)
+{
+  stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
+  if (n <- length(x)) {
+    if (is.null(nrow))
+      nrow <- max(lengths(x), 0L)
+    x <- lapply(x, rep_len, nrow)
+  }
+  else {
+    if (is.null(nrow))
+      nrow <- 0L
+  }
+  if (is.null(names(x)))
+    names(x) <- character(n)
+  class(x) <- "data.frame"
+  attr(x, "row.names") <- .set_row_names(nrow)
+  x
+}
+
 # ggplot internals --------------------------------------------------------
 
 # Function for grabbing internal function of ggplot2 that are also used here

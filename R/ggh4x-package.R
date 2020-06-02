@@ -1,7 +1,7 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @importFrom stats setNames rt dcauchy
+#' @importFrom stats setNames rt dcauchy dnorm dunif
 #' @importFrom utils head tail getFromNamespace
 #' @import ggplot2
 #' @import scales

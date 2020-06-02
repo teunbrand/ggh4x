@@ -2,7 +2,7 @@
 % Please edit documentation in R/facet_nested.R, R/geom_pointpath.R,
 %   R/geom_polygonraster.R, R/geom_rectrug.R, R/ggh4x_extensions.R,
 %   R/position_disjoint_ranges.R, R/position_lineartrans.R,
-%   R/scale_dendrogram.R, R/stat_theodensity.R
+%   R/scale_dendrogram.R, R/stat_rle.R, R/stat_roll.R, R/stat_theodensity.R
 \docType{data}
 \name{FacetNested}
 \alias{FacetNested}
@@ -14,6 +14,8 @@
 \alias{PositionDisjointRanges}
 \alias{PositionLinearTrans}
 \alias{ScaleDendrogram}
+\alias{StatRle}
+\alias{StatRollingkernel}
 \alias{StatTheoDensity}
 \title{ggh4x extensions to ggplot2}
 \description{

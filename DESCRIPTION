@@ -32,4 +32,5 @@ Depends:
 Imports: 
     scales,
     gtable,
-    grid
+    grid,
+    vctrs
