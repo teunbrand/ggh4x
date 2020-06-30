@@ -126,24 +126,18 @@ scale_y_dendrogram <- function(...,
 ScaleDendrogram <- ggproto(
   "ScaleDendrogram", ScaleDiscretePosition,
   hclust = waiver(),
-  train = function(self, x) {
-    if (scales:::is.discrete(x)) {
-      self$range$train(x, drop = self$drop,
-                       na.rm = !self$na.translate)
-    } else if (is.integer(x) || sum(x %% 1) == 0) {
-      self$range$train(as.factor(x), drop = self$drop,
-                       na.rm = !self$na.translate)
-    } else {
-      self$range_c$train(x)
-    }
-  },
   transform = function(self, x) {
     hclust <- self$hclust
     if (!inherits(hclust, "waiver") && inherits(hclust, "hclust")) {
-      if (is.character(x)) {
-        x <- factor(x)
+      ref <- hclust$labels[hclust$order]
+      if (is.factor(x)) {
+        x <- as.character(x)
       }
-      x <- order(hclust$order)[as.integer(x)]
+      if (is.character(x)) {
+        x <- factor(x, levels = ref)
+      } else {
+        x <- order(hclust$order)[as.integer(x)]
+      }
     }
     return(x)
   })

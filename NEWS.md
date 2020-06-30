@@ -11,6 +11,7 @@
   element (#13).
 * Added stat_rollingkernel() for different smoothing lines.
 * Added stat_rle() for runlength calculation.
+* Fixed scale_(x/y)_dendrogram so that labels are passed from scale (#17)
 
 # ggh4x 0.1.0
 
