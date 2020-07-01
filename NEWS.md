@@ -12,7 +12,8 @@
 * Added stat_rollingkernel() for different smoothing lines.
 * Added stat_rle() for runlength calculation.
 * Fixed bug in geom_pointpath() (#15)
-* geom_pointpath() now curves with nonlinear coordinates.
+* Fixed scale_(x/y)_dendrogram so that labels are passed from scale (#17)
+* geom_pointpath() now curves with nonlinear coordinates (#15).
 
 # ggh4x 0.1.0
 

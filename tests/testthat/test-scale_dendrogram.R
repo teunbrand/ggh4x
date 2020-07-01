@@ -117,3 +117,32 @@ test_that("scale_xy_dendrogram position is correct", {
   expect_identical(right, nrow(df))
 
 })
+
+test_that("scale_xy_dendrogram can set labels", {
+  df <- data.frame(
+    x = factor(rownames(USArrests)),
+    y = rnorm(nrow(USArrests))
+  )
+
+  base <- ggplot(df, aes(x, y)) + geom_point()
+  ctrl <- base + scale_x_dendrogram(hclust = clus)
+  # Verbatim
+  test1 <- base + scale_x_dendrogram(hclust = clus,
+                                     labels = seq_len(nrow(USArrests)))
+  # By function
+  test2 <- base + scale_x_dendrogram(hclust = clus,
+                                     labels = toupper)
+
+  cases <- list(ctrl = ctrl, test1 = test1, test2 = test2)
+  cases <- lapply(cases, function(x) {
+    x <- ggplotGrob(x)
+    x <- x$grobs[x$layout$name == "axis-b"][[1]]$children[["axis"]]
+    i <- vapply(x$grobs, inherits, logical(1), "titleGrob")
+    x <- x$grobs[[which(i)]]$children[[1]]$label
+    x
+  })
+
+  expect_identical(cases$test1, as.character(1:50))
+  expect_false(identical(cases$ctrl, cases$test2))
+  expect_identical(toupper(cases$ctrl), cases$test2)
+})

@@ -58,6 +58,18 @@ guide_dendro <- function(
 }
 
 
+# Trainer -----------------------------------------------------------------
+
+#' @method guide_train dendroguide
+#' @export
+#' @noRd
+guide_train.dendroguide <- function(guide, scale, aesthetic = NULL) {
+  guide <- NextMethod()
+  i <- seq_len(NROW(guide$dendro$labels))
+  guide$dendro$labels$label[i] <- guide$key$.label[i]
+  guide
+}
+
 # Transformer -------------------------------------------------------------
 
 #' @method guide_transform dendroguide
