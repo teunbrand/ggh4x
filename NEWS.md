@@ -11,6 +11,8 @@
   element (#13).
 * Added stat_rollingkernel() for different smoothing lines.
 * Added stat_rle() for runlength calculation.
+* Fixed bug in geom_pointpath() (#15)
+* geom_pointpath() now curves with nonlinear coordinates.
 
 # ggh4x 0.1.0
 
