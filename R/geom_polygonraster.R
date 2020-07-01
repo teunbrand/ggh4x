@@ -28,7 +28,7 @@
 #'     \item group
 #'   }
 #'
-#' @seealso \code{\link[ggplot2]{geom_raster}}
+#' @seealso \code{\link[ggplot2:geom_tile]{geom_raster}}
 #'
 #' @export
 #'

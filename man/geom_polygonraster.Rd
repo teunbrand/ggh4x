@@ -118,5 +118,5 @@ ggplot(df, aes(x, y, fill = z)) +
                                                      shear = c(1, 0)))
 }
 \seealso{
-\code{\link[ggplot2]{geom_raster}}
+\code{\link[ggplot2:geom_tile]{geom_raster}}
 }

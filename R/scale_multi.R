@@ -7,7 +7,7 @@
 #'   these to \code{\link[ggplot2]{continuous_scale}}.
 #'
 #' @param ...,colours,values,na.value,guide,colors listed arguments in
-#'   \code{\link[ggplot2]{scale_colour_gradientn}} (e.g. \code{colours =
+#'   \code{\link[ggplot2:scale_gradient]{scale_colour_gradientn}} (e.g. \code{colours =
 #'   list(c("white", "red"), c("black", "blue"))}).
 #' @param aesthetics a \code{character} vector with names of aesthetic mapping.
 #'

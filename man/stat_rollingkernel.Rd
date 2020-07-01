@@ -56,7 +56,7 @@ to the paired geom/stat.}
 units. \item A \code{rel} object of length one constructed for setting a
 bandwidth relative to the group data range. Can be constructed with the
 \code{rel()} function. \item A \code{character} of length one, naming one
-of the functions documented in \code{\link[stats]{bw.nrd}()}. }}
+of the functions documented in \code{\link[stats:bandwidth]{bw.nrd}()}. }}
 
 \item{kernel}{One of the following: \itemize{ \item A \code{function} that
 takes a vector of distances as first argument, a numeric bandwidth as

@@ -34,7 +34,7 @@ An object is considered disjoint from a second object when the range
 
   Note that this positioning is only particularly useful when y-coordinates
   do not encode relevant information. Geoms that pair well with this
-  positioning are \code{\link[ggplot2]{geom_rect}} and
+  positioning are \code{\link[ggplot2:geom_tile]{geom_rect}} and
   \code{\link[ggplot2]{geom_tile}}.
 
   This positioning function was inspired by the \code{disjointBins()}

@@ -140,7 +140,7 @@ center_limits <- function(around = 0) {
 #'   data by rows.
 #'
 #' @seealso See \code{\link[ggplot2]{layer}}, specifically the \code{data}
-#'   argument. See \code{\link[base]{subset.data.frame}} for the internal
+#'   argument. See \code{\link[base:subset]{subset.data.frame}} for the internal
 #'   function.
 #'
 #' @examples

@@ -25,7 +25,7 @@
 #'   which there exists a density function. The names should be given without a
 #'   prefix (typically 'd', 'r', 'q' and 'r'). For example: \code{"norm"} for
 #'   the normal distribution and \code{"nbinom"} for the negative binomial
-#'   distribution. Take a look at \code{\link[stats]{distributions}} in the
+#'   distribution. Take a look at \code{\link[stats:Distributions]{distributions}} in the
 #'   \pkg{stats} package for an overview.
 #'
 #'   There are a couple of distribution for which there exist no reasonable

@@ -110,7 +110,7 @@ By default, scales are expanded 5\% on either side of the plot,
   whereas the rug rectangles will occupy 3\% of the total plot size by
   default. The \code{geom_rectmargin()} and \code{geom_tilemargin()} versions do the
   same thing, but are parameterised differently; see
-  \code{\link[ggplot2]{geom_rect}}.
+  \code{\link[ggplot2:geom_tile]{geom_rect}}.
 
   These functions do not have hardcoded required aesthetics, since the x and
   y directions can be omitted by not choosing a side in the corresponding
