@@ -66,7 +66,8 @@ guide_dendro <- function(
 guide_train.dendroguide <- function(guide, scale, aesthetic = NULL) {
   guide <- NextMethod()
   i <- seq_len(NROW(guide$dendro$labels))
-  guide$dendro$labels$label[i] <- guide$key$.label[i]
+  guide$dendro$labels$label <- as.character(guide$dendro$labels$label)
+  guide$dendro$labels$label[i] <- as.character(guide$key$.label[i])
   guide
 }
 
