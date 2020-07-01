@@ -22,7 +22,7 @@ specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 \item{check.overlap}{silently remove overlapping labels,
 (recursively) prioritizing the first, last, and middle labels.}
 
-\item{angle}{Compared to setting the angle in \code{\link[ggplot2:theme]{theme()}} / \code{\link[ggplot2:element_text]{element_text()}},
+\item{angle}{Compared to setting the angle in \code{\link[ggplot2:theme]{theme()}} / \code{\link[ggplot2:element]{element_text()}},
 this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that
 you probably want.}
 
