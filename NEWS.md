@@ -14,6 +14,7 @@
 * Fixed bug in geom_pointpath() (#15)
 * Fixed scale_(x/y)_dendrogram so that labels are passed from scale (#17)
 * geom_pointpath() now curves with nonlinear coordinates (#15).
+* Added stat_funxy(), stat_centroid() and stat_midpoint() (#16)
 
 # ggh4x 0.1.0
 
