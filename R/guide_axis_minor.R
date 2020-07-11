@@ -132,18 +132,8 @@ draw_axis_minor <- function(
   aes <- if (axis_position %in% c("t", "b")) "x" else "y"
 
   elements <- build_axis_elements(axis_position, angle, theme)
-  minor_len <- theme[["ggh4x.axis.ticks.length.minor"]]
-  if (inherits(minor_len, "rel")) {
-    elements$minor_len <- elements$tick_length * unclass(minor_len)
-  } else {
-    elements$minor_len <- minor_len
-  }
-  mini_len <- theme[["ggh4x.axis.ticks.length.mini"]]
-  if (inherits(mini_len, "rel")) {
-    elements$mini_len <- elements$tick_length * unclass(mini_len)
-  } else {
-    elements$mini_len <- mini_len
-  }
+  minor_len <- unclass(calc_element("ggh4x.axis.ticks.length.minor", theme))
+  mini_len  <- unclass(calc_element("ggh4x.axis.ticks.length.mini", theme))
 
   params <- setup_axis_params(axis_position)
   line_grob <- build_axis_line(elements$line, params)
@@ -167,10 +157,10 @@ draw_axis_minor <- function(
   )
 
   # Setup ticks
-  sizes <- unit.c(elements$tick_length, elements$minor_len, elements$mini_len)
-  tick_grob <- build_axis_ticks_minor(elements$ticks, sizes,
+  sizes <- c(1, minor_len, mini_len)
+  tick_grob <- build_axis_ticks_minor(elements$ticks, sizes / max(sizes),
                                       break_positions, params, minority)
-  elements$tick_length <- max(sizes)
+  elements$tick_length <- elements$tick_length * max(sizes)
 
   assemble_axis_grobs(ticks = tick_grob, labels = label_grobs,
                       lines = line_grob, elements = elements,
@@ -183,10 +173,10 @@ build_axis_ticks_minor <- function(element, length, position, params,
                                    minority = 0) {
   n_breaks <- length(position)
   pos <- params$pos + (params$tick_dir * length)
-  pos <- grid::unit.c(params$pos, pos)
+  pos <- c(params$pos, pos)
   idx <- c(do.call(rbind,
                    list(rep(1, n_breaks), minority + 2)[params$tick_ord]))
-  pos <- pos[idx]
+  pos <- unit(pos[idx], "npc")
 
   args <- list(element, unit(rep(position, each = 2), "native"),
                pos, rep(2, times = n_breaks))

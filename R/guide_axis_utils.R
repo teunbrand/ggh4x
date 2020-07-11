@@ -56,8 +56,8 @@ build_axis_labels <- function(
 
 build_axis_ticks <- function(element, length, position, params) {
   n_breaks <- length(position)
-  pos <- params$pos + (params$tick_dir * length)
-  pos <- rep(grid::unit.c(pos, params$pos)[params$tick_ord], times = n_breaks)
+  pos <- unit(c(params$pos, params$pos + (params$tick_dir * 1)), "npc")
+  pos <- rep(pos[params$tick_ord], times = n_breaks)
 
   args <- list(element, unit(rep(position, each = 2), "native"),
                pos, rep(2, times = n_breaks))
@@ -121,11 +121,11 @@ setup_axis_params <- function(axis_position) {
   # Set secondarity parameters
   if (is_second <- axis_position %in% c("r", "t")) {
     tick_direction <- 1
-    non_position_panel <- unit(0, "npc")
+    non_position_panel <- 0
     tick_coord_order <- c(2, 1)
   } else {
     tick_direction <- -1
-    non_position_panel <- unit(1, "npc")
+    non_position_panel <- 1
     tick_coord_order <- c(1, 2)
   }
 
