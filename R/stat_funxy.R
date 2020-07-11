@@ -46,7 +46,7 @@ stat_funxy <-
   function(mapping = NULL, data = NULL, geom = "point",
            position = "identity", ..., funx = force, funy = force,
            argx = list(), argy = list(), crop_other = TRUE,
-           na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
+           show.legend = NA, inherit.aes = TRUE) {
     if (!is.function(funx)) {
       stop("The `funx` argument must be a function.", call. = FALSE)
     }

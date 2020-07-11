@@ -17,7 +17,6 @@ stat_funxy(
   argx = list(),
   argy = list(),
   crop_other = TRUE,
-  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
