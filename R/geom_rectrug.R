@@ -80,8 +80,8 @@
 #'  \item size
 #' }
 #'
-#' @seealso \code{\link[ggplot2]{geom_rug}}, \code{\link[ggplot2]{geom_rect}},
-#'   \code{\link[ggplot2]{geom_tile}}
+#' @seealso \code{\link[ggplot2]{geom_rug}}, \code{\link[ggplot2:geom_tile]{geom_rect}},
+#'   \code{\link[ggplot2:geom_tile]{geom_tile}}
 #'
 #' @examples
 #' # geom_rectmargin() is parameterised by the four corners

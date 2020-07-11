@@ -154,7 +154,7 @@ ggplot(df, aes(x)) +
                geom = "vline")
 }
 \seealso{
-\code{\link[stats]{distributions}}
+\code{\link[stats:Distributions]{Distributions}}
   \code{\link[fitdistrplus]{fitdist}} \code{\link[ggplot2]{geom_density}}
   \code{\link[ggplot2]{geom_histogram}}
 }

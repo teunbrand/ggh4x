@@ -196,6 +196,6 @@ ggplot(df, aes(x, y,
   geom_tilemargin()
 }
 \seealso{
-\code{\link[ggplot2]{geom_rug}}, \code{\link[ggplot2]{geom_rect}},
-  \code{\link[ggplot2]{geom_tile}}
+\code{\link[ggplot2]{geom_rug}}, \code{\link[ggplot2:geom_tile]{geom_rect}},
+  \code{\link[ggplot2:geom_tile]{geom_tile}}
 }

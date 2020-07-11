@@ -54,7 +54,7 @@
 #'   \item{count}{density * number of observations - useful for comparing to
 #'   histograms} \item{scaled}{density scaled to a maximum of 1} }
 #'
-#' @seealso \code{\link[stats]{distributions}}
+#' @seealso \code{\link[stats:Distributions]{Distributions}}
 #'   \code{\link[fitdistrplus]{fitdist}} \code{\link[ggplot2]{geom_density}}
 #'   \code{\link[ggplot2]{geom_histogram}}
 #'
