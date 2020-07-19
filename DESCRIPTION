@@ -25,7 +25,9 @@ Suggests:
     covr,
     ggdendro,
     reshape2,
-    digest
+    digest,
+    knitr,
+    rmarkdown
 RoxygenNote: 7.1.1
 Depends: 
     ggplot2 (>= 3.3.0)
@@ -34,3 +36,6 @@ Imports:
     gtable,
     grid,
     vctrs
+URL: https://github.com/teunbrand/ggh4x
+BugReports: https://github.com/teunbrand/ggh4x/issues
+VignetteBuilder: knitr

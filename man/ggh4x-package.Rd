@@ -12,6 +12,14 @@ A 'ggplot2' extension that does a variety of little helpful things.
     Also allows multiple colour and fill scales per plot. Also hosts a smaller 
     collection of `stat_*`, `position_*` and `geom_*` functions.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/teunbrand/ggh4x}
+  \item Report bugs at \url{https://github.com/teunbrand/ggh4x/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Teun van den Brand \email{tahvdbrand@gmail.com} (\href{https://orcid.org/0000-0002-9335-7468}{ORCID})
 
