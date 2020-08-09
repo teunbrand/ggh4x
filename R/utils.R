@@ -76,6 +76,7 @@ list2df <- function (x = list(), nrow = NULL)
     "warn_for_guide_position",
     "weave_tables_col",
     "weave_tables_row",
+    "wrap_as_facets_list",
     ".pt"
   )
   objects <- setNames(objects, objects)

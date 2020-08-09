@@ -7,35 +7,37 @@ Authors@R:
            role = c("aut", "cre"),
            email = "tahvdbrand@gmail.com",
            comment = c(ORCID = "0000-0002-9335-7468"))
-Description: A 'ggplot2' extension that does a variety of little helpful things.
-    The package extends 'ggplot2' facets through customisation, by setting 
-    individual scales per panel, resizing panels and providing nested facets. 
-    Also allows multiple colour and fill scales per plot. Also hosts a smaller 
-    collection of `stat_*`, `position_*` and `geom_*` functions.
+Description: A 'ggplot2' extension that does a variety of little
+    helpful things.  The package extends 'ggplot2' facets through
+    customisation, by setting individual scales per panel, resizing panels
+    and providing nested facets.  Also allows multiple colour and fill
+    scales per plot. Also hosts a smaller collection of `stat_*`,
+    `position_*` and `geom_*` functions.
 License: GPL-3
-Encoding: UTF-8
-LazyData: true
-Suggests: 
-    testthat (>= 2.1.0),
-    fitdistrplus,
-    MASS,
-    utils,
-    stats,
-    rlang,
-    covr,
-    ggdendro,
-    reshape2,
-    digest,
-    knitr,
-    rmarkdown
-RoxygenNote: 7.1.1
+URL: https://github.com/teunbrand/ggh4x
+BugReports: https://github.com/teunbrand/ggh4x/issues
 Depends: 
     ggplot2 (>= 3.3.0)
 Imports: 
-    scales,
-    gtable,
     grid,
+    gtable,
+    scales,
     vctrs
-URL: https://github.com/teunbrand/ggh4x
-BugReports: https://github.com/teunbrand/ggh4x/issues
-VignetteBuilder: knitr
+Suggests: 
+    covr,
+    digest,
+    fitdistrplus,
+    ggdendro,
+    knitr,
+    MASS,
+    reshape2,
+    rlang,
+    rmarkdown,
+    stats,
+    testthat (>= 2.1.0),
+    utils
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
