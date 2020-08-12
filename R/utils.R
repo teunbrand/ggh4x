@@ -37,6 +37,18 @@ list2df <- function (x = list(), nrow = NULL)
   x
 }
 
+seq_range <- function(dat, ...) {
+  seq.int(min(dat, na.rm = TRUE), max(dat, na.rm = TRUE), ...)
+}
+
+seq_nrow <- function(dat) {
+  seq_len(NROW(dat))
+}
+
+seq_ncol <- function(dat) {
+  seq_len(NCOL(dat))
+}
+
 # ggplot internals --------------------------------------------------------
 
 # Function for grabbing internal function of ggplot2 that are also used here

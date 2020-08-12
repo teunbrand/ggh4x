@@ -2,8 +2,8 @@
 
 #' @title Layout panels in a grid with nested strips
 #'
-#' @description \code{facet_nest()} form a matrix of panels defined by row and
-#'   column faceting variables and nests grouped facets.
+#' @description \code{facet_nested()} forms a matrix of panels defined by row
+#'   and column faceting variables and nests grouped facets.
 #'
 #' @inheritParams ggplot2::facet_grid
 #' @param nest_line a \code{logical} vector of length 1, indicating whether to
@@ -12,9 +12,9 @@
 #'   element.
 #' @param resect  a \code{unit} vector of length 1, indicating how much the
 #'   nesting line should be shortened.
-#' @param bleed a \code{logical} vector of length 1, indicating wether merging
+#' @param bleed a \code{logical} vector of length 1, indicating whether merging
 #'   of lower-level variables is allowed when the higher-level variables are
-#'   seperate. See details.
+#'   separate. See details.
 #'
 #' @details Unlike \code{facet_grid()}, this function only automatically expands
 #'   missing variables when they have no variables in that direction, to allow
@@ -28,7 +28,7 @@
 #'   variable is placed the furthest away from the panels. Strips are
 #'   automatically grouped when they span a nested variable.
 #'
-#'   The \code{bleed} argument controls wether lower-level variables are allowed
+#'   The \code{bleed} argument controls whether lower-level variables are allowed
 #'   to be merged when higher-level are different, i.e. they can bleed over
 #'   hierarchies. Suppose the \code{facet_grid()} behaviour would be the
 #'   following:
@@ -47,6 +47,7 @@
 #' @export
 #'
 #' @return A \emph{FacetNested} ggproto object.
+#' @family facetting functions
 #'
 #' @seealso See \code{\link[ggplot2]{facet_grid}} for descriptions of the
 #'   original arguments. See \code{\link[grid]{unit}} for the construction of a

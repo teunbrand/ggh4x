@@ -17,6 +17,7 @@
 #'
 #' @return A \code{Facet} ggproto object that can be added to a plot.
 #' @export
+#' @family facetting functions
 #'
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
@@ -369,6 +370,9 @@ FacetWrap2 <- ggproto(
     panel_table
 
   },
+  finish_panels = function(self, panels, layout, params, theme) {
+    panels
+  },
   draw_panels = function(self, panels, layout,
                          x_scales, y_scales,
                          ranges, coord, data, theme, params) {
@@ -410,7 +414,8 @@ FacetWrap2 <- ggproto(
       clip = coord$clip, sizes
     )
 
-    panel_table
+    self$finish_panels(panels = panel_table, layout = layout,
+                       params = params, theme = theme)
   }
 )
 
