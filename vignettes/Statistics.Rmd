@@ -185,12 +185,12 @@ ggplot(df, aes(x, y)) +
                 inherit.aes = FALSE, colour = "limegreen") +
   geom_segment(aes(alpha = dnorm(x, -2.5, 0.5), xend = x, yend = -Inf), 
                colour = "dodgerblue") +
-  geom_segment(data = ~ dplyr::mutate(.x, facet = "Weights"),
+  geom_segment(data = ~ transform(.x, facet = "Weights"),
                aes(alpha = dnorm(x, -2.5, 0.5), y = -dnorm(x, -2.5, 0.5), yend = Inf, xend = x), 
                colour = "dodgerblue") +
   geom_segment(aes(alpha = dnorm(x, 1.5, 0.5), xend = x, yend = -Inf), 
                colour = "limegreen") +
-  geom_segment(data = ~ dplyr::mutate(.x, facet = "Weights"),
+  geom_segment(data = ~ transform(.x, facet = "Weights"),
                aes(alpha = dnorm(x, 1.5, 0.5), y = -dnorm(x, 1.5, 0.5), yend = Inf, xend = x), 
                colour = "limegreen") +
   geom_segment(data = df2, aes(x = -2.5, xend = 1.5, y = -0.2, yend = -0.2),

@@ -101,7 +101,7 @@ layout, and nests grouped facets where possible.
 }
 \details{
 This function inherits the capabilities of
-  \code{\link[ggh4x]{facet_wrap2()}}.
+  \code{\link[ggh4x]{facet_wrap2}()}.
 
   This function only merges strips in the same row or column as they appear
   through regular \code{facet_wrap()} layout behaviour.
@@ -115,7 +115,7 @@ This function inherits the capabilities of
 
   The \code{bleed} argument controls whether lower-level variables are allowed
   to be merged when higher-level are different, i.e. they can bleed over
-  hierarchies. Suppose the \code{facet_grid()} behaviour would be the
+  hierarchies. Suppose the \code{facet_wrap()} behaviour would be the
   following:
 
   \code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}

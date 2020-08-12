@@ -38,6 +38,8 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
   facet_nested(~ Nester + Species)
 ```
 
+## Nesting lines
+
 If you prefer your strips to have blank backgrounds, you could still indicate the hierarchical nature by setting `nest_line = TRUE`. The appearance of the line is controlled by the theme element `ggh4x.facet.nestline`.
 
 ```{r}
@@ -47,6 +49,8 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
   theme(strip.background = element_blank(),
         ggh4x.facet.nestline = element_line(colour = "blue"))
 ```
+
+## Relation to facet_grid()
 
 While `facet_nested()` is based on `facet_grid()`, there are a few differences. Notably, `facet_nested()` doesn't require input data to have *all* the facet variables. In the example below, we remove the `Species` column, to prevent facetting on that variable. Note that if we didn't specify a new `Nester` variable, it would put the second set of points in all panels, just like `facet_grid()`.
 
@@ -59,6 +63,19 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
   facet_nested(~ Nester + Species, switch = "x")
 ```
 
+## Variant for facet_wrap()
+
+A similar variant exists for wrapping in facets. It can span the strips for every `strip.position` argument, and has a few nifty tricks for duplicating axes or just axis ticks. To explain the `bleed` argument, take a look at the lower left, where the lower "f" strips are merged, even though the strips on top are in different categories.
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() + 
+  facet_nested_wrap(vars(cyl, drv), dir = "v",
+                    strip.position = "left",
+                    axes = "full",
+                    remove_labels = "rows",
+                    bleed = TRUE)
+```
 
 
 # Position scales
@@ -103,6 +120,7 @@ ggplot(df, aes(x)) +
   facetted_pos_scales(x = list(scale_x_log10()))
 ```
 
+If you plan on using `facetted_pos_scales()` to tweak the axis of the plots, do take a look at the [position guides](PositionGuides.html)!
 
 # Sizes
 

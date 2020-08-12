@@ -9,7 +9,7 @@
 #' @inheritParams facet_nested
 #'
 #' @details This function inherits the capabilities of
-#'   \code{\link[ggh4x]{facet_wrap2()}}.
+#'   \code{\link[ggh4x]{facet_wrap2}()}.
 #'
 #'   This function only merges strips in the same row or column as they appear
 #'   through regular \code{facet_wrap()} layout behaviour.
@@ -231,9 +231,9 @@ merge_strips_wrap <- function(
 
   # Do expansion
   if (orient == "x") {
-    template$layout <- transform(template$layout, r = r[aquire])
+    template$layout$r <- template$layout$r[aquire]
   } else {
-    template$layout <- transform(template$layout, b = b[aquire])
+    template$layout$b <- template$layout$b[aquire]
   }
 
   # Do deletion

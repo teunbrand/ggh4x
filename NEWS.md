@@ -15,6 +15,8 @@
 * Fixed scale_(x/y)_dendrogram so that labels are passed from scale (#17)
 * geom_pointpath() now curves with nonlinear coordinates (#15).
 * Added stat_funxy(), stat_centroid() and stat_midpoint() (#16)
+* Added facet_wrap2() with few extensions.
+* Added facet_nested_wrap() for merging strips (#19)
 
 # ggh4x 0.1.0
 
