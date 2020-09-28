@@ -139,7 +139,7 @@ FacetWrap2 <- ggproto(
 
     aspect_ratio
   },
-  setup_layout = function(layout, coord) {
+  setup_layout = function(layout, coord, params) {
     # Essentially just switch x/y when coord is flipped.
     # Shouldn't this be the task of the coord (ideally)?
     if (inherits(coord, "CoordFlip")) {
@@ -382,7 +382,7 @@ FacetWrap2 <- ggproto(
     }
     # browser()
 
-    layout <- self$setup_layout(layout, coord)
+    layout <- self$setup_layout(layout, coord, params)
 
     # Setup parameters
     ncol <- max(layout$COL)
