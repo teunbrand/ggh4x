@@ -89,6 +89,7 @@ seq_ncol <- function(dat) {
     "weave_tables_col",
     "weave_tables_row",
     "wrap_as_facets_list",
+    "join_keys",
     ".pt"
   )
   objects <- setNames(objects, objects)

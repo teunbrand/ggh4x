@@ -140,8 +140,8 @@ FacetNested <- ggproto(
     # Setup variables
     rows <- params$rows
     cols <- params$cols
-
     vars <- c(names(rows), names(cols))
+
     if (length(vars) == 0) {
       data$PANEL <- layout$PANEL
       return(data)
@@ -183,8 +183,8 @@ FacetNested <- ggproto(
     } else {
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
-      keys <- plyr::join.keys(facet_vals, layout,
-                              by = vars[vars %in% names(facet_vals)])
+      keys <- .int$join_keys(facet_vals, layout,
+                             by = vars[vars %in% names(facet_vals)])
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
     data
