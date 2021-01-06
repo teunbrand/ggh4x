@@ -97,14 +97,16 @@ The dendrogram type of scale does two things, first it reorders the
   dendrogram.
 }
 \examples{
-# Hierarchically cluster data
-require(reshape2)
+# Hierarchically cluster USArrests
 yclus <- hclust(dist(USArrests), "ave")
 xclus <- hclust(dist(t(USArrests)), "ave")
 
-df <- cbind(State = rownames(USArrests),
-            USArrests)
-df <- reshape2::melt(df, id.vars = "State")
+# Melting USArrests
+df <- data.frame(
+  State = rownames(USArrests)[row(USArrests)],
+  variable = colnames(USArrests)[col(USArrests)],
+  value = unname(do.call(c, USArrests))
+)
 
 # Supply the clustering to the scales
 ggplot(df, aes(variable, State, fill = value)) +

@@ -2,7 +2,7 @@
 title: "Position Guides"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{PositionGuides}
+  %\VignetteIndexEntry{Position Guides}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -166,12 +166,14 @@ ggplot(df, aes(weave_factors(item, type, appletea, type2), amount)) +
 Another thing people might want to indicate are hierarchical clustering relationships among variables. To accommodate this, there is `scale_(x/y)_dendrogram()`, which uses the **ggdendro** package convert a `hclust` object into a dendrogram. Since any set of scales should only be dependent on their aesthetics and cannot see other aesthetics, the dendrogram scales requires you to provide it with the result of a hierarchical clustering. By using the scale, it reorders the variables for you according to the clustering result, and places a dendrogram over the labels.
 
 ```{r, fig.height = 5, fig.width = 5}
-require(reshape2, quietly = TRUE)
 clusters <- hclust(dist(USArrests), "ave")
 
-df <- cbind(State = rownames(USArrests),
-            USArrests)
-df <- reshape2::melt(df, id.vars = "State")
+# reshaping USArrests
+df <- data.frame(
+  State = rownames(USArrests)[row(USArrests)],
+  variable = colnames(USArrests)[col(USArrests)],
+  value = unname(do.call(c, USArrests))
+)
 
 g <- ggplot(df, aes(variable, State, fill = value)) +
   geom_raster()

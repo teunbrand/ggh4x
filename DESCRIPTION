@@ -31,7 +31,6 @@ Suggests:
     ggdendro,
     knitr,
     MASS,
-    reshape2,
     rmarkdown,
     stats,
     testthat (>= 2.1.0),

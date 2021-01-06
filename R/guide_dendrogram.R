@@ -21,9 +21,12 @@
 #' @examples
 #' clust <- hclust(dist(USArrests), "ave")
 #'
-#' df <- cbind(State = rownames(USArrests),
-#'             USArrests)
-#' df <- reshape2::melt(df, id.vars = "State")
+#' # Melting USArrests
+#' df <- data.frame(
+#'   State = rownames(USArrests)[row(USArrests)],
+#'   variable = colnames(USArrests)[col(USArrests)],
+#'   value = unname(do.call(c, USArrests))
+#' )
 #'
 #' # The guide function can be used to customise the axis
 #' g <- ggplot(df, aes(variable, State, fill = value)) +
@@ -36,6 +39,7 @@
 #'
 #' # The size of the dendrogram is controlled through tick size * 10
 #' g + theme(axis.ticks.length = unit(5, "pt"))
+
 guide_dendro <- function(
   title = waiver(),
   check.overlap = FALSE,
