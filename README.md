@@ -5,10 +5,9 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/teunbrand/ggh4x.svg?branch=master)](https://travis-ci.org/teunbrand/ggh4x)
 [![Codecov test
 coverage](https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg)](https://codecov.io/gh/teunbrand/ggh4x?branch=master)
+[![R-CMD-check](https://github.com/teunbrand/ggh4x/workflows/R-CMD-check/badge.svg)](https://github.com/teunbrand/ggh4x/actions)
 <!-- badges: end -->
 
 The ggh4x package provides some utility functions that are don’t
