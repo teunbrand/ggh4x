@@ -17,6 +17,8 @@
 * Added stat_funxy(), stat_centroid() and stat_midpoint() (#16)
 * Added facet_wrap2() with few extensions.
 * Added facet_nested_wrap() for merging strips (#19)
+* Alternative specification of facet scales in `facetted_pos_scales` through 
+  formulas (#25).
 
 # ggh4x 0.1.0
 

@@ -2,25 +2,22 @@
 % Please edit documentation in R/facetted_pos_scales.R
 \name{facetted_pos_scales}
 \alias{facetted_pos_scales}
-\title{Set individual scales at facets}
+\title{Set individual scales in facets}
 \usage{
 facetted_pos_scales(x = NULL, y = NULL)
 }
 \arguments{
-\item{x}{A \code{list} wherein elements are either x position scales or
-\code{NULL}s.}
-
-\item{y}{A \code{list} wherein elements are either y position scales or
-\code{NULL}s.}
+\item{x, y}{A \code{list} wherein elements are either x/y position scales or
+\code{NULL}s. Alternatively, a list of formulae (see details).}
 }
 \value{
 A \emph{facetted_pos_scales} object, instructing a ggplot how to
   adjust the scales per facet.
 }
 \description{
-Under default circumstances, using facets in a plot limits the freedom with
-which the position scales (x and y) can be defined. Calling this function
-after facets have been defined allows fine-tuning of the position scales.
+This function allows the tweaking of the position scales (x and y) of
+individual facets. You can use it to fine-tune limits, breaks and other scale
+parameters for individual facets, provided the facet allows free scales.
 }
 \details{
 It is intended that this function works with both
@@ -33,24 +30,55 @@ It is intended that this function works with both
   Axis titles are derived from the first scale in the list (or the default
   position scale when the first list element is \code{NULL}).
 
-  It is allowed to use individual scale transformations for facets, but this
-  functionality comes with the trade-off that the out of bounds (\code{oob})
-  argument for individual scales is ignored. Values that are out of bounds
-  will be clipped.
+  \subsection{Scale transformations}{It is allowed to use individual scale
+  transformations for facets, but this functionality comes with the trade-off
+  that the out of bounds (\code{oob}) argument for individual scales is
+  ignored. Values that are out of bounds will be clipped. Whereas the
+  \code{stat} part of a ggplot layer is typically calculated after scale
+  transformations, the calculation of the \code{stat} happens before scale
+  transformation with this function, which can lead to some awkward results.
+  The suggested workaround is to pre-transform the data for layers with
+  non-identity \code{stat} parts.}
 
-  \code{NULL}s are valid list elements and signal that the default position
-  scale should be used at the position in the list where the \code{NULL}
-  occurs. Since transformations are applied before facet scales are
-  initiated, it is not recommended to use a default position scale with a
-  transformation other than \code{trans = "identity"} (the default).
+  \subsection{Scale list input}{\code{NULL}s are valid list elements and
+  signal that the default position scale should be used at the position in
+  the list where the \code{NULL} occurs. Since transformations are applied
+  before facet scales are initiated, it is not recommended to use a default
+  position (either the first in the list, or defined outside
+  \code{facetted_pos_scales()}) scale with a transformation other than
+  \code{trans = "identity"} (the default).}
+
+  \subsection{Formula list input}{The \code{x} and \code{y} arguments also
+  accept a list of two-sided formulas. The left hand side of a formula should
+  evaluate to a \code{logical} vector. The right hand side of the formula
+  should evaluate to a position scale, wherein the \code{x} argument accepts
+  x-position scales and the \code{y} argument accepts y-position scales.
+  Notably, the left hand side of the formula is evaluated using the tidy
+  evaluation framework, whereby the \code{data.frame} with the plot's layout
+  is given priority over the environment in which the formula was created. As
+  a consequence, variables (columns) that define faceting groups can be
+  references directly.}
 }
 \examples{
-# Reversing the y-axis in the second panel
-ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
+plot <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
   geom_point(aes(colour = Species)) +
-  facet_wrap(Species ~ ., scales = "free_y") +
+  facet_wrap(Species ~ ., scales = "free_y")
+
+# Reversing the y-axis in the second panel. When providing a list of scales,
+# NULL indicates to use the default, global scale
+plot +
   facetted_pos_scales(
     y = list(NULL, scale_y_continuous(trans = "reverse"))
+  )
+
+# Alternative for specifying scales with formula lists. The LHS can access
+# columns in the plot's layout.
+plot +
+  facetted_pos_scales(
+    y = list(
+      Species == "virginica" ~ scale_y_continuous(breaks = c(6, 7)),
+      Species == "versicolor" ~ scale_y_reverse()
+    )
   )
 }
 \seealso{

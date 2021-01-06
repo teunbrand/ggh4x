@@ -22,7 +22,8 @@ Imports:
     grid,
     gtable,
     scales,
-    vctrs
+    vctrs,
+    rlang
 Suggests: 
     covr,
     digest,
@@ -31,7 +32,6 @@ Suggests:
     knitr,
     MASS,
     reshape2,
-    rlang,
     rmarkdown,
     stats,
     testthat (>= 2.1.0),
