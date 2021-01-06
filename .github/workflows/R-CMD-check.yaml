@@ -84,7 +84,7 @@ jobs:
           path: check
 
       - name: Test coverage
-        if: matrix.config.os = 'ubuntu-20.04' && matrix.config.r = 'release'
+        if: matrix.config.os == 'ubuntu-20.04' && matrix.config.r == 'release'
         run: |
           remotes::install_cran("covr")
           covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")
