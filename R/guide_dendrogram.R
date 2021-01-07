@@ -7,12 +7,14 @@
 #' \code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)}}.
 #'
 #' @inheritParams ggplot2::guide_axis
+#' @param label A \code{logical(1)}. If \code{TRUE}, labels are drawn at the
+#'   dendrogram leaves. If \code{FALSE}, labels are not drawn.
 #' @param dendro Relevant plotting data for a dendrogram such as those returned
 #'   by \code{\link[ggdendro]{dendro_data}}.
 #'
 #' @details The dendrogram guide inherits graphical elements from the
-#' \code{axis.ticks} theme element. However, the size of the dendrogram is
-#' set to 10 times the \code{axis.ticks.length} theme element.
+#'   \code{axis.ticks} theme element. However, the size of the dendrogram is set
+#'   to 10 times the \code{axis.ticks.length} theme element.
 #'
 #' @export
 #'
@@ -46,6 +48,7 @@ guide_dendro <- function(
   n.dodge = 1,
   order = 0,
   position = waiver(),
+  label = TRUE,
   dendro = waiver()
 ) {
   structure(
@@ -55,6 +58,7 @@ guide_dendro <- function(
          order = order,
          position = position,
          available_aes = c("x", "y"),
+         label = label,
          dendro = dendro,
          name = "axis"),
     class = c("guide", "dendroguide", "axis")
@@ -69,9 +73,13 @@ guide_dendro <- function(
 #' @noRd
 guide_train.dendroguide <- function(guide, scale, aesthetic = NULL) {
   guide <- NextMethod()
-  i <- seq_len(NROW(guide$dendro$labels))
-  guide$dendro$labels$label <- as.character(guide$dendro$labels$label)
-  guide$dendro$labels$label[i] <- as.character(guide$key$.label[i])
+  if (!is.null(guide$key$.label) & guide$label) {
+    i <- seq_len(NROW(guide$dendro$labels))
+    guide$dendro$labels$label <- as.character(guide$dendro$labels$label)
+    guide$dendro$labels$label[i] <- as.character(guide$key$.label[i])
+  } else {
+    guide$dendro$labels$label <- NULL
+  }
   guide
 }
 

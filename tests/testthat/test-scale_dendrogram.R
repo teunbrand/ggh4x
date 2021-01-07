@@ -146,3 +146,24 @@ test_that("scale_xy_dendrogram can set labels", {
   expect_false(identical(cases$ctrl, cases$test2))
   expect_identical(toupper(cases$ctrl), cases$test2)
 })
+
+test_that("scale_xy_dendrogram can be draw without labels", {
+  df <- data.frame(
+    x = factor(rownames(USArrests)),
+    y = rnorm(nrow(USArrests))
+  )
+
+  base <- ggplot(df, aes(x, y)) + geom_point()
+  ctrl <- base + scale_x_dendrogram(hclust = clus)
+  test <- base + scale_x_dendrogram(hclust = clus, labels = NULL)
+
+  ctrl <- ggplotGrob(ctrl)
+  test <- ggplotGrob(test)
+
+  ctrl <- ctrl$grobs[[which(ctrl$layout$name == "axis-b")]]$children[[2]][1,1]$grobs[[1]]
+  test <- test$grobs[[which(test$layout$name == "axis-b")]]$children[[2]][1,1]$grobs[[1]]
+
+  expect_is(ctrl, "titleGrob")
+  expect_is(test, "zeroGrob")
+
+})

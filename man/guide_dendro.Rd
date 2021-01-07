@@ -10,6 +10,7 @@ guide_dendro(
   n.dodge = 1,
   order = 0,
   position = waiver(),
+  label = TRUE,
   dendro = waiver()
 )
 }
@@ -32,6 +33,9 @@ top-to-bottom), if more than one  guide must be drawn at the same location.}
 \item{position}{Where this guide should be drawn: one of top, bottom,
 left, or right.}
 
+\item{label}{A \code{logical(1)}. If \code{TRUE}, labels are drawn at the
+dendrogram leaves. If \code{FALSE}, labels are not drawn.}
+
 \item{dendro}{Relevant plotting data for a dendrogram such as those returned
 by \code{\link[ggdendro]{dendro_data}}.}
 }
@@ -45,8 +49,8 @@ between members, like those detailed in
 }
 \details{
 The dendrogram guide inherits graphical elements from the
-\code{axis.ticks} theme element. However, the size of the dendrogram is
-set to 10 times the \code{axis.ticks.length} theme element.
+  \code{axis.ticks} theme element. However, the size of the dendrogram is set
+  to 10 times the \code{axis.ticks.length} theme element.
 }
 \examples{
 clust <- hclust(dist(USArrests), "ave")
