@@ -26,26 +26,23 @@ test_that("facetted_pos_scales accepts a list of scales", {
   x <- facetted_pos_scales(x = list(scale_x_continuous(),
                                     scale_x_continuous()))
 
-  expect_equal(
-    x,
-    structure(list(x = list(scale_x_continuous(), scale_x_continuous()),
-                   y = list(NULL)),
-              class = "facetted_pos_scales")
-  )
+  expect_equal(names(x), c("x", "y"))
+  expect_false("lhs" %in% names(attributes(x$x)))
+  expect_null(x$y[[1]])
+  expect_equal(unname(lengths(x)), c(2, 1))
+  expect_is(x$x[[1]], "ScaleContinuous")
+  expect_is(x$x[[2]], "ScaleContinuous")
+
 })
 
 test_that("facetted_pos_scales accepts formula input", {
   x <- facetted_pos_scales(x = list(Species == "setosa" ~ scale_x_continuous()))
 
-  expect_equal(
-    x,
-    structure(list(
-      x = structure(list(scale_x_continuous()),
-                    lhs = list(rlang::quo(Species == "setosa")),
-                    class = "list"),
-      y = list(NULL)
-    ), class = "facetted_pos_scales")
-  )
+  expect_equal(names(x), c("x", "y"))
+  expect_true("lhs" %in% names(attributes(x$x)))
+  expect_null(x$y[[1]])
+  expect_equal(unname(lengths(x)), c(1, 1))
+  expect_is(x$x[[1]], "ScaleContinuous")
 })
 
 test_that("facetted_pos_scales add to facet_grid correctly", {
