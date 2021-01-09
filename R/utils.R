@@ -92,7 +92,8 @@ seq_ncol <- function(dat) {
     "join_keys",
     ".pt",
     "interleave",
-    "justify_grobs"
+    "justify_grobs",
+    "compute_just"
   )
   objects <- setNames(objects, objects)
   out <- lapply(objects, function(i) {

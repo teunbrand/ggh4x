@@ -50,6 +50,7 @@ Collate:
     'geom_pointpath.R'
     'geom_polygonraster.R'
     'geom_rectrug.R'
+    'geom_text_aimed.R'
     'ggh4x-package.R'
     'ggh4x_extensions.R'
     'guide_axis_logticks.R'
