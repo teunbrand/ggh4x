@@ -57,6 +57,7 @@ Collate:
     'guide_axis_nested.R'
     'guide_axis_utils.R'
     'guide_dendrogram.R'
+    'guide_stringlegend.R'
     'position_disjoint_ranges.R'
     'position_lineartrans.R'
     'scale_dendrogram.R'

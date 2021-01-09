@@ -90,7 +90,9 @@ seq_ncol <- function(dat) {
     "weave_tables_row",
     "wrap_as_facets_list",
     "join_keys",
-    ".pt"
+    ".pt",
+    "interleave",
+    "justify_grobs"
   )
   objects <- setNames(objects, objects)
   out <- lapply(objects, function(i) {
