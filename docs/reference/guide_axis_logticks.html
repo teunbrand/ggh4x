@@ -111,6 +111,9 @@ of a geom. The tick marks probably best suit log10 transformations." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -153,16 +156,16 @@ of a geom. The tick marks probably best suit log10 transformations." />
 of a geom. The tick marks probably best suit log10 transformations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_axis_logticks</span>(
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>check.overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n.dodge</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>prescaled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>base</span> <span class='kw'>=</span> <span class='fu'>waiver</span>()
-)</pre>
+    <pre class="usage"><span class='fu'>guide_axis_logticks</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  check.overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  prescaled <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  base <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,21 +236,24 @@ to use this argument if the base is not <code>10</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># The guide works well out of the box with log10 scales</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot</span>(<span class='no'>pressure</span>, <span class='fu'>aes</span>(<span class='no'>temperature</span>, <span class='no'>pressure</span>)) +
-  <span class='fu'>geom_line</span>()
-<span class='no'>p</span> + <span class='fu'>scale_y_log10</span>(<span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"axis_logticks"</span>)</div><div class='img'><img src='guide_axis_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>pressure</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>temperature</span>, <span class='va'>pressure</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_y_log10</span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"axis_logticks"</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_logticks-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If the data is already transformed, you can set 'prescaled' to TRUE</span>
-<span class='fu'>ggplot</span>(<span class='no'>pressure</span>, <span class='fu'>aes</span>(<span class='no'>temperature</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='no'>pressure</span>))) +
-  <span class='fu'>geom_line</span>() +
-  <span class='fu'>guides</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>guide_axis_logticks</span>(<span class='kw'>prescaled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_axis_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>pressure</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>temperature</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='va'>pressure</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>guides</span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'>guide_axis_logticks</span><span class='op'>(</span>prescaled <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_logticks-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The lenghts of the log-ticks are controlled by the theme relative to the</span>
 <span class='co'># major ticks.</span>
-<span class='no'>p</span> + <span class='fu'>scale_y_log10</span>(<span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"axis_logticks"</span>) +
-  <span class='fu'>theme</span>(
-    <span class='kw'>axis.ticks.length.y</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>1</span>, <span class='st'>"cm"</span>),
-    <span class='kw'>ggh4x.axis.ticks.length.minor</span> <span class='kw'>=</span> <span class='fu'>rel</span>(<span class='fl'>0.55</span>),
-    <span class='kw'>ggh4x.axis.ticks.length.mini</span> <span class='kw'>=</span> <span class='fu'>rel</span>(<span class='fl'>0.1</span>)
-  )</div><div class='img'><img src='guide_axis_logticks-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_y_log10</span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"axis_logticks"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>
+    axis.ticks.length.y <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"cm"</span><span class='op'>)</span>,
+    ggh4x.axis.ticks.length.minor <span class='op'>=</span> <span class='fu'>rel</span><span class='op'>(</span><span class='fl'>0.55</span><span class='op'>)</span>,
+    ggh4x.axis.ticks.length.mini <span class='op'>=</span> <span class='fu'>rel</span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_logticks-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -263,7 +269,7 @@ to use this argument if the base is not <code>10</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

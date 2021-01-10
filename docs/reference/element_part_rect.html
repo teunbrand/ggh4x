@@ -110,6 +110,9 @@ elements. It can substitute element_rect() theme elements." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -151,15 +154,15 @@ elements. It can substitute element_rect() theme elements." />
 elements. It can substitute <code>element_rect()</code> theme elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>element_part_rect</span>(
-  <span class='kw'>side</span> <span class='kw'>=</span> <span class='st'>"tlbr"</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>inherit.blank</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>element_part_rect</span><span class='op'>(</span>
+  side <span class='op'>=</span> <span class='st'>"tlbr"</span>,
+  fill <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  linetype <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  inherit.blank <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,13 +213,14 @@ calculating final element state.</p></td>
     <p>An S3 object of class <code>element_part_rect</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Width</span>, <span class='no'>Sepal.Length</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_grid</span>(<span class='no'>Species</span> ~<span class='no'>.</span>) +
-  <span class='fu'>theme</span>(
-    <span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'>element_part_rect</span>(<span class='kw'>side</span> <span class='kw'>=</span> <span class='st'>"tb"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>),
-    <span class='kw'>panel.background</span> <span class='kw'>=</span> <span class='fu'>element_part_rect</span>(<span class='kw'>side</span> <span class='kw'>=</span> <span class='st'>"l"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
-  )</div><div class='img'><img src='element_part_rect-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>Sepal.Width</span>, <span class='va'>Sepal.Length</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>facet_grid</span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>~</span><span class='va'>.</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>
+    strip.background <span class='op'>=</span> <span class='fu'>element_part_rect</span><span class='op'>(</span>side <span class='op'>=</span> <span class='st'>"tb"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>,
+    panel.background <span class='op'>=</span> <span class='fu'>element_part_rect</span><span class='op'>(</span>side <span class='op'>=</span> <span class='st'>"l"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='element_part_rect-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -232,7 +236,7 @@ calculating final element state.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

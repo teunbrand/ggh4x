@@ -110,6 +110,9 @@ and heights of panels are set by the user." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -151,7 +154,7 @@ and heights of panels are set by the user." />
 and heights of panels are set by the user.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>force_panelsizes</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>respect</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>force_panelsizes</span><span class='op'>(</span>rows <span class='op'>=</span> <span class='cn'>NULL</span>, cols <span class='op'>=</span> <span class='cn'>NULL</span>, respect <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,11 +201,12 @@ specified in <code>"null" unit</code>s are proportional. If <code>FALSE</code>,
   <code><a href='https://ggplot2.tidyverse.org/reference/facet_null.html'>facet_null</a></code> <code><a href='https://rdrr.io/r/grid/unit.html'>unit</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='no'>mtcars</span>, <span class='fu'>aes</span>(<span class='no'>disp</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_grid</span>(<span class='no'>vs</span> ~ <span class='no'>am</span>) +
-  <span class='fu'>force_panelsizes</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>),
-                   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>))</div><div class='img'><img src='force_panelsizes-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>facet_grid</span><span class='op'>(</span><span class='va'>vs</span> <span class='op'>~</span> <span class='va'>am</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>force_panelsizes</span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                   cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='force_panelsizes-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -218,7 +222,7 @@ specified in <code>"null" unit</code>s are proportional. If <code>FALSE</code>,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

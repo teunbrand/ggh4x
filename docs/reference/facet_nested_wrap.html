@@ -110,6 +110,9 @@ layout, and nests grouped facets where possible." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -151,23 +154,23 @@ layout, and nests grouped facets where possible." />
 layout, and nests grouped facets where possible.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facet_nested_wrap</span>(
-  <span class='no'>facets</span>,
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>axes</span> <span class='kw'>=</span> <span class='st'>"margins"</span>,
-  <span class='kw'>remove_labels</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_value"</span>,
-  <span class='kw'>as.table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"h"</span>,
-  <span class='kw'>strip.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>,
-  <span class='kw'>nest_line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>resect</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>0</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>bleed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>facet_nested_wrap</span><span class='op'>(</span>
+  <span class='va'>facets</span>,
+  nrow <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ncol <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scales <span class='op'>=</span> <span class='st'>"fixed"</span>,
+  axes <span class='op'>=</span> <span class='st'>"margins"</span>,
+  remove_labels <span class='op'>=</span> <span class='st'>"none"</span>,
+  shrink <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  labeller <span class='op'>=</span> <span class='st'>"label_value"</span>,
+  as.table <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  dir <span class='op'>=</span> <span class='st'>"h"</span>,
+  strip.position <span class='op'>=</span> <span class='st'>"top"</span>,
+  nest_line <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  resect <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"mm"</span><span class='op'>)</span>,
+  bleed <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -304,14 +307,17 @@ separate. See details.</p></td>
 <code><a href='facet_wrap2.html'>facet_wrap2</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot</span>(<span class='no'>mpg</span>, <span class='fu'>aes</span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
-  <span class='fu'>geom_point</span>()
-<span class='no'>p</span> + <span class='fu'>facet_nested_wrap</span>(<span class='fu'>vars</span>(<span class='no'>cyl</span>, <span class='no'>drv</span>))</div><div class='img'><img src='facet_nested_wrap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>drv</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='facet_nested_wrap-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Controlling the nest line</span>
-<span class='no'>p</span> + <span class='fu'>facet_nested_wrap</span>(<span class='fu'>vars</span>(<span class='no'>cyl</span>, <span class='no'>drv</span>), <span class='kw'>nest_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
-  <span class='fu'>theme</span>(<span class='kw'>ggh4x.facet.nestline</span> <span class='kw'>=</span> <span class='fu'>element_line</span>(<span class='kw'>linetype</span> <span class='kw'>=</span> <span class='fl'>3</span>))</div><div class='img'><img src='facet_nested_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>drv</span><span class='op'>)</span>, nest_line <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>ggh4x.facet.nestline <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='facet_nested_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Ignore nested hierarchies with the 'bleed' argument</span>
- <span class='no'>p</span> + <span class='fu'>facet_nested_wrap</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>, <span class='no'>cyl</span>), <span class='kw'>bleed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='facet_nested_wrap-3.png' alt='' width='700' height='433' /></div></pre>
+ <span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>drv</span>, <span class='va'>cyl</span><span class='op'>)</span>, bleed <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='facet_nested_wrap-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -327,7 +333,7 @@ separate. See details.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

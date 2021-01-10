@@ -113,6 +113,9 @@ as-is, but can be supplied functions and arguments." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -157,30 +160,30 @@ centroids and midpoints. <code>stat_funxy()</code> by default leaves the data
 as-is, but can be supplied functions and arguments.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_funxy</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>funx</span> <span class='kw'>=</span> <span class='no'>force</span>,
-  <span class='kw'>funy</span> <span class='kw'>=</span> <span class='no'>force</span>,
-  <span class='kw'>argx</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>argy</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>crop_other</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>stat_funxy</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"point"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  funx <span class='op'>=</span> <span class='va'>force</span>,
+  funy <span class='op'>=</span> <span class='va'>force</span>,
+  argx <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  argy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  crop_other <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_centroid</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>funx</span> <span class='kw'>=</span> <span class='no'>mean</span>,
-  <span class='kw'>funy</span> <span class='kw'>=</span> <span class='no'>mean</span>,
-  <span class='kw'>argx</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>argy</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)
+<span class='fu'>stat_centroid</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  funx <span class='op'>=</span> <span class='va'>mean</span>,
+  funy <span class='op'>=</span> <span class='va'>mean</span>,
+  argx <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  argy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>stat_midpoint</span>(<span class='no'>...</span>, <span class='kw'>argx</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>argy</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</pre>
+<span class='fu'>stat_midpoint</span><span class='op'>(</span><span class='va'>...</span>, argx <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, argy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -266,22 +269,25 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
   1 are recycled to match the longest length result.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Width</span>, <span class='no'>Sepal.Length</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>))
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>Sepal.Width</span>, <span class='va'>Sepal.Length</span>, colour <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Labelling group midpoints</span>
-<span class='no'>p</span> + <span class='fu'>geom_point</span>() +
-  <span class='fu'>stat_midpoint</span>(<span class='fu'>aes</span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>Species</span>),
-                <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"text"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>)</div><div class='img'><img src='stat_funxy-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_midpoint</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>Species</span>, group <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span>,
+                geom <span class='op'>=</span> <span class='st'>"text"</span>, colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_funxy-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Drawing segments to centroids</span>
-<span class='no'>p</span> + <span class='fu'>geom_point</span>() +
-  <span class='fu'>stat_centroid</span>(<span class='fu'>aes</span>(<span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>Sepal.Width</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span>),
-                <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"segment"</span>, <span class='kw'>crop_other</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='stat_funxy-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_centroid</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>xend <span class='op'>=</span> <span class='va'>Sepal.Width</span>, yend <span class='op'>=</span> <span class='va'>Sepal.Length</span><span class='op'>)</span>,
+                geom <span class='op'>=</span> <span class='st'>"segment"</span>, crop_other <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_funxy-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Drawing intervals</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Width</span>, <span class='no'>Sepal.Length</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>stat_funxy</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
-             <span class='kw'>funx</span> <span class='kw'>=</span> <span class='no'>median</span>, <span class='kw'>funy</span> <span class='kw'>=</span> <span class='no'>quantile</span>,
-             <span class='kw'>argy</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>probs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.9</span>)))</div><div class='img'><img src='stat_funxy-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>Sepal.Width</span>, <span class='va'>Sepal.Length</span>, colour <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_funxy</span><span class='op'>(</span>geom <span class='op'>=</span> <span class='st'>"path"</span>,
+             funx <span class='op'>=</span> <span class='va'>median</span>, funy <span class='op'>=</span> <span class='va'>quantile</span>,
+             argy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>probs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.9</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_funxy-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -297,7 +303,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

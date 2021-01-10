@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set individual scales at facets — facetted_pos_scales • ggh4x</title>
+<title>Set individual scales in facets — facetted_pos_scales • ggh4x</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="Set individual scales at facets — facetted_pos_scales" />
-<meta property="og:description" content="Under default circumstances, using facets in a plot limits the freedom with
-which the position scales (x and y) can be defined. Calling this function
-after facets have been defined allows fine-tuning of the position scales." />
+<meta property="og:title" content="Set individual scales in facets — facetted_pos_scales" />
+<meta property="og:description" content="This function allows the tweaking of the position scales (x and y) of
+individual facets. You can use it to fine-tune limits, breaks and other scale
+parameters for individual facets, provided the facet allows free scales." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -111,6 +111,9 @@ after facets have been defined allows fine-tuning of the position scales." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -142,31 +145,26 @@ after facets have been defined allows fine-tuning of the position scales." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set individual scales at facets</h1>
+    <h1>Set individual scales in facets</h1>
     <small class="dont-index">Source: <a href='https://github.com/teunbrand/ggh4x/blob/master/R/facetted_pos_scales.R'><code>R/facetted_pos_scales.R</code></a></small>
     <div class="hidden name"><code>facetted_pos_scales.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Under default circumstances, using facets in a plot limits the freedom with
-which the position scales (x and y) can be defined. Calling this function
-after facets have been defined allows fine-tuning of the position scales.</p>
+    <p>This function allows the tweaking of the position scales (x and y) of
+individual facets. You can use it to fine-tune limits, breaks and other scale
+parameters for individual facets, provided the facet allows free scales.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facetted_pos_scales</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>facetted_pos_scales</span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, y <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A <code>list</code> wherein elements are either x position scales or
-<code>NULL</code>s.</p></td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td><p>A <code>list</code> wherein elements are either y position scales or
-<code>NULL</code>s.</p></td>
+      <th>x, y</th>
+      <td><p>A <code>list</code> wherein elements are either x/y position scales or
+<code>NULL</code>s. Alternatively, a list of formulae (see details).</p></td>
     </tr>
     </table>
 
@@ -184,27 +182,64 @@ after facets have been defined allows fine-tuning of the position scales.</p>
   <code>"free_y"</code>, depending on what scales are added.</p>
 <p>Axis titles are derived from the first scale in the list (or the default
   position scale when the first list element is <code>NULL</code>).</p>
-<p>It is allowed to use individual scale transformations for facets, but this
-  functionality comes with the trade-off that the out of bounds (<code>oob</code>)
-  argument for individual scales is ignored. Values that are out of bounds
-  will be clipped.</p>
-<p><code>NULL</code>s are valid list elements and signal that the default position
-  scale should be used at the position in the list where the <code>NULL</code>
-  occurs. Since transformations are applied before facet scales are
-  initiated, it is not recommended to use a default position scale with a
-  transformation other than <code>trans = "identity"</code> (the default).</p>
+<p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Scale transformations</h3>
+<p>It is allowed to use individual scale
+  transformations for facets, but this functionality comes with the trade-off
+  that the out of bounds (<code>oob</code>) argument for individual scales is
+  ignored. Values that are out of bounds will be clipped. Whereas the
+  <code>stat</code> part of a ggplot layer is typically calculated after scale
+  transformations, the calculation of the <code>stat</code> happens before scale
+  transformation with this function, which can lead to some awkward results.
+  The suggested workaround is to pre-transform the data for layers with
+  non-identity <code>stat</code> parts.</p>
+
+<p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Scale list input</h3>
+<p><code>NULL</code>s are valid list elements and
+  signal that the default position scale should be used at the position in
+  the list where the <code>NULL</code> occurs. Since transformations are applied
+  before facet scales are initiated, it is not recommended to use a default
+  position (either the first in the list, or defined outside
+  <code>facetted_pos_scales()</code>) scale with a transformation other than
+  <code>trans = "identity"</code> (the default).</p>
+
+<p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Formula list input</h3>
+<p>The <code>x</code> and <code>y</code> arguments also
+  accept a list of two-sided formulas. The left hand side of a formula should
+  evaluate to a <code>logical</code> vector. The right hand side of the formula
+  should evaluate to a position scale, wherein the <code>x</code> argument accepts
+  x-position scales and the <code>y</code> argument accepts y-position scales.
+  Notably, the left hand side of the formula is evaluated using the tidy
+  evaluation framework, whereby the <code>data.frame</code> with the plot's layout
+  is given priority over the environment in which the formula was created. As
+  a consequence, variables (columns) that define faceting groups can be
+  references directly.</p>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>scale_continuous</code> and <code>scale_x_discrete</code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Reversing the y-axis in the second panel</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Width</span>, <span class='no'>Sepal.Length</span>)) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>facet_wrap</span>(<span class='no'>Species</span> ~ <span class='no'>.</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>) +
-  <span class='fu'>facetted_pos_scales</span>(
-    <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>, <span class='fu'>scale_y_continuous</span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"reverse"</span>))
-  )</div><div class='img'><img src='facetted_pos_scales-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>Sepal.Width</span>, <span class='va'>Sepal.Length</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>facet_wrap</span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>~</span> <span class='va'>.</span>, scales <span class='op'>=</span> <span class='st'>"free_y"</span><span class='op'>)</span>
+
+<span class='co'># Reversing the y-axis in the second panel. When providing a list of scales,</span>
+<span class='co'># NULL indicates to use the default, global scale</span>
+<span class='va'>plot</span> <span class='op'>+</span>
+  <span class='fu'>facetted_pos_scales</span><span class='op'>(</span>
+    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='fu'>scale_y_continuous</span><span class='op'>(</span>trans <span class='op'>=</span> <span class='st'>"reverse"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='facetted_pos_scales-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Alternative for specifying scales with formula lists. The LHS can access</span>
+<span class='co'># columns in the plot's layout.</span>
+<span class='va'>plot</span> <span class='op'>+</span>
+  <span class='fu'>facetted_pos_scales</span><span class='op'>(</span>
+    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"virginica"</span> <span class='op'>~</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>,
+      <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"versicolor"</span> <span class='op'>~</span> <span class='fu'>scale_y_reverse</span><span class='op'>(</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='facetted_pos_scales-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -220,7 +255,7 @@ after facets have been defined allows fine-tuning of the position scales.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

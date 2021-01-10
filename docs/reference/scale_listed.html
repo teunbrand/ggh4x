@@ -113,6 +113,9 @@ May return a warning that the plot is ignoring unknown aesthetics." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -157,7 +160,7 @@ May return a warning that the plot is ignoring unknown aesthetics." />
 <p>May return a warning that the plot is ignoring unknown aesthetics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_listed</span>(<span class='no'>scalelist</span>, <span class='kw'>replaces</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>scale_listed</span><span class='op'>(</span><span class='va'>scalelist</span>, replaces <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,31 +192,32 @@ example.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Annotation of heatmap</span>
-<span class='no'>iriscor</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>iris</span>[, <span class='fl'>1</span>:<span class='fl'>4</span>]))
+<span class='va'>iriscor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/row.html'>row</a></span>(<span class='no'>iriscor</span>)),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/col.html'>col</a></span>(<span class='no'>iriscor</span>)),
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='no'>iriscor</span>)
-)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/row.html'>row</a></span><span class='op'>(</span><span class='va'>iriscor</span><span class='op'>)</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/col.html'>col</a></span><span class='op'>(</span><span class='va'>iriscor</span><span class='op'>)</span><span class='op'>)</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>iriscor</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='no'>annotation</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>iris</span>)),
-  <span class='kw'>Species</span> <span class='kw'>=</span> <span class='no'>iris</span>$<span class='no'>Species</span>,
-  <span class='kw'>Leaves</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>iris</span>$<span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>"setosa"</span>, <span class='st'>"Short"</span>, <span class='st'>"Long"</span>)
-)
+<span class='va'>annotation</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span>,
+  Species <span class='op'>=</span> <span class='va'>iris</span><span class='op'>$</span><span class='va'>Species</span>,
+  Leaves <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span>, <span class='st'>"Short"</span>, <span class='st'>"Long"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_raster</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>value</span>)) +
-  <span class='fu'>geom_tile</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>annotation</span>,
-            <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>z</span>, <span class='kw'>y</span> <span class='kw'>=</span> -<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>Species</span>), <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>5</span>) +
-  <span class='fu'>geom_tile</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>annotation</span>,
-            <span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>z</span>, <span class='kw'>x</span> <span class='kw'>=</span> -<span class='fl'>5</span>, <span class='kw'>leav</span> <span class='kw'>=</span> <span class='no'>Leaves</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>5</span>) +
-  <span class='fu'>scale_listed</span>(
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'>scale_fill_brewer</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Set1"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"spec"</span>),
-         <span class='fu'>scale_fill_brewer</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"leav"</span>)),
-    <span class='kw'>replaces</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fill"</span>, <span class='st'>"fill"</span>)
-  )</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: spec</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: leav</span></div><div class='img'><img src='scale_listed-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_raster</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_tile</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>annotation</span>,
+            <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>z</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='va'>Species</span><span class='op'>)</span>, height <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_tile</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>annotation</span>,
+            <span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>z</span>, x <span class='op'>=</span> <span class='op'>-</span><span class='fl'>5</span>, leav <span class='op'>=</span> <span class='va'>Leaves</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_listed</span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'>scale_fill_brewer</span><span class='op'>(</span>palette <span class='op'>=</span> <span class='st'>"Set1"</span>, aesthetics <span class='op'>=</span> <span class='st'>"spec"</span><span class='op'>)</span>,
+         <span class='fu'>scale_fill_brewer</span><span class='op'>(</span>palette <span class='op'>=</span> <span class='st'>"Dark2"</span>, aesthetics <span class='op'>=</span> <span class='st'>"leav"</span><span class='op'>)</span><span class='op'>)</span>,
+    replaces <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fill"</span>, <span class='st'>"fill"</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: spec</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: leav</span></div><div class='img'><img src='scale_listed-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -229,7 +233,7 @@ example.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

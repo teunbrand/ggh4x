@@ -113,6 +113,9 @@ datapoints do not need to be constant." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -157,21 +160,21 @@ trendline. In contrast to (weighted) rolling averages, the interval between
 datapoints do not need to be constant.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_rollingkernel</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd"</span>,
-  <span class='kw'>kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>256</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>stat_rollingkernel</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geom <span class='op'>=</span> <span class='st'>"line"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  <span class='va'>...</span>,
+  bw <span class='op'>=</span> <span class='st'>"nrd"</span>,
+  kernel <span class='op'>=</span> <span class='st'>"gaussian"</span>,
+  n <span class='op'>=</span> <span class='fl'>256</span>,
+  expand <span class='op'>=</span> <span class='fl'>0.1</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  orientation <span class='op'>=</span> <span class='st'>"x"</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,7 +236,7 @@ of the functions documented in <code><a href='https://rdrr.io/r/stats/bandwidth.
 takes a vector of distances as first argument, a numeric bandwidth as
 second argument and returns relative weights.</p></li>
 <li><p>A <code>character</code> of
-length one that can take one of the following values:</p><dl'>
+length one that can take one of the following values:</p><dl>
 <dt><code>"gaussian"</code> or <code>"norm"</code></dt><dd><p>A kernel that follows a normal
 distribution with 0 mean and bandwidth as standard deviation.</p></dd>
 <dt><code>"mean"</code> or <code>"unif"</code></dt><dd><p>A kernel that follows a uniform
@@ -298,7 +301,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
  <dt><code>x</code></dt><dd><p>A sequence of ordered x positions.</p></dd>
  <dt><code>y</code></dt><dd><p>The weighted value of the rolling kernel.</p></dd>
  <dt><code>weight</code></dt><dd><p>The sum of weight strengths at a position.</p></dd>
@@ -309,13 +312,15 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='no'>mpg</span>, <span class='fu'>aes</span>(<span class='no'>displ</span>, <span class='no'>hwy</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>stat_rollingkernel</span>()</div><div class='img'><img src='stat_rollingkernel-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span>, colour <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_rollingkernel</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_rollingkernel-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The (scaled) weights can be used to emphasise data-dense areas</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>, <span class='fu'>aes</span>(<span class='no'>displ</span>, <span class='no'>hwy</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>stat_rollingkernel</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>after_stat</span>(<span class='no'>scaled</span>)))</div><div class='img'><img src='stat_rollingkernel-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span>, colour <span class='op'>=</span> <span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_rollingkernel</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fu'>after_stat</span><span class='op'>(</span><span class='va'>scaled</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='stat_rollingkernel-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -331,7 +336,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

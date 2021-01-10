@@ -1,10 +1,11 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Facets: Facets.html
+  Miscellaneous: Miscellaneous.html
   PositionGuides: PositionGuides.html
   Statistics: Statistics.html
   ggh4x: ggh4x.html
-last_built: 2020-08-12T20:08Z
+last_built: 2021-01-09T23:52Z
 

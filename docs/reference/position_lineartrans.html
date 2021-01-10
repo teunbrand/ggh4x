@@ -110,6 +110,9 @@ have an x and y parametrisation." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -151,7 +154,7 @@ have an x and y parametrisation." />
 have an <code>x</code> and <code>y</code> parametrisation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>position_lineartrans</span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>), <span class='kw'>shear</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>M</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>position_lineartrans</span><span class='op'>(</span>scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, shear <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, angle <span class='op'>=</span> <span class='fl'>0</span>, M <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,15 +197,15 @@ for linear mapping. Overrides other arguments if provided.</p></td>
   '<code>M</code>' argument below.</p>
     <h2 class="hasAnchor" id="common-transformations"><a class="anchor" href="#common-transformations"></a>Common transformations</h2>
 
-    <p></p><h3>Identity transformations</h3>
+    <p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Identity transformations</h3>
 <p>An
   identity transformation, or returning the original coordinates, can be
   performed by using the following transformation matrix: <br /><br /><code>| 1 0
-  |</code><br /><code>| 0 1 |</code><br /><br /> or <br /><br /><code>M &lt;- matrix(c(1, 0, 0, 1), 2)</code></p><p></p><h3>Scaling</h3>
+  |</code><br /><code>| 0 1 |</code><br /><br /> or <br /><br /><code>M &lt;- matrix(c(1, 0, 0, 1), 2)</code></p><p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Scaling</h3>
 <p>A scaling transformation multiplies the dimension of
   an object by some amount. An example transformation matrix for scaling
   everything by a factor 2: <br /><br /><code>| 2 0 |</code><br /><code>| 0 2 |</code><br /><br /> or
-  <br /><br /><code>M &lt;- matrix(c(2, 0, 0, 2), 2)</code></p><p></p><h3>Squeezing</h3>
+  <br /><br /><code>M &lt;- matrix(c(2, 0, 0, 2), 2)</code></p><p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Squeezing</h3>
 <p>Similar
   to scaling, squeezing multiplies the dimensions by some amount that is
   unequal for the <code>x</code> and <code>y</code> coordinates. For example, squeezing
@@ -211,7 +214,7 @@ for linear mapping. Overrides other arguments if provided.</p></td>
 <tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0.5</code></td><td></td><td>|</td></tr>
 </table>
 <p>or <br /><br /> <code>M &lt;- matrix(c(2, 0, 0,
-  0.5), 2)</code></p><p></p><h3>Reflection</h3>
+  0.5), 2)</code></p><p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Reflection</h3>
 <p>Mirroring the coordinates around one of
   the axes. Reflecting around the x-axis:</p><table class='table'>
 <tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr>
@@ -222,7 +225,7 @@ for linear mapping. Overrides other arguments if provided.</p></td>
 <tr><td>|</td><td></td><td><code>-1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr>
 <tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr>
 </table>
-<p>or <br /><br /> <code>M &lt;- matrix(c(-1, 0, 0, 1), 2)</code></p><p></p><h3>Projection</h3>
+<p>or <br /><br /> <code>M &lt;- matrix(c(-1, 0, 0, 1), 2)</code></p><p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Projection</h3>
 <p>For projecting the coordinates on one of the axes,
   while collapsing everything from the other axis. Projecting onto the
   <code>y</code>-axis:</p><table class='table'>
@@ -236,7 +239,7 @@ for linear mapping. Overrides other arguments if provided.</p></td>
 <tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr>
 </table>
 <p>or
-  <br /><br /> <code>M &lt;- matrix(c(1, 0, 0, 0), 2)</code></p><p></p><h3>Shearing</h3>
+  <br /><br /> <code>M &lt;- matrix(c(1, 0, 0, 0), 2)</code></p><p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Shearing</h3>
 <p>Tilting
   the coordinates horizontally or vertically. Shearing vertically by 10%:</p><table class='table'>
 <tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr>
@@ -248,7 +251,7 @@ for linear mapping. Overrides other arguments if provided.</p></td>
 <tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr>
 </table>
 <p>or <br /><br /> <code>M &lt;-
-  matrix(c(1, 0, 2, 1), 2)</code></p><p></p><h3>Rotation</h3>
+  matrix(c(1, 0, 2, 1), 2)</code></p><p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Rotation</h3>
 <p>A rotation performs a
   motion around a fixed point, typically the origin the coordinate system. To
   rotate the coordinates by 90 degrees counterclockwise:</p><table class='table'>
@@ -265,27 +268,31 @@ for linear mapping. Overrides other arguments if provided.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>),
-                 <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_lineartrans</span>(<span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>30</span>))</div><div class='img'><img src='position_lineartrans-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>,
+                 y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_lineartrans</span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_lineartrans-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Custom transformation matrices</span>
 <span class='co'># Rotation</span>
-<span class='no'>theta</span> <span class='kw'>&lt;-</span> -<span class='fl'>30</span> * <span class='no'>pi</span> / <span class='fl'>180</span>
-<span class='no'>rot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span>(<span class='no'>theta</span>), <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='no'>theta</span>), -<span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='no'>theta</span>), <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span>(<span class='no'>theta</span>)), <span class='fl'>2</span>)
+<span class='va'>theta</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>30</span> <span class='op'>*</span> <span class='va'>pi</span> <span class='op'>/</span> <span class='fl'>180</span>
+<span class='va'>rot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span>, <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>
 <span class='co'># Shear</span>
-<span class='no'>shear</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>), <span class='fl'>2</span>)
+<span class='va'>shear</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'># Shear and then rotate</span>
-<span class='no'>M</span> <span class='kw'>&lt;-</span> <span class='no'>rot</span> <span class='kw'>%*%</span> <span class='no'>shear</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_lineartrans</span>(<span class='kw'>M</span> <span class='kw'>=</span> <span class='no'>M</span>))</div><div class='img'><img src='position_lineartrans-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Alternative shear and then rotate</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_lineartrans</span>(<span class='kw'>shear</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>30</span>))</div><div class='img'><img src='position_lineartrans-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>M</span> <span class='op'>&lt;-</span> <span class='va'>rot</span> <span class='op'>%*%</span> <span class='va'>shear</span>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_lineartrans</span><span class='op'>(</span>M <span class='op'>=</span> <span class='va'>M</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_lineartrans-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Alternative shear and then rotate</span>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_lineartrans</span><span class='op'>(</span>shear <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, angle <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_lineartrans-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Rotate and then shear</span>
-<span class='no'>M</span> <span class='kw'>&lt;-</span> <span class='no'>shear</span> <span class='kw'>%*%</span> <span class='no'>rot</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_lineartrans</span>(<span class='kw'>M</span> <span class='kw'>=</span> <span class='no'>M</span>))</div><div class='img'><img src='position_lineartrans-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>M</span> <span class='op'>&lt;-</span> <span class='va'>shear</span> <span class='op'>%*%</span> <span class='va'>rot</span>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span><span class='op'>(</span>position <span class='op'>=</span> <span class='fu'>position_lineartrans</span><span class='op'>(</span>M <span class='op'>=</span> <span class='va'>M</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='position_lineartrans-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -301,7 +308,7 @@ for linear mapping. Overrides other arguments if provided.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

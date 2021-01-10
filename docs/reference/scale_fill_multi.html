@@ -111,6 +111,9 @@
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -153,25 +156,25 @@
   these to <code><a href='https://ggplot2.tidyverse.org/reference/continuous_scale.html'>continuous_scale</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_fill_multi</span>(
-  <span class='no'>...</span>,
-  <span class='no'>colours</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>,
-  <span class='no'>colors</span>
-)
+    <pre class="usage"><span class='fu'>scale_fill_multi</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  <span class='va'>colours</span>,
+  values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.value <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"fill"</span>,
+  <span class='va'>colors</span>
+<span class='op'>)</span>
 
-<span class='fu'>scale_colour_multi</span>(
-  <span class='no'>...</span>,
-  <span class='no'>colours</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>,
-  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>,
-  <span class='no'>colors</span>
-)</pre>
+<span class='fu'>scale_colour_multi</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  <span class='va'>colours</span>,
+  values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na.value <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  guide <span class='op'>=</span> <span class='st'>"colourbar"</span>,
+  aesthetics <span class='op'>=</span> <span class='st'>"colour"</span>,
+  <span class='va'>colors</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,18 +212,19 @@ list(c("white", "red"), c("black", "blue"))</code>).</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Setup dummy data</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>NA</span>),
-            <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>NA</span>),
-            <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>))
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fl'>1</span>, v <span class='op'>=</span> <span class='cn'>NA</span>, w <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, z <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>,
+            <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fl'>2</span>, v <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, w <span class='op'>=</span> <span class='cn'>NA</span>, z <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>,
+            <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fl'>3</span>, v <span class='op'>=</span> <span class='cn'>NA</span>, w <span class='op'>=</span> <span class='cn'>NA</span>, z <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_raster</span>(<span class='fu'>aes</span>(<span class='kw'>fill1</span> <span class='kw'>=</span> <span class='no'>v</span>)) +
-  <span class='fu'>geom_raster</span>(<span class='fu'>aes</span>(<span class='kw'>fill2</span> <span class='kw'>=</span> <span class='no'>w</span>)) +
-  <span class='fu'>geom_raster</span>(<span class='fu'>aes</span>(<span class='kw'>fill3</span> <span class='kw'>=</span> <span class='no'>z</span>)) +
-  <span class='fu'>scale_fill_multi</span>(<span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"fill1"</span>, <span class='st'>"fill2"</span>, <span class='st'>"fill3"</span>),
-                   <span class='kw'>colours</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"red"</span>),
-                                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>, <span class='st'>"blue"</span>),
-                                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"grey50"</span>, <span class='st'>"green"</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: fill1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: fill2</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: fill3</span></div><div class='img'><img src='scale_fill_multi-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_raster</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill1 <span class='op'>=</span> <span class='va'>v</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_raster</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill2 <span class='op'>=</span> <span class='va'>w</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_raster</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill3 <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_fill_multi</span><span class='op'>(</span>aesthetics <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fill1"</span>, <span class='st'>"fill2"</span>, <span class='st'>"fill3"</span><span class='op'>)</span>,
+                   colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"white"</span>, <span class='st'>"red"</span><span class='op'>)</span>,
+                                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='st'>"blue"</span><span class='op'>)</span>,
+                                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"grey50"</span>, <span class='st'>"green"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: fill1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: fill2</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: fill3</span></div><div class='img'><img src='scale_fill_multi-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -236,7 +240,7 @@ list(c("white", "red"), c("black", "blue"))</code>).</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -111,6 +111,9 @@ scale_(x|y)_dendrogram)." />
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -153,14 +156,15 @@ between members, like those detailed in
 <code><a href='scale_dendrogram.html'>scale_(x|y)_dendrogram)</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_dendro</span>(
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>check.overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n.dodge</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>dendro</span> <span class='kw'>=</span> <span class='fu'>waiver</span>()
-)</pre>
+    <pre class="usage"><span class='fu'>guide_dendro</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  check.overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  label <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  dendro <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,6 +198,11 @@ top-to-bottom), if more than one  guide must be drawn at the same location.</p><
 left, or right.</p></td>
     </tr>
     <tr>
+      <th>label</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>. If <code>TRUE</code>, labels are drawn at the
+dendrogram leaves. If <code>FALSE</code>, labels are not drawn.</p></td>
+    </tr>
+    <tr>
       <th>dendro</th>
       <td><p>Relevant plotting data for a dendrogram such as those returned
 by <code><a href='https://rdrr.io/pkg/ggdendro/man/dendro_data.html'>dendro_data</a></code>.</p></td>
@@ -206,26 +215,31 @@ by <code><a href='https://rdrr.io/pkg/ggdendro/man/dendro_data.html'>dendro_data
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The dendrogram guide inherits graphical elements from the
-<code>axis.ticks</code> theme element. However, the size of the dendrogram is
-set to 10 times the <code>axis.ticks.length</code> theme element.</p>
+  <code>axis.ticks</code> theme element. However, the size of the dendrogram is set
+  to 10 times the <code>axis.ticks.length</code> theme element.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>clust</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span>(<span class='no'>USArrests</span>), <span class='st'>"ave"</span>)
+    <pre class="examples"><div class='input'><span class='va'>clust</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span>, <span class='st'>"ave"</span><span class='op'>)</span>
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>State</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>USArrests</span>),
-            <span class='no'>USArrests</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></span>(<span class='no'>df</span>, <span class='kw'>id.vars</span> <span class='kw'>=</span> <span class='st'>"State"</span>)
+<span class='co'># Melting USArrests</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  State <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/row.html'>row</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>]</span>,
+  variable <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/col.html'>col</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>]</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unname.html'>unname</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>c</span>, <span class='va'>USArrests</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># The guide function can be used to customise the axis</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>variable</span>, <span class='no'>State</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>value</span>)) +
-  <span class='fu'>geom_raster</span>() +
-  <span class='fu'><a href='scale_dendrogram.html'>scale_y_dendrogram</a></span>(<span class='kw'>hclust</span> <span class='kw'>=</span> <span class='no'>clust</span>,
-                     <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'>guide_dendro</span>(<span class='kw'>n.dodge</span> <span class='kw'>=</span> <span class='fl'>2</span>))
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>variable</span>, <span class='va'>State</span>, fill <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_raster</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='scale_dendrogram.html'>scale_y_dendrogram</a></span><span class='op'>(</span>hclust <span class='op'>=</span> <span class='va'>clust</span>,
+                     guide <span class='op'>=</span> <span class='fu'>guide_dendro</span><span class='op'>(</span>n.dodge <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># The looks of the dendrogram are controlled through ticks</span>
-<span class='no'>g</span> + <span class='fu'>theme</span>(<span class='kw'>axis.ticks</span> <span class='kw'>=</span> <span class='fu'>element_line</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>))</div><div class='img'><img src='guide_dendro-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>theme</span><span class='op'>(</span>axis.ticks <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_dendro-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The size of the dendrogram is controlled through tick size * 10</span>
-<span class='no'>g</span> + <span class='fu'>theme</span>(<span class='kw'>axis.ticks.length</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>5</span>, <span class='st'>"pt"</span>))</div><div class='img'><img src='guide_dendro-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>g</span> <span class='op'>+</span> <span class='fu'>theme</span><span class='op'>(</span>axis.ticks.length <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"pt"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_dendro-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -241,7 +255,7 @@ set to 10 times the <code>axis.ticks.length</code> theme element.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

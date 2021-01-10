@@ -109,6 +109,9 @@
       <a href="../articles/Facets.html">Facets</a>
     </li>
     <li>
+      <a href="../articles/Miscellaneous.html">Miscellaneous</a>
+    </li>
+    <li>
       <a href="../articles/PositionGuides.html">Position Guides</a>
     </li>
     <li>
@@ -149,7 +152,7 @@
     <p>Computes a new factor out of combinations of input factors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>weave_factors</span>(<span class='no'>...</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>replaceNA</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>weave_factors</span><span class='op'>(</span><span class='va'>...</span>, drop <span class='op'>=</span> <span class='cn'>TRUE</span>, sep <span class='op'>=</span> <span class='st'>"."</span>, replaceNA <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,18 +195,23 @@ empty strings?</p></td>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>f1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"banana"</span>, <span class='st'>"apple"</span>, <span class='st'>"apple"</span>, <span class='st'>"kiwi"</span>)
-<span class='no'>f2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>:<span class='fl'>3</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"house"</span>, <span class='st'>"cat"</span>, <span class='st'>"dog"</span>))
+    <pre class="examples"><div class='input'><span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"banana"</span>, <span class='st'>"apple"</span>, <span class='st'>"apple"</span>, <span class='st'>"kiwi"</span><span class='op'>)</span>
+<span class='va'>f2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"house"</span>, <span class='st'>"cat"</span>, <span class='st'>"dog"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Notice the difference in level ordering between the following:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span>(<span class='no'>f1</span>, <span class='no'>f2</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lex.order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
-#&gt; Levels: apple.house apple.cat banana.house kiwi.dog</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span>(<span class='no'>f1</span>, <span class='no'>f2</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lex.order</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
-#&gt; Levels: apple.house banana.house apple.cat kiwi.dog</div><div class='input'><span class='fu'>weave_factors</span>(<span class='no'>f1</span>, <span class='no'>f2</span>)</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
+<span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span><span class='op'>(</span><span class='va'>f1</span>, <span class='va'>f2</span>, drop <span class='op'>=</span> <span class='cn'>TRUE</span>, lex.order <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
+#&gt; Levels: apple.house apple.cat banana.house kiwi.dog</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span><span class='op'>(</span><span class='va'>f1</span>, <span class='va'>f2</span>, drop <span class='op'>=</span> <span class='cn'>TRUE</span>, lex.order <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
+#&gt; Levels: apple.house banana.house apple.cat kiwi.dog</div><div class='input'><span class='fu'>weave_factors</span><span class='op'>(</span><span class='va'>f1</span>, <span class='va'>f2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
 #&gt; Levels: banana.house apple.house apple.cat kiwi.dog</div><div class='input'>
 <span class='co'># The difference is in how characters are interpreted</span>
 <span class='co'># The following are equivalent</span>
-<span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span>(<span class='no'>f1</span>, <span class='no'>f2</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lex.order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
-#&gt; Levels: apple.house apple.cat banana.house kiwi.dog</div><div class='input'><span class='fu'>weave_factors</span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>f1</span>), <span class='no'>f2</span>)</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
+<span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span><span class='op'>(</span><span class='va'>f1</span>, <span class='va'>f2</span>, drop <span class='op'>=</span> <span class='cn'>TRUE</span>, lex.order <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
+#&gt; Levels: apple.house apple.cat banana.house kiwi.dog</div><div class='input'><span class='fu'>weave_factors</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>f1</span><span class='op'>)</span>, <span class='va'>f2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] banana.house apple.house  apple.cat    kiwi.dog    
 #&gt; Levels: apple.house apple.cat banana.house kiwi.dog</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -220,7 +228,7 @@ empty strings?</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
