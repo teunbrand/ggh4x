@@ -10,12 +10,13 @@ coverage](https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg)](
 [![R-CMD-check](https://github.com/teunbrand/ggh4x/workflows/R-CMD-check/badge.svg)](https://github.com/teunbrand/ggh4x/actions)
 <!-- badges: end -->
 
-The ggh4x package provides some utility functions that are don’t
-entirely fit within the ‘grammar of graphics’ concept —they can be a bit
-hacky— but can nonetheless be useful in tweaking your ggplots. Examples
-include adjusting the sizes of facets, mapping multiple aesthetics to
-colours and specififying individual scales for facets. Besides this, it
-is also a small collection of geoms, facets, positions and stats.
+The ggh4x package is a ggplot2 extension package. It provides some
+utility functions that are don’t entirely fit within the ‘grammar of
+graphics’ concept —they can be a bit hacky— but can nonetheless be
+useful in tweaking your ggplots. Examples include adjusting the sizes of
+facets, mapping multiple aesthetics to colours and specififying
+individual scales for facets. Besides this, it is also a small
+collection of geoms, facets, positions, guides and stats.
 
 ## Installation
 
@@ -26,6 +27,53 @@ You can install the development version from
 # install.packages("devtools")
 devtools::install_github("teunbrand/ggh4x")
 ```
+
+## Overview
+
+There are a few topics explored in the package’s vignettes with
+examples. Links to these topics are below.
+
+  - Options to tailor
+    [facets](https://teunbrand.github.io/ggh4x/articles/Facets.html),
+    including:
+      - [Nested
+        facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#nested-facets)
+        that have strips that can span multiple panels.
+      - Adjusting the [position
+        scales](https://teunbrand.github.io/ggh4x/articles/Facets.html#position-scales)
+        on a per-panel basis.
+      - Varying the [size of
+        panels](https://teunbrand.github.io/ggh4x/articles/Facets.html#sizes)
+        without being limited to the global `aspect.ratio` or fixed
+        coordinates.
+  - ggh4x has some [position
+    guides](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html)
+    that change the way x- and y-axes look. You can:
+      - include the [minor breaks as minor tick
+        marks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks).
+      - detail log<sub>10</sub> axes with [logarithmic
+        tickmarks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#logarithmic-ticks).
+      - indicate [nested
+        relations](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#nested-relations)
+        in discrete axes.
+      - mirror the results of hierarchical clustering with [dendrogram
+        axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#dendrograms)
+        with help from the **ggdendro** package.
+  - There are some [stat
+    layers](https://teunbrand.github.io/ggh4x/articles/Statistics.html)
+    that can make it easier to plot. These stat layers can:
+      - overlaying the [theoretical
+        density](https://teunbrand.github.io/ggh4x/articles/Statistics.html#theoretical-densities)
+        of several distributions, which are computed with the
+        **fitdistrplus** package.
+      - draw a trendline of your data with a [rolling
+        kernel](https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels).
+      - plainly [transform x and
+        y](https://teunbrand.github.io/ggh4x/articles/Statistics.html#function-x-y)
+        position in a group-wise manner.
+      - calculate [run-length
+        encodings](https://teunbrand.github.io/ggh4x/articles/Statistics.html#run-length-encoding)
+        of your data.
 
 ## Customised facets
 
