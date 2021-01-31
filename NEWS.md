@@ -1,4 +1,4 @@
-# ggh4x 0.1.0.9000
+# ggh4x 0.1.2
 
 * Updated functions for ggplot2 v3.3.0 (#1)
 * Fixed compatibility issue for facet_nested() and patchwork (#4)
@@ -24,7 +24,7 @@
 * Added truncated axis guide.
 * Supported axis truncation in other position guides too.
 
-# ggh4x 0.1.0
+# ggh4x 0.1.1
 
 * Package should be in usable state
 * Added facet_nested()
@@ -37,7 +37,7 @@
 * Added scale_(fill/colour)_multi()
 * Added stat_theodensity()
 
-# ggh4x 0.0.0.9000
+# ggh4x 0.1.0
 
 * Added a `NEWS.md` file to track changes to the package.
 * Initialised repository skeleton
