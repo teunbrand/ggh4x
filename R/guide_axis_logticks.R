@@ -52,6 +52,8 @@ guide_axis_logticks <- function(
   order = 0,
   position = waiver(),
   prescaled = FALSE,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   base = waiver()
 ) {
   structure(list(
@@ -64,8 +66,11 @@ guide_axis_logticks <- function(
     available_aes = c("x", "y"),
     name = "axis",
     prescaled = prescaled,
+    trunc_lower = trunc_lower,
+    trunc_upper = trunc_upper,
     base = base
-  ), class = c("guide", "axis_logticks", "axis_minor", "axis"))
+  ), class = c("guide", "axis_logticks", "axis_minor",
+               "axis_truncated", "axis"))
 }
 
 # Internals ---------------------------------------------------------------
@@ -147,6 +152,7 @@ guide_train.axis_logticks <- function(guide, scale, aesthetic = NULL) {
   guide$name <- paste0(guide$name, "_", aesthetic)
   guide$hash <- digest::digest(list(guide$title, guide$key$.value,
                                     guide$key$.label, guide$name))
+  guide <- truncate_guide(guide, scale, aesthetic)
   guide
 }
 

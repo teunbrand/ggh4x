@@ -11,6 +11,8 @@ guide_dendro(
   order = 0,
   position = waiver(),
   label = TRUE,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   dendro = waiver()
 )
 }
@@ -35,6 +37,28 @@ left, or right.}
 
 \item{label}{A \code{logical(1)}. If \code{TRUE}, labels are drawn at the
 dendrogram leaves. If \code{FALSE}, labels are not drawn.}
+
+\item{trunc_lower}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
+
+\item{trunc_upper}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
 
 \item{dendro}{Relevant plotting data for a dendrogram such as those returned
 by \code{\link[ggdendro]{dendro_data}}.}

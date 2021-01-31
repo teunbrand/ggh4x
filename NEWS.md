@@ -21,6 +21,8 @@
   formulas (#25).
 * Added option to discard dendrogram labels (#23).
 * Added coloured text legend (stringlegend, #31).
+* Added truncated axis guide.
+* Supported axis truncation in other position guides too.
 
 # ggh4x 0.1.0
 

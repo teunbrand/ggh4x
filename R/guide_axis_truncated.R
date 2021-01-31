@@ -93,17 +93,7 @@ guide_train.axis_truncated <- function(guide, scale, aesthetic = NULL) {
 #' @method guide_transform axis_truncated
 guide_transform.axis_truncated <- function(guide, coord, panel_params) {
   guide <- NextMethod()
-  are_units <- c(is.unit(guide$trunc[[1]]),
-                 is.unit(guide$trunc[[2]]))
-  if (any(!are_units)) {
-    guide$trunc[, !are_units] <- coord$transform(
-      guide$trunc[, !are_units, drop = FALSE], panel_params
-    )
-    guide$trunc[!are_units] <- lapply(
-      guide$trunc[, !are_units, drop = FALSE],
-      unit, units = "npc"
-    )
-  }
+  guide$trunc <- transform_truncated(guide$trunc, coord, panel_params)
   return(guide)
 }
 
@@ -183,6 +173,20 @@ build_trunc_axis_line <- function(element, params, trunc) {
   do.call(element_grob, args)
 }
 
+transform_truncated <- function(trunc, coord, panel_params) {
+  are_units <- c(is.unit(trunc[[1]]),
+                 is.unit(trunc[[2]]))
+  if (any(!are_units)) {
+    trunc[, !are_units] <- coord$transform(
+      trunc[, !are_units, drop = FALSE], panel_params
+    )
+    trunc[!are_units] <- lapply(
+      trunc[, !are_units, drop = FALSE], unit, units = "npc"
+    )
+  }
+  return(trunc)
+}
+
 truncate_guide <- function(guide, scale, aesthetic) {
   trunc_lower <- axis_truncate(
     guide$key[[aesthetic]], guide$trunc_lower, scale, "lower"
@@ -219,7 +223,7 @@ axis_truncate <- function(breaks, trunc, scale, type = "lower") {
     return(trunc)
   } else if (is.function(trunc)) {
     if (scale$is_discrete()) {
-      x <- trunc(x)
+      x <- trunc(breaks)
     } else {
       # Function is expected to work on untransformed data
       x <- scale$scale$trans$transform(trunc(scale$scale$trans$inverse(breaks)))

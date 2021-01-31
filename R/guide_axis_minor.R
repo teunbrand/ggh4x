@@ -5,7 +5,7 @@
 #' These are similar the the normal axis guides for position scales, but also
 #' place tickmarks at minor break positions.
 #'
-#' @inheritParams ggplot2::guide_axis
+#' @inheritParams guide_axis_truncated
 #'
 #' @details The length of minor ticks can be controlled relative to the length
 #'   of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
@@ -35,6 +35,8 @@ guide_axis_minor <- function(
   angle = NULL,
   n.dodge = 1,
   order = 0,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   position = waiver()
 ) {
   structure(
@@ -45,10 +47,12 @@ guide_axis_minor <- function(
       n.dodge = n.dodge,
       order = order,
       position = position,
+      trunc_lower = trunc_lower,
+      trunc_upper = trunc_upper,
       available_aes = c("x", "y"),
       name = "axis"
     ),
-    class = c("guide", "axis_minor", "axis")
+    class = c("guide", "axis_minor", "axis_truncated", "axis")
   )
 }
 
@@ -98,6 +102,7 @@ guide_train.axis_minor <- function(
   guide$name <- paste0(guide$name, "_", aesthetic)
   guide$hash <- digest::digest(list(guide$title, guide$key$.value,
                                     guide$key$.label, guide$name))
+  guide <- truncate_guide(guide, scale, aesthetic)
   guide
 }
 
@@ -113,7 +118,8 @@ guide_gengrob.axis_minor <- function(guide, theme) {
     check.overlap = guide$check.overlap,
     angle = guide$angle,
     n.dodge = guide$n.dodge,
-    minority = guide$key$.minority
+    minority = guide$key$.minority,
+    trunc = guide$trunc
   )
 }
 
@@ -125,7 +131,8 @@ draw_axis_minor <- function(
   check.overlap,
   angle = NULL,
   n.dodge = 1,
-  minority = 0
+  minority = 0,
+  trunc
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
@@ -136,7 +143,7 @@ draw_axis_minor <- function(
   mini_len  <- unclass(calc_element("ggh4x.axis.ticks.length.mini", theme))
 
   params <- setup_axis_params(axis_position)
-  line_grob <- build_axis_line(elements$line, params)
+  line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
   if ({n_breaks <- length(break_positions)} == 0) {
     out <- grid::gTree(

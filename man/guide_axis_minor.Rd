@@ -10,6 +10,8 @@ guide_axis_minor(
   angle = NULL,
   n.dodge = 1,
   order = 0,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   position = waiver()
 )
 }
@@ -32,6 +34,28 @@ useful for displaying labels that would otherwise overlap.}
 
 \item{order}{Used to determine the order of the guides (left-to-right,
 top-to-bottom), if more than one  guide must be drawn at the same location.}
+
+\item{trunc_lower}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
+
+\item{trunc_upper}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
 
 \item{position}{Where this guide should be drawn: one of top, bottom,
 left, or right.}

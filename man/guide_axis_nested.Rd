@@ -12,6 +12,8 @@ guide_axis_nested(
   order = 0,
   position = waiver(),
   delim = waiver(),
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   extend = 0.5
 )
 }
@@ -41,6 +43,28 @@ left, or right.}
 \item{delim}{A \code{character} of length 1 to tell \code{strsplit} how
 hierarchies should be broken up. Internally defaults to \code{"."} to match
 \code{interaction}'s default delimiter.}
+
+\item{trunc_lower}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
+
+\item{trunc_upper}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
 
 \item{extend}{A \code{numeric} of length 1 indicating how much to extend
 nesting lines relative to the smallest difference in break positions.}

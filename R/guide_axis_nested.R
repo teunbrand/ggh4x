@@ -7,7 +7,7 @@
 #' based on a delimiter and groups identical later labels, indicating the
 #' grouping with a line spanning the earlier labels.
 #'
-#' @inheritParams ggplot2::guide_axis
+#' @inheritParams guide_axis_truncated
 #' @param delim A \code{character} of length 1 to tell \code{strsplit} how
 #'   hierarchies should be broken up. Internally defaults to \code{"."} to match
 #'   \code{interaction}'s default delimiter.
@@ -57,6 +57,8 @@ guide_axis_nested <- function(
   order = 0,
   position = waiver(),
   delim = waiver(),
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   extend = 0.5
 ) {
   structure(
@@ -69,10 +71,12 @@ guide_axis_nested <- function(
       position = position,
       available_aes = c("x", "y"),
       delim = delim,
+      trunc_lower = trunc_lower,
+      trunc_upper = trunc_upper,
       extend = extend,
       name = "axis"
     ),
-    class = c("guide", "axis_nested", "axis")
+    class = c("guide", "axis_nested", "axis_truncated", "axis")
   )
 }
 
@@ -102,7 +106,8 @@ guide_gengrob.axis_nested <- function(guide, theme) {
     angle = guide$angle,
     n.dodge = guide$n.dodge,
     delim = guide$delim,
-    extend = guide$extend
+    extend = guide$extend,
+    trunc = guide$trunc
   )
 }
 
@@ -115,7 +120,8 @@ draw_nested_axis <- function(
   angle = NULL,
   n.dodge = 1,
   delim = ".",
-  extend = 0.5
+  extend = 0.5,
+  trunc
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
@@ -137,7 +143,7 @@ draw_nested_axis <- function(
   }
   params$labels_measure <- newfun
 
-  line_grob <- build_axis_line(elements$line, params)
+  line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
   if ({n_breaks <- length(break_positions)} == 0) {
     out <- grid::gTree(

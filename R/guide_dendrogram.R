@@ -6,7 +6,7 @@
 #' between members, like those detailed in
 #' \code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)}}.
 #'
-#' @inheritParams ggplot2::guide_axis
+#' @inheritParams guide_axis_truncated
 #' @param label A \code{logical(1)}. If \code{TRUE}, labels are drawn at the
 #'   dendrogram leaves. If \code{FALSE}, labels are not drawn.
 #' @param dendro Relevant plotting data for a dendrogram such as those returned
@@ -49,6 +49,8 @@ guide_dendro <- function(
   order = 0,
   position = waiver(),
   label = TRUE,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   dendro = waiver()
 ) {
   structure(
@@ -59,9 +61,11 @@ guide_dendro <- function(
          position = position,
          available_aes = c("x", "y"),
          label = label,
+         trunc_lower = trunc_lower,
+         trunc_upper = trunc_upper,
          dendro = dendro,
          name = "axis"),
-    class = c("guide", "dendroguide", "axis")
+    class = c("guide", "dendroguide", "axis_truncated", "axis")
   )
 }
 
@@ -127,7 +131,7 @@ guide_transform.dendroguide <- function(guide, coord, panel_params) {
   }
 
   guide$dendro$segments <- denseg
-
+  guide$trunc <- transform_truncated(guide$trunc, coord, panel_params)
   guide
 }
 
@@ -146,7 +150,8 @@ guide_gengrob.dendroguide <- function(guide, theme) {
     theme = theme,
     check.overlap = guide$check.overlap,
     n.dodge = guide$n.dodge,
-    dendro = guide$dendro$segments
+    dendro = guide$dendro$segments,
+    trunc = guide$trunc
   )
 }
 
@@ -154,7 +159,8 @@ guide_gengrob.dendroguide <- function(guide, theme) {
 
 draw_dendroguide <- function(
   break_positions, break_labels, axis_position, theme,
-  check.overlap = FALSE, n.dodge = 1, dendro = NULL
+  check.overlap = FALSE, n.dodge = 1, dendro = NULL,
+  trunc
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
@@ -165,7 +171,7 @@ draw_dendroguide <- function(
   params <- setup_axis_params(axis_position)
   params$labels_first <- !params$labels_first
 
-  line_grob <- build_axis_line(elements$line, params)
+  line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
   if ({n_breaks <- length(break_positions)} == 0) {
     out <- grid::gTree(

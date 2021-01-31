@@ -12,6 +12,8 @@ guide_axis_logticks(
   order = 0,
   position = waiver(),
   prescaled = FALSE,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   base = waiver()
 )
 }
@@ -41,6 +43,28 @@ left, or right.}
 \item{prescaled}{A \code{logical} of length one, indicating wether the data
 has been manually rescaled (\code{TRUE}) or the scale takes care of the
 transformation (\code{FALSE}).}
+
+\item{trunc_lower}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
+
+\item{trunc_upper}{The lower and upper range of the truncated
+axis:
+\itemize{
+\item \code{NULL} to not perform any truncation.
+\item A \code{function} that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as \code{numeric}.
+\item A \code{numeric} value in data units for the lower and upper boundaries.
+\item A \code{unit} object.
+}}
 
 \item{base}{When this is provided, the guide takes this as the base for the
 log transformation instead of trying to guess the base. It is recommended
