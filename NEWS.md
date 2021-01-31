@@ -37,7 +37,7 @@
 * Added scale_(fill/colour)_multi()
 * Added stat_theodensity()
 
-# ggh4x 0.1.0
+# ggh4x 0.0.1
 
 * Added a `NEWS.md` file to track changes to the package.
 * Initialised repository skeleton
