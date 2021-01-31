@@ -82,7 +82,7 @@ scale_(x|y)_dendrogram)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -163,6 +163,8 @@ between members, like those detailed in
   order <span class='op'>=</span> <span class='fl'>0</span>,
   position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
   label <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  trunc_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trunc_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
   dendro <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -201,6 +203,30 @@ left, or right.</p></td>
       <th>label</th>
       <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>. If <code>TRUE</code>, labels are drawn at the
 dendrogram leaves. If <code>FALSE</code>, labels are not drawn.</p></td>
+    </tr>
+    <tr>
+      <th>trunc_lower</th>
+      <td><p>The lower and upper range of the truncated
+axis:</p><ul>
+<li><p><code>NULL</code> to not perform any truncation.</p></li>
+<li><p>A <code>function</code> that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as <code>numeric</code>.</p></li>
+<li><p>A <code>numeric</code> value in data units for the lower and upper boundaries.</p></li>
+<li><p>A <code>unit</code> object.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>trunc_upper</th>
+      <td><p>The lower and upper range of the truncated
+axis:</p><ul>
+<li><p><code>NULL</code> to not perform any truncation.</p></li>
+<li><p>A <code>function</code> that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as <code>numeric</code>.</p></li>
+<li><p>A <code>numeric</code> value in data units for the lower and upper boundaries.</p></li>
+<li><p>A <code>unit</code> object.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>dendro</th>

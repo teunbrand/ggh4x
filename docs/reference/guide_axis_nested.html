@@ -83,7 +83,7 @@ grouping with a line spanning the earlier labels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -166,6 +166,8 @@ grouping with a line spanning the earlier labels.</p>
   order <span class='op'>=</span> <span class='fl'>0</span>,
   position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
   delim <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  trunc_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trunc_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
   extend <span class='op'>=</span> <span class='fl'>0.5</span>
 <span class='op'>)</span></pre>
 
@@ -213,6 +215,30 @@ hierarchies should be broken up. Internally defaults to <code>"."</code> to matc
 <code>interaction</code>'s default delimiter.</p></td>
     </tr>
     <tr>
+      <th>trunc_lower</th>
+      <td><p>The lower and upper range of the truncated
+axis:</p><ul>
+<li><p><code>NULL</code> to not perform any truncation.</p></li>
+<li><p>A <code>function</code> that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as <code>numeric</code>.</p></li>
+<li><p>A <code>numeric</code> value in data units for the lower and upper boundaries.</p></li>
+<li><p>A <code>unit</code> object.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>trunc_upper</th>
+      <td><p>The lower and upper range of the truncated
+axis:</p><ul>
+<li><p><code>NULL</code> to not perform any truncation.</p></li>
+<li><p>A <code>function</code> that takes the break positions as input and returns the lower
+or upper boundary. Note that also for discrete scales, positions are the
+mapped positions as <code>numeric</code>.</p></li>
+<li><p>A <code>numeric</code> value in data units for the lower and upper boundaries.</p></li>
+<li><p>A <code>unit</code> object.</p></li>
+</ul></td>
+    </tr>
+    <tr>
       <th>extend</th>
       <td><p>A <code>numeric</code> of length 1 indicating how much to extend
 nesting lines relative to the smallest difference in break positions.</p></td>
@@ -234,7 +260,8 @@ nesting lines relative to the smallest difference in break positions.</p></td>
   <code><a href='https://rdrr.io/r/base/interaction.html'>interaction()</a></code>.</p>
 <p>Other axis-guides: 
 <code><a href='guide_axis_logticks.html'>guide_axis_logticks</a>()</code>,
-<code><a href='guide_axis_minor.html'>guide_axis_minor</a>()</code></p></div>
+<code><a href='guide_axis_minor.html'>guide_axis_minor</a>()</code>,
+<code><a href='guide_axis_truncated.html'>guide_axis_truncated</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># The defaults are suited for interaction variables</span>

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -116,20 +116,41 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x">ggh4x</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: ggplot2</span></code></pre></div>
 <p>The ggh4x package defines a few new position guides that can take the place of the default x- and y-axes.</p>
+<div id="truncated-axes" class="section level1">
+<h1 class="hasAnchor">
+<a href="#truncated-axes" class="anchor"></a>Truncated axes</h1>
+<p>The truncated axes is not a very special axis: it just makes the axis line shorter. By default, it trims the axis line to the outermost break positions.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>axis.line <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">g</span> <span class="op">+</span> <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"axis_truncated"</span><span class="op">)</span></code></pre></div>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-2-1.png" width="384"></p>
+<p>You can control how far the axis line is trimmed by setting the <code>trunc_lower</code> and <code>trunc_upper</code> options in the guide function.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/guide_axis_truncated.html">guide_axis_truncated</a></span><span class="op">(</span>trunc_lower <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"npc"</span><span class="op">)</span>,
+                                    trunc_upper <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">0.9</span>, <span class="st">"npc"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">g</span> <span class="op">+</span> <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/guide_axis_truncated.html">guide_axis_truncated</a></span><span class="op">(</span>trunc_lower <span class="op">=</span> <span class="fl">2.5</span>,
+                                    trunc_upper <span class="op">=</span> <span class="fl">4.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-3-1.png" width="288"><img src="PositionGuides_files/figure-html/unnamed-chunk-3-2.png" width="288"></p>
+<p>These truncation arguments are supported in all other position guides described below too.</p>
+</div>
 <div id="minor-ticks" class="section level1">
 <h1 class="hasAnchor">
 <a href="#minor-ticks" class="anchor"></a>Minor ticks</h1>
-<p>One of the simplest modifications to the axis guide is to also place ticks at places where the minor breaks are.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>Perhaps a more useful addition to the axis guide is to also place tick marks at places where the minor breaks are.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_x_continuous</span><span class="op">(</span>
     minor_breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, by <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,
     guide <span class="op">=</span> <span class="st">"axis_minor"</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-2-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-4-1.png" width="384"></p>
 <p>The minor ticks axis, like any position guide, can be set inside the <code>guides()</code> or <code>scale_(x/y)_*()</code> functions. They can be referred to as <code>"axis_minor"</code> for the default, or <code><a href="../reference/guide_axis_minor.html">guide_axis_minor()</a></code> if extra tweaks are required.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span>
 
@@ -146,28 +167,28 @@
 <span class="va">g</span> <span class="op">+</span> <span class="fu">scale_x_continuous</span><span class="op">(</span>guide <span class="op">=</span> <span class="fu"><a href="../reference/guide_axis_minor.html">guide_axis_minor</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_y_continuous</span><span class="op">(</span>guide <span class="op">=</span> <span class="fu"><a href="../reference/guide_axis_minor.html">guide_axis_minor</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"I am a Y-axis"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The length of the minor ticks are controlled by the <code>ggh4x.axis.ticks.length.minor</code> theme element, and are specified relative to the major ticks.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"axis_minor"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>axis.ticks.length.x <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"cm"</span><span class="op">)</span>,
         ggh4x.axis.ticks.length.minor <span class="op">=</span> <span class="fu">rel</span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-4-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-6-1.png" width="384"></p>
 </div>
 <div id="logarithmic-ticks" class="section level1">
 <h1 class="hasAnchor">
 <a href="#logarithmic-ticks" class="anchor"></a>Logarithmic ticks</h1>
 <p>A variation on the minor ticks is placing ticks for logarithmic axes. A thing to note is that these work best log<sub>10</sub> transformations. The ticks now come in three lengths, the major length, the minor length and what is referred to ‘mini’ length. Like with the minor ticks, the mini ticks are also defined relative to the major ticks.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">pressure</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">temperature</span>, <span class="va">pressure</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">scale_y_log10</span><span class="op">(</span>guide <span class="op">=</span> <span class="st">"axis_logticks"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>axis.ticks.length.y <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"cm"</span><span class="op">)</span>,
         ggh4x.axis.ticks.length.minor <span class="op">=</span> <span class="fu">rel</span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
         ggh4x.axis.ticks.length.mini <span class="op">=</span> <span class="fu">rel</span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-5-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-7-1.png" width="384"></p>
 <p>A difference with the <code>annotation_logticks</code> function is that by default, ticks are placed on the outside of the panel and are controlled by the theme. To get good looking log-ticks on the outside, you’d have to set clipping off and dodge the axis text. Whereas using log ticks as a guide takes care of most of the extra steps naturally.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">pressure</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">temperature</span>, <span class="va">pressure</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span>
 
@@ -180,20 +201,20 @@
 <span class="co"># Using axis_logticks, setting tick length equivalently</span>
 <span class="va">g</span> <span class="op">+</span> <span class="fu">scale_y_log10</span><span class="op">(</span>guide <span class="op">=</span> <span class="st">"axis_logticks"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>axis.ticks.length.y <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">0.3</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-6-1.png" width="288"><img src="PositionGuides_files/figure-html/unnamed-chunk-6-2.png" width="288"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-8-1.png" width="288"><img src="PositionGuides_files/figure-html/unnamed-chunk-8-2.png" width="288"></p>
 <p>Inversely, you can also place the axis ticks on the inside with negative values for the <code>axis.ticks.length</code>, but you would need to dodge the axis text again.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="fu">scale_y_log10</span><span class="op">(</span>guide <span class="op">=</span> <span class="st">"axis_logticks"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>axis.ticks.length.y <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="op">-</span><span class="fl">0.3</span>, <span class="st">"cm"</span><span class="op">)</span>,
         axis.text.y <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>margin <span class="op">=</span> <span class="fu">margin</span><span class="op">(</span>r <span class="op">=</span> <span class="fl">0.4</span>, unit <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-7-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-9-1.png" width="384"></p>
 </div>
 <div id="nested-relations" class="section level1">
 <h1 class="hasAnchor">
 <a href="#nested-relations" class="anchor"></a>Nested relations</h1>
 <p>Discrete variables that have some kind of categories or interactions to them can be layed out in a nested fashion. This can be convenient to indicate for example group membership.</p>
 <p>In the example below we use the <code><a href="https://rdrr.io/r/base/interaction.html">interaction()</a></code> function to paste together the name of the item and the group it belongs to, with a <code>"."</code> in between. The <code><a href="../reference/guide_axis_nested.html">guide_axis_nested()</a></code> function tries to split the labels on the <code>"."</code> symbol to tease apart the item and their group membership.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   item <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Coffee"</span>, <span class="st">"Tea"</span>, <span class="st">"Apple"</span>, <span class="st">"Pear"</span>, <span class="st">"Car"</span><span class="op">)</span>,
   type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Drink"</span>, <span class="st">"Drink"</span>, <span class="st">"Fruit"</span>, <span class="st">"Fruit"</span>, <span class="st">""</span><span class="op">)</span>,
@@ -204,21 +225,21 @@
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interaction.html">interaction</a></span><span class="op">(</span><span class="va">item</span>, <span class="va">type</span><span class="op">)</span>, <span class="va">amount</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"axis_nested"</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-8-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-10-1.png" width="384"></p>
 <p>Note above that the ordering of the x-axis is different than the order of the input data. An alternative that can be tried is using the <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> function to paste together names. In the case below, the names are automatically ordered alphabetically, so the group membership information is disorganised with <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>. Here, we use the <code>delim</code> argument to split the labels based on a delimiter. The extra tildes (~) are to show where the split happens.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">item</span>, <span class="st">"~nonsense~"</span>, <span class="va">type</span><span class="op">)</span>, <span class="va">amount</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/guide_axis_nested.html">guide_axis_nested</a></span><span class="op">(</span>delim <span class="op">=</span> <span class="st">"nonsense"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-9-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-11-1.png" width="384"></p>
 <p>To counter some of the pains with <code><a href="https://rdrr.io/r/base/interaction.html">interaction()</a></code> and <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> in ordering the items, ggh4x has the <code><a href="../reference/weave_factors.html">weave_factors()</a></code> convenience function that attempts to preserve the natural order of factor levels in which they occur.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="fu"><a href="../reference/weave_factors.html">weave_factors</a></span><span class="op">(</span><span class="va">item</span>, <span class="va">type</span><span class="op">)</span>, <span class="va">amount</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"axis_nested"</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-10-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-12-1.png" width="384"></p>
 <p>The looks of the indicator line can be controlled by the <code>ggh4x.axis.nestline</code> theme element (also <code>*.x</code> and <code>*.y</code> variants), which by default takes values from the axis ticks. In the example below, the indicator line is red because it takes the colour from the ticks, but is thicker because its own size is set larger. Also the text underneath the indicators can be made different with the <code>ggh4x.axis.nesttext.(x/y)</code> elements.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="fu"><a href="../reference/weave_factors.html">weave_factors</a></span><span class="op">(</span><span class="va">item</span>, <span class="va">type</span><span class="op">)</span>, <span class="va">amount</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"axis_nested"</span><span class="op">)</span> <span class="op">+</span>
@@ -227,22 +248,22 @@
     ggh4x.axis.nestline.x <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
     ggh4x.axis.nesttext.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-11-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-13-1.png" width="384"></p>
 <p>Lastly, the guide will also stack multiple group memberships.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">type2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Consumables"</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"Vehicle"</span><span class="op">)</span>
 <span class="va">df</span><span class="op">$</span><span class="va">appletea</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Ingredient of apple tea"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="fu"><a href="../reference/weave_factors.html">weave_factors</a></span><span class="op">(</span><span class="va">item</span>, <span class="va">type</span>, <span class="va">appletea</span>, <span class="va">type2</span><span class="op">)</span>, <span class="va">amount</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"axis_nested"</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-12-1.png" width="384"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-14-1.png" width="384"></p>
 </div>
 <div id="dendrograms" class="section level1">
 <h1 class="hasAnchor">
 <a href="#dendrograms" class="anchor"></a>Dendrograms</h1>
 <p>Another thing people might want to indicate are hierarchical clustering relationships among variables. To accommodate this, there is <code>scale_(x/y)_dendrogram()</code>, which uses the <strong>ggdendro</strong> package convert a <code>hclust</code> object into a dendrogram. Since any set of scales should only be dependent on their aesthetics and cannot see other aesthetics, the dendrogram scales requires you to provide it with the result of a hierarchical clustering. By using the scale, it reorders the variables for you according to the clustering result, and places a dendrogram over the labels.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span>, <span class="st">"ave"</span><span class="op">)</span>
 
 <span class="co"># reshaping USArrests</span>
@@ -255,27 +276,27 @@
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">variable</span>, <span class="va">State</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_raster</span><span class="op">(</span><span class="op">)</span>
 <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_dendrogram.html">scale_y_dendrogram</a></span><span class="op">(</span>hclust <span class="op">=</span> <span class="va">clusters</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-13-1.png" width="480"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-15-1.png" width="480"></p>
 <p>Since the dendrogram replaces the axis ticks, it uses these as theme element from which it takes the looks. The size of the dendrogram is also controlled by the tick length: it is ten times the <code>axis.tick.length</code> element.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_dendrogram.html">scale_y_dendrogram</a></span><span class="op">(</span>hclust <span class="op">=</span> <span class="va">clusters</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>
   axis.ticks.y <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"forestgreen"</span><span class="op">)</span>,
   axis.ticks.length.y <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">10</span>, <span class="st">"pt"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-14-1.png" width="480"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-16-1.png" width="480"></p>
 <p>There also is the <code><a href="../reference/guide_dendro.html">guide_dendro()</a></code> function to tune some of the guide behaviour. It is intended to be used within a <code>scale_(x/y)_dendrogram()</code> function.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_dendrogram.html">scale_y_dendrogram</a></span><span class="op">(</span>guide <span class="op">=</span> <span class="fu"><a href="../reference/guide_dendro.html">guide_dendro</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>, 
                        hclust <span class="op">=</span> <span class="va">clusters</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-15-1.png" width="480"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-17-1.png" width="480"></p>
 <p>Using <code><a href="../reference/guide_dendro.html">guide_dendro()</a></code> outside dendrogram scales is not recommended, because that would break the relationship between the axis order and the dendrogram that is displayed. To discourage this use, it has been made slightly more inconvenient to use this function outside dendrogram scales: you manually have to supply the digested dendrogram. Notice below that the y-axis order and the dendrogram don’t match and is their implied relationship is thus false.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Don't do this</span>
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">variable</span>, <span class="va">State</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_raster</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">guides</span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="../reference/guide_dendro.html">guide_dendro</a></span><span class="op">(</span>dendro <span class="op">=</span> <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/dendro_data.html">dendro_data</a></span><span class="op">(</span><span class="va">clusters</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="PositionGuides_files/figure-html/unnamed-chunk-16-1.png" width="480"></p>
+<p><img src="PositionGuides_files/figure-html/unnamed-chunk-18-1.png" width="480"></p>
 </div>
   </div>
 

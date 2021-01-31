@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -151,150 +151,79 @@
 </li>
 </ul>
 </div>
-<div id="customised-facets" class="section level2">
+<div id="example" class="section level2">
 <h2 class="hasAnchor">
-<a href="#customised-facets" class="anchor"></a>Customised facets</h2>
-<p>This example illustrates how you can use nested facets:</p>
+<a href="#example" class="anchor"></a>Example</h2>
+<p>Below you’ll find an example that illustrates some of the features of ggh4x.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x">ggh4x</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: ggplot2</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span>
 
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="va">iris</span>
-<span class="va">df</span><span class="op">$</span><span class="va">Nester</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span>, <span class="st">"Short Leaves"</span>, <span class="st">"Long Leaves"</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span>
+  <span class="va">iris</span>, 
+  Nester <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span>, <span class="st">"Short Leaves"</span>, <span class="st">"Long Leaves"</span><span class="op">)</span>
+<span class="op">)</span>
 
+<span class="co"># Basic plot</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>
+  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">g</span> <span class="op">+</span> <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-nested_facets-1.png" width="80%"></p>
-<p>Sometimes, you might want to vary the scales of your facets independently from oneanother. You could use <code><a href="reference/facetted_pos_scales.html">facetted_pos_scales()</a></code> to achieve this, and the facet argument <code>scales</code> had to be set to <code>free</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu">scale_x_reverse</span><span class="op">(</span><span class="op">)</span>,
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org//reference/label_dollar.html">dollar</a></span><span class="op">)</span>,
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span>
+<span class="co"># For making a plot with multiple colour scales, we'd first need to make layers</span>
+<span class="co"># with alternative aesthetics. We'll choose a colour scale for every species.</span>
+<span class="co"># This will produce a few warnings, as ggplot2 doesn't know how to deal with</span>
+<span class="co"># the alternative aesthetics.</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>SW <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span>,
+             data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>PL <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span>,
+             data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>PW <span class="op">=</span> <span class="va">Petal.Width</span><span class="op">)</span>,
+             data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Ignoring unknown aesthetics: SW</span>
+<span class="co">#&gt; Warning: Ignoring unknown aesthetics: PL</span>
+<span class="co">#&gt; Warning: Ignoring unknown aesthetics: PW</span>
 
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/facetted_pos_scales.html">facetted_pos_scales</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">scales</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">+</span> <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-pos_scales-1.png" width="80%"></p>
-<p>If you don’t like the sizes of the facet panels, you can tweak these using <code><a href="reference/force_panelsizes.html">force_panelsizes()</a></code> in a data-independent manner, without having to rely on <code>facet_grid</code>’s <code>space = "free"</code> argument.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Inverse golden ratio</span>
-<span class="va">phi</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fl">1</span>, cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">phi</span>, <span class="va">phi</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>, respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">g</span> <span class="op">+</span> <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-panel_sizes-1.png" width="80%"></p>
-</div>
-<div id="multiple-colours" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multiple-colours" class="anchor"></a>Multiple colours</h2>
-<p>One colourscale is in some cases not sufficient to describe your data. You can map several variables to colours with <code><a href="reference/scale_fill_multi.html">scale_colour_multi()</a></code> if data are in seperate layers. You can see from all the warnings that some functions in this package might be called ‘hacks’.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># ggsubset is a convenience function to pull data from </span>
-<span class="co"># the main ggplot call in layers</span>
+<span class="co"># These alternative aesthetics don't mean a lot until we add a multi-colour</span>
+<span class="co"># scale to the plot. We need to specify our alternative aesthetics and colours</span>
+<span class="co"># for every scale. Arguments provided as lists are passed on to individual </span>
+<span class="co"># scales.</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>swidth <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span>,  
-             <span class="fu"><a href="reference/ggsubset.html">ggsubset</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>pleng  <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span>, 
-             <span class="fu"><a href="reference/ggsubset.html">ggsubset</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>pwidth <span class="op">=</span> <span class="va">Petal.Width</span><span class="op">)</span>,
-             <span class="fu"><a href="reference/ggsubset.html">ggsubset</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Ignoring unknown aesthetics: swidth</span>
-<span class="co">#&gt; Warning: Ignoring unknown aesthetics: pleng</span>
-<span class="co">#&gt; Warning: Ignoring unknown aesthetics: pwidth</span>
-
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/scale_fill_multi.html">scale_colour_multi</a></span><span class="op">(</span>
-  aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"swidth"</span>, <span class="st">"pleng"</span>, <span class="st">"pwidth"</span><span class="op">)</span>,
-  colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"green"</span><span class="op">)</span>,
-                 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gray"</span>, <span class="st">"red"</span><span class="op">)</span>,
-                 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span>,
-  guide <span class="op">=</span> <span class="fu">guide_colourbar</span><span class="op">(</span>barheight <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">50</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span>
+  <span class="fu"><a href="reference/scale_fill_multi.html">scale_colour_multi</a></span><span class="op">(</span>
+    aesthetics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SW"</span>, <span class="st">"PL"</span>, <span class="st">"PW"</span><span class="op">)</span>,
+    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Blue"</span>, <span class="st">"Pink"</span>, <span class="st">"Orange"</span><span class="op">)</span>,
+    colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://scales.r-lib.org//reference/brewer_pal.html">brewer_pal</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"YlGnBu"</span><span class="op">)</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
+      <span class="fu"><a href="https://scales.r-lib.org//reference/brewer_pal.html">brewer_pal</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"RdPu"</span><span class="op">)</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
+      <span class="fu"><a href="https://scales.r-lib.org//reference/brewer_pal.html">brewer_pal</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"YlOrRd"</span><span class="op">)</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>
+    <span class="op">)</span>,
+    guide <span class="op">=</span> <span class="fu">guide_colorbar</span><span class="op">(</span>barheight <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">50</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span>
 <span class="va">g</span></code></pre></div>
 <p><img src="reference/figures/README-multicolour-1.png" width="80%"></p>
-<p>Mixing continuous and discrete colours can also be done, with the slightly more verbose <code><a href="reference/scale_listed.html">scale_listed()</a></code>, such as in the following heatmap.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Making an iris correlation-heatmap</span>
-<span class="va">iriscor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="va">iriscor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/row.html">row</a></span><span class="op">(</span><span class="va">iriscor</span><span class="op">)</span><span class="op">)</span>,
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="va">iriscor</span><span class="op">)</span><span class="op">)</span>,
-  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">iriscor</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># We can make a facet wherein duplicated strip labels are merged into one strip</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> 
+  <span class="fu"><a href="reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span>, scales <span class="op">=</span> <span class="st">"free"</span>,
+               nest_line <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># Like we did for colours, we might also want to set position scales for every</span>
+<span class="co"># panel individually. We set these in the same order the facets appear in.</span>
+<span class="va">position_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  <span class="fu">scale_x_reverse</span><span class="op">(</span>guide <span class="op">=</span> <span class="st">"axis_minor"</span><span class="op">)</span>,
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="va">dollar</span>, guide <span class="op">=</span> <span class="st">"axis_truncated"</span><span class="op">)</span>,
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">df</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span>
+<span class="co"># Adding the list of scales to the plot</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/facetted_pos_scales.html">facetted_pos_scales</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">position_scales</span><span class="op">)</span>
 
-
-<span class="co"># Setting up a basic heatmap</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">id</span>, <span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co"># geom_tilemargin can be useful for annotating heatmaps</span>
-  <span class="fu"><a href="reference/geom_rectmargin.html">geom_tilemargin</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>species <span class="op">=</span> <span class="va">Species</span><span class="op">)</span>, 
-                  sides <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="reference/geom_rectmargin.html">geom_tilemargin</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>leave <span class="op">=</span> <span class="va">Nester</span><span class="op">)</span>,
-                  sides <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_raster</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, cor <span class="op">=</span> <span class="va">value</span><span class="op">)</span>,
-              data <span class="op">=</span> <span class="va">iriscor</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Ignoring unknown aesthetics: species</span>
-<span class="co">#&gt; Warning: Ignoring unknown aesthetics: leave</span>
-<span class="co">#&gt; Warning: Ignoring unknown aesthetics: cor</span>
-
-<span class="co"># Adding the colour scales</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/scale_listed.html">scale_listed</a></span><span class="op">(</span>scalelist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu">scale_fill_distiller</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"RdBu"</span>, aesthetics <span class="op">=</span> <span class="st">"cor"</span><span class="op">)</span>,
-  <span class="fu">scale_fill_brewer</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span>, aesthetics <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span>,
-  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dodgerblue"</span>, <span class="st">"tomato"</span><span class="op">)</span>,
-                    aesthetics <span class="op">=</span> <span class="st">"leave"</span><span class="op">)</span>
-<span class="op">)</span>, replaces <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"fill"</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="co"># Setting the sizes of panels individually</span>
+<span class="va">size</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">size</span>, <span class="va">size</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">g</span></code></pre></div>
-<p><img src="reference/figures/README-listed_scales-1.png" width="80%"></p>
-</div>
-<div id="position-transforms" class="section level2">
-<h2 class="hasAnchor">
-<a href="#position-transforms" class="anchor"></a>Position transforms</h2>
-<p>On the topic of rasters, if parameterised as a polygon with <code><a href="reference/geom_polygonraster.html">geom_polygonraster()</a></code>, they can subjected to linear transformations such as rotations and shears with <code><a href="reference/position_lineartrans.html">position_lineartrans()</a></code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">iriscor</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="reference/geom_polygonraster.html">geom_polygonraster</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="reference/position_lineartrans.html">position_lineartrans</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">g</span> <span class="op">+</span> <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-lineartrans-1.png" width="80%"></p>
-<p>In fact, you could even do non-linear transformation with polygon-rasters, should you dare venture that way.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="fu">coord_polar</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-polar-1.png" width="80%"></p>
-</div>
-<div id="density-estimates" class="section level2">
-<h2 class="hasAnchor">
-<a href="#density-estimates" class="anchor"></a>Density estimates</h2>
-<p>Ever get tired of unparameterised kernel density estimates? Now you can fit a wide range of theoretical densities from the <code>fitdistrplus</code> package to your data on the fly!</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span>
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">25</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/NegBinomial.html">rnbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">5</span>, <span class="fl">0.2</span><span class="op">)</span>, 
-        <span class="fu"><a href="https://rdrr.io/r/stats/GammaDist.html">rgamma</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">30</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">rchisq</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span>,
-  class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Discrete"</span>, <span class="st">"Continuous"</span><span class="op">)</span>, each <span class="op">=</span> <span class="va">n</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span>,
-  Distribution <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Poisson"</span>, <span class="st">"Negative Binomial"</span>, 
-                       <span class="st">"Gamma"</span>, <span class="st">"Chi-squared"</span><span class="op">)</span>,
-                     each <span class="op">=</span> <span class="va">n</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, fill <span class="op">=</span> <span class="va">Distribution</span>, colour <span class="op">=</span> <span class="va">Distribution</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span>position <span class="op">=</span> <span class="st">"identity"</span>, binwidth <span class="op">=</span> <span class="fl">1</span>, 
-                 alpha <span class="op">=</span> <span class="fl">0.3</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="reference/stat_theodensity.html">stat_theodensity</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">stat</span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span>, 
-                   <span class="fu"><a href="reference/ggsubset.html">ggsubset</a></span><span class="op">(</span><span class="va">class</span> <span class="op">==</span> <span class="st">"Discrete"</span><span class="op">)</span>,
-                   distri <span class="op">=</span> <span class="st">"nbinom"</span>, geom <span class="op">=</span> <span class="st">"step"</span>,
-                   position <span class="op">=</span> <span class="fu">position_nudge</span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="reference/stat_theodensity.html">stat_theodensity</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">stat</span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span>, 
-                   <span class="fu"><a href="reference/ggsubset.html">ggsubset</a></span><span class="op">(</span><span class="va">class</span> <span class="op">==</span> <span class="st">"Continuous"</span><span class="op">)</span>,
-                   distri <span class="op">=</span> <span class="st">"gamma"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_grid</span><span class="op">(</span><span class="op">~</span> <span class="va">class</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-density-1.png" width="80%"></p>
+<p><img src="reference/figures/README-facets-1.png" width="80%"></p>
 </div>
 <div id="footnote" class="section level2">
 <h2 class="hasAnchor">

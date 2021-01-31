@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Axis guide with ticks for minor breaks — guide_axis_minor • ggh4x</title>
+<title>Axis guide with truncated line. — guide_axis_truncated • ggh4x</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Axis guide with ticks for minor breaks — guide_axis_minor" />
-<meta property="og:description" content="These are similar the the normal axis guides for position scales, but also
-place tickmarks at minor break positions." />
+<meta property="og:title" content="Axis guide with truncated line. — guide_axis_truncated" />
+<meta property="og:description" content="This axis guide is similar to the normal axis guides for position scales, but
+can shorten the axis line that is being drawn." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -144,24 +144,24 @@ place tickmarks at minor break positions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Axis guide with ticks for minor breaks</h1>
-    <small class="dont-index">Source: <a href='https://github.com/teunbrand/ggh4x/blob/master/R/guide_axis_minor.R'><code>R/guide_axis_minor.R</code></a></small>
-    <div class="hidden name"><code>guide_axis_minor.Rd</code></div>
+    <h1>Axis guide with truncated line.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/teunbrand/ggh4x/blob/master/R/guide_axis_truncated.R'><code>R/guide_axis_truncated.R</code></a></small>
+    <div class="hidden name"><code>guide_axis_truncated.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These are similar the the normal axis guides for position scales, but also
-place tickmarks at minor break positions.</p>
+    <p>This axis guide is similar to the normal axis guides for position scales, but
+can shorten the axis line that is being drawn.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_axis_minor</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>guide_axis_truncated</span><span class='op'>(</span>
   title <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
   check.overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
   angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
   order <span class='op'>=</span> <span class='fl'>0</span>,
-  trunc_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
-  trunc_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trunc_lower <span class='op'>=</span> <span class='va'>min</span>,
+  trunc_upper <span class='op'>=</span> <span class='va'>max</span>,
   position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -198,19 +198,7 @@ useful for displaying labels that would otherwise overlap.</p></td>
 top-to-bottom), if more than one  guide must be drawn at the same location.</p></td>
     </tr>
     <tr>
-      <th>trunc_lower</th>
-      <td><p>The lower and upper range of the truncated
-axis:</p><ul>
-<li><p><code>NULL</code> to not perform any truncation.</p></li>
-<li><p>A <code>function</code> that takes the break positions as input and returns the lower
-or upper boundary. Note that also for discrete scales, positions are the
-mapped positions as <code>numeric</code>.</p></li>
-<li><p>A <code>numeric</code> value in data units for the lower and upper boundaries.</p></li>
-<li><p>A <code>unit</code> object.</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>trunc_upper</th>
+      <th>trunc_lower, trunc_upper</th>
       <td><p>The lower and upper range of the truncated
 axis:</p><ul>
 <li><p><code>NULL</code> to not perform any truncation.</p></li>
@@ -230,33 +218,40 @@ left, or right.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <em>axis_minor</em> guide class object.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The length of minor ticks can be controlled relative to the length
-  of major ticks by setting <code>ggh4x.axis.ticks.length.minor</code> as a
-  <code>rel</code> object.</p>
+    <p>An <em>axis_truncated</em> guide class object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other axis-guides: 
 <code><a href='guide_axis_logticks.html'>guide_axis_logticks</a>()</code>,
-<code><a href='guide_axis_nested.html'>guide_axis_nested</a>()</code>,
-<code><a href='guide_axis_truncated.html'>guide_axis_truncated</a>()</code></p></div>
+<code><a href='guide_axis_minor.html'>guide_axis_minor</a>()</code>,
+<code><a href='guide_axis_nested.html'>guide_axis_nested</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Using the minor breaks axis</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>Sepal.Width</span>, <span class='va'>Sepal.Length</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"axis_minor"</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_axis_minor-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Minor break positions are still controlled by the scale</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"axis_minor"</span>,
-                       minor_breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>8</span>, by <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_axis_minor-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Minor tick length is controlled relative to major ticks</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>scale_y_continuous</span><span class='op'>(</span>guide <span class='op'>=</span> <span class='st'>"axis_minor"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme</span><span class='op'>(</span>ggh4x.axis.ticks.length.minor <span class='op'>=</span> <span class='fu'>rel</span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_axis_minor-3.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Make a plot</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>axis.line <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Setting the default truncated axis</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>guides</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"axis_truncated"</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_truncated-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Truncating in data units</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>guides</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis_truncated</span><span class='op'>(</span>
+  trunc_lower <span class='op'>=</span> <span class='fl'>2.5</span>, trunc_upper <span class='op'>=</span> <span class='fl'>4.5</span>
+<span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_truncated-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Truncate by setting units</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>guides</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis_truncated</span><span class='op'>(</span>
+  trunc_lower <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='st'>"npc"</span><span class='op'>)</span>,
+  trunc_upper <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>0.9</span>, <span class='st'>"npc"</span><span class='op'>)</span>
+<span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_truncated-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Truncating with functions</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>guides</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis_truncated</span><span class='op'>(</span>
+  trunc_lower <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='va'>x</span> <span class='op'>-</span> <span class='fl'>0.2</span><span class='op'>}</span>,
+  trunc_upper <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='va'>x</span> <span class='op'>+</span> <span class='fl'>0.2</span><span class='op'>}</span>
+<span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_truncated-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
