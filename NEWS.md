@@ -1,4 +1,4 @@
-# ggh4x 0.1.0.9000
+# ggh4x 0.1.1
 
 * Updated functions for ggplot2 v3.3.0 (#1)
 * Fixed compatibility issue for facet_nested() and patchwork (#4)
