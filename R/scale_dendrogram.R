@@ -137,8 +137,6 @@ ScaleDendrogram <- ggproto(
       }
       if (is.character(x)) {
         x <- factor(x, levels = ref)
-      } else {
-        x <- order(hclust$order)[as.integer(x)]
       }
     }
     return(x)
