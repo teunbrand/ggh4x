@@ -21,9 +21,33 @@ library(ggh4x)
 
 The ggh4x package defines a few new position guides that can take the place of the default x- and y-axes.
 
+# Truncated axes
+
+The truncated axes is not a very special axis: it just makes the axis line shorter. By default, it trims the axis line to the outermost break positions.
+
+```{r}
+g <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  theme(axis.line = element_line(colour = "black"))
+
+g + guides(x = "axis_truncated")
+```
+
+You can control how far the axis line is trimmed by setting the `trunc_lower` and `trunc_upper` options in the guide function.
+
+```{r, fig.width = 3, fig.show='hold'}
+g + guides(x = guide_axis_truncated(trunc_lower = unit(0.1, "npc"),
+                                    trunc_upper = unit(0.9, "npc")))
+
+g + guides(x = guide_axis_truncated(trunc_lower = 2.5,
+                                    trunc_upper = 4.5))
+```
+
+These truncation arguments are supported in all other position guides described below too.
+
 # Minor ticks
 
-One of the simplest modifications to the axis guide is to also place ticks at places where the minor breaks are. 
+Perhaps a more useful addition to the axis guide is to also place tick marks at places where the minor breaks are. 
 
 ```{r}
 ggplot(mtcars, aes(wt, mpg)) +

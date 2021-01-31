@@ -55,12 +55,7 @@ guide_axis_truncated <- function(
   trunc_upper = max,
   position = waiver()
 ) {
-  if (!is.function(trunc_lower) && !is.function(trunc_upper)) {
-    if (length(trunc_lower) != length(trunc_upper)) {
-      abort(paste0("Axis truncation must have an equal number of upper and ",
-                   "lower truncation points."))
-    }
-  }
+  check_trunc_arg(trunc_lower, trunc_upper)
   structure(
     list(
       title = title,
@@ -235,3 +230,12 @@ axis_truncate <- function(breaks, trunc, scale, type = "lower") {
   }
 }
 
+check_trunc_arg <- function(lower, upper) {
+  if (!is.function(lower) && !is.function(upper)) {
+    lens <- c(length(lower), length(upper))
+    if (lens[1] != lens[2] & !any(lens == 0)) {
+      abort(paste0("Axis truncation must have an equal number of upper and ",
+                   "lower truncation points."))
+    }
+  }
+}

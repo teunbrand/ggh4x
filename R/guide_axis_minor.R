@@ -39,6 +39,7 @@ guide_axis_minor <- function(
   trunc_upper = NULL,
   position = waiver()
 ) {
+  check_trunc_arg(trunc_lower, trunc_upper)
   structure(
     list(
       title = title,

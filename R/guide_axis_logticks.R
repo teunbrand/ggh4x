@@ -56,6 +56,7 @@ guide_axis_logticks <- function(
   trunc_upper = NULL,
   base = waiver()
 ) {
+  check_trunc_arg(trunc_lower, trunc_upper)
   structure(list(
     title = title,
     check.overlap = check.overlap,

@@ -41,7 +41,6 @@
 #'
 #' # The size of the dendrogram is controlled through tick size * 10
 #' g + theme(axis.ticks.length = unit(5, "pt"))
-
 guide_dendro <- function(
   title = waiver(),
   check.overlap = FALSE,
@@ -53,6 +52,7 @@ guide_dendro <- function(
   trunc_upper = NULL,
   dendro = waiver()
 ) {
+  check_trunc_arg(trunc_lower, trunc_upper)
   structure(
     list(title = title,
          check.overlap = check.overlap,

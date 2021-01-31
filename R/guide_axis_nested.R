@@ -61,6 +61,7 @@ guide_axis_nested <- function(
   trunc_upper = NULL,
   extend = 0.5
 ) {
+  check_trunc_arg(trunc_lower, trunc_upper)
   structure(
     list(
       title = title,
