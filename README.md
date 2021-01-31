@@ -75,188 +75,85 @@ examples. Links to these topics are below.
         encodings](https://teunbrand.github.io/ggh4x/articles/Statistics.html#run-length-encoding)
         of your data.
 
-## Customised facets
+## Example
 
-This example illustrates how you can use nested facets:
+Below you’ll find an example that illustrates some of the features of
+ggh4x.
 
 ``` r
 library(ggh4x)
 #> Loading required package: ggplot2
+library(scales)
 
-df <- iris
-df$Nester <- ifelse(df$Species == "setosa", "Short Leaves", "Long Leaves")
+df <- transform(
+  iris, 
+  Nester = ifelse(Species == "setosa", "Short Leaves", "Long Leaves")
+)
 
+# Basic plot
 g <- ggplot(df, aes(Sepal.Width, Sepal.Length)) +
-  facet_nested(~ Nester + Species, scales = "free")
+  theme_classic() +
+  theme(strip.background = element_blank())
 
-g + geom_point()
-```
+# For making a plot with multiple colour scales, we'd first need to make layers
+# with alternative aesthetics. We'll choose a colour scale for every species.
+# This will produce a few warnings, as ggplot2 doesn't know how to deal with
+# the alternative aesthetics.
+g <- g + 
+  geom_point(aes(SW = Sepal.Width),
+             data = ~ subset(., Species == "setosa")) +
+  geom_point(aes(PL = Petal.Length),
+             data = ~ subset(., Species == "versicolor")) +
+  geom_point(aes(PW = Petal.Width),
+             data = ~ subset(., Species == "virginica"))
+#> Warning: Ignoring unknown aesthetics: SW
+#> Warning: Ignoring unknown aesthetics: PL
+#> Warning: Ignoring unknown aesthetics: PW
 
-<img src="man/figures/README-nested_facets-1.png" width="80%" />
-
-Sometimes, you might want to vary the scales of your facets
-independently from oneanother. You could use `facetted_pos_scales()` to
-achieve this, and the facet argument `scales` had to be set to `free`.
-
-``` r
-scales <- list(
-  scale_x_reverse(),
-  scale_x_continuous(labels = scales::dollar),
-  scale_x_continuous(breaks = c(3, 4))
-)
-
-g <- g + facetted_pos_scales(x = scales)
-g + geom_point()
-```
-
-<img src="man/figures/README-pos_scales-1.png" width="80%" />
-
-If you don’t like the sizes of the facet panels, you can tweak these
-using `force_panelsizes()` in a data-independent manner, without having
-to rely on `facet_grid`’s `space = "free"` argument.
-
-``` r
-# Inverse golden ratio
-phi <- 2 / (1 + sqrt(5))
-
-g <- g + force_panelsizes(rows = 1, cols = c(1, phi, phi^2), respect = TRUE)
-
-g + geom_point()
-```
-
-<img src="man/figures/README-panel_sizes-1.png" width="80%" />
-
-## Multiple colours
-
-One colourscale is in some cases not sufficient to describe your data.
-You can map several variables to colours with `scale_colour_multi()` if
-data are in seperate layers. You can see from all the warnings that some
-functions in this package might be called ‘hacks’.
-
-``` r
-# ggsubset is a convenience function to pull data from 
-# the main ggplot call in layers
+# These alternative aesthetics don't mean a lot until we add a multi-colour
+# scale to the plot. We need to specify our alternative aesthetics and colours
+# for every scale. Arguments provided as lists are passed on to individual 
+# scales.
 g <- g +
-  geom_point(aes(swidth = Sepal.Width),  
-             ggsubset(Species == "setosa")) +
-  geom_point(aes(pleng  = Petal.Length), 
-             ggsubset(Species == "versicolor")) +
-  geom_point(aes(pwidth = Petal.Width),
-             ggsubset(Species == "virginica"))
-#> Warning: Ignoring unknown aesthetics: swidth
-#> Warning: Ignoring unknown aesthetics: pleng
-#> Warning: Ignoring unknown aesthetics: pwidth
-
-g <- g + scale_colour_multi(
-  aesthetics = c("swidth", "pleng", "pwidth"),
-  colours = list(c("black", "green"),
-                 c("gray", "red"),
-                 c("white", "blue")),
-  guide = guide_colourbar(barheight = unit(50, "pt"))
-)
+  scale_colour_multi(
+    aesthetics = c("SW", "PL", "PW"),
+    name = list("Blue", "Pink", "Orange"),
+    colours = list(
+      brewer_pal(palette = "YlGnBu")(6),
+      brewer_pal(palette = "RdPu")(6),
+      brewer_pal(palette = "YlOrRd")(6)
+    ),
+    guide = guide_colorbar(barheight = unit(50, "pt"))
+  )
 g
 ```
 
 <img src="man/figures/README-multicolour-1.png" width="80%" />
 
-Mixing continuous and discrete colours can also be done, with the
-slightly more verbose `scale_listed()`, such as in the following
-heatmap.
-
 ``` r
-# Making an iris correlation-heatmap
-iriscor <- cor(t(iris[, 1:4]))
-iriscor <- data.frame(
-  x = as.vector(row(iriscor)),
-  y = as.vector(col(iriscor)),
-  value = as.vector(iriscor)
+# We can make a facet wherein duplicated strip labels are merged into one strip
+g <- g + 
+  facet_nested(~ Nester + Species, scales = "free",
+               nest_line = TRUE)
+
+# Like we did for colours, we might also want to set position scales for every
+# panel individually. We set these in the same order the facets appear in.
+position_scales <- list(
+  scale_x_reverse(guide = "axis_minor"),
+  scale_x_continuous(labels = dollar, guide = "axis_truncated"),
+  scale_x_continuous(breaks = c(3, 4), expand = c(0,0))
 )
 
-df$id <- seq_len(nrow(df))
+# Adding the list of scales to the plot
+g <- g + facetted_pos_scales(x = position_scales)
 
-
-# Setting up a basic heatmap
-g <- ggplot(df, aes(id, id)) +
-  # geom_tilemargin can be useful for annotating heatmaps
-  geom_tilemargin(aes(species = Species), 
-                  sides = "b") +
-  geom_tilemargin(aes(leave = Nester),
-                  sides = "l") +
-  geom_raster(aes(x, y, cor = value),
-              data = iriscor) +
-  coord_fixed()
-#> Warning: Ignoring unknown aesthetics: species
-#> Warning: Ignoring unknown aesthetics: leave
-#> Warning: Ignoring unknown aesthetics: cor
-
-# Adding the colour scales
-g <- g + scale_listed(scalelist = list(
-  scale_fill_distiller(palette = "RdBu", aesthetics = "cor"),
-  scale_fill_brewer(palette = "Dark2", aesthetics = "species"),
-  scale_fill_manual(values = c("dodgerblue", "tomato"),
-                    aesthetics = "leave")
-), replaces = rep("fill", 3))
+# Setting the sizes of panels individually
+size <- 2 / (1 + sqrt(5))
+g <- g + force_panelsizes(cols = c(1, size, size ^ 2), respect = TRUE)
 g
 ```
 
-<img src="man/figures/README-listed_scales-1.png" width="80%" />
-
-## Position transforms
-
-On the topic of rasters, if parameterised as a polygon with
-`geom_polygonraster()`, they can subjected to linear transformations
-such as rotations and shears with `position_lineartrans()`.
-
-``` r
-g <- ggplot(iriscor, aes(x, y, fill = value)) +
-  geom_polygonraster(position = position_lineartrans(angle = 45))
-
-g + coord_fixed()
-```
-
-<img src="man/figures/README-lineartrans-1.png" width="80%" />
-
-In fact, you could even do non-linear transformation with
-polygon-rasters, should you dare venture that way.
-
-``` r
-g + coord_polar()
-```
-
-<img src="man/figures/README-polar-1.png" width="80%" />
-
-## Density estimates
-
-Ever get tired of unparameterised kernel density estimates? Now you can
-fit a wide range of theoretical densities from the `fitdistrplus`
-package to your data on the fly\!
-
-``` r
-set.seed(1)
-n <- 200
-df <- data.frame(
-  x = c(rpois(n, 25), rnbinom(n, 5, 0.2), 
-        rgamma(n, 30, 1.5), rchisq(n, 15)),
-  class = rep(c("Discrete", "Continuous"), each = n*2),
-  Distribution = rep(c("Poisson", "Negative Binomial", 
-                       "Gamma", "Chi-squared"),
-                     each = n)
-)
-
-ggplot(df, aes(x, fill = Distribution, colour = Distribution)) +
-  geom_histogram(position = "identity", binwidth = 1, 
-                 alpha = 0.3, colour = NA) +
-  stat_theodensity(aes(y = stat(count)), 
-                   ggsubset(class == "Discrete"),
-                   distri = "nbinom", geom = "step",
-                   position = position_nudge(x = -0.5)) +
-  stat_theodensity(aes(y = stat(count)), 
-                   ggsubset(class == "Continuous"),
-                   distri = "gamma") +
-  facet_grid(~ class, scales = "free_x")
-```
-
-<img src="man/figures/README-density-1.png" width="80%" />
+<img src="man/figures/README-facets-1.png" width="80%" />
 
 ## Footnote
 
