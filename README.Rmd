@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg)](https://codecov.io/gh/teunbrand/ggh4x?branch=master)
 [![R-CMD-check](https://github.com/teunbrand/ggh4x/workflows/R-CMD-check/badge.svg)](https://github.com/teunbrand/ggh4x/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/ggh4x)](https://CRAN.R-project.org/package=ggh4x)
 <!-- badges: end -->
 
 The ggh4x package is a ggplot2 extension package. It provides some utility functions that are don't entirely fit within the 'grammar of graphics' concept ---they can be a bit hacky--- but can nonetheless be useful in tweaking your ggplots. Examples include adjusting the sizes of facets, mapping multiple aesthetics to colours and specififying individual scales for facets. Besides this, it is also a small collection of geoms, facets, positions, guides and stats.
