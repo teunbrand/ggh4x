@@ -37,6 +37,8 @@
 #' @seealso \code{\link[ggplot2]{facet_grid}} \code{\link[ggplot2]{facet_wrap}}
 #'   \code{\link[ggplot2]{facet_null}} \code{\link[grid]{unit}}
 #'
+#' @return A \code{forcedsize} S3 object that can be added to a plot.
+#'
 #' @examples
 #' ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +

@@ -15,6 +15,9 @@ force_panelsizes(rows = NULL, cols = NULL, respect = NULL)
 specified in \code{"null" unit}s are proportional. If \code{FALSE},
 \code{"null" unit}s in x- and y-direction vary idependently.}
 }
+\value{
+A \code{forcedsize} S3 object that can be added to a plot.
+}
 \description{
 Takes a ggplot and modifies its facet drawing behaviour such that the widths
 and heights of panels are set by the user.
