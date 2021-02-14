@@ -1,6 +1,6 @@
 Package: ggh4x
 Title: Hacks for 'ggplot2'
-Version: 0.1.2
+Version: 0.1.2.1.9
 Authors@R: 
     person(given = "Teun",
            family = "van den Brand",
@@ -60,6 +60,7 @@ Collate:
     'guide_axis_utils.R'
     'guide_dendrogram.R'
     'guide_stringlegend.R'
+    'help_secondary.R'
     'position_disjoint_ranges.R'
     'position_lineartrans.R'
     'scale_dendrogram.R'

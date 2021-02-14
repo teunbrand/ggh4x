@@ -1,4 +1,8 @@
-# ggh4x 0.1.2
+# ggh4x 0.1.2.1.9 (dev version on github)
+
+* Added helper for secondary axes: help_secondary()
+
+# ggh4x 0.1.2.1
 
 * Updated functions for ggplot2 v3.3.0 (#1)
 * Fixed compatibility issue for facet_nested() and patchwork (#4)
