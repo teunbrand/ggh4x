@@ -1,6 +1,7 @@
 # ggh4x 0.1.2.1.9 (dev version on github)
 
 * Added helper for secondary axes: help_secondary()
+* Added stat_difference() for shading a ribbon based on the sign of difference
 
 # ggh4x 0.1.2.1
 
