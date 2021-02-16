@@ -3,8 +3,8 @@
 
 #' @importFrom stats setNames rt dcauchy dnorm dunif
 #' @importFrom utils head tail getFromNamespace
-#' @importFrom vctrs new_data_frame
 #' @importFrom rlang abort warn eval_tidy enquo as_label
+#' @import vctrs
 #' @import ggplot2
 #' @import scales
 #' @import grid

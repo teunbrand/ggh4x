@@ -103,7 +103,6 @@ stat_rle <- function(
 #' @format NULL
 #' @export
 #' @rdname ggh4x_extensions
-#' @importFrom vctrs new_vctr
 StatRle <- ggproto(
   "StatRle",
   Stat,
@@ -172,7 +171,6 @@ StatRle <- ggproto(
 # This is a bit of an ugly solution to let the label variable not be counted as
 # a non-finite variable.
 
-#' @importFrom vctrs vec_math
 #' @export
 #' @usage NULL
 #' @rdname stat_rle

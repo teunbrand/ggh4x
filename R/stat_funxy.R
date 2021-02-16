@@ -1,3 +1,5 @@
+# Constructor -------------------------------------------------------------
+
 #' Apply function to position coordinates
 #'
 #' The function xy stat applies a function to the x- and y-coordinates of a
@@ -101,11 +103,12 @@ stat_midpoint <- function(...,
   stat_funxy(..., funx = fun, funy = fun, argx = argx, argy = argy)
 }
 
+# ggproto -----------------------------------------------------------------
+
 #' @usage NULL
 #' @format NULL
 #' @export
 #' @rdname ggh4x_extensions
-#' @importFrom vctrs vec_recycle_common
 StatFunxy <- ggproto(
   "StatFunxy", Stat,
   required_aes = c("x", "y"),
