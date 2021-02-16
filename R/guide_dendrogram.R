@@ -65,7 +65,7 @@ guide_dendro <- function(
          trunc_upper = trunc_upper,
          dendro = dendro,
          name = "axis"),
-    class = c("guide", "dendroguide", "axis_truncated", "axis")
+    class = c("guide", "dendroguide", "axis_ggh4x", "axis")
   )
 }
 

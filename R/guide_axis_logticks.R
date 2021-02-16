@@ -71,7 +71,7 @@ guide_axis_logticks <- function(
     trunc_upper = trunc_upper,
     base = base
   ), class = c("guide", "axis_logticks", "axis_minor",
-               "axis_truncated", "axis"))
+               "axis_ggh4x", "axis"))
 }
 
 # Internals ---------------------------------------------------------------

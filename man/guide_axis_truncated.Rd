@@ -10,6 +10,7 @@ guide_axis_truncated(
   angle = NULL,
   n.dodge = 1,
   order = 0,
+  colour = NULL,
   trunc_lower = min,
   trunc_upper = max,
   position = waiver()
@@ -50,7 +51,7 @@ mapped positions as \code{numeric}.
 left, or right.}
 }
 \value{
-An \emph{axis_truncated} guide class object.
+An \emph{axis_ggh4x} guide class object.
 }
 \description{
 This axis guide is similar to the normal axis guides for position scales, but

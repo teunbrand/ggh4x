@@ -17,7 +17,7 @@ grab_axis <- function(plot, where = "b") {
 
 test_that("guide_axis_truncated construction works", {
   g <- guide_axis_truncated()
-  expect_s3_class(g, "axis_truncated")
+  expect_s3_class(g, "axis_ggh4x")
 
   # Test error
   expr <- substitute(guide_axis_truncated(trunc_lower = 2, trunc_upper = c(3, 4)))

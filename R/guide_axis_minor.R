@@ -53,7 +53,7 @@ guide_axis_minor <- function(
       available_aes = c("x", "y"),
       name = "axis"
     ),
-    class = c("guide", "axis_minor", "axis_truncated", "axis")
+    class = c("guide", "axis_minor", "axis_ggh4x", "axis")
   )
 }
 

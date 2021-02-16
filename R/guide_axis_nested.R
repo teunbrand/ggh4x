@@ -77,7 +77,7 @@ guide_axis_nested <- function(
       extend = extend,
       name = "axis"
     ),
-    class = c("guide", "axis_nested", "axis_truncated", "axis")
+    class = c("guide", "axis_nested", "axis_ggh4x", "axis")
   )
 }
 

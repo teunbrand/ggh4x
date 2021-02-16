@@ -15,7 +15,7 @@
 #' * A `numeric` value in data units for the lower and upper boundaries.
 #' * A `unit` object.
 #'
-#' @return An *axis_truncated* guide class object.
+#' @return An *axis_ggh4x* guide class object.
 #' @export
 #' @family axis-guides
 #' @md
@@ -69,15 +69,15 @@ guide_axis_truncated <- function(
       available_aes = c("x", "y"),
       name = "axis"
     ),
-    class = c("guide", "axis_truncated", "axis")
+    class = c("guide", "axis_ggh4x", "axis")
   )
 }
 
 # Internals ---------------------------------------------------------------
 
 #' @export
-#' @method guide_train axis_truncated
-guide_train.axis_truncated <- function(guide, scale, aesthetic = NULL) {
+#' @method guide_train axis_ggh4x
+guide_train.axis_ggh4x <- function(guide, scale, aesthetic = NULL) {
   aesthetic <- aesthetic %||% scale$aesthetics[1]
   guide <- NextMethod()
   guide <- truncate_guide(guide, scale, aesthetic)
@@ -85,18 +85,18 @@ guide_train.axis_truncated <- function(guide, scale, aesthetic = NULL) {
 }
 
 #' @export
-#' @method guide_transform axis_truncated
-guide_transform.axis_truncated <- function(guide, coord, panel_params) {
+#' @method guide_transform axis_ggh4x
+guide_transform.axis_ggh4x <- function(guide, coord, panel_params) {
   guide <- NextMethod()
   guide$trunc <- transform_truncated(guide$trunc, coord, panel_params)
   return(guide)
 }
 
 #' @export
-#' @method guide_gengrob axis_truncated
-guide_gengrob.axis_truncated <- function(guide, theme) {
+#' @method guide_gengrob axis_ggh4x
+guide_gengrob.axis_ggh4x <- function(guide, theme) {
   aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
-  draw_axis_truncated(
+  draw_axis_ggh4x(
     break_positions = guide$key[[aesthetic]],
     break_labels = guide$key$.label,
     axis_position = guide$position,
@@ -110,7 +110,7 @@ guide_gengrob.axis_truncated <- function(guide, theme) {
 
 # Helpers -----------------------------------------------------------------
 
-draw_axis_truncated <- function(
+draw_axis_ggh4x <- function(
   break_positions,
   break_labels,
   axis_position,
