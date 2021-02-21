@@ -1,7 +1,7 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @importFrom stats setNames rt dcauchy dnorm dunif
+#' @importFrom stats setNames rt dcauchy dnorm dunif ccf coef lm
 #' @importFrom utils head tail getFromNamespace
 #' @importFrom rlang abort warn eval_tidy enquo as_label
 #' @import vctrs

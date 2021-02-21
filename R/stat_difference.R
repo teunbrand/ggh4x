@@ -127,6 +127,8 @@ rle_id <- function(x) {
   with(rle(x), rep.int(seq_along(values), lengths))
 }
 
+utils::globalVariables(c("x", "ymin", "ymax"))
+
 # Simplified version of
 # https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
 # We can simplify a bit because x[3] == x[1] and x[4] == x[2]
