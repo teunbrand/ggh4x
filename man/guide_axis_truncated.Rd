@@ -2,7 +2,9 @@
 % Please edit documentation in R/guide_axis_truncated.R
 \name{guide_axis_truncated}
 \alias{guide_axis_truncated}
-\title{Axis guide with truncated line.}
+\alias{guide_axis_colour}
+\alias{guide_axis_color}
+\title{Axis guide with truncated line}
 \usage{
 guide_axis_truncated(
   title = waiver(),
@@ -11,8 +13,35 @@ guide_axis_truncated(
   n.dodge = 1,
   order = 0,
   colour = NULL,
+  color = NULL,
   trunc_lower = min,
   trunc_upper = max,
+  position = waiver()
+)
+
+guide_axis_colour(
+  title = waiver(),
+  check.overlap = FALSE,
+  angle = NULL,
+  n.dodge = 1,
+  order = 0,
+  colour = NULL,
+  color = NULL,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
+  position = waiver()
+)
+
+guide_axis_color(
+  title = waiver(),
+  check.overlap = FALSE,
+  angle = NULL,
+  n.dodge = 1,
+  order = 0,
+  colour = NULL,
+  color = NULL,
+  trunc_lower = NULL,
+  trunc_upper = NULL,
   position = waiver()
 )
 }
@@ -36,6 +65,10 @@ useful for displaying labels that would otherwise overlap.}
 \item{order}{Used to determine the order of the guides (left-to-right,
 top-to-bottom), if more than one  guide must be drawn at the same location.}
 
+\item{colour, color}{A \code{character(1)} with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.}
+
 \item{trunc_lower, trunc_upper}{The lower and upper range of the truncated
 axis:
 \itemize{
@@ -55,7 +88,10 @@ An \emph{axis_ggh4x} guide class object.
 }
 \description{
 This axis guide is similar to the normal axis guides for position scales, but
-can shorten the axis line that is being drawn.
+can shorten the axis line that is being drawn. The \code{guide_axis_colour()}
+function is the same but with different defaults for the truncation that do
+not truncate the axis. Axis truncation and recolouring is supported
+throughout axes in ggh4x.
 }
 \examples{
 # Make a plot
@@ -82,6 +118,10 @@ p + guides(x = guide_axis_truncated(
   trunc_lower = function(x) {x - 0.2},
   trunc_upper = function(x) {x + 0.2}
 ))
+
+# Recolouring the axes outside the theme
+p + guides(x = guide_axis_colour(colour = "red"),
+           y = guide_axis_colour(colour = "blue"))
 }
 \seealso{
 Other axis-guides: 

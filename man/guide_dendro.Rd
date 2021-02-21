@@ -13,6 +13,8 @@ guide_dendro(
   label = TRUE,
   trunc_lower = NULL,
   trunc_upper = NULL,
+  colour = NULL,
+  color = NULL,
   dendro = waiver()
 )
 }
@@ -59,6 +61,14 @@ mapped positions as \code{numeric}.
 \item A \code{numeric} value in data units for the lower and upper boundaries.
 \item A \code{unit} object.
 }}
+
+\item{colour}{A \code{character(1)} with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.}
+
+\item{color}{A \code{character(1)} with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.}
 
 \item{dendro}{Relevant plotting data for a dendrogram such as those returned
 by \code{\link[ggdendro]{dendro_data}}.}

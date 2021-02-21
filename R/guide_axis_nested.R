@@ -59,8 +59,11 @@ guide_axis_nested <- function(
   delim = waiver(),
   trunc_lower = NULL,
   trunc_upper = NULL,
+  colour = NULL,
+  color = NULL,
   extend = 0.5
 ) {
+  colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(
     list(
@@ -74,6 +77,7 @@ guide_axis_nested <- function(
       delim = delim,
       trunc_lower = trunc_lower,
       trunc_upper = trunc_upper,
+      colour = colour,
       extend = extend,
       name = "axis"
     ),
@@ -108,7 +112,8 @@ guide_gengrob.axis_nested <- function(guide, theme) {
     n.dodge = guide$n.dodge,
     delim = guide$delim,
     extend = guide$extend,
-    trunc = guide$trunc
+    trunc = guide$trunc,
+    colour = guide$colour
   )
 }
 
@@ -122,16 +127,21 @@ draw_nested_axis <- function(
   n.dodge = 1,
   delim = ".",
   extend = 0.5,
-  trunc
+  trunc,
+  colour
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
   aes <- if (axis_position %in% c("t", "b")) "x" else "y"
 
   # Calculate elements
-  elements <- build_axis_elements(axis_position, angle, theme)
+  elements <- build_axis_elements(axis_position, angle, theme, colour = colour)
   elements$nest_line <- calc_element(paste0("ggh4x.axis.nestline.", aes), theme)
   elements$nest_text <- calc_element(paste0("ggh4x.axis.nesttext.", aes), theme)
+  if (!is.null(colour)) {
+    elements$nest_line$colour <- colour
+    elements$nest_text$colour <- colour
+  }
 
   params <- setup_axis_params(axis_position)
   fun <- params$labels_measure

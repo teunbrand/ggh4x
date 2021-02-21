@@ -1,4 +1,6 @@
-build_axis_elements <- function(axis_position = "b", angle = NULL, theme) {
+build_axis_elements <- function(
+  axis_position = "b", angle = NULL, theme, colour = NULL
+) {
   aesthetic <- if (axis_position %in% c("t", "b")) "x" else "y"
   axis_position <- match.arg(axis_position, c("top", "bottom", "left", "right"))
 
@@ -15,6 +17,15 @@ build_axis_elements <- function(axis_position = "b", angle = NULL, theme) {
     elements$label$hjust <- lab_overrides$hjust %||% elements$label$hjust
     elements$label$vjust <- lab_overrides$vjust %||% elements$label$vjust
   }
+  if (!is.null(colour)) {
+    elements <- lapply(elements, function(el) {
+      if ("colour" %in% names(el)) {
+        el$colour <- colour
+      }
+      return(el)
+    })
+  }
+
   elements
 }
 

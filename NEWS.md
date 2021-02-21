@@ -1,7 +1,10 @@
 # ggh4x 0.1.2.1.9 (dev version on github)
 
+* Fixed spelling in README (#32, thanks @vikatti!)
 * Added helper for secondary axes: help_secondary()
-* Added stat_difference() for shading a ribbon based on the sign of difference
+* Added stat_difference() for shading a ribbon based on the sign of difference.
+* Included 'colour'/'color' arguments for axis guides for recolouring the
+  whole axis in one go (instead of editing 3-5 theme elements).
 
 # ggh4x 0.1.2.1
 

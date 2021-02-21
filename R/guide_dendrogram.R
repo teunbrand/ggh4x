@@ -50,8 +50,11 @@ guide_dendro <- function(
   label = TRUE,
   trunc_lower = NULL,
   trunc_upper = NULL,
+  colour = NULL,
+  color = NULL,
   dendro = waiver()
 ) {
+  colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(
     list(title = title,
@@ -63,6 +66,7 @@ guide_dendro <- function(
          label = label,
          trunc_lower = trunc_lower,
          trunc_upper = trunc_upper,
+         colour = colour,
          dendro = dendro,
          name = "axis"),
     class = c("guide", "dendroguide", "axis_ggh4x", "axis")
@@ -151,7 +155,8 @@ guide_gengrob.dendroguide <- function(guide, theme) {
     check.overlap = guide$check.overlap,
     n.dodge = guide$n.dodge,
     dendro = guide$dendro$segments,
-    trunc = guide$trunc
+    trunc = guide$trunc,
+    colour = guide$colour
   )
 }
 
@@ -160,13 +165,13 @@ guide_gengrob.dendroguide <- function(guide, theme) {
 draw_dendroguide <- function(
   break_positions, break_labels, axis_position, theme,
   check.overlap = FALSE, n.dodge = 1, dendro = NULL,
-  trunc
+  trunc, colour = NULL
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
   aes <- if (axis_position %in% c("t", "b")) "x" else "y"
 
-  elements <- build_axis_elements(axis_position, angle = NULL, theme)
+  elements <- build_axis_elements(axis_position, angle = NULL, theme, colour)
 
   params <- setup_axis_params(axis_position)
   params$labels_first <- !params$labels_first

@@ -14,6 +14,8 @@ guide_axis_nested(
   delim = waiver(),
   trunc_lower = NULL,
   trunc_upper = NULL,
+  colour = NULL,
+  color = NULL,
   extend = 0.5
 )
 }
@@ -65,6 +67,14 @@ mapped positions as \code{numeric}.
 \item A \code{numeric} value in data units for the lower and upper boundaries.
 \item A \code{unit} object.
 }}
+
+\item{colour}{A \code{character(1)} with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.}
+
+\item{color}{A \code{character(1)} with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.}
 
 \item{extend}{A \code{numeric} of length 1 indicating how much to extend
 nesting lines relative to the smallest difference in break positions.}

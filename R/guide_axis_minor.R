@@ -35,10 +35,13 @@ guide_axis_minor <- function(
   angle = NULL,
   n.dodge = 1,
   order = 0,
+  colour = NULL,
+  color = NULL,
   trunc_lower = NULL,
   trunc_upper = NULL,
   position = waiver()
 ) {
+  colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(
     list(
@@ -50,6 +53,7 @@ guide_axis_minor <- function(
       position = position,
       trunc_lower = trunc_lower,
       trunc_upper = trunc_upper,
+      colour = colour,
       available_aes = c("x", "y"),
       name = "axis"
     ),
@@ -120,9 +124,12 @@ guide_gengrob.axis_minor <- function(guide, theme) {
     angle = guide$angle,
     n.dodge = guide$n.dodge,
     minority = guide$key$.minority,
-    trunc = guide$trunc
+    trunc = guide$trunc,
+    colour = guide$colour
   )
 }
+
+# Helpers -----------------------------------------------------------------
 
 draw_axis_minor <- function(
   break_positions,
@@ -133,13 +140,14 @@ draw_axis_minor <- function(
   angle = NULL,
   n.dodge = 1,
   minority = 0,
-  trunc
+  trunc,
+  colour = NULL
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
   aes <- if (axis_position %in% c("t", "b")) "x" else "y"
 
-  elements <- build_axis_elements(axis_position, angle, theme)
+  elements <- build_axis_elements(axis_position, angle, theme, colour)
   minor_len <- unclass(calc_element("ggh4x.axis.ticks.length.minor", theme))
   mini_len  <- unclass(calc_element("ggh4x.axis.ticks.length.mini", theme))
 
@@ -174,8 +182,6 @@ draw_axis_minor <- function(
                       lines = line_grob, elements = elements,
                       params = params)
 }
-
-# Helpers -----------------------------------------------------------------
 
 build_axis_ticks_minor <- function(element, length, position, params,
                                    minority = 0) {

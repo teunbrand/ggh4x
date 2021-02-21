@@ -54,8 +54,11 @@ guide_axis_logticks <- function(
   prescaled = FALSE,
   trunc_lower = NULL,
   trunc_upper = NULL,
+  colour = NULL,
+  color = NULL,
   base = waiver()
 ) {
+  colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(list(
     title = title,
@@ -69,6 +72,7 @@ guide_axis_logticks <- function(
     prescaled = prescaled,
     trunc_lower = trunc_lower,
     trunc_upper = trunc_upper,
+    colour = colour,
     base = base
   ), class = c("guide", "axis_logticks", "axis_minor",
                "axis_ggh4x", "axis"))
