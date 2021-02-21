@@ -28,10 +28,10 @@
 #'   variable is placed the furthest away from the panels. Strips are
 #'   automatically grouped when they span a nested variable.
 #'
-#'   The \code{bleed} argument controls whether lower-level variables are allowed
-#'   to be merged when higher-level are different, i.e. they can bleed over
-#'   hierarchies. Suppose the \code{facet_grid()} behaviour would be the
-#'   following:
+#'   The \code{bleed} argument controls whether lower-level strips are allowed
+#'   to be merged when higher-level strips are different, i.e. they can bleed
+#'   over hierarchies. Suppose the \code{facet_grid()} behaviour would be the
+#'   following for strips:
 #'
 #'   \code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}
 #'
