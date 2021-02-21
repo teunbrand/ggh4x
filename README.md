@@ -35,45 +35,45 @@ devtools::install_github("teunbrand/ggh4x")
 There are a few topics explored in the package’s vignettes with
 examples. Links to these topics are below.
 
-  - Options to tailor
+-   Options to tailor
     [facets](https://teunbrand.github.io/ggh4x/articles/Facets.html),
     including:
-      - [Nested
+    -   [Nested
         facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#nested-facets)
         that have strips that can span multiple panels.
-      - Adjusting the [position
+    -   Adjusting the [position
         scales](https://teunbrand.github.io/ggh4x/articles/Facets.html#position-scales)
         on a per-panel basis.
-      - Varying the [size of
+    -   Varying the [size of
         panels](https://teunbrand.github.io/ggh4x/articles/Facets.html#sizes)
         without being limited to the global `aspect.ratio` or fixed
         coordinates.
-  - ggh4x has some [position
+-   ggh4x has some [position
     guides](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html)
     that change the way x- and y-axes look. You can:
-      - include the [minor breaks as minor tick
+    -   include the [minor breaks as minor tick
         marks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks).
-      - detail log<sub>10</sub> axes with [logarithmic
+    -   detail log<sub>10</sub> axes with [logarithmic
         tickmarks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#logarithmic-ticks).
-      - indicate [nested
+    -   indicate [nested
         relations](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#nested-relations)
         in discrete axes.
-      - mirror the results of hierarchical clustering with [dendrogram
+    -   mirror the results of hierarchical clustering with [dendrogram
         axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#dendrograms)
         with help from the **ggdendro** package.
-  - There are some [stat
+-   There are some [stat
     layers](https://teunbrand.github.io/ggh4x/articles/Statistics.html)
     that can make it easier to plot. These stat layers can:
-      - overlaying the [theoretical
+    -   overlaying the [theoretical
         density](https://teunbrand.github.io/ggh4x/articles/Statistics.html#theoretical-densities)
         of several distributions, which are computed with the
         **fitdistrplus** package.
-      - draw a trendline of your data with a [rolling
+    -   draw a trendline of your data with a [rolling
         kernel](https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels).
-      - plainly [transform x and
+    -   plainly [transform x and
         y](https://teunbrand.github.io/ggh4x/articles/Statistics.html#function-x-y)
         position in a group-wise manner.
-      - calculate [run-length
+    -   calculate [run-length
         encodings](https://teunbrand.github.io/ggh4x/articles/Statistics.html#run-length-encoding)
         of your data.
 
@@ -163,6 +163,9 @@ I would like to mention that there are also packages that do some
 similar things to what this package does.
 [facetscales](https://github.com/zeehio/facetscales) also has a facet
 function wherein scales can set per row/colum. The
+[egg](https://github.com/jwdink/egg) package can also set panel sizes.
+The [lemon](https://github.com/stefanedwards/lemon) package also has
+options to tweak position axes. The
 [relayer](https://github.com/clauswilke/relayer) and
 [ggnewscale](https://github.com/cran/ggnewscale) packages also allow
 multiple colour scales in the same plot.

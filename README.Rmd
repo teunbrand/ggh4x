@@ -126,7 +126,7 @@ g
 
 ## Footnote
 
-I would like to mention that there are also packages that do some similar things to what this package does. [facetscales](https://github.com/zeehio/facetscales) also has a facet function wherein scales can set per row/colum. The [relayer](https://github.com/clauswilke/relayer) and [ggnewscale](https://github.com/cran/ggnewscale) packages also allow multiple colour scales in the same plot.  
+I would like to mention that there are also packages that do some similar things to what this package does. [facetscales](https://github.com/zeehio/facetscales) also has a facet function wherein scales can set per row/colum. The [egg](https://github.com/jwdink/egg) package can also set panel sizes. The [lemon](https://github.com/stefanedwards/lemon) package also has options to tweak position axes. The [relayer](https://github.com/clauswilke/relayer) and [ggnewscale](https://github.com/cran/ggnewscale) packages also allow multiple colour scales in the same plot.  
 
 Historically, many of these functions come from the [ggnomics](https://github.com/teunbrand/ggnomics) package, but have been moved here as a package independent of Bioconductor infrastructure.
 
