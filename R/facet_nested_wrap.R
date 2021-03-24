@@ -149,8 +149,14 @@ merge_strips_wrap <- function(
   panel_table, layout, params, theme, where = "t"
 ) {
   nvar <- setdiff(colnames(layout), c("PANEL", "ROW", "COL", "SCALE_X", "SCALE_Y"))
+
   if (length(nvar) <= 1) {
     # There are no strips to merge
+    return(panel_table)
+  }
+  strip <- which(startsWith(panel_table$layout$name, "strip"))[1]
+  strip <- panel_table$grobs[[strip]]
+  if (inherits(strip, "zeroGrob")) {
     return(panel_table)
   }
 

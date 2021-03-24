@@ -347,6 +347,12 @@ merge_strips <- function(
   nlevels <- ncol(vars)
 
   these_strips <- grep(paste0("strip-", where), panel_table$layout$name)
+
+  # Check for element_blank strips
+  if (inherits(panel_table$grobs[[these_strips[1]]], "zeroGrob")) {
+    return(panel_table)
+  }
+
   strp_rows <- range(panel_table$layout$t[these_strips])
   strp_cols <- range(panel_table$layout$l[these_strips])
   strp_rows <- seq(strp_rows[1], strp_rows[2])
