@@ -300,8 +300,8 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
     yidx <- layout[panel_id, "SCALE_Y"]
 
     # Decide what variables need to be transformed
-    y_vars <- intersect(y_scales[[yidx]]$aesthetics, names(dat))
-    x_vars <- intersect(x_scales[[xidx]]$aesthetics, names(dat))
+    y_vars <- should_transform(y_scales[[yidx]], names(dat))
+    x_vars <- should_transform(x_scales[[xidx]], names(dat))
 
     # Transform variables by appropriate scale
     for (j in y_vars) {
@@ -316,4 +316,14 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
   # Recombine the data
   data <- unsplit(panels, data$PANEL)
   data
+}
+
+should_transform <- function(scale, columns) {
+  if (scale$is_discrete()) {
+    return(character(0))
+  }
+  if (scale$trans$name %in% c("date", "time", "hms")) {
+    return(character(0))
+  }
+  vars <- intersect(scale$aesthetics, columns)
 }

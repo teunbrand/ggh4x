@@ -5,6 +5,7 @@
 * Added stat_difference() for shading a ribbon based on the sign of difference.
 * Included 'colour'/'color' arguments for axis guides for recolouring the
   whole axis in one go (instead of editing 3-5 theme elements).
+* Fix bug in facetted_pos_scales() with date scales (#37)
 
 # ggh4x 0.1.2.1
 

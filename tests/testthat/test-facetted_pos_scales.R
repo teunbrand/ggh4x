@@ -313,6 +313,33 @@ test_that("facetted_pos_scales can handle empty panels", {
   expect_silent(print(g))
 })
 
+test_that("facetted_pos_scales can handle discrete scales", {
+  df <- cbind(expand.grid(1:2, 1:2), x = 1:4)
+
+  g <- ggplot(df, aes(LETTERS[x], LETTERS[x])) +
+    geom_point() +
+    facet_grid(Var1 ~ Var2, scales = "free") +
+    facetted_pos_scales(
+      y = list(scale_y_discrete(limits = c("C", "A")),
+               scale_y_discrete(limits = c("B", "D")))
+    )
+  expect_silent(print(g))
+})
+
+test_that("facetted_pos_scales can handle date scales", {
+  df <- cbind(expand.grid(1:2, 1:2), x = 1:4)
+
+  g <- ggplot(df, aes(structure(x, class = "Date"),
+                      structure(x, class = "Date"))) +
+    geom_point() +
+    facet_grid(Var1 ~ Var2, scales = "free") +
+    facetted_pos_scales(
+      x = list(
+        scale_x_date(date_breaks = "1 day")
+      )
+    )
+  expect_silent(print(g))
+})
 
 # Warning tests -----------------------------------------------------------
 
