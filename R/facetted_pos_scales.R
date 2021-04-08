@@ -319,7 +319,7 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
 }
 
 should_transform <- function(scale, columns) {
-  if (scale$is_discrete()) {
+  if (is.null(scale) || scale$is_discrete()) {
     return(character(0))
   }
   if (scale$trans$name %in% c("date", "time", "hms")) {
