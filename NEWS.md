@@ -6,6 +6,10 @@
 * Included 'colour'/'color' arguments for axis guides for recolouring the
   whole axis in one go (instead of editing 3-5 theme elements).
 * Fix bug in facetted_pos_scales() with date scales (#37)
+* Fix bug in nested facets when `strip.text = element_blank`. Requires ggplot2
+  >3.3.0, or the dev version at time of writing. (#35)
+* Changed facet_wrap2()/facet_nested_wrap() 'free', 'axes' and 'remove_labels'
+  arguments to be less ambiguous.
 
 # ggh4x 0.1.2.1
 

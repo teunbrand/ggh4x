@@ -19,7 +19,7 @@ strip_layout <- function(p) {
 p <- ggplot(mtcars, aes(disp, drat)) + geom_point()
 
 test_that("facet_wrap2() builds correct output", {
-  wrap <- p + facet_wrap2(~cyl, axes = "full", remove_labels = "cols")
+  wrap <- p + facet_wrap2(~cyl, axes = "all", remove_labels = "y")
 
   wrap_expected <- list(
     t = c(3, 3, 3),
@@ -48,7 +48,7 @@ nchildren <- function(gt, where) {
 }
 
 test_that("facet_wrap2() can some repeat axes", {
-  case <- p + facet_wrap2(am ~ cyl, axes = "rows", dir = "v")
+  case <- p + facet_wrap2(am ~ cyl, axes = "x", dir = "v")
   ctrl <- p + facet_wrap2(am ~ cyl, axes = "margins", dir = "v")
 
   case <- ggplotGrob(case)
@@ -65,10 +65,10 @@ test_that("facet_wrap2() can some repeat axes", {
 })
 
 test_that("facet_wrap2() can remove some labels", {
-  case1 <- p + facet_wrap2(am~cyl, axes = "full", remove_labels = "cols")
-  case2 <- p + facet_wrap2(am~cyl, axes = "full", remove_labels = "rows")
+  case1 <- p + facet_wrap2(am~cyl, axes = "all", remove_labels = "y")
+  case2 <- p + facet_wrap2(am~cyl, axes = "all", remove_labels = "x")
   ctrl1 <- p + facet_wrap2(am~cyl, axes = "margins")
-  ctrl2 <- p + facet_wrap2(am~cyl, axes = "full", remove_labels = "none")
+  ctrl2 <- p + facet_wrap2(am~cyl, axes = "all", remove_labels = "none")
 
   # Convert to gtables
   case1 <- ggplotGrob(case1)

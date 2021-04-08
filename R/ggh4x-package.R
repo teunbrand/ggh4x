@@ -3,7 +3,7 @@
 
 #' @importFrom stats setNames rt dcauchy dnorm dunif ccf coef lm
 #' @importFrom utils head tail getFromNamespace
-#' @importFrom rlang abort warn eval_tidy enquo as_label
+#' @importFrom rlang abort warn eval_tidy enquo as_label arg_match0
 #' @import vctrs
 #' @import ggplot2
 #' @import scales

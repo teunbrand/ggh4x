@@ -6,33 +6,52 @@
 #' extra options on axis drawing when scales are fixed.
 #'
 #' @inheritParams ggplot2::facet_wrap
-#' @param axes A \code{character} where axes should be drawn. Either
-#'   \code{"margins"} (default), \code{"rows"}, \code{"cols"} or \code{"full"}.
-#'   Only applies when the scale is free through the \code{scales} argument.
-#' @param remove_labels A \code{character} denoting what labels should be
-#'   removed when axes are repeated and redundant. Either \code{"none"}
-#'   (default), \code{"rows"}, \code{"cols"} or \code{"all"}. Only applies to
-#'   relevant position guides included with the \code{axes} argument when scales
-#'   are fixed.
+#' @param scales A `character(1)` or `logical(1)` whether scales are shared
+#'   across facets or allowed to vary. One of the following:
+#'   \describe{
+#'     \item{`"fixed"` or `FALSE`}{Scales are shared across all facets
+#'     (default).}
+#'     \item{`"free_x"`}{x-scales are allowed to vary.}
+#'     \item{`"free_y"`}{y-scales are allowed to vary.}
+#'     \item{`"free"` or `TRUE`}{Both scales can vary}
+#'   }
+#' @param axes A `character(1)` or `logical(1)` where axes should be drawn. One
+#'   of the following:
+#'   \describe{
+#'     \item{`"margins"` or `FALSE`}{Only draw axes at the outer margins
+#'       (default).}
+#'     \item{`"x"`}{Draw axes at the outer margins and all inner x-axes too.}
+#'     \item{`"y"`}{Draw axes at the outer margins and all inner y-axes too.}
+#'     \item{`"all"` or `TRUE`}{Draw the axes for every panel.}
+#'   }
+#' @param remove_labels A `character(1)` or `logical(1)` determining whether
+#'   axis text is displayed at inner panels. One of the following:
+#'   \describe{
+#'     \item{`"none"` or `FALSE`}{Display axis text at all axes (default).}
+#'     \item{`"x"`}{Display axis text at outer margins and all inner y-axes.}
+#'     \item{`"y"`}{Display axis text at outer margins and all inner x-axes.}
+#'     \item{`"all"` or `TRUE`}{Only display axis text at the outer margins.}
+#'   }
 #'
 #' @return A \code{Facet} ggproto object that can be added to a plot.
 #' @export
 #' @family facetting functions
+#' @md
 #'
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #'
 #' # Repeat all axes for every facet
-#' p + facet_wrap2(vars(class), axes = "full")
+#' p + facet_wrap2(vars(class), axes = "all")
 #'
 #' # Repeat only y-axes
-#' p + facet_wrap2(vars(class), axes = "cols")
+#' p + facet_wrap2(vars(class), axes = "y")
 #'
 #' # Repeat axes without labels
-#' p + facet_wrap2(vars(class), axes = "full", remove_labels = "all")
+#' p + facet_wrap2(vars(class), axes = "all", remove_labels = "all")
 #'
 #' # Repeat axes without x-axis labels
-#' p + facet_wrap2(vars(class), axes = "full", remove_labels = "rows")
+#' p + facet_wrap2(vars(class), axes = "all", remove_labels = "x")
 facet_wrap2 <- function(
   facets, nrow = NULL, ncol = NULL,
   scales = "fixed", axes = "margins",
@@ -59,25 +78,10 @@ facet_wrap2 <- function(
     ncol <- .int$sanitise_dim(ncol)
   }
 
-  # Setup free scales
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
-  free <- list(
-    x = any(scales %in% c("free_x", "free")),
-    y = any(scales %in% c("free_y", "free"))
-  )
-
-  # Setup axis positions
-  axes <- match.arg(axes, c("margins", "rows", "cols", "full"))
-  axes <- list(
-    x = any(axes %in% c("rows", "full")),
-    y = any(axes %in% c("cols", "full"))
-  )
-
-  rmlab <- match.arg(remove_labels, c("none", "rows", "cols", "all"))
-  rmlab <- list(
-    x = any(rmlab %in% c("rows", "all")),
-    y = any(rmlab %in% c("cols", "all"))
-  )
+  # Setup facet params
+  free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
+  axes  <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
+  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
 
   ggproto(
     NULL, FacetWrap2,
@@ -272,21 +276,6 @@ FacetWrap2 <- ggproto(
       right = right
     )
   },
-  measure_axes = function(axes) {
-    top <- unit(
-      apply(axes$top,    1, max_height, value_only = TRUE), "cm"
-    )
-    bottom <- unit(
-      apply(axes$bottom, 1, max_height, value_only = TRUE), "cm"
-    )
-    left <- unit(
-      apply(axes$left,   2, max_width,  value_only = TRUE), "cm"
-    )
-    right <- unit(
-      apply(axes$right,  2, max_width,  value_only = TRUE), "cm"
-    )
-    list(top = top, bottom = bottom, left = left, right = right)
-  },
   attach_axes = function(panel_table, axes, sizes) {
     panel_table <- .int$weave_tables_row(
       panel_table, axes$top,   -1, sizes$top,    "axis-t", 3
@@ -404,7 +393,7 @@ FacetWrap2 <- ggproto(
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
     axes <- self$setup_axes(axes, empty_table, panel_pos, layout,
                             params, empties, theme)
-    sizes <- self$measure_axes(axes)
+    sizes <- .measure_axes(axes)
     panel_table <- self$attach_axes(panel_table, axes, sizes)
 
     # Deal with strips
@@ -440,4 +429,29 @@ purge_guide_labels <- function(guide) {
   guide$width  <- guide$vp$width  <- sum(axis$widths)
   guide$height <- guide$vp$height <- sum(axis$heights)
   guide
+}
+
+.match_facet_arg <- function(value, options, x = 2, y = 3, both = 4, neither = 1,
+                             nm = deparse(substitute(value))) {
+  if (is.logical(value) && length(value) == 1 && !is.na(value)) {
+    if (value) {
+      value <- options[both]
+    } else {
+      value <- options[neither]
+    }
+  } else {
+    value <- rlang::arg_match0(value, options, arg_nm = nm)
+  }
+  list(
+    x = any(value %in% options[c(x, both)]),
+    y = any(value %in% options[c(y, both)])
+  )
+}
+
+.measure_axes <- function(axes) {
+  top    <- unit(apply(axes$top,    1, max_height, value_only = TRUE), "cm")
+  bottom <- unit(apply(axes$bottom, 1, max_height, value_only = TRUE), "cm")
+  left   <- unit(apply(axes$left,   2, max_width,  value_only = TRUE), "cm")
+  right  <- unit(apply(axes$right,  2, max_width,  value_only = TRUE), "cm")
+  list(top = top, bottom = bottom, left = left, right = right)
 }
