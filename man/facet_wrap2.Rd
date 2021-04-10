@@ -116,6 +116,7 @@ p + facet_wrap2(vars(class), axes = "all", remove_labels = "x")
 }
 \seealso{
 Other facetting functions: 
+\code{\link{facet_grid2}()},
 \code{\link{facet_nested_wrap}()},
 \code{\link{facet_nested}()}
 }

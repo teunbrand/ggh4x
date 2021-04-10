@@ -158,6 +158,7 @@ p + facet_nested_wrap(vars(cyl, drv), nest_line = TRUE) +
 }
 \seealso{
 Other facetting functions: 
+\code{\link{facet_grid2}()},
 \code{\link{facet_nested}()},
 \code{\link{facet_wrap2}()}
 }

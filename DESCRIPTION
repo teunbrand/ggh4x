@@ -42,6 +42,7 @@ LazyData: true
 RoxygenNote: 7.1.1
 Collate: 
     'element_part_rect.R'
+    'facet_grid2.R'
     'facet_nested.R'
     'facet_wrap2.R'
     'facet_nested_wrap.R'

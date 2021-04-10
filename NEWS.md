@@ -10,6 +10,8 @@
   >3.3.0, or the dev version at time of writing. (#35)
 * Changed facet_wrap2()/facet_nested_wrap() 'free', 'axes' and 'remove_labels'
   arguments to be less ambiguous.
+* Added facet_grid2() offering the same axis drawing extensions as facet_wrap2() 
+  but for grid layouts. Also allows independent scales across rows and columns.
 
 # ggh4x 0.1.2.1
 
