@@ -5,7 +5,7 @@
 #' @description \code{facet_nested()} forms a matrix of panels defined by row
 #'   and column faceting variables and nests grouped facets.
 #'
-#' @inheritParams ggplot2::facet_grid
+#' @inheritParams facet_grid2
 #' @param nest_line a \code{logical} vector of length 1, indicating whether to
 #'   draw a nesting line to indicate the nesting of variables. Control the look
 #'   of the nesting line by setting the \code{ggh4x.facet.nestline} theme

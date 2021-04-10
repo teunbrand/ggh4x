@@ -46,15 +46,61 @@ the columns (of the tabular display) on the RHS; the dot in the
 formula is used to indicate there should be no faceting on this
 dimension (either row or column).}
 
-\item{scales}{Are scales shared across all facets (the default,
-\code{"fixed"}), or do they vary across rows (\code{"free_x"}),
-columns (\code{"free_y"}), or both rows and columns (\code{"free"})?}
+\item{scales}{A \code{character(1)} or \code{logical(1)} whether scales are shared
+across facets or allowed to vary. Interacts with the \code{independent}
+argument. One of the following:
+\describe{
+\item{\code{"fixed"} or \code{FALSE}}{Scales are shared across all facets
+(default).}
+\item{\code{"free_x"}}{x-scales are allowed to vary across rows.}
+\item{\code{"free_y"}}{y-scales are allowed to vary across columns.}
+\item{\code{"free"} or \code{TRUE}}{Scales can vary across rows and columns.}
+}}
 
-\item{space}{If \code{"fixed"}, the default, all panels have the same size.
-If \code{"free_y"} their height will be proportional to the length of the
-y scale; if \code{"free_x"} their width will be proportional to the
-length of the x scale; or if \code{"free"} both height and width will
-vary.  This setting has no effect unless the appropriate scales also vary.}
+\item{space}{A \code{character(1)} or \code{logical(1)} determining whether the size of
+panels are proportional to the length of the scales. When the \code{independent}
+argument allows for free scales in a dimension, the panel sizes cannot be
+proportional. Note that the \code{scales} argument must be free in the same
+dimension as the \code{space} argument to have an effect.One of the following:
+\describe{
+\item{\code{"fixed"} or \code{FALSE}}{All panels have the same size (default).}
+\item{\code{"free_x"}}{Panel widths are proportional to the x-scales.}
+\item{\code{"free_y"}}{Panel heights are proportional to the y-scales.}
+\item{\code{"free"} or \code{TRUE}}{Both the widths and heights vary according to
+scales.}
+}}
+
+\item{axes}{A \code{character(1)} or \code{logical(1)} where axes should be drawn. One
+of the following:
+\describe{
+\item{\code{"margins"} or \code{FALSE}}{Only draw axes at the outer margins
+(default).}
+\item{\code{"x"}}{Draw axes at the outer margins and all inner x-axes too.}
+\item{\code{"y"}}{Draw axes at the outer margins and all inner y-axes too.}
+\item{\code{"all"} or \code{TRUE}}{Draw the axes for every panel.}
+}}
+
+\item{remove_labels}{A \code{character(1)} or \code{logical(1)} determining whether
+axis text is displayed at inner panels. One of the following:
+\describe{
+\item{\code{"none"} or \code{FALSE}}{Display axis text at all axes (default).}
+\item{\code{"x"}}{Display axis text at outer margins and all inner y-axes.}
+\item{\code{"y"}}{Display axis text at outer margins and all inner x-axes.}
+\item{\code{"all"} or \code{TRUE}}{Only display axis text at the outer margins.}
+}}
+
+\item{independent}{A \code{character(1)} or \code{logical(1)} determining whether
+scales can vary within a row or column of panels, like they can be in
+\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}. The \code{scales} argument must be free for the same
+dimension before they can be set to independent. One of the following:
+\describe{
+\item{\code{"none"} or \code{FALSE}}{All y-scales should be fixed in a row and all
+x-scales are fixed in a column (default).}
+\item{\code{"x"}}{x-scales are allowed to vary within a column.}
+\item{\code{"y"}}{y-scales are allowed to vary within a row.}
+\item{\code{"all"} or \code{TRUE}}{Both x- and y-scales are allowed to vary within
+a column or row respectively.}
+}}
 
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
 statistics, not raw data. If \code{FALSE}, will be range of raw data

@@ -111,7 +111,7 @@ StatDifference <- ggproto(
     splitter  <- rep(seq_len(length(crossover) / 2), each = 2)
     crossover <- lapply(split(data[crossover, ], splitter), find_isect)
 
-    data <- vctrs::vec_rbind(data, !!!crossover)
+    data <- do.call(rbind, c(list(data), crossover))
     data <- data[order(data$x, data$id), ]
     data$id <- c(TRUE, diff(data$id) > 0)
     data$sign <- factor(data$sign, levels = c("1", "-1", "0"),
