@@ -332,3 +332,8 @@ test_that("facet_nested handles combined datasets with missing inner variables",
   expect_equal(ctrl_striplabels, c("1", "A", "1", "B", "2", "A", "2", 'B'))
   expect_equal(test_striplabels, c("1", "A", "B", "2", ""))
 })
+
+test_that("facet_nested gives errors", {
+  expr <- substitute(facet_nested(cols = TRUE))
+  expect_error(eval(expr), "should not be logical")
+})

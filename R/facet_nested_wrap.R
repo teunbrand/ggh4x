@@ -119,6 +119,7 @@ facet_nested_wrap <- function(
       rmlab = rmlab,
       nest_line = nest_line,
       resect = resect,
+      independent = list(x = FALSE, y = FALSE),
       bleed = bleed
     )
   )

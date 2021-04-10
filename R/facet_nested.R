@@ -16,7 +16,10 @@
 #'   of lower-level variables is allowed when the higher-level variables are
 #'   separate. See details.
 #'
-#' @details Unlike \code{facet_grid()}, this function only automatically expands
+#' @details This function inherits the capabilities of
+#'   \code{\link[ggh4x]{facet_grid2}()}.
+#'
+#'   Unlike \code{facet_grid()}, this function only automatically expands
 #'   missing variables when they have no variables in that direction, to allow
 #'   for unnested variables. It still requires at least one layer to have all
 #'   faceting variables.
@@ -69,59 +72,60 @@
 #'   facet_nested(~ nester + Species, nest_line = TRUE) +
 #'   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 facet_nested <- function(
-  rows = NULL, cols = NULL, scales = "fixed", space = "fixed",
-  shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE, margins = FALSE, facets = NULL,
-  nest_line = FALSE, resect = unit(0, "mm"), bleed = FALSE
+  rows = NULL,
+  cols = NULL,
+  scales = "fixed",
+  space  = "fixed",
+  axes   = "margins",
+  remove_labels = "none",
+  independent = "none",
+  shrink = TRUE,
+  labeller = "label_value",
+  as.table = TRUE,
+  switch = NULL,
+  drop = TRUE,
+  margins = FALSE,
+  nest_line = FALSE,
+  resect = unit(0, "mm"),
+  bleed = FALSE
 ) {
-  if (!is.null(facets)) {
-    rows <- facets
-  }
   if (is.logical(cols)) {
-    margins <- cols
-    cols <- NULL
+    abort(paste0("The `col` argument should not be logical.",
+                 " Did you intend `margin` instead?"))
   }
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
-  free <- list(x = any(scales %in% c("free_x", "free")),
-               y = any(scales %in% c("free_y", "free")))
+  # Match arguments
+  free <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
+  space_free <- .match_facet_arg(space, c("fixed", "free_x", "free_y", "free"))
+  axes <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
+  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
+  independent <- .match_facet_arg(independent, c("none", "x", "y", "all"))
 
-  space <- match.arg(space, c("fixed", "free_x", "free_y", "free"))
-  space_free <- list(x = any(space %in% c("free_x", "free")),
-                     y = any(space %in% c("free_y", "free")))
+  # Check incompatible arguments
+  params <- .validate_independent(independent, free, space_free, rmlab)
 
   if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
     stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
   }
 
   facets_list <- .int$grid_as_facets_list(rows, cols)
-  n <- length(facets_list)
-  if (n > 2L) {
-    stop("A grid facet specification can't have more than two dimensions",
-         .call = FALSE)
-  }
-  if (n == 1L) {
-    rows <- quos()
-    cols <- facets_list[[1]]
-  } else {
-    rows <- facets_list[[1]]
-    cols <- facets_list[[2]]
-  }
   labeller <- .int$check_labeller(labeller)
-  ggproto(NULL, FacetNested, shrink = shrink,
-          params = list(
-            rows = rows,
-            cols = cols,
-            margins = margins,
-            free = free,
-            space_free = space_free,
-            labeller = labeller,
-            as.table = as.table,
-            switch = switch,
-            drop = drop,
-            nest_line = nest_line,
-            resect = resect,
-            bleed = bleed
-          ))
+
+  ggproto(
+    NULL, FacetNested,
+    shrink = shrink,
+    params = c(list(
+      rows = facets_list$rows,
+      cols = facets_list$cols,
+      margins = margins,
+      labeller = labeller,
+      as.table = as.table,
+      switch = switch,
+      drop = drop,
+      nest_line = nest_line,
+      resect = resect,
+      bleed = bleed,
+      axes = axes
+    ), params))
 }
 
 # ggproto -----------------------------------------------------------------
@@ -131,7 +135,7 @@ facet_nested <- function(
 #' @export
 #' @rdname ggh4x_extensions
 FacetNested <- ggproto(
-  "FacetNested", FacetGrid,
+  "FacetNested", FacetGrid2,
   map_data = function(data, layout, params) {
     # Handle empty data
     if (.int$empty(data)) {
@@ -189,70 +193,53 @@ FacetNested <- ggproto(
     }
     data
   },
-  compute_layout = function(data, params) {
-    rows <- params$rows
-    cols <- params$cols
-    dups <- intersect(names(rows), names(cols))
-
-    if (length(dups) > 0) {
-      stop("Facetting variables can only appear in row or cols, not both.\n",
-           "Problems: ", paste0(dups, collapse = "'"), call. = FALSE)
+  vars_combine = function(
+    data, env = emptyenv(), vars = NULL, drop = TRUE
+  ) {
+    if (length(vars) == 0) {
+      return(.int$new_data_frame())
     }
 
-    base_rows <- combine_nested_vars(data, params$plot_env,
-                                     rows, drop = params$drop)
-    if (!params$as.table) {
-      rev_order <- function(x) factor(x, levels = rev(.int$ulevels(x)))
-    }
-    base_cols <- combine_nested_vars(data, params$plot_env, cols,
-                                     drop = params$drop)
-    base <- .int$df.grid(base_rows, base_cols)
+    possible_columns <- unique(unlist(lapply(data, names)))
 
-    if (nrow(base) == 0) {
-      return(.int$new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L,
-                                      SCALE_X = 1L, SCALE_Y = 1L)))
+    values <- .int$compact(lapply(data, .int$eval_facets, facets = vars,
+                                  possible_columns = possible_columns))
+    has_all <- unlist(lapply(values, length)) == length(vars)
+    if (!any(has_all)) {
+      missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
+      missing_txt <- vapply(missing, .int$var_list, character(1))
+      name <- c("Plot", paste0("Layer ", seq_len(length(data) - 1)))
+      stop("At least one layer must contain all faceting variables: ",
+           .int$var_list(names(vars)), ".\n", paste0("* ", name, " is missing ",
+                                                     missing_txt, collapse = "\n"),
+           call. = FALSE)
     }
-
-    base <- .int$reshape_add_margins(
-      base, list(names(rows), names(cols)), params$margins
-    )
-    base <- unique(base)
-
-    panel <- .int$id(base, drop = TRUE)
-    panel <- factor(panel, levels = seq_len(attr(panel, "n")))
-
-    rows <- if (!length(names(rows))) {
-      rep(1L, length(panel))
-    } else {
-      .int$id(base[names(rows)], drop = TRUE)
+    base <- unique(.int$rbind_dfs(values[has_all]))
+    if (!drop) {
+      base <- .int$unique_combs(base)
     }
-    cols <- if (!length(names(cols))) {
-      rep(1L, length(panel))
-    } else {
-      .int$id(base[names(cols)], drop = TRUE)
+    for (value in values[!has_all]) {
+      if (.int$empty(value))
+        next
+      old <- base[setdiff(names(base), names(value))]
+      new <- unique(value[intersect(names(base), names(value))])
+      if (drop) {
+        new <- .int$unique_combs(new)
+      }
+      # This is different than vanilla ggplot2
+      old[setdiff(names(base), names(value))] <- rep("", nrow(old))
+      base <- rbind(base, .int$df.grid(old, new))
     }
-
-    panels <- .int$new_data_frame(
-      c(list(PANEL = panel, ROW = rows, COL = cols), base)
-    )
-    panels <- panels[order(panels$PANEL), , drop = FALSE]
-    rownames(panels) <- NULL
-    panels$SCALE_X <- if (params$free$x) {
-      panels$COL
-    } else {
-      1L
+    if (.int$empty(base)) {
+      stop("Facetting variables must have at least one value",
+           call. = FALSE)
     }
-    panels$SCALE_Y <- if (params$free$y) {
-      panels$ROW
-    } else {
-      1L
-    }
-    panels
+    base
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
                          data, theme, params) {
-    panel_table <- FacetGrid$draw_panels(panels, layout, x_scales, y_scales,
-                                         ranges, coord, data, theme, params)
+    panel_table <- FacetGrid2$draw_panels(panels, layout, x_scales, y_scales,
+                                          ranges, coord, data, theme, params)
 
     # Setup strips
     col_vars  <- unique(layout[names(params$cols)])
@@ -294,51 +281,6 @@ FacetNested <- ggproto(
 )
 
 # Helper functions -----------------------------------------------
-
-combine_nested_vars <- function(
-  data, env = emptyenv(), vars = NULL, drop = TRUE
-) {
-  if (length(vars) == 0) {
-    return(.int$new_data_frame())
-  }
-
-  possible_columns <- unique(unlist(lapply(data, names)))
-
-  values <- .int$compact(lapply(data, .int$eval_facets, facets = vars,
-                                possible_columns = possible_columns))
-  has_all <- unlist(lapply(values, length)) == length(vars)
-  if (!any(has_all)) {
-    missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
-    missing_txt <- vapply(missing, .int$var_list, character(1))
-    name <- c("Plot", paste0("Layer ", seq_len(length(data) - 1)))
-    stop("At least one layer must contain all faceting variables: ",
-         .int$var_list(names(vars)), ".\n", paste0("* ", name, " is missing ",
-                                              missing_txt, collapse = "\n"),
-         call. = FALSE)
-  }
-  base <- unique(.int$rbind_dfs(values[has_all]))
-  if (!drop) {
-    base <- .int$unique_combs(base)
-  }
-  for (value in values[!has_all]) {
-    if (.int$empty(value))
-      next
-    old <- base[setdiff(names(base), names(value))]
-    new <- unique(value[intersect(names(base), names(value))])
-    if (drop) {
-      new <- .int$unique_combs(new)
-    }
-    old[setdiff(names(base), names(value))] <- rep("", nrow(old))
-    base <- rbind(base, .int$df.grid(old, new))
-  }
-  if (.int$empty(base)) {
-    stop("Facetting variables must have at least one value",
-         call. = FALSE)
-  }
-  base
-}
-
-# New merge strips --------------------------------------------------------
 
 merge_strips <- function(
   panel_table, vars, switch, params, theme, where = "t"

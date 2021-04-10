@@ -12,6 +12,8 @@
   arguments to be less ambiguous.
 * Added facet_grid2() offering the same axis drawing extensions as facet_wrap2() 
   but for grid layouts. Also allows independent scales across rows and columns.
+* facet_nested() now builds off facet_grid2() instead of facet_grid(),
+  inheriting these extensions above.
 
 # ggh4x 0.1.2.1
 

@@ -9,13 +9,15 @@ facet_nested(
   cols = NULL,
   scales = "fixed",
   space = "fixed",
+  axes = "margins",
+  remove_labels = "none",
+  independent = "none",
   shrink = TRUE,
   labeller = "label_value",
   as.table = TRUE,
   switch = NULL,
   drop = TRUE,
   margins = FALSE,
-  facets = NULL,
   nest_line = FALSE,
   resect = unit(0, "mm"),
   bleed = FALSE
@@ -91,9 +93,6 @@ default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
 
-\item{facets}{This argument is soft-deprecated, please use \code{rows}
-and \code{cols} instead.}
-
 \item{nest_line}{a \code{logical} vector of length 1, indicating whether to
 draw a nesting line to indicate the nesting of variables. Control the look
 of the nesting line by setting the \code{ggh4x.facet.nestline} theme
@@ -114,7 +113,10 @@ A \emph{FacetNested} ggproto object.
   and column faceting variables and nests grouped facets.
 }
 \details{
-Unlike \code{facet_grid()}, this function only automatically expands
+This function inherits the capabilities of
+  \code{\link[ggh4x]{facet_grid2}()}.
+
+  Unlike \code{facet_grid()}, this function only automatically expands
   missing variables when they have no variables in that direction, to allow
   for unnested variables. It still requires at least one layer to have all
   faceting variables.
