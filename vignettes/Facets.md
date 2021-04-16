@@ -7,15 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.width = 5
-)
-```
 
-```{r setup}
+
+
+```r
 library(ggh4x)
 ```
 
@@ -29,38 +24,53 @@ This package offers two extensions to the vanilla `facet_wrap()` and `facet_grid
 
 The default behaviour of `facet_wrap2()` is to replicate exactly what `ggplot2::facet_wrap()` does.
 
-```{r}
+
+```r
 p <- ggplot(mpg, aes(displ, hwy, colour = as.factor(cyl))) + geom_point()
 
 p + facet_wrap2(vars(class))
 ```
 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+
 The difference is even when `scales = "fixed"` (the default), you can draw the axes at (some or all) inner facets with the `axes` argument. Moreover, you can choose to omit the axis labels but keep the axis ticks of the inner facets by setting the `remove_labels` argument.
 
-```{r}
+
+```r
 p + facet_wrap2(vars(class), axes = "all", remove_labels = "x")
 ```
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 ## Grid
 
 Likewise, `facet_grid2()` is based on `ggplot2::facet_grid()` and by default behaves identically, but also supports the extended options for axes that `facet_wrap2()` has.
 
-```{r}
+
+```r
 p + facet_grid2(vars(drv), vars(year), axes = "all", remove_labels = "y")
 ```
 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+
 In addition, `facet_grid2()` also supports what the package calls 'independent' scales. This relieves the constraint that `ggplot2::facet_grid()` has that a scale can only be free between rows and columns of the layout, and instead allows scales to be free within rows and columns of the layout. This keeps the grid layout but preserves the flexibility of scales in wrapped facets. 
 
-```{r}
+
+```r
 p + facet_grid2(vars(drv), vars(year), scales = "free_x", independent = "x")
 ```
 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+
 One sacrifice that had to be made for independent scales, is that `facet_grid2()` cannot have independent scales *and* have `space = "free"` for the independent dimensions. You can however combine these in *different* dimensions.
 
-```{r}
+
+```r
 p + facet_grid2(vars(drv), vars(year), 
                 scales = "free", independent = "y", space = "free_x")
 ```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 # Nested facets
 
@@ -68,7 +78,8 @@ Perhaps this package might be best known for generating nested facets; wherein o
 
 In the example below, we'll categorise the Iris species for having long or short leaves.
 
-```{r}
+
+```r
 df <- cbind(
   iris,
   Nester = ifelse(iris$Species == "setosa", "Short Leaves", "Long Leaves")
@@ -79,11 +90,14 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
   facet_nested(~ Nester + Species)
 ```
 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
+
 ## Nesting lines
 
 If you prefer your strips to have blank backgrounds, you could still indicate the hierarchical nature by setting `nest_line = TRUE`. The appearance of the line is controlled by the theme element `ggh4x.facet.nestline`.
 
-```{r}
+
+```r
 ggplot(df, aes(Sepal.Width, Sepal.Length)) +
   geom_point() +
   facet_nested(~ Nester + Species, nest_line = TRUE) +
@@ -91,24 +105,30 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
         ggh4x.facet.nestline = element_line(colour = "blue"))
 ```
 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+
 ## Relation to facet_grid()
 
 While `facet_nested()` is based on `facet_grid())`, there are a few differences. First, `facet_nested()` inherits from `facet_grid2()`, so that it inherits the axis features. More notably, `facet_nested()` doesn't require input data to have *all* the facet variables. In the example below, we remove the `Species` column, to prevent facetting on that variable. Note that if we didn't specify a new `Nester` variable, it would put the second set of points in all panels, just like `facet_grid()`.
 
 Furthermore, when strips are placed at the bottom, it rearranges the strips so that the inner strips are closest to the panels and spanning strips are furthest from the panel.
 
-```{r}
+
+```r
 ggplot(df, aes(Sepal.Width, Sepal.Length)) +
   geom_point() +
   geom_point(data = transform(iris, Species = NULL, Nester = "All")) +
   facet_nested(~ Nester + Species, switch = "x")
 ```
 
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
+
 ## Variant for facet_wrap()
 
 A similar variant exists for wrapping in facets. It can span the strips for every `strip.position` argument, and has a few nifty tricks for duplicating the axes or just the axis ticks. To explain the `bleed` argument, take a look at the lower left, where the lower "f" strips are merged, even though the strips on top are in different categories.
 
-```{r}
+
+```r
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() + 
   facet_nested_wrap(vars(cyl, drv), dir = "v",
@@ -118,6 +138,8 @@ ggplot(mpg, aes(displ, hwy)) +
                     bleed = TRUE)
 ```
 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
+
 
 # Position scales
 
@@ -125,7 +147,8 @@ A second thing we might want to tweak about facets is the exact specifications o
 
 The list of scales follows the order of the facets, as long as they are set to 'free'. Tweaking the position scales works with many types of facets, such as wrap, grid and nested, but has to be called *after* facets are added.
 
-```{r}
+
+```r
 scales <- list(
   scale_x_reverse(),
   scale_x_continuous(labels = scales::dollar,
@@ -141,9 +164,12 @@ ggplot(mpg, aes(displ, hwy)) +
   facetted_pos_scales(x = scales)
 ```
 
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
+
 This works because `facetted_pos_scales()` makes an edit to the facet, which comes with an important limitation. Due to the way plots are build and where facets are involved, scale transformations are applied *after* calculations in the stat part of the layer. This differs from normal behaviour, where scale transformations are applied *before* stat calculations. Therefore, it is recommended to pre-transform the data in layers with non-identity statistics in the `aes()` mapping. An example of what could go wrong is shown below.
 
-```{r, fig.show='hold', fig.width = 3}
+
+```r
 set.seed(0)
 df <- data.frame(
   x = rlnorm(100, 10)
@@ -161,6 +187,8 @@ ggplot(df, aes(x)) +
   facetted_pos_scales(x = list(scale_x_log10()))
 ```
 
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-2.png)
+
 If you plan on using `facetted_pos_scales()` to tweak the axis of the plots, do take a look at the [position guides](PositionGuides.html)!
 
 # Sizes
@@ -169,7 +197,8 @@ Lastly, we can also set the sizes of the panels to what we want. This can be esp
 
 The settings overrule the coordinates' or theme's aspect ratio and `space = "free"` facet arguments. By default, rows and columns are set relative within themselves only. When `respect = TRUE`, the rows and columns relative units become also relative between rows and columns, as you can see in the plot below. Alternatively, you can set them as absolute units with the `grid::unit()` function. Again, these need to be added *after* any facets.
 
-```{r}
+
+```r
 g <- ggplot(faithful) +
   geom_point(aes(waiting, eruptions),
              data = cbind(faithful, facet = "Points")) +
@@ -182,9 +211,14 @@ g <- ggplot(faithful) +
 g
 ```
 
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png)
+
 If you think the breaks of the density plot above are too packed, why not tweak these with `facetted_pos_scales()`? Note that `NULL` signals here that the default scale should be used.
 
-```{r}
+
+```r
 g + facetted_pos_scales(x = list(NULL, scale_x_continuous(breaks = c(0, 0.2, 0.4))))
 ```
+
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png)
 
