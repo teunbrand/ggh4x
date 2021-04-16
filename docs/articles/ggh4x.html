@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -98,7 +98,7 @@
 
       
 
-      </header><script src="ggh4x_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="ggh4x_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to ggh4x</h1>
@@ -117,7 +117,7 @@
 <a href="#getting-started" class="anchor"></a>Getting started</h1>
 <p>Using ggh4x is not that different from using ggplot2, as most of the function following their API conventions. Below is an example of the types of things you could do, with as much ggh4x functions as could be reasonably fit into a single plot.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x">ggh4x</a></span><span class="op">)</span>
 
 <span class="co"># Setting up some random data</span>
@@ -150,10 +150,10 @@
   <span class="fu"><a href="../reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fl">1.618</span>, cols <span class="op">=</span> <span class="fl">1</span>, respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
   <span class="co"># Tweak the scales of individual panels</span>
   <span class="fu"><a href="../reference/facetted_pos_scales.html">facetted_pos_scales</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org//reference/label_number.html">number_format</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html">number_format</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,
     <span class="co"># Give the 2nd panel minor ticks</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>guide <span class="op">=</span> <span class="fu"><a href="../reference/guide_axis_minor.html">guide_axis_minor</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span>, oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org//reference/oob.html">oob_keep</a></span><span class="op">)</span>,
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span><span class="op">)</span>, oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html">oob_keep</a></span><span class="op">)</span>,
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="ggh4x_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>

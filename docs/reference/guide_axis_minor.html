@@ -81,7 +81,7 @@ place tickmarks at minor break positions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -160,6 +160,8 @@ place tickmarks at minor break positions.</p>
   angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
   order <span class='op'>=</span> <span class='fl'>0</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
   trunc_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
   trunc_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
   position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
@@ -196,6 +198,18 @@ useful for displaying labels that would otherwise overlap.</p></td>
       <th>order</th>
       <td><p>Used to determine the order of the guides (left-to-right,
 top-to-bottom), if more than one  guide must be drawn at the same location.</p></td>
+    </tr>
+    <tr>
+      <th>colour</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.</p></td>
     </tr>
     <tr>
       <th>trunc_lower</th>

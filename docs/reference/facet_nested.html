@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -159,13 +159,15 @@
   cols <span class='op'>=</span> <span class='cn'>NULL</span>,
   scales <span class='op'>=</span> <span class='st'>"fixed"</span>,
   space <span class='op'>=</span> <span class='st'>"fixed"</span>,
+  axes <span class='op'>=</span> <span class='st'>"margins"</span>,
+  remove_labels <span class='op'>=</span> <span class='st'>"none"</span>,
+  independent <span class='op'>=</span> <span class='st'>"none"</span>,
   shrink <span class='op'>=</span> <span class='cn'>TRUE</span>,
   labeller <span class='op'>=</span> <span class='st'>"label_value"</span>,
   as.table <span class='op'>=</span> <span class='cn'>TRUE</span>,
   switch <span class='op'>=</span> <span class='cn'>NULL</span>,
   drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
   margins <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  facets <span class='op'>=</span> <span class='cn'>NULL</span>,
   nest_line <span class='op'>=</span> <span class='cn'>FALSE</span>,
   resect <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"mm"</span><span class='op'>)</span>,
   bleed <span class='op'>=</span> <span class='cn'>FALSE</span>
@@ -200,17 +202,69 @@ dimension (either row or column).</p></td>
     </tr>
     <tr>
       <th>scales</th>
-      <td><p>Are scales shared across all facets (the default,
-<code>"fixed"</code>), or do they vary across rows (<code>"free_x"</code>),
-columns (<code>"free_y"</code>), or both rows and columns (<code>"free"</code>)?</p></td>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> whether scales are shared
+across facets or allowed to vary. Interacts with the <code>independent</code>
+argument. One of the following:</p><dl>
+<dt><code>"fixed"</code> or <code>FALSE</code></dt><dd><p>Scales are shared across all facets
+(default).</p></dd>
+<dt><code>"free_x"</code></dt><dd><p>x-scales are allowed to vary across rows.</p></dd>
+<dt><code>"free_y"</code></dt><dd><p>y-scales are allowed to vary across columns.</p></dd>
+<dt><code>"free"</code> or <code>TRUE</code></dt><dd><p>Scales can vary across rows and columns.</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>space</th>
-      <td><p>If <code>"fixed"</code>, the default, all panels have the same size.
-If <code>"free_y"</code> their height will be proportional to the length of the
-y scale; if <code>"free_x"</code> their width will be proportional to the
-length of the x scale; or if <code>"free"</code> both height and width will
-vary.  This setting has no effect unless the appropriate scales also vary.</p></td>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> determining whether the size of
+panels are proportional to the length of the scales. When the <code>independent</code>
+argument allows for free scales in a dimension, the panel sizes cannot be
+proportional. Note that the <code>scales</code> argument must be free in the same
+dimension as the <code>space</code> argument to have an effect.One of the following:</p><dl>
+<dt><code>"fixed"</code> or <code>FALSE</code></dt><dd><p>All panels have the same size (default).</p></dd>
+<dt><code>"free_x"</code></dt><dd><p>Panel widths are proportional to the x-scales.</p></dd>
+<dt><code>"free_y"</code></dt><dd><p>Panel heights are proportional to the y-scales.</p></dd>
+<dt><code>"free"</code> or <code>TRUE</code></dt><dd><p>Both the widths and heights vary according to
+scales.</p></dd>
+
+</dl></td>
+    </tr>
+    <tr>
+      <th>axes</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> where axes should be drawn. One
+of the following:</p><dl>
+<dt><code>"margins"</code> or <code>FALSE</code></dt><dd><p>Only draw axes at the outer margins
+(default).</p></dd>
+<dt><code>"x"</code></dt><dd><p>Draw axes at the outer margins and all inner x-axes too.</p></dd>
+<dt><code>"y"</code></dt><dd><p>Draw axes at the outer margins and all inner y-axes too.</p></dd>
+<dt><code>"all"</code> or <code>TRUE</code></dt><dd><p>Draw the axes for every panel.</p></dd>
+
+</dl></td>
+    </tr>
+    <tr>
+      <th>remove_labels</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> determining whether
+axis text is displayed at inner panels. One of the following:</p><dl>
+<dt><code>"none"</code> or <code>FALSE</code></dt><dd><p>Display axis text at all axes (default).</p></dd>
+<dt><code>"x"</code></dt><dd><p>Display axis text at outer margins and all inner y-axes.</p></dd>
+<dt><code>"y"</code></dt><dd><p>Display axis text at outer margins and all inner x-axes.</p></dd>
+<dt><code>"all"</code> or <code>TRUE</code></dt><dd><p>Only display axis text at the outer margins.</p></dd>
+
+</dl></td>
+    </tr>
+    <tr>
+      <th>independent</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> determining whether
+scales can vary within a row or column of panels, like they can be in
+<a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>ggplot2::facet_wrap</a>. The <code>scales</code> argument must be free for the same
+dimension before they can be set to independent. One of the following:</p><dl>
+<dt><code>"none"</code> or <code>FALSE</code></dt><dd><p>All y-scales should be fixed in a row and all
+x-scales are fixed in a column (default).</p></dd>
+<dt><code>"x"</code></dt><dd><p>x-scales are allowed to vary within a column.</p></dd>
+<dt><code>"y"</code></dt><dd><p>y-scales are allowed to vary within a row.</p></dd>
+<dt><code>"all"</code> or <code>TRUE</code></dt><dd><p>Both x- and y-scales are allowed to vary within
+a column or row respectively.</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>shrink</th>
@@ -262,11 +316,6 @@ variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.</p></td>
     </tr>
     <tr>
-      <th>facets</th>
-      <td><p>This argument is soft-deprecated, please use <code>rows</code>
-and <code>cols</code> instead.</p></td>
-    </tr>
-    <tr>
       <th>nest_line</th>
       <td><p>a <code>logical</code> vector of length 1, indicating whether to
 draw a nesting line to indicate the nesting of variables. Control the look
@@ -291,7 +340,9 @@ separate. See details.</p></td>
     <p>A <em>FacetNested</em> ggproto object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Unlike <code>facet_grid()</code>, this function only automatically expands
+    <p>This function inherits the capabilities of
+  <code><a href='facet_grid2.html'>facet_grid2</a>()</code>.</p>
+<p>Unlike <code>facet_grid()</code>, this function only automatically expands
   missing variables when they have no variables in that direction, to allow
   for unnested variables. It still requires at least one layer to have all
   faceting variables.</p>
@@ -301,10 +352,10 @@ separate. See details.</p></td>
   innermost variable. They display order is always such that the outermost
   variable is placed the furthest away from the panels. Strips are
   automatically grouped when they span a nested variable.</p>
-<p>The <code>bleed</code> argument controls whether lower-level variables are allowed
-  to be merged when higher-level are different, i.e. they can bleed over
-  hierarchies. Suppose the <code>facet_grid()</code> behaviour would be the
-  following:</p>
+<p>The <code>bleed</code> argument controls whether lower-level strips are allowed
+  to be merged when higher-level strips are different, i.e. they can bleed
+  over hierarchies. Suppose the <code>facet_grid()</code> behaviour would be the
+  following for strips:</p>
 <p><code>[_1_][_2_][_2_]</code> <br /> <code>[_3_][_3_][_4_]</code></p>
 <p>In such case, the default <code>bleed = FALSE</code> argument would result in the
   following:</p>
@@ -317,6 +368,7 @@ separate. See details.</p></td>
   original arguments. See <code><a href='https://rdrr.io/r/grid/unit.html'>unit</a></code> for the construction of a
   <code>unit</code> vector.</p>
 <p>Other facetting functions: 
+<code><a href='facet_grid2.html'>facet_grid2</a>()</code>,
 <code><a href='facet_nested_wrap.html'>facet_nested_wrap</a>()</code>,
 <code><a href='facet_wrap2.html'>facet_wrap2</a>()</code></p></div>
 

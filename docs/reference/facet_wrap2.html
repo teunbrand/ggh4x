@@ -81,7 +81,7 @@ extra options on axis drawing when scales are fixed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -191,23 +191,38 @@ or a character vector, <code><a href='https://rdrr.io/r/base/c.html'>c("a", "b")
     </tr>
     <tr>
       <th>scales</th>
-      <td><p>Should scales be fixed (<code>"fixed"</code>, the default),
-free (<code>"free"</code>), or free in one dimension (<code>"free_x"</code>,
-<code>"free_y"</code>)?</p></td>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> whether scales are shared
+across facets or allowed to vary. One of the following:</p><dl>
+<dt><code>"fixed"</code> or <code>FALSE</code></dt><dd><p>Scales are shared across all facets
+(default).</p></dd>
+<dt><code>"free_x"</code></dt><dd><p>x-scales are allowed to vary.</p></dd>
+<dt><code>"free_y"</code></dt><dd><p>y-scales are allowed to vary.</p></dd>
+<dt><code>"free"</code> or <code>TRUE</code></dt><dd><p>Both scales can vary</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>axes</th>
-      <td><p>A <code>character</code> where axes should be drawn. Either
-<code>"margins"</code> (default), <code>"rows"</code>, <code>"cols"</code> or <code>"full"</code>.
-Only applies when the scale is free through the <code>scales</code> argument.</p></td>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> where axes should be drawn. One
+of the following:</p><dl>
+<dt><code>"margins"</code> or <code>FALSE</code></dt><dd><p>Only draw axes at the outer margins
+(default).</p></dd>
+<dt><code>"x"</code></dt><dd><p>Draw axes at the outer margins and all inner x-axes too.</p></dd>
+<dt><code>"y"</code></dt><dd><p>Draw axes at the outer margins and all inner y-axes too.</p></dd>
+<dt><code>"all"</code> or <code>TRUE</code></dt><dd><p>Draw the axes for every panel.</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>remove_labels</th>
-      <td><p>A <code>character</code> denoting what labels should be
-removed when axes are repeated and redundant. Either <code>"none"</code>
-(default), <code>"rows"</code>, <code>"cols"</code> or <code>"all"</code>. Only applies to
-relevant position guides included with the <code>axes</code> argument when scales
-are fixed.</p></td>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> determining whether
+axis text is displayed at inner panels. One of the following:</p><dl>
+<dt><code>"none"</code> or <code>FALSE</code></dt><dd><p>Display axis text at all axes (default).</p></dd>
+<dt><code>"x"</code></dt><dd><p>Display axis text at outer margins and all inner y-axes.</p></dd>
+<dt><code>"y"</code></dt><dd><p>Display axis text at outer margins and all inner x-axes.</p></dd>
+<dt><code>"all"</code> or <code>TRUE</code></dt><dd><p>Only display axis text at the outer margins.</p></dd>
+
+</dl></td>
     </tr>
     <tr>
       <th>shrink</th>
@@ -260,6 +275,7 @@ either of the four sides by setting <code>strip.position = c("top",
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other facetting functions: 
+<code><a href='facet_grid2.html'>facet_grid2</a>()</code>,
 <code><a href='facet_nested_wrap.html'>facet_nested_wrap</a>()</code>,
 <code><a href='facet_nested.html'>facet_nested</a>()</code></p></div>
 
@@ -267,16 +283,16 @@ either of the four sides by setting <code>strip.position = c("top",
     <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># Repeat all axes for every facet</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"full"</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>
 </div><div class='img'><img src='facet_wrap2-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Repeat only y-axes</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"cols"</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"y"</span><span class='op'>)</span>
 </div><div class='img'><img src='facet_wrap2-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Repeat axes without labels</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"full"</span>, remove_labels <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"all"</span>, remove_labels <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>
 </div><div class='img'><img src='facet_wrap2-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Repeat axes without x-axis labels</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"full"</span>, remove_labels <span class='op'>=</span> <span class='st'>"rows"</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_wrap2</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>class</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='st'>"all"</span>, remove_labels <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
 </div><div class='img'><img src='facet_wrap2-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

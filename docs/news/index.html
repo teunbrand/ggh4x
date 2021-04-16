@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -146,9 +146,31 @@
       <small>Source: <a href='https://github.com/teunbrand/ggh4x/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="ggh4x-012" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.2">
-<a href="#ggh4x-012" class="anchor"></a>ggh4x 0.1.2</h1>
+    <div id="ggh4x-01219-dev-version-on-github" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.2.1.9">
+<a href="#ggh4x-01219-dev-version-on-github" class="anchor"></a>ggh4x 0.1.2.1.9 (dev version on github)<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>Fixed spelling in README (<a href='https://github.com/teunbrand/ggh4x/issues/32'>#32</a>, thanks <a href='https://github.com/vikatti'>@vikatti</a>!)</p></li>
+<li><p>Added helper for secondary axes: help_secondary()</p></li>
+<li><p>Added stat_difference() for shading a ribbon based on the sign of difference.</p></li>
+<li><p>Included ‘colour’/‘color’ arguments for axis guides for recolouring the whole axis in one go (instead of editing 3-5 theme elements).</p></li>
+<li><p>Fix bug in facetted_pos_scales() with date scales (<a href='https://github.com/teunbrand/ggh4x/issues/37'>#37</a>)</p></li>
+<li>
+<p>Fix bug in nested facets when <code>strip.text = element_blank</code>. Requires ggplot2</p>
+<blockquote>
+<p>3.3.0, or the dev version at time of writing. (<a href='https://github.com/teunbrand/ggh4x/issues/35'>#35</a>)</p>
+</blockquote>
+</li>
+<li><p>Changed facet_wrap2()/facet_nested_wrap() ‘free’, ‘axes’ and ‘remove_labels’ arguments to be less ambiguous.</p></li>
+<li><p>Added facet_grid2() offering the same axis drawing extensions as facet_wrap2() but for grid layouts. Also allows independent scales across rows and columns.</p></li>
+<li><p>facet_nested() now builds off facet_grid2() instead of facet_grid(), inheriting these extensions above.</p></li>
+</ul>
+</div>
+    <div id="ggh4x-0121" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.2.1">
+<a href="#ggh4x-0121" class="anchor"></a>ggh4x 0.1.2.1<small> 2021-02-11 </small>
+</h1>
 <ul>
 <li>Updated functions for ggplot2 v3.3.0 (<a href='https://github.com/teunbrand/ggh4x/issues/1'>#1</a>)</li>
 <li>Fixed compatibility issue for facet_nested() and patchwork (<a href='https://github.com/teunbrand/ggh4x/issues/4'>#4</a>)</li>
@@ -175,7 +197,8 @@
 </div>
     <div id="ggh4x-011" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.1">
-<a href="#ggh4x-011" class="anchor"></a>ggh4x 0.1.1</h1>
+<a href="#ggh4x-011" class="anchor"></a>ggh4x 0.1.1<small> Unreleased </small>
+</h1>
 <ul>
 <li>Package should be in usable state</li>
 <li>Added facet_nested()</li>
@@ -191,7 +214,8 @@
 </div>
     <div id="ggh4x-001" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.1">
-<a href="#ggh4x-001" class="anchor"></a>ggh4x 0.0.1</h1>
+<a href="#ggh4x-001" class="anchor"></a>ggh4x 0.0.1<small> Unreleased </small>
+</h1>
 <ul>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>Initialised repository skeleton</li>

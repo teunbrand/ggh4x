@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -98,7 +98,7 @@
 
       
 
-      </header><script src="Facets_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="Facets_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Facets</h1>
@@ -115,12 +115,48 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x">ggh4x</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: ggplot2</span></code></pre></div>
 <p>The ggh4x package has some extended options for tweaking the appearance of facets.</p>
+<div id="extended-facets" class="section level1">
+<h1 class="hasAnchor">
+<a href="#extended-facets" class="anchor"></a>Extended facets</h1>
+<p>This package offers two extensions to the vanilla <code>facet_wrap()</code> and <code>facet_grid()</code> that give you more control of the placement of axes at the inner facets.</p>
+<div id="wrap" class="section level2">
+<h2 class="hasAnchor">
+<a href="#wrap" class="anchor"></a>Wrap</h2>
+<p>The default behaviour of <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code> is to replicate exactly what <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">ggplot2::facet_wrap()</a></code> does.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">mpg</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_wrap2.html">facet_wrap2</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">class</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="Facets_files/figure-html/unnamed-chunk-2-1.png" width="480"></p>
+<p>The difference is even when <code>scales = "fixed"</code> (the default), you can draw the axes at (some or all) inner facets with the <code>axes</code> argument. Moreover, you can choose to omit the axis labels but keep the axis ticks of the inner facets by setting the <code>remove_labels</code> argument.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_wrap2.html">facet_wrap2</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">class</span><span class="op">)</span>, axes <span class="op">=</span> <span class="st">"all"</span>, remove_labels <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></code></pre></div>
+<p><img src="Facets_files/figure-html/unnamed-chunk-3-1.png" width="480"></p>
+</div>
+<div id="grid" class="section level2">
+<h2 class="hasAnchor">
+<a href="#grid" class="anchor"></a>Grid</h2>
+<p>Likewise, <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code> is based on <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">ggplot2::facet_grid()</a></code> and by default behaves identically, but also supports the extended options for axes that <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code> has.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, <span class="fu">vars</span><span class="op">(</span><span class="va">year</span><span class="op">)</span>, axes <span class="op">=</span> <span class="st">"all"</span>, remove_labels <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></code></pre></div>
+<p><img src="Facets_files/figure-html/unnamed-chunk-4-1.png" width="480"></p>
+<p>In addition, <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code> also supports what the package calls ‘independent’ scales. This relieves the constraint that <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">ggplot2::facet_grid()</a></code> has that a scale can only be free between rows and columns of the layout, and instead allows scales to be free within rows and columns of the layout. This keeps the grid layout but preserves the flexibility of scales in wrapped facets.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, <span class="fu">vars</span><span class="op">(</span><span class="va">year</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free_x"</span>, independent <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></code></pre></div>
+<p><img src="Facets_files/figure-html/unnamed-chunk-5-1.png" width="480"></p>
+<p>One sacrifice that had to be made for independent scales, is that <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code> cannot have independent scales <em>and</em> have <code>space = "free"</code> for the independent dimensions. You can however combine these in <em>different</em> dimensions.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, <span class="fu">vars</span><span class="op">(</span><span class="va">year</span><span class="op">)</span>, 
+                scales <span class="op">=</span> <span class="st">"free"</span>, independent <span class="op">=</span> <span class="st">"y"</span>, space <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span></code></pre></div>
+<p><img src="Facets_files/figure-html/unnamed-chunk-6-1.png" width="480"></p>
+</div>
+</div>
 <div id="nested-facets" class="section level1">
 <h1 class="hasAnchor">
 <a href="#nested-facets" class="anchor"></a>Nested facets</h1>
 <p>Perhaps this package might be best known for generating nested facets; wherein outer strips can span inner strips if they belong the the same category. This can be especially useful if there is some hierarchical relations to the facets.</p>
 <p>In the example below, we’ll categorise the Iris species for having long or short leaves.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>
   <span class="va">iris</span>,
   Nester <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span>, <span class="st">"Short Leaves"</span>, <span class="st">"Long Leaves"</span><span class="op">)</span>
@@ -129,36 +165,36 @@
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span><span class="op">)</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-2-1.png" width="480"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-7-1.png" width="480"></p>
 <div id="nesting-lines" class="section level2">
 <h2 class="hasAnchor">
 <a href="#nesting-lines" class="anchor"></a>Nesting lines</h2>
 <p>If you prefer your strips to have blank backgrounds, you could still indicate the hierarchical nature by setting <code>nest_line = TRUE</code>. The appearance of the line is controlled by the theme element <code>ggh4x.facet.nestline</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span>, nest_line <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme</span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
         ggh4x.facet.nestline <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-3-1.png" width="480"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-8-1.png" width="480"></p>
 </div>
 <div id="relation-to-facet_grid" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relation-to-facet_grid" class="anchor"></a>Relation to facet_grid()</h2>
-<p>While <code><a href="../reference/facet_nested.html">facet_nested()</a></code> is based on <code>facet_grid()</code>, there are a few differences. Notably, <code><a href="../reference/facet_nested.html">facet_nested()</a></code> doesn’t require input data to have <em>all</em> the facet variables. In the example below, we remove the <code>Species</code> column, to prevent facetting on that variable. Note that if we didn’t specify a new <code>Nester</code> variable, it would put the second set of points in all panels, just like <code>facet_grid()</code>.</p>
+<p>While <code><a href="../reference/facet_nested.html">facet_nested()</a></code> is based on <code>facet_grid())</code>, there are a few differences. First, <code><a href="../reference/facet_nested.html">facet_nested()</a></code> inherits from <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code>, so that it inherits the axis features. More notably, <code><a href="../reference/facet_nested.html">facet_nested()</a></code> doesn’t require input data to have <em>all</em> the facet variables. In the example below, we remove the <code>Species</code> column, to prevent facetting on that variable. Note that if we didn’t specify a new <code>Nester</code> variable, it would put the second set of points in all panels, just like <code>facet_grid()</code>.</p>
 <p>Furthermore, when strips are placed at the bottom, it rearranges the strips so that the inner strips are closest to the panels and spanning strips are furthest from the panel.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span><span class="va">iris</span>, Species <span class="op">=</span> <span class="cn">NULL</span>, Nester <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span>, switch <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-4-1.png" width="480"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-9-1.png" width="480"></p>
 </div>
 <div id="variant-for-facet_wrap" class="section level2">
 <h2 class="hasAnchor">
 <a href="#variant-for-facet_wrap" class="anchor"></a>Variant for facet_wrap()</h2>
-<p>A similar variant exists for wrapping in facets. It can span the strips for every <code>strip.position</code> argument, and has a few nifty tricks for duplicating axes or just axis ticks. To explain the <code>bleed</code> argument, take a look at the lower left, where the lower “f” strips are merged, even though the strips on top are in different categories.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>A similar variant exists for wrapping in facets. It can span the strips for every <code>strip.position</code> argument, and has a few nifty tricks for duplicating the axes or just the axis ticks. To explain the <code>bleed</code> argument, take a look at the lower left, where the lower “f” strips are merged, even though the strips on top are in different categories.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">mpg</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/facet_nested_wrap.html">facet_nested_wrap</a></span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span><span class="op">)</span>, dir <span class="op">=</span> <span class="st">"v"</span>,
@@ -166,7 +202,7 @@
                     axes <span class="op">=</span> <span class="st">"full"</span>,
                     remove_labels <span class="op">=</span> <span class="st">"rows"</span>,
                     bleed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-5-1.png" width="480"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-10-1.png" width="480"></p>
 </div>
 </div>
 <div id="position-scales" class="section level1">
@@ -174,10 +210,10 @@
 <a href="#position-scales" class="anchor"></a>Position scales</h1>
 <p>A second thing we might want to tweak about facets is the exact specifications of each facet’s position scale. To set the scales individually, we can use <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code> in combination with a list of scales. This way, you can vary labels, breaks, limits, transformations and even axis guides for each panel individually.</p>
 <p>The list of scales follows the order of the facets, as long as they are set to ‘free’. Tweaking the position scales works with many types of facets, such as wrap, grid and nested, but has to be called <em>after</em> facets are added.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   <span class="fu">scale_x_reverse</span><span class="op">(</span><span class="op">)</span>,
-  <span class="fu">scale_x_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org//reference/label_dollar.html">dollar</a></span>,
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_dollar.html">dollar</a></span>,
                      minor_breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">4.5</span><span class="op">)</span><span class="op">)</span>,
   <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.945</span>, <span class="fl">6</span><span class="op">)</span>,
                      limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,
@@ -188,9 +224,9 @@
   <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">facet_wrap</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/facetted_pos_scales.html">facetted_pos_scales</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">scales</span><span class="op">)</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-6-1.png" width="480"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-11-1.png" width="480"></p>
 <p>This works because <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code> makes an edit to the facet, which comes with an important limitation. Due to the way plots are build and where facets are involved, scale transformations are applied <em>after</em> calculations in the stat part of the layer. This differs from normal behaviour, where scale transformations are applied <em>before</em> stat calculations. Therefore, it is recommended to pre-transform the data in layers with non-identity statistics in the <code>aes()</code> mapping. An example of what could go wrong is shown below.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html">rlnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span>
@@ -206,7 +242,7 @@
 <span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/facetted_pos_scales.html">facetted_pos_scales</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-7-1.png" width="288"><img src="Facets_files/figure-html/unnamed-chunk-7-2.png" width="288"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-12-1.png" width="288"><img src="Facets_files/figure-html/unnamed-chunk-12-2.png" width="288"></p>
 <p>If you plan on using <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code> to tweak the axis of the plots, do take a look at the <a href="PositionGuides.html">position guides</a>!</p>
 </div>
 <div id="sizes" class="section level1">
@@ -214,7 +250,7 @@
 <a href="#sizes" class="anchor"></a>Sizes</h1>
 <p>Lastly, we can also set the sizes of the panels to what we want. This can be especially convenient when you want different sizes for facets, for example when you want to add a density next to your plot. The function <code><a href="../reference/force_panelsizes.html">force_panelsizes()</a></code> can let you set relative or absolute sizes for the rows and columns.</p>
 <p>The settings overrule the coordinates’ or theme’s aspect ratio and <code>space = "free"</code> facet arguments. By default, rows and columns are set relative within themselves only. When <code>respect = TRUE</code>, the rows and columns relative units become also relative between rows and columns, as you can see in the plot below. Alternatively, you can set them as absolute units with the <code><a href="https://rdrr.io/r/grid/unit.html">grid::unit()</a></code> function. Again, these need to be added <em>after</em> any facets.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">faithful</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">waiting</span>, <span class="va">eruptions</span><span class="op">)</span>,
              data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">faithful</span>, facet <span class="op">=</span> <span class="st">"Points"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -225,11 +261,11 @@
                    rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
                    respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">g</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-8-1.png" width="480"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-13-1.png" width="480"></p>
 <p>If you think the breaks of the density plot above are too packed, why not tweak these with <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code>? Note that <code>NULL</code> signals here that the default scale should be used.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/facetted_pos_scales.html">facetted_pos_scales</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="Facets_files/figure-html/unnamed-chunk-9-1.png" width="480"></p>
+<p><img src="Facets_files/figure-html/unnamed-chunk-14-1.png" width="480"></p>
 </div>
   </div>
 

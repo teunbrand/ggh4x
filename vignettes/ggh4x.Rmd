@@ -2,7 +2,7 @@
 title: "Introduction to ggh4x"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ggh4x}
+  %\VignetteIndexEntry{Introduction to ggh4x}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
