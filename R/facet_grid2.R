@@ -399,10 +399,10 @@ FacetGrid2 <- ggproto(
     # Initalise empty axes
     top <- bottom <- left <- right <- empty
     # Fill axes by scale ID
-    top[position]    <- axes$x$top[layout$SCALE_X]
-    bottom[position] <- axes$x$bottom[layout$SCALE_X]
-    left[position]   <- axes$y$left[layout$SCALE_Y]
-    right[position]  <- axes$y$right[layout$SCALE_Y]
+    top[position]    <- axes$x$top[position]
+    bottom[position] <- axes$x$bottom[position]
+    left[position]   <- axes$y$left[position]
+    right[position]  <- axes$y$right[position]
 
     repeat_x <- params$independent$x | params$axes$x
     repeat_y <- params$independent$y | params$axes$y
@@ -445,7 +445,9 @@ FacetGrid2 <- ggproto(
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
     empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
-    panel_pos <- .int$convertInd(layout$ROW, layout$COL, nrow)
+
+    panel_pos <- as.vector(matrix(as.integer(layout$PANEL),
+                                  nrow = nrow, ncol = ncol, byrow = TRUE))
 
     axes <- render_axes(ranges[panel_pos], ranges[panel_pos],
                         coord, theme, transpose = TRUE)
