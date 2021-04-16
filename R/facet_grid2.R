@@ -436,7 +436,6 @@ FacetGrid2 <- ggproto(
     x_scales, y_scales,
     ranges, coord, data, theme, params, self
   ) {
-    # browser()
     if ((params$free$x || params$free$y) && !coord$is_free()) {
       abort(paste0(.int$snake_class(coord), "doesn't support free scales."))
     }
@@ -448,7 +447,7 @@ FacetGrid2 <- ggproto(
     empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
     panel_pos <- .int$convertInd(layout$ROW, layout$COL, nrow)
 
-    axes <- render_axes(ranges[layout$SCALE_X], ranges[layout$SCALE_Y],
+    axes <- render_axes(ranges[panel_pos], ranges[panel_pos],
                         coord, theme, transpose = TRUE)
     axes <- self$setup_axes(axes, empty_table, panel_pos, layout, params)
 
