@@ -279,7 +279,11 @@ axis_truncate <- function(breaks, trunc, scale, type = "lower") {
     }
     return(x)
   } else { # Expecting input in dataspace here
-    x <- scale$scale$trans$transform(trunc)
+    if (scale$is_discrete()) {
+      x <- scale$scale$map(trunc)
+    } else {
+      x <- scale$scale$trans$transform(trunc)
+    }
     return(x)
   }
 }
