@@ -67,6 +67,14 @@ GeomPointPath <- ggplot2::ggproto(
                       keep = c(group[-1] == head(group, -1), FALSE))
     data <- data[data$keep, ]
 
+    if (nrow(data) < 1) {
+      out <- .int$ggname(
+        "geom_pointpath",
+        grobTree(pointgrob)
+      )
+      return(out)
+    }
+
     ## Make custom grob class
     my_path <- grob(
       x0 = unit(data$x, "npc"), x1 = unit(data$xend, "npc"),

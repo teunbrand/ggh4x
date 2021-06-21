@@ -14,7 +14,8 @@
   but for grid layouts. Also allows independent scales across rows and columns.
 * facet_nested() now builds off facet_grid2() instead of facet_grid(),
   inheriting these extensions above.
-* Fix bug in truncated axes with discrete scales (#39)
+* Fix bug in truncated axes with discrete scales (#39).
+* Fix bug in geom_pointpath() with 1-member groups (#43).
 
 # ggh4x 0.1.2.1
 
