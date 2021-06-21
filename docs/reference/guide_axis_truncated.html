@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Axis guide with truncated line. — guide_axis_truncated • ggh4x</title>
+<title>Axis guide with truncated line — guide_axis_truncated • ggh4x</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,12 @@
 
 
 
-<meta property="og:title" content="Axis guide with truncated line. — guide_axis_truncated" />
+<meta property="og:title" content="Axis guide with truncated line — guide_axis_truncated" />
 <meta property="og:description" content="This axis guide is similar to the normal axis guides for position scales, but
-can shorten the axis line that is being drawn." />
+can shorten the axis line that is being drawn. The guide_axis_colour()
+function is the same but with different defaults for the truncation that do
+not truncate the axis. Axis truncation and recolouring is supported
+throughout axes in ggh4x." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -81,7 +84,7 @@ can shorten the axis line that is being drawn." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -144,14 +147,17 @@ can shorten the axis line that is being drawn." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Axis guide with truncated line.</h1>
+    <h1>Axis guide with truncated line</h1>
     <small class="dont-index">Source: <a href='https://github.com/teunbrand/ggh4x/blob/master/R/guide_axis_truncated.R'><code>R/guide_axis_truncated.R</code></a></small>
     <div class="hidden name"><code>guide_axis_truncated.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>This axis guide is similar to the normal axis guides for position scales, but
-can shorten the axis line that is being drawn.</p>
+can shorten the axis line that is being drawn. The <code>guide_axis_colour()</code>
+function is the same but with different defaults for the truncation that do
+not truncate the axis. Axis truncation and recolouring is supported
+throughout axes in ggh4x.</p>
     </div>
 
     <pre class="usage"><span class='fu'>guide_axis_truncated</span><span class='op'>(</span>
@@ -160,8 +166,36 @@ can shorten the axis line that is being drawn.</p>
   angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
   order <span class='op'>=</span> <span class='fl'>0</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
   trunc_lower <span class='op'>=</span> <span class='va'>min</span>,
   trunc_upper <span class='op'>=</span> <span class='va'>max</span>,
+  position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>guide_axis_colour</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  check.overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trunc_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trunc_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
+  position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>guide_axis_color</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  check.overlap <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.dodge <span class='op'>=</span> <span class='fl'>1</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trunc_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trunc_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
   position <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -198,6 +232,12 @@ useful for displaying labels that would otherwise overlap.</p></td>
 top-to-bottom), if more than one  guide must be drawn at the same location.</p></td>
     </tr>
     <tr>
+      <th>colour, color</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.</p></td>
+    </tr>
+    <tr>
       <th>trunc_lower, trunc_upper</th>
       <td><p>The lower and upper range of the truncated
 axis:</p><ul>
@@ -218,7 +258,7 @@ left, or right.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <em>axis_truncated</em> guide class object.</p>
+    <p>An <em>axis_ggh4x</em> guide class object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other axis-guides: 
@@ -251,7 +291,11 @@ left, or right.</p></td>
   trunc_lower <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='va'>x</span> <span class='op'>-</span> <span class='fl'>0.2</span><span class='op'>}</span>,
   trunc_upper <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='va'>x</span> <span class='op'>+</span> <span class='fl'>0.2</span><span class='op'>}</span>
 <span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='guide_axis_truncated-4.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='guide_axis_truncated-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Recolouring the axes outside the theme</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>guides</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>guide_axis_colour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>,
+           y <span class='op'>=</span> <span class='fu'>guide_axis_colour</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_axis_truncated-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

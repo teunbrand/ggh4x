@@ -82,7 +82,7 @@ scale_(x|y)_dendrogram)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggh4x</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.1.9</span>
       </span>
     </div>
 
@@ -165,6 +165,8 @@ between members, like those detailed in
   label <span class='op'>=</span> <span class='cn'>TRUE</span>,
   trunc_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
   trunc_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colour <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
   dendro <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -227,6 +229,18 @@ mapped positions as <code>numeric</code>.</p></li>
 <li><p>A <code>numeric</code> value in data units for the lower and upper boundaries.</p></li>
 <li><p>A <code>unit</code> object.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>colour</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with a valid colour for colouring the
+axis text, axis ticks and axis line. Overrules the colour assigned by the
+theme.</p></td>
     </tr>
     <tr>
       <th>dendro</th>

@@ -1,1 +1,68 @@
 destination: docs
+
+reference:
+- title: "Facets"
+  desc: >
+    Extended facet functions with additional options to customise the strips
+    and axes of the classic 'wrap' and 'grid' layouts.
+- contents:
+  - facet_grid2
+  - facet_wrap2
+  - facet_nested
+  - facet_nested_wrap
+- title: "Facet helpers"
+  desc: >
+    Helper functions that can tweak the appearance of facet panels and their
+    scales by resizing panels or manually assigning position scales to panels.
+- contents:
+  - force_panelsizes
+  - facetted_pos_scales
+- title: Position guides and scales
+  desc: >
+    Additional ways to organise and display the x- and y-axes.
+- contents:
+  - scale_x_dendrogram
+  - guide_dendro
+  - guide_axis_truncated
+  - guide_axis_minor
+  - guide_axis_logticks
+  - guide_axis_nested
+- title: "Colour scales and guide"
+  desc: >
+    Two ways of mapping non-standard aesthetics to colour/fill scales and a
+    legend of coloured text.
+- contents:
+  - guide_stringlegend
+  - scale_fill_multi
+  - scale_listed
+- title: "Stats"
+  desc: >
+    Statistical layers that perform a data transformation
+- contents:
+  - stat_theodensity
+  - stat_difference
+  - stat_rollingkernel
+  - stat_funxy
+  - stat_rle
+- title: "Geoms"
+  desc: >
+    A small collection of geometry layers.
+- contents:
+  - geom_pointpath
+  - geom_polygonraster
+  - geom_rectmargin
+  - geom_tilemargin
+  - geom_text_aimed
+- title: "Positions"
+  desc: >
+    Two position adjustments that can be added to layers.
+- contents:
+  - position_disjoint_ranges
+  - position_lineartrans
+- title: "Miscellaneous"
+  desc: >
+    Functions that don't belong to a family of functions, may might be
+    useful on their own.
+- contents:
+  - help_secondary
+  - center_limits

@@ -21,6 +21,47 @@ library(ggh4x)
 
 The ggh4x package has some extended options for tweaking the appearance of facets. 
 
+# Extended facets
+
+This package offers two extensions to the vanilla `facet_wrap()` and `facet_grid()` that give you more control of the placement of axes at the inner facets.
+
+## Wrap
+
+The default behaviour of `facet_wrap2()` is to replicate exactly what `ggplot2::facet_wrap()` does.
+
+```{r}
+p <- ggplot(mpg, aes(displ, hwy, colour = as.factor(cyl))) + geom_point()
+
+p + facet_wrap2(vars(class))
+```
+
+The difference is even when `scales = "fixed"` (the default), you can draw the axes at (some or all) inner facets with the `axes` argument. Moreover, you can choose to omit the axis labels but keep the axis ticks of the inner facets by setting the `remove_labels` argument.
+
+```{r}
+p + facet_wrap2(vars(class), axes = "all", remove_labels = "x")
+```
+
+## Grid
+
+Likewise, `facet_grid2()` is based on `ggplot2::facet_grid()` and by default behaves identically, but also supports the extended options for axes that `facet_wrap2()` has.
+
+```{r}
+p + facet_grid2(vars(drv), vars(year), axes = "all", remove_labels = "y")
+```
+
+In addition, `facet_grid2()` also supports what the package calls 'independent' scales. This relieves the constraint that `ggplot2::facet_grid()` has that a scale can only be free between rows and columns of the layout, and instead allows scales to be free within rows and columns of the layout. This keeps the grid layout but preserves the flexibility of scales in wrapped facets. 
+
+```{r}
+p + facet_grid2(vars(drv), vars(year), scales = "free_x", independent = "x")
+```
+
+One sacrifice that had to be made for independent scales, is that `facet_grid2()` cannot have independent scales *and* have `space = "free"` for the independent dimensions. You can however combine these in *different* dimensions.
+
+```{r}
+p + facet_grid2(vars(drv), vars(year), 
+                scales = "free", independent = "y", space = "free_x")
+```
+
 # Nested facets
 
 Perhaps this package might be best known for generating nested facets; wherein outer strips can span inner strips if they belong the the same category. This can be especially useful if there is some hierarchical relations to the facets. 
@@ -52,7 +93,7 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
 
 ## Relation to facet_grid()
 
-While `facet_nested()` is based on `facet_grid()`, there are a few differences. Notably, `facet_nested()` doesn't require input data to have *all* the facet variables. In the example below, we remove the `Species` column, to prevent facetting on that variable. Note that if we didn't specify a new `Nester` variable, it would put the second set of points in all panels, just like `facet_grid()`.
+While `facet_nested()` is based on `facet_grid())`, there are a few differences. First, `facet_nested()` inherits from `facet_grid2()`, so that it inherits the axis features. More notably, `facet_nested()` doesn't require input data to have *all* the facet variables. In the example below, we remove the `Species` column, to prevent facetting on that variable. Note that if we didn't specify a new `Nester` variable, it would put the second set of points in all panels, just like `facet_grid()`.
 
 Furthermore, when strips are placed at the bottom, it rearranges the strips so that the inner strips are closest to the panels and spanning strips are furthest from the panel.
 
@@ -65,7 +106,7 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
 
 ## Variant for facet_wrap()
 
-A similar variant exists for wrapping in facets. It can span the strips for every `strip.position` argument, and has a few nifty tricks for duplicating axes or just axis ticks. To explain the `bleed` argument, take a look at the lower left, where the lower "f" strips are merged, even though the strips on top are in different categories.
+A similar variant exists for wrapping in facets. It can span the strips for every `strip.position` argument, and has a few nifty tricks for duplicating the axes or just the axis ticks. To explain the `bleed` argument, take a look at the lower left, where the lower "f" strips are merged, even though the strips on top are in different categories.
 
 ```{r}
 ggplot(mpg, aes(displ, hwy)) +
