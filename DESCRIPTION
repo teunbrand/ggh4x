@@ -55,6 +55,7 @@ Collate:
     'ggh4x-package.R'
     'ggh4x_extensions.R'
     'guide_axis_logticks.R'
+    'guide_axis_manual.R'
     'guide_axis_minor.R'
     'guide_axis_nested.R'
     'guide_axis_truncated.R'

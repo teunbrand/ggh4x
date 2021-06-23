@@ -93,7 +93,8 @@ seq_ncol <- function(dat) {
     ".pt",
     "interleave",
     "justify_grobs",
-    "compute_just"
+    "compute_just",
+    "axis_label_priority"
   )
   objects <- setNames(objects, objects)
   out <- lapply(objects, function(i) {
