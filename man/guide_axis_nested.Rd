@@ -123,6 +123,7 @@ ggplot(mpg, aes(interaction(cyl, class), hwy)) +
 
 Other axis-guides: 
 \code{\link{guide_axis_logticks}()},
+\code{\link{guide_axis_manual}()},
 \code{\link{guide_axis_minor}()},
 \code{\link{guide_axis_truncated}()}
 }

@@ -99,6 +99,7 @@ p + scale_y_continuous(guide = "axis_minor") +
 \seealso{
 Other axis-guides: 
 \code{\link{guide_axis_logticks}()},
+\code{\link{guide_axis_manual}()},
 \code{\link{guide_axis_nested}()},
 \code{\link{guide_axis_truncated}()}
 }

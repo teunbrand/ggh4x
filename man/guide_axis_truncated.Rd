@@ -126,6 +126,7 @@ p + guides(x = guide_axis_colour(colour = "red"),
 \seealso{
 Other axis-guides: 
 \code{\link{guide_axis_logticks}()},
+\code{\link{guide_axis_manual}()},
 \code{\link{guide_axis_minor}()},
 \code{\link{guide_axis_nested}()}
 }

@@ -16,6 +16,7 @@
   inheriting these extensions above.
 * Fix bug in truncated axes with discrete scales (#39).
 * Fix bug in geom_pointpath() with 1-member groups (#43).
+* New axis function `guide_axis_manual()`.
 
 # ggh4x 0.1.2.1
 
