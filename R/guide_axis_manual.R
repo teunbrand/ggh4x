@@ -296,7 +296,7 @@ draw_axis_manual <- function(
     return(out)
   }
 
-  label_grobs <- build_manual_axis_labels(
+  label_grobs <- build_axis_labels(
     elements, key = key,
     dodge = n.dodge, check.overlap = check.overlap, params = params
   )
@@ -313,55 +313,4 @@ draw_axis_manual <- function(
     elements = elements,
     params = params
   )
-}
-
-build_manual_axis_labels <- function(
-  elements, key,
-  dodge = 1, check.overlap = FALSE, params
-) {
-  if ({n_breaks <- nrow(key)} == 0) {
-    return(list(zeroGrob))
-  }
-
-  if (is.list(key$.label)) {
-    if (any(vapply(key$.label, is.language, logical(1)))) {
-      key$.label <- do.call(expression, key$.label)
-    } else {
-      key$.label <- unlist(key$.label)
-    }
-  }
-
-  dodge_pos  <- rep(seq_len(dodge), length.out = n_breaks)
-  dodge_idxs <- split(seq_len(n_breaks), dodge_pos)
-
-  if (params$vertical) {
-    pos_dim <- "y"
-    margin_name <- "margin_x"
-  } else {
-    pos_dim <- "x"
-    margin_name <- "margin_y"
-  }
-
-  lapply(dodge_idxs, function(idx) {
-    subkey <- key[idx, , drop = FALSE]
-    if (check.overlap) {
-      priority <- .int$axis_label_priority(n)
-      subkey   <- subkey[priority, , drop = FALSE]
-    }
-    breaks <- subkey[[params$aes]]
-    n <- length(breaks)
-    labs <- subkey$.label
-
-    args <- setNames(
-      list(elements$label, labs, breaks, TRUE, check.overlap,
-           # Following can all be NULL
-           subkey$.family, subkey$.face, subkey$.colour, subkey$.size,
-           subkey$.hjust, subkey$.vjust, subkey$.lineheight,
-           params$margin),
-      c("element", "label", pos_dim, margin_name, "check.overlap",
-        "family", "face", "colour", "size", "hjust", "vjust", "lineheight",
-        "margin")
-    )
-    do.call(element_grob, args)
-  })
 }

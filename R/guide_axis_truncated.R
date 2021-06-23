@@ -149,8 +149,7 @@ guide_transform.axis_ggh4x <- function(guide, coord, panel_params) {
 guide_gengrob.axis_ggh4x <- function(guide, theme) {
   aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
   draw_axis_ggh4x(
-    break_positions = guide$key[[aesthetic]],
-    break_labels = guide$key$.label,
+    key = guide$key,
     axis_position = guide$position,
     theme = theme,
     check.overlap = guide$check.overlap,
@@ -164,8 +163,7 @@ guide_gengrob.axis_ggh4x <- function(guide, theme) {
 # Helpers -----------------------------------------------------------------
 
 draw_axis_ggh4x <- function(
-  break_positions,
-  break_labels,
+  key,
   axis_position,
   theme = theme,
   check.overlap,
@@ -176,13 +174,11 @@ draw_axis_ggh4x <- function(
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
-  aes <- if (axis_position %in% c("t", "b")) "x" else "y"
-
   elements <- build_axis_elements(axis_position, angle, theme, colour)
   params <- setup_axis_params(axis_position)
   line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
-  if ({n_breaks <- length(break_positions)} == 0) {
+  if ({n_breaks <- nrow(key)} == 0) {
     out <- gTree(
       children = gList(line_grob),
       width    = grobWidth(line_grob),
@@ -193,16 +189,14 @@ draw_axis_ggh4x <- function(
   }
 
   label_grobs <- build_axis_labels(
-    elements,
-    labels = break_labels,
-    position = break_positions,
+    elements, key = key,
     dodge = n.dodge, check.overlap = check.overlap, params = params
   )
 
   # Setup ticks
   sizes <- unit.c(elements$tick_length)
   tick_grob <- build_axis_ticks(elements$ticks, sizes,
-                                break_positions, params)
+                                key[[params$aes]], params)
   elements$tick_length <- max(sizes)
   assemble_axis_grobs(
     ticks = tick_grob, labels = label_grobs,

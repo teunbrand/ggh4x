@@ -116,8 +116,9 @@ guide_train.axis_minor <- function(
 guide_gengrob.axis_minor <- function(guide, theme) {
   aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
   draw_axis_minor(
-    break_positions = guide$key[[aesthetic]],
-    break_labels = guide$key$.label,
+    # break_positions = guide$key[[aesthetic]],
+    # break_labels = guide$key$.label,
+    key = guide$key,
     axis_position = guide$position,
     theme = theme,
     check.overlap = guide$check.overlap,
@@ -132,8 +133,7 @@ guide_gengrob.axis_minor <- function(guide, theme) {
 # Helpers -----------------------------------------------------------------
 
 draw_axis_minor <- function(
-  break_positions,
-  break_labels,
+  key,
   axis_position,
   theme,
   check.overlap,
@@ -145,16 +145,14 @@ draw_axis_minor <- function(
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
-  aes <- if (axis_position %in% c("t", "b")) "x" else "y"
-
-  elements <- build_axis_elements(axis_position, angle, theme, colour)
+  elements  <- build_axis_elements(axis_position, angle, theme, colour)
   minor_len <- unclass(calc_element("ggh4x.axis.ticks.length.minor", theme))
   mini_len  <- unclass(calc_element("ggh4x.axis.ticks.length.mini", theme))
 
   params <- setup_axis_params(axis_position)
   line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
-  if ({n_breaks <- length(break_positions)} == 0) {
+  if ({n_breaks <- nrow(key)} == 0) {
     out <- grid::gTree(
       children = grid::gList(line_grob),
       width = grid::grobWidth(line_grob),
@@ -166,16 +164,14 @@ draw_axis_minor <- function(
   is_major <- minority == 0
 
   label_grobs <- build_axis_labels(
-    elements,
-    labels = break_labels[is_major],
-    position = break_positions[is_major],
+    elements, key = key[is_major, , drop = FALSE],
     dodge = n.dodge, check.overlap = check.overlap, params = params
   )
 
   # Setup ticks
   sizes <- c(1, minor_len, mini_len)
   tick_grob <- build_axis_ticks_minor(elements$ticks, sizes / max(sizes),
-                                      break_positions, params, minority)
+                                      key[[params$aes]], params, minority)
   elements$tick_length <- elements$tick_length * max(sizes)
 
   assemble_axis_grobs(ticks = tick_grob, labels = label_grobs,
