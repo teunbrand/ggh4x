@@ -70,9 +70,15 @@ build_axis_ticks <- function(element, length, position, params) {
   pos <- unit(c(params$pos, params$pos + (params$tick_dir * 1)), "npc")
   pos <- rep(pos[params$tick_ord], times = n_breaks)
 
-  args <- list(element, unit(rep(position, each = 2), "native"),
-               pos, rep(2, times = n_breaks))
-  names(args) <- c("element", params$aes, params$non_aes, "id.lengths")
+  position <- rep(position, each = 2)
+  if (!is.unit(position)) {
+    position <- unit(position, "native")
+  }
+
+  args <- setNames(
+    list(element, position, pos, rep(2, times = n_breaks)),
+    c("element", params$aes, params$non_aes, "id.lengths")
+  )
 
   do.call(element_grob, args)
 }

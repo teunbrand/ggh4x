@@ -252,8 +252,6 @@ guide_transform.axis_manual <- function(guide, coord, panel_params) {
 guide_gengrob.axis_manual <- function(guide, theme) {
   aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
   draw_axis_manual(
-    break_positions = guide$key[[aesthetic]],
-    break_labels = guide$key$.label,
     key = guide$key,
     axis_position = guide$position,
     theme = theme,
@@ -271,8 +269,6 @@ guide_gengrob.axis_manual <- function(guide, theme) {
 
 
 draw_axis_manual <- function(
-  break_positions,
-  break_labels,
   key,
   axis_position,
   theme,
@@ -285,12 +281,12 @@ draw_axis_manual <- function(
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
-  aes <- if (axis_position %in% c("t", "b")) "x" else "y"
   elements <- build_axis_elements(axis_position, angle, theme, colour)
   params <- setup_axis_params(axis_position)
+  params$margin <- label_params$margin
   line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
-  if ({n_breaks <- length(break_positions)} == 0) {
+  if ({n_breaks <- nrow(key)} == 0) {
     out <- gTree(
       children = gList(line_grob),
       width    = grobWidth(line_grob),
@@ -301,16 +297,13 @@ draw_axis_manual <- function(
   }
 
   label_grobs <- build_manual_axis_labels(
-    elements,
-    labels = break_labels,
-    position = break_positions,
-    dodge = n.dodge, check.overlap = check.overlap,
-    params = params, key = key, label_params = label_params
+    elements, key = key,
+    dodge = n.dodge, check.overlap = check.overlap, params = params
   )
 
   sizes <- unit.c(elements$tick_length)
-  tick_grob <- build_manual_axis_ticks(
-    elements$ticks, sizes, break_positions, params
+  tick_grob <- build_axis_ticks(
+    elements$ticks, sizes, key[[params$aes]], params
   )
   elements$tick_length <- max(sizes)
   assemble_axis_grobs(
@@ -323,43 +316,48 @@ draw_axis_manual <- function(
 }
 
 build_manual_axis_labels <- function(
-  elements, labels, position, dodge = 1, check.overlap = FALSE, params,
-  key, label_params
+  elements, key,
+  dodge = 1, check.overlap = FALSE, params
 ) {
-  n_breaks <- length(position)
-  if (n_breaks == 0) {
+  if ({n_breaks <- nrow(key)} == 0) {
     return(list(zeroGrob))
   }
 
-  if (is.list(labels)) {
-    if (any(vapply(labels, is.language, logical(1)))) {
-      labels <- do.call(expression, labels)
+  if (is.list(key$.label)) {
+    if (any(vapply(key$.label, is.language, logical(1)))) {
+      key$.label <- do.call(expression, key$.label)
     } else {
-      labels <- unlist(labels)
+      key$.label <- unlist(key$.label)
     }
   }
 
-  dodge_pos <- rep(seq_len(dodge), length.out = n_breaks)
+  dodge_pos  <- rep(seq_len(dodge), length.out = n_breaks)
   dodge_idxs <- split(seq_len(n_breaks), dodge_pos)
 
-  pos_dim <- if (params$vertical) "y" else "x"
-  margin_name <- if (params$vertical) "margin_x" else "margin_y"
+  if (params$vertical) {
+    pos_dim <- "y"
+    margin_name <- "margin_x"
+  } else {
+    pos_dim <- "x"
+    margin_name <- "margin_y"
+  }
 
   lapply(dodge_idxs, function(idx) {
-    breaks <- position[idx]
-    n <- length(breaks)
-    labs <- labels[idx]
+    subkey <- key[idx, , drop = FALSE]
     if (check.overlap) {
       priority <- .int$axis_label_priority(n)
-      labs <- labels[priority]
-      breaks <- breaks[priority]
+      subkey   <- subkey[priority, , drop = FALSE]
     }
-    subkey <- key[idx, , drop = FALSE]
+    breaks <- subkey[[params$aes]]
+    n <- length(breaks)
+    labs <- subkey$.label
+
     args <- setNames(
       list(elements$label, labs, breaks, TRUE, check.overlap,
+           # Following can all be NULL
            subkey$.family, subkey$.face, subkey$.colour, subkey$.size,
            subkey$.hjust, subkey$.vjust, subkey$.lineheight,
-           label_params$margin),
+           params$margin),
       c("element", "label", pos_dim, margin_name, "check.overlap",
         "family", "face", "colour", "size", "hjust", "vjust", "lineheight",
         "margin")
@@ -367,27 +365,3 @@ build_manual_axis_labels <- function(
     do.call(element_grob, args)
   })
 }
-
-build_manual_axis_ticks <- function(element, length, position, params) {
-  n_breaks <- length(position)
-  pos <- unit(c(params$pos, params$pos + (params$tick_dir * 1)), "npc")
-  pos <- rep(pos[params$tick_ord], times = n_breaks)
-
-  position <- rep(position, each = 2)
-  if (!is.unit(position)) {
-    position <- unit(position, "native")
-  }
-  args <- setNames(
-    list(element, position, pos, rep(2, times = n_breaks)),
-    c("element", params$aes, params$non_aes, "id.length")
-  )
-  do.call(element_grob, args)
-}
-
-
-
-# ggplot(iris, aes(Species, Sepal.Length)) +
-#   geom_point() +
-#   theme(
-#     axis.text.x = element_text(colour = c("green", "red", "blue"))
-#   )
