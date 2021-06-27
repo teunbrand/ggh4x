@@ -58,6 +58,8 @@
 #'     \item{`"all"` or `TRUE`}{Both x- and y-scales are allowed to vary within
 #'     a column or row respectively.}
 #'   }
+#' @param strip An object created by a call to a strip function, such as
+#'   [`strip_vanilla`][strip_vanilla()].
 #'
 #' @details Both the `independent` and `space` arguments only have an effect
 #'   when the `scales` argument in a dimension is free. However, the
@@ -96,7 +98,8 @@ facet_grid2 <- function(
   as.table = TRUE,
   switch  = NULL,
   drop    = TRUE,
-  margins = FALSE
+  margins = FALSE,
+  strip = strip_vanilla()
 ) {
   if (is.logical(cols)) {
     abort(paste0("The `col` argument should not be logical.",
@@ -123,7 +126,7 @@ facet_grid2 <- function(
     NULL,
     FacetGrid2,
     shrink = shrink,
-    strip = strip_vanilla(),
+    strip = force(strip),
     params = c(list(
       rows = facets_list$rows,
       cols = facets_list$cols,
@@ -370,7 +373,7 @@ FacetGrid2 <- ggproto(
     panel_table <- self$attach_axes(panel_table, axes)
 
     strip$setup(layout, params, theme, type = "grid")
-    panel_table <- strip$incorporate_grid(panel_table, params$switch, theme)
+    panel_table <- strip$incorporate_grid(panel_table, params$switch)
 
     self$finish_panels(panels = panel_table, layout = layout,
                        params = params, theme = theme)

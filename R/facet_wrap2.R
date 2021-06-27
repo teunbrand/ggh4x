@@ -32,6 +32,8 @@
 #'     \item{`"y"`}{Display axis text at outer margins and all inner x-axes.}
 #'     \item{`"all"` or `TRUE`}{Only display axis text at the outer margins.}
 #'   }
+#' @param strip An object created by a call to a strip function, such as
+#'   [`strip_vanilla`][strip_vanilla()].
 #'
 #' @return A \code{Facet} ggproto object that can be added to a plot.
 #' @export
@@ -58,7 +60,8 @@ facet_wrap2 <- function(
   remove_labels = "none",
   shrink = TRUE, labeller = "label_value",
   as.table = TRUE, drop = TRUE,
-  dir = "h", strip.position = "top"
+  dir = "h", strip.position = "top",
+  strip = strip_vanilla()
 ) {
 
   strip.position <- match.arg(strip.position,
@@ -86,7 +89,7 @@ facet_wrap2 <- function(
   ggproto(
     NULL, FacetWrap2,
     shrink = shrink,
-    strip = strip_vanilla(),
+    strip = force(strip),
     params = list(
       facets = facets,
       free = free,
@@ -318,8 +321,7 @@ FacetWrap2 <- ggproto(
     # Deal with strips
     strip$setup(layout, params, theme, type = "wrap")
     panel_table <- strip$incorporate_wrap(
-      panel_table, panel_pos, params, theme,
-      clip = coord$clip, sizes
+      panel_table, params$strip.position, clip = coord$clip, sizes
     )
 
     self$finish_panels(panels = panel_table, layout = layout,

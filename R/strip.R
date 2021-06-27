@@ -3,10 +3,16 @@
 
 #' Default strips
 #'
-#' @param clip
+#' Strips with the style of vanilla ggplot2.
+#'
+#' @param clip A `character(1)` that controls wether text labels are clipped to
+#'   the background boxes. Can be either `"inherit"` (default), `"on"` or
+#'   `"off"`.
 #'
 #' @return A `Strip` ggproto object.
 #' @export
+#' @md
+#' @family strips
 #'
 #' @examples
 #' strip_vanilla()
@@ -16,6 +22,10 @@ strip_vanilla <- function(clip = "inherit") {
 
 # ggproto class -----------------------------------------------------------
 
+#' @usage NULL
+#' @format NULL
+#' @export
+#' @rdname ggh4x_extensions
 Strip <- ggproto(
   "Strip",
 
@@ -51,7 +61,7 @@ Strip <- ggproto(
     }
     padding <- convertUnit(padding, "cm")
 
-    self$elements <- list(
+    list(
       padding = padding,
       background = background,
       text = text,
@@ -62,7 +72,7 @@ Strip <- ggproto(
   strips = list(),
 
   setup = function(self, layout, params, theme, type) {
-    self$setup_elements(theme, type)
+    self$elements <- self$setup_elements(theme, type)
     if (type == "wrap") {
       # Format labels and render strips
       if (length(params$facets) == 0) {
@@ -104,12 +114,31 @@ Strip <- ggproto(
   draw_strip = function(labels, position, elements, clip = "inherit", layout) {
     aes <- if (position %in% c("top", "bottom")) "x" else "y"
     el <- elements[[c("text", aes, position)]]
+    el <- if (inherits(el, "list")) el else list(el)
+
     bg <- elements[[c("background", aes)]]
+    bg <- if (inherits(bg, "list")) bg else list(bg)
+
     el_name <- paste("strip.text", aes, position, sep = ".")
 
+    if (is.null(elements$by_layer)) {
+      by_layer <- FALSE
+    } else {
+      by_layer <- elements$by_layer[[aes]]
+    }
+
+    if (by_layer) {
+      index <- as.vector(col(labels))
+      el <- el[pmin(index, length(el))]
+      bg <- bg[pmin(index, length(bg))]
+    } else {
+      el <- rep_len(el, length(labels))
+      bg <- rep_len(bg, length(labels))
+    }
+
     # Render text
-    text <- lapply(labels, function(label) {
-      grob <- element_grob(el, label, margin_x = TRUE, margin_y = TRUE)
+    text <- mapply(function(label, element) {
+      grob <- element_grob(element, label, margin_x = TRUE, margin_y = TRUE)
       if (!inherits(grob, c("titleGrob", "zeroGrob"))) {
         # Add margins to non-titlegrobs
         ggplot2:::add_margins(
@@ -119,9 +148,10 @@ Strip <- ggproto(
       }
       grob$name <- grobName(grob, el_name)
       grob
-    })
+    }, label = labels, element = el, SIMPLIFY = FALSE)
     # Early exit when zero-grobs
-    if (length(text) == 0 || .int$is.zero(text[[1]])) {
+    zeroes <- vapply(text, .int$is.zero, logical(1))
+    if (length(text) == 0 || all(zeroes)) {
       text <- text[seq_len(NROW(layout))]
       text <- .int$new_data_frame(list(
         t = layout$ROW, l = layout$COL,
@@ -132,14 +162,14 @@ Strip <- ggproto(
     }
 
     if (aes == "x") {
-      height <- max_height(lapply(text, function(x) x$heights[2]))
+      height <- max_height(lapply(text[!zeroes], function(x) x$heights[2]))
       width  <- unit(1, "null")
     } else {
       height <- unit(1, "null")
-      width  <- max_width(lapply(text, function(x) x$widths[2]))
+      width  <- max_width(lapply(text[!zeroes], function(x) x$widths[2]))
     }
 
-    text <- lapply(text, function(x) {
+    text[!zeroes] <- lapply(text[!zeroes], function(x) {
       x$widths  <- unit.c(x$widths[1],  width,  x$widths[c(-1,  -2)])
       x$heights <- unit.c(x$heights[1], height, x$heights[c(-1, -2)])
       x$vp$parent$layout$widths <- unit.c(
@@ -155,17 +185,17 @@ Strip <- ggproto(
       x
     })
     if (aes == "x") {
-      height <- sum(text[[1]]$heights)
+      height <- sum(text[!zeroes][[1]]$heights)
     } else {
-      width  <- sum(text[[1]]$widths)
+      width  <- sum(text[!zeroes][[1]]$widths)
     }
 
     # Combine with background
-    text <- lapply(text, function(x) {
+    text <- mapply(function(x, bg) {
       x <- gTree(children = gList(bg, x))
       x$name <- grobName(x, "strip")
       x
-    })
+    }, x = text, bg = bg, SIMPLIFY = FALSE)
 
     text <- matrix(text, ncol = ncol(labels), nrow = nrow(labels))
     text <- apply(text, 1, function(x) {
@@ -176,7 +206,7 @@ Strip <- ggproto(
       }
       gtable_matrix(
         "strip", mat,
-        rep(width, ncol(mat)),
+        rep(width,  ncol(mat)),
         rep(height, nrow(mat)),
         clip = clip
       )
@@ -221,68 +251,65 @@ Strip <- ggproto(
     }
   },
 
-  incorporate_wrap = function(self, panel_table, position, params, theme,
+  incorporate_wrap = function(self, panels, position,
                               clip = "off", sizes) {
     # Setup parameters
     strip_padding <- self$elements$padding
-    strip_pos <- params$strip.position
-    strip_name <- paste0("strip-", substr(strip_pos, 1, 1))
-    strip <- unlist(unname(self$strips), recursive = FALSE)[[strip_pos]]
-    padding <- sizes[[strip_pos]]
+    strip_name <- paste0("strip-", substr(position, 1, 1))
+    strip   <- unlist(unname(self$strips), recursive = FALSE)[[position]]
+    padding <- sizes[[position]]
     padding[as.numeric(padding) != 0] <- strip_padding
     inside <- self$elements$inside
 
-    if (strip_pos %in% c("top", "bottom")) {
-      if (strip_pos == "top") {
-        offset  <- if (inside$x) -1 else -2
+    if (position %in% c("top", "bottom")) {
+      if (position == "top") {
+        offset <- -2 + inside$x
       } else {
-        offset  <- if (inside$x) 0 else 1
+        offset <-  1 - inside$x
       }
       strip_height <- split(unlist(lapply(strip$grobs, height_cm)), strip$t)
       strip_height <- unit(vapply(strip_height, max, numeric(1)), "cm")
 
       # Add top/bottom strips
-      panel_table <- weave_layout_row(
-        panel_table, strip, offset, strip_height, strip_name, 2, clip
+      panels <- weave_layout_row(
+        panels, strip, offset, strip_height, strip_name, 2, clip
       )
       if (!inside$x) {
         # Apply extra padding
-        panel_table <- .int$weave_tables_row(
-          panel_table, row_shift = offset, row_height = padding
+        panels <- .int$weave_tables_row(
+          panels, row_shift = offset, row_height = padding
         )
       }
     } else {
-      if (strip_pos == "left") {
-        offset  <- if (inside$y) -1 else -2
+      if (position == "left") {
+        offset <- -2 + inside$y
       } else {
-        offset  <- if (inside$y) 0 else 1
+        offset <-  1 - inside$y
       }
       strip_width <- split(unlist(lapply(strip$grobs, width_cm)), strip$l)
       strip_width <- unit(vapply(strip_width, max, numeric(1)), "cm")
 
       # Add left/right strips
-      panel_table <- weave_layout_col(
-        panel_table, strip, offset, strip_width, strip_name, 2, clip
+      panels <- weave_layout_col(
+        panels, strip, offset, strip_width, strip_name, 2, clip
       )
 
       if (!inside$y) {
         # Apply extra padding
-        panel_table <- .int$weave_tables_col(
-          panel_table, col_shift = offset, col_width = padding
+        panels <- .int$weave_tables_col(
+          panels, col_shift = offset, col_width = padding
         )
       }
     }
-    panel_table
+    panels
   },
 
-  incorporate_grid = function(self, panels, switch, theme) {
+  incorporate_grid = function(self, panels, switch) {
     switch_x <- !is.null(switch) && switch %in% c("both", "x")
     switch_y <- !is.null(switch) && switch %in% c("both", "y")
-    inside_x <- calc_element("strip.placement.x", theme) == "inside"
-    inside_y <- calc_element("strip.placement.y", theme) == "inside"
-    padding  <- calc_element("strip.switch.pad.grid", theme)
-    padding  <- convertUnit(padding, "cm")
-    strips <- self$strips
+    inside  <- self$elements$inside
+    padding <- self$elements$padding
+    strips  <- self$strips
 
     pos_cols <- panel_cols(panels)
 
@@ -298,10 +325,10 @@ Strip <- ggproto(
     if (!is.null(strip)) {
       stripnames  <- paste0(prefix, seq_along(strip))
       stripheight <- max_height(strip)
-      if (inside_x) {
+      if (inside$x) {
         where  <- if (switch_x) -2 else 1
       } else {
-        where  <- if (switch_x) -1 else 0
+        where  <- 0 - switch_x
         panels <- gtable_add_rows(panels, padding, where)
       }
       panels <- gtable_add_rows(panels, stripheight, where)
@@ -327,11 +354,11 @@ Strip <- ggproto(
     if (!is.null(strip)) {
       stripnames <- paste0(prefix, seq_along(strip))
       stripwidth <- max_width(strip)
-      if (inside_y) {
-        where <- if (switch_y) 1 else -2
+      if (inside$y) {
+        where  <- if (switch_y) 1 else -2
       } else {
-        where <- if (switch_y) 0 else -1
-        panels <- gtable_add_rows(panels, padding, where)
+        where  <- -1 + switch_y
+        panels <- gtable_add_cols(panels, padding, where)
       }
       panels <- gtable_add_cols(panels, stripwidth, where)
       panels <- gtable_add_grob(
