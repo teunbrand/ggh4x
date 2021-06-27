@@ -1,4 +1,3 @@
-
 # constructor -------------------------------------------------------------
 
 #' Default strips
@@ -11,13 +10,34 @@
 #' @param size A `character(1)` stating that the strip margins in different
 #'   layers remain `"constant"` or are `"variable"`.
 #'
-#' @return A `Strip` ggproto object.
+#' @return A `Strip` ggproto object that can be used ggh4x facets.
 #' @export
 #' @md
 #' @family strips
 #'
 #' @examples
-#' strip_vanilla()
+#' # Some dummy data with a long string
+#' df <- data.frame(
+#'   short = "X",
+#'   long  = "A very long string that takes up a lot of space",
+#'   value = 1
+#' )
+#' # Simple plot
+#' p <- ggplot(df, aes(value, value)) +
+#'   geom_point() +
+#'   theme(strip.text.y.right = element_text(angle = 0))
+#'
+#' # Short titles take up as much space as long titles
+#' p + facet_grid2(
+#'   vars(short, long),
+#'   strip = strip_vanilla(size = "constant")
+#' )
+#'
+#' # Short titles take up less space
+#' p + facet_grid2(
+#'   vars(short, long),
+#'   strip = strip_vanilla(size = "variable")
+#' )
 strip_vanilla <- function(clip = "inherit", size = "constant") {
   params <- list(
     clip = arg_match0(clip, c("on", "off", "inherit")),
