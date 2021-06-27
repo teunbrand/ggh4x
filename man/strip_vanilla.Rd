@@ -44,3 +44,8 @@ p + facet_grid2(
   strip = strip_vanilla(size = "variable")
 )
 }
+\seealso{
+Other strips: 
+\code{\link{strip_themed}()}
+}
+\concept{strips}
