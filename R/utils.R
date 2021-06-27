@@ -57,6 +57,7 @@ seq_ncol <- function(dat) {
     ".all_aesthetics",
     "as_facets_list",
     "as_gg_data_frame",
+    "add_margins",
     "axis_label_element_overrides",
     "check_aesthetics",
     "check_labeller",
