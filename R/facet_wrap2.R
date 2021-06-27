@@ -86,6 +86,7 @@ facet_wrap2 <- function(
   ggproto(
     NULL, FacetWrap2,
     shrink = shrink,
+    strip = strip_vanilla(),
     params = list(
       facets = facets,
       free = free,
@@ -114,20 +115,6 @@ facet_wrap2 <- function(
 #' @rdname ggh4x_extensions
 FacetWrap2 <- ggproto(
   "FacetWrap2", FacetWrap,
-  setup_strips = function(layout, params, theme) {
-    # Format labels and render strips
-    if (length(params$facets) == 0) {
-      labels_df <- .int$new_data_frame(list("(all)" = "(all)"), n = 1)
-    } else {
-      labels_df <- layout[names(params$facets)]
-    }
-    attr(labels_df, "facet") <- "wrap"
-    render_strips(
-      structure(labels_df, type = "rows"),
-      structure(labels_df, type = "cols"),
-      params$labeller, theme
-    )
-  },
   setup_aspect_ratio = function(coord, free, theme, ranges) {
     # Rules for aspect ratio
     aspect_ratio <- theme$aspect.ratio
@@ -291,74 +278,6 @@ FacetWrap2 <- ggproto(
     )
     panel_table
   },
-  attach_strips = function(panel_table, strips, position, empty, params, theme,
-                           clip = "off", sizes) {
-    # Setup parameters
-    strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
-    strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
-    strip_mat <- empty
-    strip_pos <- params$strip.position
-    strip_mat[position] <- unlist(unname(strips),
-                                  recursive = FALSE)[[strip_pos]]
-
-    if (strip_pos %in% c("top", "bottom")) {
-      inside_x <- (calc_element("strip.placement.x", theme) %||% "inside")
-      inside_x <- inside_x  == "inside"
-      if (strip_pos == "top") {
-        offset  <- if (inside_x) -1 else -2
-        padding <- sizes$top
-      } else {
-        offset <- if (inside_x) 0 else 1
-        padding <- sizes$bottom
-      }
-      strip_height <- unit(
-        apply(strip_mat, 1, max_height, value_only = TRUE), "cm"
-      )
-
-      # Add top/bottom strips
-      panel_table <- .int$weave_tables_row(
-        panel_table, strip_mat, offset, strip_height, strip_name, 2, clip
-      )
-
-      if (!inside_x) {
-        # Add padding
-        padding[as.numeric(padding) != 0] <- strip_padding
-        panel_table <- .int$weave_tables_row(
-          panel_table, row_shift = offset, row_height = padding
-        )
-      }
-
-    } else {
-      inside_y <- (calc_element("strip.placement.y", theme) %||% "inside")
-      inside_y <- inside_y == "inside"
-      if (strip_pos == "left") {
-        offset <- if (inside_y) -1 else -2
-        padding <- sizes$left
-      } else {
-        offset <- if (inside_y) 0 else 1
-        padding <- sizes$right
-      }
-      padding[as.numeric(padding) != 0] <- strip_padding
-      strip_width <- unit(
-        apply(strip_mat, 2, max_width, value_only = TRUE), "cm"
-      )
-
-      # Add left/right strips
-      panel_table <- .int$weave_tables_col(
-        panel_table, strip_mat, offset, strip_width, strip_name, 2, clip
-      )
-
-      if (!inside_y) {
-        padding[as.numeric(padding) != 0] <- strip_padding
-        panel_table <- .int$weave_tables_col(
-          panel_table, col_shift = offset, col_width = padding
-        )
-      }
-    }
-
-    panel_table
-
-  },
   finish_panels = function(self, panels, layout, params, theme) {
     panels
   },
@@ -370,7 +289,7 @@ FacetWrap2 <- ggproto(
            call. = FALSE)
     }
     # browser()
-
+    strip  <- self$strip
     layout <- self$setup_layout(layout, coord, params)
 
     # Setup parameters
@@ -397,9 +316,9 @@ FacetWrap2 <- ggproto(
     panel_table <- self$attach_axes(panel_table, axes, sizes)
 
     # Deal with strips
-    strips <- self$setup_strips(layout, params, theme)
-    panel_table <- self$attach_strips(
-      panel_table, strips, panel_pos, empty_table, params, theme,
+    strip$setup(layout, params, theme, type = "wrap")
+    panel_table <- strip$incorporate_wrap(
+      panel_table, panel_pos, params, theme,
       clip = coord$clip, sizes
     )
 
