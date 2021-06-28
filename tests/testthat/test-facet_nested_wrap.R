@@ -49,7 +49,8 @@ test_that("facet_nested_wrap doesn't nest 1-dimensional strips",{
 })
 
 test_that("facet_nested_wrap bleed argument works", {
-  test <- basic + facet_nested_wrap(vars(cyl, drv), bleed = TRUE)
+  test <- basic + facet_nested_wrap(vars(cyl, drv),
+                                    strip = strip_nested(bleed = TRUE))
 
   test <- ggplotGrob(test)
   ctrl <- default_gtable
@@ -66,8 +67,8 @@ test_that("facet_nested_wrap nest_line parameter works", {
   test <- ggplotGrob(test)
   ctrl <- default_gtable
 
-  test <- test$grobs[test$layout$name == "strip-t-1-3-1"][[1]]
-  ctrl <- ctrl$grobs[ctrl$layout$name == "strip-t-1-3-1"][[1]]
+  test <- test$grobs[test$layout$name == "strip-t-1-1"][[1]]
+  ctrl <- ctrl$grobs[ctrl$layout$name == "strip-t-1-1"][[1]]
 
   expect_equal(length(test$grobs), length(ctrl$grobs) + 1)
   expect_true("nester" %in% test$layout$name)
