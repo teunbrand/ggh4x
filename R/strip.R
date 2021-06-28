@@ -144,8 +144,6 @@ Strip <- ggproto(
   },
 
   draw_labels = function(labels, element, position, layer_id, size) {
-    export <<- list(labels = labels, element = element, position = position,
-                    layer_id = layer_id, size = size)
     if (size == "constant") {
       layer_id <- rep(1L, length(layer_id))
     }
@@ -160,7 +158,7 @@ Strip <- ggproto(
       }
       grob$name <- grobName(grob, paste0("strip.text.", aes))
       grob
-    }, label = labels, elem = element, SIMPLIFY = FALSE)
+    }, label = labels, elem = element$el, SIMPLIFY = FALSE)
 
     zeros <- vapply(labels, .int$is.zero, logical(1))
     if (length(labels) == 0 || all(zeros)) {
@@ -206,14 +204,48 @@ Strip <- ggproto(
       width  <- lapply(firsts, `[[`, "widths")
       width  <- unname(do.call(unit.c, lapply(width, sum)))
     }
+
+    # Combine with background
+    labels <- mapply(function(x, bg) {
+      x <- gTree(children = gList(bg, x))
+      x$name <- grobName(x, "strip")
+      x
+    }, x = labels, bg = element$bg, SIMPLIFY = FALSE)
+
     attr(labels, "width")  <- width
     attr(labels, "height") <- height
     return(labels)
   },
 
-  # Function mostly based on ggplot2:::assemble_strips
-  draw_strip = function(self, labels, position, elements,
-                        params, layout) {
+  finish_strip = function(strip, width, height, position, layout, dim,
+                          clip = "inherit") {
+    empty_strips <- length(strip) == 0 ||
+      all(vapply(strip, .int$is.zero, logical(1)))
+    if (!empty_strips) {
+      strip <- matrix(strip, ncol = dim[2], nrow = dim[1])
+      horizontal <- position %in% c("top", "bottom")
+      if (horizontal)  {
+        strip <- apply(strip, 1, matrix, ncol = 1)
+      } else {
+        strip <- apply(strip, 1, matrix, nrow = 1)
+      }
+      strip <- lapply(strip, function(mat) {
+        gtable_matrix(
+          "strip", mat,
+          rep_len(width,  ncol(mat)),
+          rep_len(height, nrow(mat)),
+          clip = clip
+        )
+      })
+    }
+    .int$new_data_frame(list(
+      t = layout$ROW, l = layout$COL,
+      b = layout$ROW, r = layout$COL,
+      grobs = strip
+    ))
+  },
+
+  init_strip = function(elements, position, layer_index) {
     aes <- if (position %in% c("top", "bottom")) "x" else "y"
     el <- elements[[c("text", aes, position)]]
     el <- if (inherits(el, "list")) el else list(el)
@@ -227,49 +259,28 @@ Strip <- ggproto(
       by_layer <- elements$by_layer[[aes]]
     }
 
-    index <- as.vector(col(labels))
     if (by_layer) {
-      el <- el[pmin(index, length(el))]
-      bg <- bg[pmin(index, length(bg))]
+      el <- el[pmin(layer_index, length(el))]
+      bg <- bg[pmin(layer_index, length(bg))]
     } else {
-      el <- rep_len(el, length(labels))
-      bg <- rep_len(bg, length(labels))
+      el <- rep_len(el, length(layer_index))
+      bg <- rep_len(bg, length(layer_index))
     }
+    return(list(el = el, bg = bg))
+  },
 
-    strips <- self$draw_labels(labels, el, position, layer_id = index,
+  # Function mostly based on ggplot2:::assemble_strips
+  assemble_strip = function(self, labels, position, elements,
+                            params, layout) {
+    index  <- as.vector(col(labels))
+    elems  <- self$init_strip(elements, position, index)
+    strips <- self$draw_labels(labels, elems, position, layer_id = index,
                                size = params$size)
-    if (length(strips) == 0 || all(vapply(strips, .int$is.zero, logical(1)))) {
-      return(strips)
-    }
     width  <- attr(strips, "width")
     height <- attr(strips, "height")
 
-    # Combine with background
-    strips <- mapply(function(x, bg) {
-      x <- gTree(children = gList(bg, x))
-      x$name <- grobName(x, "strip")
-      x
-    }, x = strips, bg = bg, SIMPLIFY = FALSE)
-
-    strips <- matrix(strips, ncol = ncol(labels), nrow = nrow(labels))
-    strips <- apply(strips, 1, function(x) {
-      if (aes == "x") {
-        mat <- matrix(x, ncol = 1)
-      } else {
-        mat <- matrix(x, nrow = 1)
-      }
-      gtable_matrix(
-        "strip", mat,
-        rep_len(width,  ncol(mat)),
-        rep_len(height, nrow(mat)),
-        clip = params$clip
-      )
-    })
-    .int$new_data_frame(list(
-      t = layout$ROW, l = layout$COL,
-      b = layout$ROW, r = layout$COL,
-      grobs = strips
-    ))
+    self$finish_strip(strips, width, height, position, layout,
+                      dim = dim(labels), params$clip)
   },
 
   # Function adapted from ggplot2:::build_strip
@@ -292,12 +303,12 @@ Strip <- ggproto(
     nrow <- ncol(labels)
 
     if (horizontal) {
-      top    <- self$draw_strip(labels, "top",    elem, params, layout)
-      bottom <- self$draw_strip(labels, "bottom", elem, params, layout)
+      top    <- self$assemble_strip(labels, "top",    elem, params, layout)
+      bottom <- self$assemble_strip(labels, "bottom", elem, params, layout)
       list(top = top, bottom = bottom)
     } else {
-      left  <- self$draw_strip(labels, "left", elem, params, layout)
-      right <- self$draw_strip(
+      left  <- self$assemble_strip(labels, "left", elem, params, layout)
+      right <- self$assemble_strip(
         labels[, rev(seq_len(ncol)), drop = FALSE],
         "right", elem, params, layout
       )
