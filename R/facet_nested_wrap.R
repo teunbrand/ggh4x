@@ -7,6 +7,8 @@
 #'
 #' @inheritParams facet_wrap2
 #' @inheritParams facet_nested
+#' @param strip An object created by a call to a strip function, such as
+#'   \code{\link[ggh4x]{strip_nested}()}.
 #'
 #' @details This function inherits the capabilities of
 #'   \code{\link[ggh4x]{facet_wrap2}()}.
@@ -41,6 +43,11 @@
 #' @export
 #' @family facetting functions
 #' @include facet_wrap2.R
+#'
+#' @seealso See \code{\link[ggh4x]{strip_nested}} for nested strips. See
+#'   \code{\link[ggplot2]{facet_wrap}} for descriptions of the original
+#'   arguments. See \code{\link[grid]{unit}} for the construction of a
+#'   \code{unit} vector.
 #'
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) +

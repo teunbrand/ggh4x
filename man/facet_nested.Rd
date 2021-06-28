@@ -20,7 +20,8 @@ facet_nested(
   margins = FALSE,
   nest_line = FALSE,
   resect = unit(0, "mm"),
-  bleed = FALSE
+  strip = strip_nested(),
+  bleed = NULL
 )
 }
 \arguments{
@@ -147,9 +148,11 @@ element.}
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
 
-\item{bleed}{a \code{logical} vector of length 1, indicating whether merging
-of lower-level variables is allowed when the higher-level variables are
-separate. See details.}
+\item{strip}{An object created by a call to a strip function, such as
+\code{\link[ggh4x]{strip_nested}()}.}
+
+\item{bleed}{Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
+See details.}
 }
 \value{
 A \emph{FacetNested} ggproto object.
@@ -207,8 +210,9 @@ ggplot(df, aes(Sepal.Length, Petal.Length)) +
   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 }
 \seealso{
-See \code{\link[ggplot2]{facet_grid}} for descriptions of the
-  original arguments. See \code{\link[grid]{unit}} for the construction of a
+See \code{\link[ggh4x]{strip_nested}} for nested strips. See
+  \code{\link[ggplot2]{facet_grid}} for descriptions of the original
+  arguments. See \code{\link[grid]{unit}} for the construction of a
   \code{unit} vector.
 
 Other facetting functions: 

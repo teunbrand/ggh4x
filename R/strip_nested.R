@@ -4,7 +4,9 @@ NULL
 
 #' Nested strips
 #'
-#' This strip style groups strips on the same layer that share a label.
+#' This strip style groups strips on the same layer that share a label. It is
+#' the default strip for [`facet_nested()`][facet_nested()] and
+#' [`facet_nested_wrap()`][facet_nested_wrap()].
 #'
 #' @inheritParams strip_vanilla
 #' @param bleed A `logical(1)` indicating whether mergin of lower-layer
@@ -48,7 +50,19 @@ NULL
 #' @family strips
 #'
 #' @examples
-#' NULL
+#' A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' # Combine the strips
+#' p + facet_wrap2(vars(cyl, drv), strip = strip_nested())
+#'
+#' # The facet_nested and facet_nested_wrap functions have nested strips
+#' # automatically
+#' p + facet_nested_wrap(vars(cyl, drv))
+#'
+#' # Changing the bleed argument merges the "f" labels in the top-right
+#' p + facet_wrap2(vars(cyl, drv), strip = strip_nested(bleed = TRUE))
 strip_nested <- function(
   clip = "inherit",
   size = "constant",

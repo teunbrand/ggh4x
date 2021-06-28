@@ -12,9 +12,10 @@
 #'   element.
 #' @param resect  a \code{unit} vector of length 1, indicating how much the
 #'   nesting line should be shortened.
-#' @param bleed a \code{logical} vector of length 1, indicating whether merging
-#'   of lower-level variables is allowed when the higher-level variables are
-#'   separate. See details.
+#' @param strip An object created by a call to a strip function, such as
+#'   \code{\link[ggh4x]{strip_nested}()}.
+#' @param bleed Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
+#'   See details.
 #'
 #' @details This function inherits the capabilities of
 #'   \code{\link[ggh4x]{facet_grid2}()}.
@@ -51,11 +52,12 @@
 #'
 #' @return A \emph{FacetNested} ggproto object.
 #' @family facetting functions
-#'
-#' @seealso See \code{\link[ggplot2]{facet_grid}} for descriptions of the
-#'   original arguments. See \code{\link[grid]{unit}} for the construction of a
+
+#' @seealso See \code{\link[ggh4x]{strip_nested}} for nested strips. See
+#'   \code{\link[ggplot2]{facet_grid}} for descriptions of the original
+#'   arguments. See \code{\link[grid]{unit}} for the construction of a
 #'   \code{unit} vector.
-#'
+
 #' @examples
 #' df <- iris
 #' df$nester <- ifelse(df$Species == "setosa",
