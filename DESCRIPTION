@@ -74,5 +74,6 @@ Collate:
     'stat_roll.R'
     'stat_theodensity.R'
     'strip.R'
+    'strip_themed.R'
     'themes.R'
     'utils.R'

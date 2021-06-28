@@ -1,3 +1,5 @@
+#' @include strip.R
+NULL
 # constructor -------------------------------------------------------------
 
 #' Strip with themed boxes and texts
@@ -90,8 +92,12 @@ strip_themed <- function(
 
 # ggproto class -----------------------------------------------------------
 
+#' @usage NULL
+#' @format NULL
+#' @export
+#' @rdname ggh4x_extensions
 StripThemed <- ggproto(
-  "StripElemental", ggh4x:::Strip,
+  "StripElemental", Strip,
 
   given_elements = list(),
 
@@ -132,7 +138,7 @@ StripThemed <- ggproto(
     }
     if (!is.null(given$text_y)) {
       text$y$left  <- lapply(given$text_y, inherit_element, text$y$left)
-      text$y$right <- lapply(given$text_y, inherit_element, text$y$left)
+      text$y$right <- lapply(given$text_y, inherit_element, text$y$right)
     }
     # Strip placement theme elements
     inside <- list(
