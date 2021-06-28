@@ -17,7 +17,8 @@ facet_grid2(
   as.table = TRUE,
   switch = NULL,
   drop = TRUE,
-  margins = FALSE
+  margins = FALSE,
+  strip = strip_vanilla()
 )
 }
 \arguments{
@@ -135,6 +136,9 @@ for each of the possible values of the faceting variables. If
 default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
+
+\item{strip}{An object created by a call to a strip function, such as
+\code{\link[=strip_vanilla]{strip_vanilla}}.}
 }
 \value{
 A \code{Facet} ggproto object that can be added to a plot.
