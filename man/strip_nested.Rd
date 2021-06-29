@@ -72,7 +72,7 @@ Whereas \code{bleed = TRUE} would allow the following:
 \code{[_1_][___2____]} \cr \code{[___3____][_4_]}
 }
 \examples{
-A standard plot
+# A standard plot
 p <- ggplot(mpg, aes(displ, hwy)) +
   geom_point()
 
