@@ -5,9 +5,13 @@ try_require <- function(package, fun) {
   if (requireNamespace(package, quietly = TRUE)) {
     return(invisible())
   }
-
-  stop("Package `", package, "` required for `", fun, "`.\n",
-       "Please install and try again.", call. = FALSE)
+  # Use friendlier rlang install check message if available
+  if (utils::packageVersion("rlang") >= package_version("0.4.10")) {
+    rlang::check_installed(package, paste0("for `", fun, "`.\n"))
+  } else {
+    stop("Package `", package, "` required for `", fun, "`.\n",
+         "Please install and try again.", call. = FALSE)
+  }
 }
 
 # R3.4.0 minimal data.frame constructor
