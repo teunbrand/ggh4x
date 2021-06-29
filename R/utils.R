@@ -10,14 +10,7 @@ try_require <- function(package, fun) {
        "Please install and try again.", call. = FALSE)
 }
 
-# Rlang operator
-`%||%` <- function(x, y) {
-  if (is.null(x))
-    y
-  else x
-}
-
-# R4.4.0 minimal data.frame constructor
+# R3.4.0 minimal data.frame constructor
 list2df <- function (x = list(), nrow = NULL)
 {
   stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
@@ -51,7 +44,12 @@ seq_ncol <- function(dat) {
 
 # ggplot internals --------------------------------------------------------
 
-# Function for grabbing internal function of ggplot2 that are also used here
+# Function for grabbing internal function of ggplot2 that are also used here.
+# I'm sorry Thomasp85 for using these undocumented internal functions!
+# I know it is discouraged, but blatantly copy-pasting the code for these
+# functions feels wrong too (and is more work than checking that my code still
+# works with the ggplot2 dev version every once in a while).
+# Please forgive me!
 .grab_ggplot_internals <- function() {
   objects <- c(
     ".all_aesthetics",
@@ -133,6 +131,9 @@ seq_ncol <- function(dat) {
 #'   geom_point() +
 #'   scale_colour_gradient2(limits = center_limits())
 center_limits <- function(around = 0) {
+  message(paste0("Consider using `limits = ~ rescale_mid(.x, mid = ...)` ",
+                 "instead. This function will likely be deprecated in the ",
+                 "future."))
   function(input) {
     c(-1, 1) * max(abs(input - around)) + around
   }
@@ -166,6 +167,8 @@ center_limits <- function(around = 0) {
 #' ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 #'   geom_point(data = ggsubset(Species == "setosa"))
 ggsubset <- function(rowtest = NULL, omit = NULL) {
+  message(paste0("Consider using `data = ~ subset(.x, ...)` instead. ",
+                 "This function will likely be deprecated in the future."))
   rowtest <- substitute(rowtest)
   if (is.null(rowtest)) {
     rowtest <- substitute(TRUE)
