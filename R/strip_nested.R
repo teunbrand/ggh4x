@@ -178,7 +178,9 @@ StripNested <- ggproto(
     if (!empty_strips) {
       index <- layout$layer
       if (position %in% c("bottom", "right")) {
-        index <- dim[2] - index + 1
+        index  <- dim[2] - index + 1
+        width  <- rev(width)
+        height <- rev(height)
       }
       if (position %in% c("top", "bottom")) {
         gt <- gtable(widths = width[1], height = height)
