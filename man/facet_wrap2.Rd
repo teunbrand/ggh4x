@@ -16,7 +16,8 @@ facet_wrap2(
   as.table = TRUE,
   drop = TRUE,
   dir = "h",
-  strip.position = "top"
+  strip.position = "top",
+  strip = strip_vanilla()
 )
 }
 \arguments{
@@ -91,6 +92,9 @@ for vertical.}
 the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
+
+\item{strip}{An object created by a call to a strip function, such as
+\code{\link[=strip_vanilla]{strip_vanilla}}.}
 }
 \value{
 A \code{Facet} ggproto object that can be added to a plot.

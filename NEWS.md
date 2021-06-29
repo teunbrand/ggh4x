@@ -1,5 +1,37 @@
 # ggh4x 0.1.2.1.9 (dev version on github)
 
+## Facets
+
+Facets have largely been refactored. 
+
+In addition to the previous `facet_wrap2()`, there is now also the cousin 
+`facet_grid2()`. It offers the same axis drawing extensions as `facet_wrap2()`, 
+but for the grid layout. Moreover, it allows for independent scales across 
+rows and columns, which is a constraint in `ggplot2::facet_grid()`. The 
+`facet_nested()` function now inherits from `facet_grid2()` so that it too can
+use the extended axis drawing functions. 
+
+The facet functions in ggh4x now have `strip` arguments, which can be used
+with new `strip_*()` functions that control how the strips are drawn. For now,
+they come in the following three variants:
+
+* `strip_vanilla()` which draws normal strips, but allows you to control whether
+  labels should be clipped and has the `size` argument that can let strips on
+  different layers have different sizes. This can be convenient when the strip
+  labels have very different sizes.
+* `strip_themed()` does all of the above, but also let's you assign 
+  `element_text()` and `element_rect()` to different strips, allowing you to
+  have greater control of their styling. These elements can be assigned 
+  independently for the horizontal and vertical strips and can be applied to 
+  single strips or layers of strips.
+* `strip_nested()` again does all of the above, but also merges the strips with
+  the same labels if they are next to one another. This means that the core
+  functionality of `facet_nested()` and `facet_nested()` wrap has been moved
+  and is now powered by the `strip` argument. They can still be convenient to
+  draw nesting indicators.
+
+## Other changes
+
 * Fixed spelling in README (#32, thanks @vikatti!)
 * Added helper for secondary axes: help_secondary()
 * Added stat_difference() for shading a ribbon based on the sign of difference.
@@ -10,10 +42,6 @@
   >3.3.0, or the dev version at time of writing. (#35)
 * Changed facet_wrap2()/facet_nested_wrap() 'free', 'axes' and 'remove_labels'
   arguments to be less ambiguous.
-* Added facet_grid2() offering the same axis drawing extensions as facet_wrap2() 
-  but for grid layouts. Also allows independent scales across rows and columns.
-* facet_nested() now builds off facet_grid2() instead of facet_grid(),
-  inheriting these extensions above.
 * Fix bug in truncated axes with discrete scales (#39).
 * Fix bug in geom_pointpath() with 1-member groups (#43).
 * New axis function `guide_axis_manual()`.

@@ -19,7 +19,8 @@ facet_nested_wrap(
   strip.position = "top",
   nest_line = FALSE,
   resect = unit(0, "mm"),
-  bleed = FALSE
+  strip = strip_nested(),
+  bleed = NULL
 )
 }
 \arguments{
@@ -103,9 +104,11 @@ element.}
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
 
-\item{bleed}{a \code{logical} vector of length 1, indicating whether merging
-of lower-level variables is allowed when the higher-level variables are
-separate. See details.}
+\item{strip}{An object created by a call to a strip function, such as
+\code{\link[ggh4x]{strip_nested}()}.}
+
+\item{bleed}{Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
+See details.}
 }
 \value{
 A \code{FacetNestedWrap} ggproto object that can be added to a plot.
@@ -157,6 +160,11 @@ p + facet_nested_wrap(vars(cyl, drv), nest_line = TRUE) +
  p + facet_nested_wrap(vars(drv, cyl), bleed = TRUE)
 }
 \seealso{
+See \code{\link[ggh4x]{strip_nested}} for nested strips. See
+  \code{\link[ggplot2]{facet_wrap}} for descriptions of the original
+  arguments. See \code{\link[grid]{unit}} for the construction of a
+  \code{unit} vector.
+
 Other facetting functions: 
 \code{\link{facet_grid2}()},
 \code{\link{facet_nested}()},

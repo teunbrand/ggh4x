@@ -73,5 +73,8 @@ Collate:
     'stat_rle.R'
     'stat_roll.R'
     'stat_theodensity.R'
+    'strip.R'
+    'strip_themed.R'
+    'strip_nested.R'
     'themes.R'
     'utils.R'

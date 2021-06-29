@@ -58,6 +58,8 @@
 #'     \item{`"all"` or `TRUE`}{Both x- and y-scales are allowed to vary within
 #'     a column or row respectively.}
 #'   }
+#' @param strip An object created by a call to a strip function, such as
+#'   [`strip_vanilla`][strip_vanilla()].
 #'
 #' @details Both the `independent` and `space` arguments only have an effect
 #'   when the `scales` argument in a dimension is free. However, the
@@ -96,7 +98,8 @@ facet_grid2 <- function(
   as.table = TRUE,
   switch  = NULL,
   drop    = TRUE,
-  margins = FALSE
+  margins = FALSE,
+  strip = strip_vanilla()
 ) {
   if (is.logical(cols)) {
     abort(paste0("The `col` argument should not be logical.",
@@ -123,6 +126,7 @@ facet_grid2 <- function(
     NULL,
     FacetGrid2,
     shrink = shrink,
+    strip = force(strip),
     params = c(list(
       rows = facets_list$rows,
       cols = facets_list$cols,
@@ -229,19 +233,6 @@ FacetGrid2 <- ggproto(
     }
     panels
   },
-  setup_strips = function(
-    layout, params, theme
-  ) {
-    col_vars <- unique(layout[names(params$cols)])
-    row_vars <- unique(layout[names(params$rows)])
-    attr(col_vars, "type")  <- "cols"
-    attr(col_vars, "facet") <- "grid"
-    attr(row_vars, "type")  <- "rows"
-    attr(row_vars, "facet") <- "grid"
-    render_strips(
-      col_vars, row_vars, params$labeller, theme
-    )
-  },
   setup_aspect_ratio = function(coord, free, theme, ranges) {
     aspect_ratio <- theme$aspect.ratio
     if (is.null(aspect_ratio) && !free$x && !free$y) {
@@ -310,87 +301,7 @@ FacetGrid2 <- ggproto(
     )
     panel_table
   },
-  attach_strips = function(panels, strips, switch, theme) {
-    switch_x <- !is.null(switch) && switch %in% c("both", "x")
-    switch_y <- !is.null(switch) && switch %in% c("both", "y")
-    inside_x <- calc_element("strip.placement.x", theme) == "inside"
-    inside_y <- calc_element("strip.placement.y", theme) == "inside"
-    padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
 
-    pos_cols <- panel_cols(panels)
-
-    if (switch_x) {
-      if (!is.null(strips$x$bottom)) {
-        stripnames <- paste0("strip-b-", seq_along(strips$x$bottom))
-        stripheight <- max_height(strips$x$bottom)
-        if (inside_x) {
-          where <- -2
-        } else {
-          where <- -1
-          panels <- gtable_add_rows(panels, padding, where)
-        }
-        panels <- gtable_add_rows(panels, stripheight, where)
-        panels <- gtable_add_grob(
-          panels, strips$x$bottom, name = stripnames,
-          t = where, l = pos_cols$l, clip = "on", z = 2
-        )
-      }
-    } else {
-      if (!is.null(strips$x$top)) {
-        stripnames <- paste0("strip-t-", seq_along(strips$x$top))
-        stripheight <- max_height(strips$x$top)
-        if (inside_x) {
-          where <- 1
-        } else {
-          where <- 0
-          panels <- gtable_add_rows(panels, padding, where)
-
-        }
-        panels <- gtable_add_rows(panels, stripheight, where)
-        panels <- gtable_add_grob(
-          panels, strips$x$top, name = stripnames,
-          t = where + 1, l = pos_cols$l, clip = "on", z = 2
-        )
-      }
-    }
-
-    pos_rows <- panel_rows(panels)
-
-    if (switch_y) {
-      if (!is.null(strips$y$left)) {
-        stripnames <- paste0("strip-l-", seq_along(strips$y$left))
-        stripwidth <- max_width(strips$y$left)
-        if (inside_y) {
-          where <- 1
-        } else {
-          where <- 0
-          panels <- gtable_add_cols(panels, padding, where)
-        }
-        panels <- gtable_add_cols(panels, stripwidth, where)
-        panels <- gtable_add_grob(
-          panels, strips$y$left, name = stripnames,
-          t = pos_rows$t, l = where + 1, clip = "on", z = 2
-        )
-      }
-    } else {
-      if (!is.null(strips$y$right)) {
-        stripnames <- paste0("strip-r-", seq_along(strips$y$right))
-        stripwidth <- max_width(strips$y$right)
-        if (inside_y) {
-          where <- -2
-        } else {
-          where <- -1
-          panels <- gtable_add_cols(panels, padding, where)
-        }
-        panels <- gtable_add_cols(panels, stripwidth, where)
-        panels <- gtable_add_grob(
-          panels, strips$y$right, name = stripnames,
-          t = pos_rows$t, l = where, clip = "on", z = 2
-        )
-      }
-    }
-    panels
-  },
   setup_axes =  function(axes, empty, position, layout, params) {
     dim <- dim(empty)
     nrow <- dim[1]
@@ -439,7 +350,7 @@ FacetGrid2 <- ggproto(
     if ((params$free$x || params$free$y) && !coord$is_free()) {
       abort(paste0(.int$snake_class(coord), "doesn't support free scales."))
     }
-
+    strip <- self$strip
     cols <- which(layout$ROW == 1)
     rows <- which(layout$COL == 1)
     ncol <- max(layout$COL)
@@ -461,8 +372,8 @@ FacetGrid2 <- ggproto(
     )
     panel_table <- self$attach_axes(panel_table, axes)
 
-    strips <- self$setup_strips(layout, params, theme)
-    panel_table <- self$attach_strips(panel_table, strips, params$switch, theme)
+    strip$setup(layout, params, theme, type = "grid")
+    panel_table <- strip$incorporate_grid(panel_table, params$switch)
 
     self$finish_panels(panels = panel_table, layout = layout,
                        params = params, theme = theme)

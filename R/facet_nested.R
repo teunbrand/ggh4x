@@ -12,9 +12,10 @@
 #'   element.
 #' @param resect  a \code{unit} vector of length 1, indicating how much the
 #'   nesting line should be shortened.
-#' @param bleed a \code{logical} vector of length 1, indicating whether merging
-#'   of lower-level variables is allowed when the higher-level variables are
-#'   separate. See details.
+#' @param strip An object created by a call to a strip function, such as
+#'   \code{\link[ggh4x]{strip_nested}()}.
+#' @param bleed Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
+#'   See details.
 #'
 #' @details This function inherits the capabilities of
 #'   \code{\link[ggh4x]{facet_grid2}()}.
@@ -51,11 +52,12 @@
 #'
 #' @return A \emph{FacetNested} ggproto object.
 #' @family facetting functions
-#'
-#' @seealso See \code{\link[ggplot2]{facet_grid}} for descriptions of the
-#'   original arguments. See \code{\link[grid]{unit}} for the construction of a
+
+#' @seealso See \code{\link[ggh4x]{strip_nested}} for nested strips. See
+#'   \code{\link[ggplot2]{facet_grid}} for descriptions of the original
+#'   arguments. See \code{\link[grid]{unit}} for the construction of a
 #'   \code{unit} vector.
-#'
+
 #' @examples
 #' df <- iris
 #' df$nester <- ifelse(df$Species == "setosa",
@@ -87,7 +89,8 @@ facet_nested <- function(
   margins = FALSE,
   nest_line = FALSE,
   resect = unit(0, "mm"),
-  bleed = FALSE
+  strip = strip_nested(),
+  bleed = NULL
 ) {
   if (is.logical(cols)) {
     abort(paste0("The `col` argument should not be logical.",
@@ -110,9 +113,16 @@ facet_nested <- function(
   facets_list <- .int$grid_as_facets_list(rows, cols)
   labeller <- .int$check_labeller(labeller)
 
+  if (!is.null(bleed)) {
+    message(paste0("The `bleed` argument should be set in the ",
+                   " `strip_nested()` function."))
+    strip$params$bleed <- isTRUE(bleed)
+  }
+
   ggproto(
     NULL, FacetNested,
     shrink = shrink,
+    strip = strip,
     params = c(list(
       rows = facets_list$rows,
       cols = facets_list$cols,
@@ -123,7 +133,6 @@ facet_nested <- function(
       drop = drop,
       nest_line = nest_line,
       resect = resect,
-      bleed = bleed,
       axes = axes
     ), params))
 }
@@ -236,199 +245,89 @@ FacetNested <- ggproto(
     }
     base
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
-                         data, theme, params) {
-    panel_table <- FacetGrid2$draw_panels(panels, layout, x_scales, y_scales,
-                                          ranges, coord, data, theme, params)
 
-    # Setup strips
-    col_vars  <- unique(layout[names(params$cols)])
-    row_vars  <- unique(layout[names(params$rows)])
-    attr(col_vars, "type")  <- "cols"
-    attr(col_vars, "facet") <- "grid"
-    attr(row_vars, "type")  <- "rows"
-    attr(row_vars, "facet") <- "grid"
-
-    # Build strips
-    switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
-    switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
-
-    # Merging strips
-    merge_cols <- apply(col_vars, 2, function(x) any(rle(x)$lengths > 1))
-    merge_rows <- apply(row_vars, 2, function(x) any(rle(x)$lengths > 1))
-
-    if (any(merge_cols)) {
-      if (switch_x) {
-        panel_table <- merge_strips(panel_table,
-                                    col_vars, switch_x, params, theme, "b")
-      } else {
-        panel_table <- merge_strips(panel_table,
-                                    col_vars, switch_x, params, theme, "t")
-      }
-    }
-
-    if (any(merge_rows)) {
-      if (switch_y) {
-        panel_table <- merge_strips(panel_table,
-                                    row_vars, switch_y, params, theme, "l")
-      } else {
-        panel_table <- merge_strips(panel_table,
-                                    row_vars, switch_y, params, theme, "r")
-      }
-    }
-    panel_table
+  finish_panels = function(self, panels, layout, params, theme) {
+    add_nest_indicator(panels, params, theme)
   }
 )
 
 # Helper functions -----------------------------------------------
 
-merge_strips <- function(
-  panel_table, vars, switch, params, theme, where = "t"
-) {
-  orient <- if (where %in% c("t", "b")) "x" else "y"
-  nlevels <- ncol(vars)
-
-  these_strips <- grep(paste0("strip-", where), panel_table$layout$name)
-
-  # Check for element_blank strips
-  if (inherits(panel_table$grobs[[these_strips[1]]], "zeroGrob")) {
-    return(panel_table)
+add_nest_indicator <- function(panels, params, theme) {
+  if (!params$nest_line) {
+    return(panels)
   }
+  layout <- panels$layout
+  layout$index <- seq_len(nrow(layout))
+  is_strip <- grepl("^strip-", layout$name)
+  layout   <- layout[is_strip, ]
 
-  strp_rows <- range(panel_table$layout$t[these_strips])
-  strp_cols <- range(panel_table$layout$l[these_strips])
-  strp_rows <- seq(strp_rows[1], strp_rows[2])
-  strp_cols <- seq(strp_cols[1], strp_cols[2])
-  strp <- panel_table[strp_rows, strp_cols]
+  active <- unit(c(0, 1), "npc") + c(1, -1) * params$resect
 
-  # Make empty template
-  template <- strp
-  template$grobs <- list()
-  template$layout <- template$layout[0,]
-
-  # Inflate strips
-  for (i in seq_along(strp$grobs)) {
-    sub <- strp$grobs[[i]]
-    if (where == "b") {
-      sub$layout$t <- rev(sub$layout$t)
-      sub$layout$b <- rev(sub$layout$b)
-    }
-    n <- length(sub$grobs)
-    lay <- strp$layout[i,]
-    lay <- lay[rep(1, n),]
-    rownames(lay) <- NULL
-    sub <- lapply(seq_len(n), function(j) {
-      x <- sub
-      x$grobs <- x$grobs[j]
-      x$layout <- x$layout[j,]
-      x
-    })
-    template <- gtable_add_grob(
-      template,
-      sub, t = lay$t, l = lay$l, b = lay$b, r = lay$r,
-      z = lay$z, clip = lay$clip, name = paste0(lay$name, "-", seq_len(n))
-    )
-  }
-
-  if (!params$bleed) {
-    vars[] <- lapply(seq_len(ncol(vars)), function(i) {
-      do.call(paste0, vars[, seq(i), drop = FALSE])
-    })
-  }
-  merge <- apply(vars, 2, function(x) any(rle(x)$lengths > 1))
-
-  if (where == "r") {
-    vars <- rev(vars)
-    merge <- rev(merge)
-  }
-
-  # Abstract away strips
-  strip_ids <- strsplit(template$layout$name, "-", fixed = TRUE)
-  strip_ids <- do.call(rbind, strip_ids)
-  strip_ids <- strip_ids[,3:ncol(strip_ids)]
-  mode(strip_ids) <- "integer"
-
-  template$layout$delete <- rep(FALSE, nrow(strip_ids))
-  template$layout$aquire <- seq_along(template$grobs)
-
-  for (i in seq_len(nlevels)) {
-    if (!merge[i]) {
-      next()
-    }
-    ii <- strip_ids[, 2] == i
-
-    # Figure out what to merge
-    j <- as.numeric(as.factor(vars[, i]))
-
-    ends <- cumsum(rle(j)$lengths)
-    starts <- c(1, which(diff(j) != 0) + 1)
-
-    # Figure out what strip to remove
-    seqs <- unlist(Map(seq, from = starts, to = ends))
-    delete_this <- seqs[!(seqs %in% starts)]
-    delete_this <- which(strip_ids[, 1] %in% delete_this & ii)
-    template$layout$delete[delete_this] <- TRUE
-
-    # Figure out what cells to expand
-    expand <- seqs[seqs %in% starts]
-    expand <- which(strip_ids[, 1] %in% expand & ii)
-    expand_where <- seqs[seqs %in% ends]
-    expand_where <- which(strip_ids[, 1] %in% expand_where & ii)
-    template$layout$aquire[expand] <- template$layout$aquire[expand_where]
-  }
-
-  # Do expansion
-  if (orient == "x") {
-    template$layout$r <- template$layout$r[template$layout$aquire]
-  } else {
-    template$layout$b <- template$layout$b[template$layout$aquire]
-  }
-
-  # Do deletion
-  template$grobs  <- template$grobs[!template$layout$delete]
-  strip_ids <- strip_ids[!template$layout$delete,]
-  template$layout <- template$layout[!template$layout$delete,]
-
-  # Add nesting indicator
-  if (params$nest_line) {
-    active <- unit(c(0, 1), "npc") + c(1, -1) * params$resect
-    passive <- if (switch) c(1, 1) else c(0, 0)
-    nindi <- element_render(
+  h_strip <- layout[layout$l != layout$r,]
+  if (nrow(h_strip) > 0) {
+    index <- h_strip$index
+    is_secondary <- any(grepl("^strip-b", h_strip$name))
+    passive <- rep(as.numeric(is_secondary), 2)
+    # Draw the line
+    indicator <- element_render(
       theme, "ggh4x.facet.nestline",
-      x = switch(orient, x = active,  y = passive),
-      y = switch(orient, x = passive, y = active)
+      x = active, y = passive
     )
-    i <- which(with(template$layout, t != b | l != r))
-    offset <- switch(
-      orient,
-      x = vapply(template$grobs, function(grob){grob$layout$t}, numeric(1)),
-      y = vapply(template$grobs, function(grob){grob$layout$l}, numeric(1))
+    # Add the line to the strip-grob
+    panels$grobs[index] <- lapply(
+      panels$grobs[index],
+      function(gt) {
+        with(gt$layout, gtable_add_grob(
+          gt, indicator, t = t, l = l, r = r, b = b, z = z,
+          name = "nester", clip = "off"
+        ))
+      }
     )
-    offset <- if (where %in% c("r", "b")) offset else nlevels - offset
-    template$grobs[i] <- lapply(template$grobs[i], function(grb) {
-      grb <- with(grb$layout, gtable_add_grob(
-        grb, nindi, t = t, l = l, r = r, b = b,
-        z = z,
-        name = "nester",
-        clip = "off"
-      ))
-    })
-    template$layout$z <- template$layout$z + offset
+    # These offsets ensure that the strip-grob with the nest line is on top
+    # of the lower-layer strip-grobs
+    offset  <- vapply(panels$grobs[index], function(grob) {
+      grob$layout[["t"]][1]
+    }, numeric(1))
+    if (!is_secondary) {
+      nlevels <- dim(panels$grobs[[index[1]]])[1]
+      offset <- nlevels - offset
+    }
+    panels$layout$z[index] <- panels$layout$z[index] + offset
   }
 
-  # Delete old strips
-  panel_table <- gtable_filter(panel_table, paste0("strip-", where),
-                               fixed = TRUE, trim = FALSE, invert = TRUE)
+  v_strip <- layout[layout$t != layout$b,]
+  if (nrow(v_strip) > 0) {
+    index <- v_strip$index
+    is_secondary <- any(grepl("^strip-r", v_strip$name))
+    passive <- rep(as.numeric(!is_secondary), 2)
+    # Draw the line
+    indicator <- element_render(
+      theme, "ggh4x.facet.nestline",
+      x = passive, y = active
+    )
+    # Add the line to the strip grob
+    panels$grobs[index] <- lapply(
+      panels$grobs[index],
+      function(gt) {
+        with(gt$layout, gtable_add_grob(
+          gt, indicator, t = t, l = l, r = r, b = b, z = z,
+          name = "nester", clip = "off"
+        ))
+      }
+    )
+    # These offsets ensure that the strip-grob with the nest line is on top
+    # of the lower-layer strip-grobs
+    offset  <- vapply(panels$grobs[index], function(grob) {
+      grob$layout[["l"]][1]
+    }, numeric(1))
+    if (!is_secondary) {
+      nlevels <- dim(panels$grobs[[index[1]]])[2]
+      offset <- nlevels - offset
+    }
+    panels$layout$z[index] <- panels$layout$z[index] + offset
+  }
 
-  # Place back new strips
-  panel_table <- with(template$layout, gtable_add_grob(
-    panel_table,
-    template$grobs,
-    t = t - 1 + strp_rows[1],
-    l = l - 1 + strp_cols[1],
-    b = b - 1 + strp_rows[1],
-    r = r - 1 + strp_cols[1],
-    z = z, clip = clip, name = name
-  ))
-  panel_table
+  return(panels)
 }
+
