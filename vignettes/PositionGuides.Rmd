@@ -19,71 +19,184 @@ knitr::opts_chunk$set(
 library(ggh4x)
 ```
 
-The ggh4x package defines a few new position guides that can take the place of the default x- and y-axes.
+# A primer on position guides
 
-# Truncated axes
-
-The truncated axes is not a very special axis: it just makes the axis line shorter. By default, it trims the axis line to the outermost break positions.
+Position guides are ticks, labels and lines drawn at the x- and y-axes. Vanilla ggplot2 comes with two position guides: `guide_axis()`, which draws axes, and `guide_none()`, which skips drawing anything. The ggh4x package has a few additional axes described further on. A convenient way to specify what guides should be drawn where is the `guides()` function, that let's you draw `x`, `x.sec`, `y` and `y.sec` axes. You can either specify a guide by name omitting the `guide_*` prefix, e.g. `"axis"`, or by calling the guide constructor, `guide_axis()`,  that allows you to give additional arguments. Unless you specify the `position` argument to guides yourself, `x` and `x.sec` are the bottom and top axes respectively and likewise `y` and `y.sec` are the left and right axes.
 
 ```{r}
 g <- ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +
   theme(axis.line = element_line(colour = "black"))
 
+g + guides(
+  x = guide_none(title = "x"),
+  x.sec = guide_axis(title = "x.sec"),
+  y = "none",
+  y.sec = "axis"
+)
+```
+
+An alternative way to setting the position guides is the use the `guide` argument in the position scales. Note that both the position scale and the guide have a `position` argument. The guide's position overrules the scale's position, but if the guide's position is unspecified, it inherits the scale's position.
+
+```{r}
+g + scale_x_continuous(
+  position = "bottom",
+  guide = guide_axis(position = "top")
+)
+```
+
+The final place you can specify axes is as an argument to secondary axes in continuous position scales.
+
+```{r}
+g + scale_x_continuous(
+  sec.axis = dup_axis(breaks = 2:4 + 0.5,
+                      guide = guide_axis(angle = 45))
+)
+```
+
+The main takeways that apply also to ggh4x's position guides are the following:
+
+* Position guides can be set in the `guides()` function or as an argument to the position scales.
+* One can use the name of the guides (`"axis"`) to take the defaults, or use a constructor function such as `guide_axis()` to pass specific arguments.
+
+# Coloured axis
+
+This position guide has the convenience argument `colour` to set the colour of all axis elements at once. This simply circumvents having to set three separate theme elements with the `theme()` function. The `colour` argument is available in all of ggh4x's position guides.
+
+```{r, fig.keep='last'}
+# Setting all theme elements is a mild inconvenience.
+g + theme(
+  axis.line.x  = element_line(colour = "forestgreen"),
+  axis.ticks.x = element_line(colour = "forestgreen"),
+  axis.text.x  = element_text(colour = "forestgreen") 
+)
+
+# A little bit easier
+g + guides(x = guide_axis_colour(colour = "forestgreen"))
+```
+
+The motivation for this axis is that it used to be a mild inconvenience to set the colour of all these theme elements, if you wanted a colour correspondence between data on a secondary axis.
+
+```{r}
+ggplot(economics, aes(date)) +
+  geom_line(aes(y = unemploy)) +
+  geom_line(aes(y = pop / 30), colour = "red") +
+  scale_y_continuous(
+    sec.axis = sec_axis(
+      ~ .x * 30, name = "pop",
+      guide = guide_axis_colour(colour = "red"))
+  ) +
+  theme(axis.line.y = element_line())
+```
+
+# Truncated axes
+
+The truncated axes is not a very special axis: it just makes the axis line shorter. By default, it trims the axis line to the outermost break positions.
+
+```{r}
 g + guides(x = "axis_truncated")
 ```
 
-You can control how far the axis line is trimmed by setting the `trunc_lower` and `trunc_upper` options in the guide function.
+You can control how far the axis line is trimmed by setting the `trunc_lower` and `trunc_upper` options in the guide function. These truncation arguments are supported in all other position guides described further on too.
 
 ```{r, fig.width = 3, fig.show='hold'}
+# Using grid units to specify data-independent truncation points.
 g + guides(x = guide_axis_truncated(trunc_lower = unit(0.1, "npc"),
                                     trunc_upper = unit(0.9, "npc")))
 
+# Using atomic vectors are interpreted as data points that should be mapped.
 g + guides(x = guide_axis_truncated(trunc_lower = 2.5,
                                     trunc_upper = 4.5))
 ```
 
-These truncation arguments are supported in all other position guides described below too.
+Besides scalar truncation points, the truncation points can also take vectors that give the impression of a discontinuous axis. Alternatively, you can also give functions, or formulas, that take the existing break positions and return truncation points.
+
+```{r}
+g + guides(x = guide_axis_truncated(trunc_lower = c(2, 4),
+                                    trunc_upper = c(3, 5)),
+           y = guide_axis_truncated(trunc_lower = ~ .x - 1,
+                                    trunc_upper = ~ .x + 1))
+```
+
+A particular use-case I've found in the wilds of the internet, is to label divergent bar charts with separated axes.
+
+```{r}
+df <- data.frame(x = seq(-3, 3, length.out = 6), y = LETTERS[1:6])
+
+ggplot(df, aes(x, y)) +
+  geom_col() +
+  scale_x_continuous(
+    breaks = -3:0, guide = "axis_truncated",
+    sec.axis = dup_axis(
+      breaks = 0:3, guide = "axis_truncated"
+    )
+  ) +
+  theme(axis.line.x = element_line())
+```
+
+# Manual axes
+
+The idea behind manual axes is to allow greater freedom in how breaks and labels are defined. In particular, one can use grid units to set the position of the breaks, as well as atomic data that is mapped to the scale, and set the label attributes as vectors.
+
+```{r}
+g + guides(y.sec = guide_axis_manual(
+  breaks = unit(c(1, 3), "cm"), 
+  labels = expression("treshold"^2, "annotation"[3]),
+  label_colour = c("red", "blue"), label_size = c(8, 12)
+))
+```
+
+While this all might not seem immediately exiting, consider for a moment that discrete position scales don't support secondary axes. Manual axis guides extend the capabilities of discrete scales by offering a way to specify secondary axes. One way to use this is to provide additional information about categories.
+
+```{r}
+tab <- table(diamonds$cut)
+
+ggplot(diamonds, aes(cut, price)) +
+  geom_violin() +
+  guides(x.sec = guide_axis_manual(
+    breaks = names(tab),
+    labels = paste0("n = ", tab)
+  ))
+```
+
+Another use case is to highlight a few select cases of an otherwise crowded axis.
+
+```{r}
+highlight <- c("New York", "California", "Alabama", "Hawaii")
+
+clust <- hclust(dist(USArrests))
+
+df <- cbind(as.data.frame(USArrests), state = rownames(USArrests))
+df <- tidyr::pivot_longer(df, Murder:Rape)
+
+ggplot(df, aes(name, state, fill = value)) +
+  geom_raster() +
+  scale_y_dendrogram(hclust = clust, labels = NULL) +
+  guides(y.sec = guide_axis_manual(breaks = highlight, labels = highlight))
+```
+
 
 # Minor ticks
 
 Perhaps a more useful addition to the axis guide is to also place tick marks at places where the minor breaks are. 
 
 ```{r}
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  scale_x_continuous(
-    minor_breaks = seq(2, 4, by = 0.2),
-    guide = "axis_minor"
-  )
-```
-
-The minor ticks axis, like any position guide, can be set inside the `guides()` or `scale_(x/y)_*()` functions. They can be referred to as `"axis_minor"` for the default, or `guide_axis_minor()` if extra tweaks are required.
-
-```{r, eval = FALSE}
-g <- ggplot(mtcars, aes(wt, mpg)) +
-  geom_point()
-
-# The following are equivalent:
 g + guides(x = "axis_minor", y = "axis_minor")
-
-g + scale_x_continuous(guide = "axis_minor") +
-  scale_y_continuous(guide = "axis_minor")
-
-# If you need to set extra options you can use the `guide_axis_minor()` function.
-g + guides(x = guide_axis_minor(angle = 45), 
-           y = guide_axis_minor(title = "I am a Y-axis"))
-
-g + scale_x_continuous(guide = guide_axis_minor(angle = 45)) +
-  scale_y_continuous(guide = guide_axis_minor(title = "I am a Y-axis"))
 ```
 
-The length of the minor ticks are controlled by the `ggh4x.axis.ticks.length.minor` theme element, and are specified relative to the major ticks.
+The guide constructor, `guide_axis_minor()` has no unique arguments, because the positions of the minor breaks are taken directly from the scale. Therefore, you can use the `minor_breaks` argument of the position scale to determine where the minor ticks are drawn.
 
 ```{r}
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  guides(x = "axis_minor") +
+g + scale_x_continuous(
+  minor_breaks = seq(2, 4, by = 0.2),
+  guide = "axis_minor"
+)
+```
+
+The length of the minor ticks are controlled by the `ggh4x.axis.ticks.length.minor` theme element, and are specified relative to the major ticks using the `rel()` function.
+
+```{r}
+g + guides(x = "axis_minor") +
   theme(axis.ticks.length.x = unit(0.5, "cm"),
         ggh4x.axis.ticks.length.minor = rel(0.5))
 ```
@@ -93,9 +206,10 @@ ggplot(mtcars, aes(wt, mpg)) +
 A variation on the minor ticks is placing ticks for logarithmic axes. A thing to note is that these work best log<sub>10</sub> transformations. The ticks now come in three lengths, the major length, the minor length and what is referred to 'mini' length. Like with the minor ticks, the mini ticks are also defined relative to the major ticks.
 
 ```{r}
-ggplot(pressure, aes(temperature, pressure)) +
-  geom_line() +
-  scale_y_log10(guide = "axis_logticks") +
+pres <- ggplot(pressure, aes(temperature, pressure)) +
+  geom_line()
+
+pres + scale_y_log10(guide = "axis_logticks") +
   theme(axis.ticks.length.y = unit(0.5, "cm"),
         ggh4x.axis.ticks.length.minor = rel(0.5),
         ggh4x.axis.ticks.length.mini = rel(0.2))
@@ -104,26 +218,23 @@ ggplot(pressure, aes(temperature, pressure)) +
 A difference with the `annotation_logticks` function is that by default, ticks are placed on the outside of the panel and are controlled by the theme. To get good looking log-ticks on the outside, you'd have to set clipping off and dodge the axis text. Whereas using log ticks as a guide takes care of most of the extra steps naturally.
 
 ```{r, fig.width = 3, fig.show='hold'}
-g <- ggplot(pressure, aes(temperature, pressure)) +
-  geom_line()
-
 # Using annotation log-ticks
-g + scale_y_log10() +
+pres + scale_y_log10() +
   annotation_logticks(sides = 'l', outside = TRUE) +
   coord_cartesian(clip = "off") +
   theme(axis.text.y = element_text(margin = margin(r = 10)))
 
 # Using axis_logticks, setting tick length equivalently
-g + scale_y_log10(guide = "axis_logticks") +
+pres + scale_y_log10(guide = "axis_logticks") +
   theme(axis.ticks.length.y = unit(0.3, "cm"))
 ```
 
 Inversely, you can also place the axis ticks on the inside with negative values for the `axis.ticks.length`, but you would need to dodge the axis text again.
 
 ```{r}
-g + scale_y_log10(guide = "axis_logticks") +
+pres + scale_y_log10(guide = "axis_logticks") +
   theme(axis.ticks.length.y = unit(-0.3, "cm"),
-        axis.text.y = element_text(margin = margin(r = 0.4, unit = "cm")))
+        axis.text.y = element_text(margin = margin(r = 10)))
 ```
 
 # Nested relations
@@ -209,7 +320,7 @@ Since the dendrogram replaces the axis ticks, it uses these as theme element fro
 ```{r, fig.height = 5, fig.width = 5}
 g + scale_y_dendrogram(hclust = clusters) +
   theme(
-  axis.ticks.y = element_line(colour = "forestgreen"),
+  axis.ticks.y = element_line(size  = 2, lineend = "round"),
   axis.ticks.length.y = unit(10, "pt")
 )
 ```
