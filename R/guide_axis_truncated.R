@@ -255,6 +255,9 @@ truncate_guide <- function(guide, scale, aesthetic) {
 }
 
 axis_truncate <- function(breaks, trunc, scale, type = "lower") {
+  if (rlang::is_formula(trunc)) {
+    trunc <- rlang::as_function(trunc)
+  }
   if (is.null(trunc)) {
     x <- unit(switch(
       type,
