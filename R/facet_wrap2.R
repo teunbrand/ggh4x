@@ -291,7 +291,6 @@ FacetWrap2 <- ggproto(
       stop(.int$snake_class(coord), " doesn't support free scales",
            call. = FALSE)
     }
-    # browser()
     strip  <- self$strip
     layout <- self$setup_layout(layout, coord, params)
 

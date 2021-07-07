@@ -321,14 +321,16 @@ Strip <- ggproto(
                               clip = "off", sizes) {
     # Setup parameters
     strip_padding <- self$elements$padding
-    strip_name <- paste0("strip-", substr(position, 1, 1))
-    strip   <- unlist(unname(self$strips), recursive = FALSE)[[position]]
-    padding <- sizes[[position]]
+    padding  <- sizes[[position]]
     padding[as.numeric(padding) != 0] <- strip_padding
+    strip <- unlist(unname(self$strips), recursive = FALSE)[[position]]
     inside <- self$elements$inside
+    position <- substr(position, 1, 1)
+    strip_name <- paste0("strip-", position)
 
-    if (position %in% c("top", "bottom")) {
-      if (position == "top") {
+
+    if (position %in% c("t", "b")) {
+      if (position == "t") {
         offset <- -2 + inside$x
       } else {
         offset <-  1 - inside$x
@@ -336,8 +338,8 @@ Strip <- ggproto(
       strip_height <- split_heights_cm(strip$grobs, strip$t)
 
       # Add top/bottom strips
-      panels <- weave_layout_row(
-        panels, strip, offset, strip_height, strip_name, 2, clip
+      panels <- weave_panel_rows(
+        panels, strip, offset, strip_height, strip_name, 2, clip, position
       )
       if (!inside$x) {
         # Apply extra padding
@@ -346,7 +348,7 @@ Strip <- ggproto(
         )
       }
     } else {
-      if (position == "left") {
+      if (position == "l") {
         offset <- -2 + inside$y
       } else {
         offset <-  1 - inside$y
@@ -354,8 +356,8 @@ Strip <- ggproto(
       strip_width <- split_widths_cm(strip$grobs, strip$l)
 
       # Add left/right strips
-      panels <- weave_layout_col(
-        panels, strip, offset, strip_width, strip_name, 2, clip
+      panels <- weave_panel_cols(
+        panels, strip, offset, strip_width, strip_name, 2, clip, position
       )
 
       if (!inside$y) {
@@ -439,52 +441,15 @@ Strip <- ggproto(
   }
 )
 
-weave_layout_row <- function(table, table2, row_shift, row_height,
-                             name, z = 1, clip = "off") {
-  cols <- panel_cols(table)
-  rows <- panel_rows(table)
 
-  for (i in rev(seq_along(rows$t))) {
-    table <- gtable_add_rows(table, row_height[i], pos = rows$t[i] + row_shift)
+# Helpers -----------------------------------------------------------------
+
+assert_strip <- function(strip, arg = deparse(substitute(strip))) {
+  is_strip <- inherits(strip, "Strip") && inherits(strip, "ggproto")
+  if (!is_strip) {
+    rlang::abort(paste0(
+      "The `", arg, "` argument is not a valid facet strip specificiation."
+    ))
   }
-
-  rows <- rows + row(rows) + row_shift
-
-  if (!missing(table2)) {
-    table <- gtable_add_grob(
-      table, table2$grobs,
-      t = rows$t[table2$t],
-      b = rows$b[table2$b],
-      l = cols$l[table2$l],
-      r = cols$r[table2$r],
-      clip = clip, z = z,
-      name = paste0(name, "-", seq_along(cols$l), "-", seq_along(table2$t))
-    )
-  }
-  table
-}
-
-weave_layout_col <- function(table, table2, col_shift, col_width,
-                             name, z= 1, clip = "off") {
-  cols <- panel_cols(table)
-  rows <- panel_rows(table)
-
-  for (i in rev(seq_along(cols$l))) {
-    table <- gtable_add_cols(table, col_width[i], pos = cols$l[i] + col_shift)
-  }
-
-  cols <- cols + row(cols) + col_shift
-
-  if (!missing(table2)) {
-    table <- gtable_add_grob(
-      table, table2$grobs,
-      t = rows$t[table2$t],
-      b = rows$b[table2$b],
-      l = cols$l[table2$l],
-      r = cols$r[table2$r],
-      clip = clip, z= z,
-      name = paste0(name, "-", seq_along(rows$t), "-", seq_along(table2$l))
-    )
-  }
-  table
+  strip
 }
