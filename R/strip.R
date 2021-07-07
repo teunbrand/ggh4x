@@ -316,7 +316,7 @@ Strip <- ggproto(
     }
   },
 
-  # Recieves panels and parameters from facet, then adds
+  # Receives panels and parameters from facet, then adds
   incorporate_wrap = function(self, panels, position,
                               clip = "off", sizes) {
     # Setup parameters
@@ -333,8 +333,7 @@ Strip <- ggproto(
       } else {
         offset <-  1 - inside$x
       }
-      strip_height <- split(unlist(lapply(strip$grobs, height_cm)), strip$t)
-      strip_height <- unit(vapply(strip_height, max, numeric(1)), "cm")
+      strip_height <- split_heights_cm(strip$grobs, strip$t)
 
       # Add top/bottom strips
       panels <- weave_layout_row(
@@ -352,8 +351,7 @@ Strip <- ggproto(
       } else {
         offset <-  1 - inside$y
       }
-      strip_width <- split(unlist(lapply(strip$grobs, width_cm)), strip$l)
-      strip_width <- unit(vapply(strip_width, max, numeric(1)), "cm")
+      strip_width <- split_widths_cm(strip$grobs, strip$l)
 
       # Add left/right strips
       panels <- weave_layout_col(
