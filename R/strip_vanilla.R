@@ -4,7 +4,7 @@
 #'
 #' Strips with the style of vanilla ggplot2.
 #'
-#' @param clip A `character(1)` that controls wether text labels are clipped to
+#' @param clip A `character(1)` that controls whether text labels are clipped to
 #'   the background boxes. Can be either `"inherit"` (default), `"on"` or
 #'   `"off"`.
 #' @param size A `character(1)` stating that the strip margins in different
@@ -238,9 +238,10 @@ Strip <- ggproto(
         )
       })
     }
+    panel <- as.integer(layout$PANEL)
     .int$new_data_frame(list(
-      t = layout$ROW, l = layout$COL,
-      b = layout$ROW, r = layout$COL,
+      t = panel, l = panel,
+      b = panel, r = panel,
       grobs = strip
     ))
   },
@@ -343,7 +344,7 @@ Strip <- ggproto(
       )
       if (!inside$x) {
         # Apply extra padding
-        panels <- .int$weave_tables_row(
+        panels <- weave_tables_row(
           panels, row_shift = offset, row_height = padding
         )
       }
@@ -362,7 +363,7 @@ Strip <- ggproto(
 
       if (!inside$y) {
         # Apply extra padding
-        panels <- .int$weave_tables_col(
+        panels <- weave_panel_cols(
           panels, col_shift = offset, col_width = padding
         )
       }

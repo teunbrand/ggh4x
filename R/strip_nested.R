@@ -147,9 +147,10 @@ StripNested <- ggproto(
     starts <- ends - unlist(lens, use.names = FALSE) + 1
 
     # Redefine layout
+    panel <- as.integer(layout$PANEL)
     layout <- .int$new_data_frame(list(
-      t = layout$ROW[starts], b = layout$ROW[ends],
-      l = layout$COL[starts], r = layout$COL[ends],
+      t = panel[starts], b = panel[ends],
+      l = panel[starts], r = panel[ends],
       layer = rep(seq_along(lens), lengths(lens))
     ))
     index  <- layout$layer

@@ -42,25 +42,29 @@ weave_panel_rows <- function(table, table2, row_shift, row_height,
     alt <- pos
   }
 
-  cols <- panel_cols(table)
+  # Ensure top-to-bottom order of unique panels
   rows <- panel_rows(table)
+  rows <- sort(unique(rows[[pos]]))
 
-  for (i in rev(seq_along(rows$t))) {
-    table <- gtable_add_rows(table, row_height[i],
-                             pos = rows[[pos]][i] + row_shift)
+  # Keep adding heights bottom-to-top
+  for (i in rev(seq_along(rows))) {
+    table <- gtable_add_rows(table, row_height[i], pos = rows[i] + row_shift)
   }
 
-  rows <- rows + row(rows) + row_shift
-
   if (!missing(table2)) {
+    # Offset shift because we already added the rows
+    row_shift <- ifelse(row_shift > -1, 1 + row_shift, row_shift)
+    panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+    panels[, c("t", "b")] <- panels[, c("t", "b")] + row_shift
+
     table <- gtable_add_grob(
       table, table2[[grob_var]],
-      t = rows[[pos]][table2$t],
-      b = rows[[alt]][table2$b],
-      l = cols$l[table2$l],
-      r = cols$r[table2$r],
+      t = panels[[pos]][table2$t],
+      b = panels[[alt]][table2$b],
+      l = panels$l[table2$l],
+      r = panels$r[table2$r],
       clip = clip, z = z,
-      name = paste0(name, "-", seq_along(cols$l), "-", seq_along(table2$t))
+      name = paste0(name, "-", seq_along(table2$l), "-", seq_along(table2$t))
     )
   }
   table
@@ -79,25 +83,29 @@ weave_panel_cols <- function(table, table2, col_shift, col_width,
     alt <- pos
   }
 
+  # Ensure left-to-right ordering of unique panels
   cols <- panel_cols(table)
-  rows <- panel_rows(table)
+  cols <- sort(unique(cols[[pos]]))
 
-  for (i in rev(seq_along(cols$l))) {
-    table <- gtable_add_cols(table, col_width[i],
-                             pos = cols[[pos]][i] + col_shift)
+  # Keep adding widths right-to-left
+  for (i in rev(seq_along(cols))) {
+    table <- gtable_add_cols(table, col_width[i], pos = cols[i] + col_shift)
   }
 
-  cols <- cols + row(cols) + col_shift
-
   if (!missing(table2)) {
+    # Offset shift because we already added the columns
+    col_shift <- ifelse(col_shift > -1, 1 + col_shift, col_shift)
+    panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+    panels[, c("l", "r")] <- panels[, c("l", "r")] + col_shift
+
     table <- gtable_add_grob(
       table, table2[[grob_var]],
-      t = rows$t[table2$t],
-      b = rows$b[table2$b],
-      l = cols[[pos]][table2$l],
-      r = cols[[alt]][table2$r],
+      t = panels$t[table2$t],
+      b = panels$b[table2$b],
+      l = panels[[pos]][table2$l],
+      r = panels[[alt]][table2$r],
       clip = clip, z= z,
-      name = paste0(name, "-", seq_along(rows$t), "-", seq_along(table2$l))
+      name = paste0(name, "-", seq_along(table2$t), "-", seq_along(table2$l))
     )
   }
   table

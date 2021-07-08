@@ -1,4 +1,4 @@
-#' @include strip.R
+#' @include strip_vanilla.R
 NULL
 # constructor -------------------------------------------------------------
 
