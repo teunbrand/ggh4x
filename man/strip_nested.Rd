@@ -17,7 +17,7 @@ strip_nested(
 )
 }
 \arguments{
-\item{clip}{A \code{character(1)} that controls wether text labels are clipped to
+\item{clip}{A \code{character(1)} that controls whether text labels are clipped to
 the background boxes. Can be either \code{"inherit"} (default), \code{"on"} or
 \code{"off"}.}
 

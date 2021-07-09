@@ -139,11 +139,11 @@ StripThemed <- ggproto(
     }
     text <- list(
       "x" = list(
-        "top"    = calc_element("strip.text.x.top", theme),
+        "top"    = calc_element("strip.text.x.top",    theme),
         "bottom" = calc_element("strip.text.x.bottom", theme)
       ),
       "y" = list(
-        "left"  = calc_element("strip.text.y.left", theme),
+        "left"  = calc_element("strip.text.y.left",  theme),
         "right" = calc_element("strip.text.y.right", theme)
       )
     )
@@ -152,8 +152,8 @@ StripThemed <- ggproto(
       text$x$bottom <- lapply(given$text_x, inherit_element, text$x$bottom)
     }
     if (!is.null(given$text_y)) {
-      text$y$left  <- lapply(given$text_y, inherit_element, text$y$left)
-      text$y$right <- lapply(given$text_y, inherit_element, text$y$right)
+      text$y$left   <- lapply(given$text_y, inherit_element, text$y$left)
+      text$y$right  <- lapply(given$text_y, inherit_element, text$y$right)
     }
     # Strip placement theme elements
     inside <- list(
