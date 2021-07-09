@@ -16,7 +16,7 @@ strip_themed(
 )
 }
 \arguments{
-\item{clip}{A \code{character(1)} that controls wether text labels are clipped to
+\item{clip}{A \code{character(1)} that controls whether text labels are clipped to
 the background boxes. Can be either \code{"inherit"} (default), \code{"on"} or
 \code{"off"}.}
 
@@ -50,6 +50,10 @@ be a list with (a mix of) the following objects:
 \item An \code{element} class object inheriting from the \code{element_text} or
 \code{element_rect} classes.
 }
+
+For constructing homogeneous lists of elements, the
+\code{\link[=elem_list_text]{elem_list_text()}} and
+\code{\link[=elem_list_rect]{elem_list_rect()}} are provided for convenience.
 }
 \examples{
 # Some simple plot
@@ -76,6 +80,17 @@ p + facet_wrap2(
   strip = strip_themed(
     background_x = backgrounds,
     text_x = texts,
+    by_layer_x = TRUE
+  )
+)
+
+# To conveniently distribute arguments over a list of the same elements,
+# you can use the following wrappers:
+p + facet_wrap2(
+  vars(drv, year),
+  strip = strip_themed(
+    text_x = elem_list_text(colour = c("blue", "red")),
+    background_x = elem_list_rect(fill = c("white", "grey80")),
     by_layer_x = TRUE
   )
 )

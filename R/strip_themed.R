@@ -24,6 +24,10 @@ NULL
 #'   * An `element` class object inheriting from the `element_text` or
 #'     `element_rect` classes.
 #'
+#'   For constructing homogeneous lists of elements, the
+#'   [`elem_list_text()`][elem_list_text()] and
+#'   [`elem_list_rect()`][elem_list_rect] are provided for convenience.
+#'
 #' @return A `StripThemed` ggproto object that can be given as an argument to
 #'   facets in ggh4x.
 #' @export
@@ -55,6 +59,17 @@ NULL
 #'   strip = strip_themed(
 #'     background_x = backgrounds,
 #'     text_x = texts,
+#'     by_layer_x = TRUE
+#'   )
+#' )
+#'
+#' # To conveniently distribute arguments over a list of the same elements,
+#' # you can use the following wrappers:
+#' p + facet_wrap2(
+#'   vars(drv, year),
+#'   strip = strip_themed(
+#'     text_x = elem_list_text(colour = c("blue", "red")),
+#'     background_x = elem_list_rect(fill = c("white", "grey80")),
 #'     by_layer_x = TRUE
 #'   )
 #' )
@@ -221,4 +236,6 @@ inherit_element <- function(child, parent) {
   }
   return(child)
 }
+
+
 

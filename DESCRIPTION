@@ -41,6 +41,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Collate: 
+    'conveniences.R'
     'element_part_rect.R'
     'facet_grid2.R'
     'facet_nested.R'
