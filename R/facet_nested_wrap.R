@@ -115,6 +115,7 @@ facet_nested_wrap <- function(
                    " `strip_nested()` function."))
     strip$params$bleed <- isTRUE(bleed)
   }
+  strip <- assert_strip(strip)
 
   ggproto(
     NULL, FacetNestedWrap,

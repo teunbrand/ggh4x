@@ -86,10 +86,12 @@ facet_wrap2 <- function(
   axes  <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
   rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
 
+  strip <- assert_strip(strip)
+
   ggproto(
     NULL, FacetWrap2,
     shrink = shrink,
-    strip = force(strip),
+    strip  = strip,
     params = list(
       facets = facets,
       free = free,

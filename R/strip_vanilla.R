@@ -373,13 +373,15 @@ Strip <- ggproto(
 
   # Recieves panels and parameters from facet, then adds strips.
   incorporate_grid = function(self, panels, switch) {
+
     switch_x <- !is.null(switch) && switch %in% c("both", "x")
     switch_y <- !is.null(switch) && switch %in% c("both", "y")
     inside  <- self$elements$inside
     padding <- self$elements$padding
     strips  <- self$strips
 
-    pos_cols <- panel_cols(panels)
+    pos_cols <- panels$layout[grepl("^panel-", panels$layout$name), ,
+                              drop = FALSE]
 
     if (switch_x) {
       strip  <- strips$x$bottom$grobs
@@ -408,7 +410,9 @@ Strip <- ggproto(
       )
     }
 
-    pos_rows <- panel_rows(panels)
+    # pos_rows <- panel_rows(panels)
+    pos_rows <- panels$layout[grepl("^panel-", panels$layout$name), ,
+                              drop = FALSE]
 
     if (switch_y) {
       strip  <- strips$y$left$grobs
