@@ -121,6 +121,7 @@ facet_grid2 <- function(
 
   facets_list <- .int$grid_as_facets_list(rows, cols)
   labeller <- .int$check_labeller(labeller)
+  strip <- assert_strip(strip)
 
   ggproto(
     NULL,
@@ -268,14 +269,18 @@ FacetGrid2 <- ggproto(
       heights <- rep(unit(1, "null"), nrow)
     }
 
-    panel_table <- gtable_matrix(
-      "layout", panel_table,
-      widths = widths, heights = heights,
-      respect = attr(aspect, "respect"),
-      clip = clip, z = matrix(1, ncol = ncol, nrow = nrow)
+    panel_table <- gtable(
+      widths = widths,
+      heights = heights,
+      respect = attr(aspect, "respect")
     )
-    panel_table$layout$name <- paste0(
-      'panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow)
+    panel_table <- gtable_add_grob(
+      panel_table, panels,
+      t = layout$ROW, l = layout$COL,
+      z = 1, clip = clip,
+      name = paste0(
+        "panel-", rep(seq_len(nrow), ncol), "-", rep(seq_len(ncol), each = nrow)
+      )
     )
     panel_table <- gtable_add_col_space(
       panel_table, calc_element("panel.spacing.x", theme)
