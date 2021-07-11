@@ -23,7 +23,7 @@ library(ggh4x)
 
 Position guides are ticks, labels and lines drawn at the x- and y-axes. Vanilla ggplot2 comes with two position guides: `guide_axis()`, which draws axes, and `guide_none()`, which skips drawing anything. The ggh4x package has a few additional axes described further on. A convenient way to specify what guides should be drawn where is the `guides()` function, that let's you draw `x`, `x.sec`, `y` and `y.sec` axes. You can either specify a guide by name omitting the `guide_*` prefix, e.g. `"axis"`, or by calling the guide constructor, `guide_axis()`,  that allows you to give additional arguments. Unless you specify the `position` argument to guides yourself, `x` and `x.sec` are the bottom and top axes respectively and likewise `y` and `y.sec` are the left and right axes.
 
-```{r}
+```{r example_guides}
 g <- ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +
   theme(axis.line = element_line(colour = "black"))
@@ -38,7 +38,7 @@ g + guides(
 
 An alternative way to setting the position guides is the use the `guide` argument in the position scales. Note that both the position scale and the guide have a `position` argument. The guide's position overrules the scale's position, but if the guide's position is unspecified, it inherits the scale's position.
 
-```{r}
+```{r example_scales}
 g + scale_x_continuous(
   position = "bottom",
   guide = guide_axis(position = "top")
@@ -47,7 +47,7 @@ g + scale_x_continuous(
 
 The final place you can specify axes is as an argument to secondary axes in continuous position scales.
 
-```{r}
+```{r example_secondary}
 g + scale_x_continuous(
   sec.axis = dup_axis(breaks = 2:4 + 0.5,
                       guide = guide_axis(angle = 45))
@@ -63,7 +63,7 @@ The main takeways that apply also to ggh4x's position guides are the following:
 
 This position guide has the convenience argument `colour` to set the colour of all axis elements at once. This simply circumvents having to set three separate theme elements with the `theme()` function. The `colour` argument is available in all of ggh4x's position guides.
 
-```{r, fig.keep='last'}
+```{r coloured_axis, fig.keep='last'}
 # Setting all theme elements is a mild inconvenience.
 g + theme(
   axis.line.x  = element_line(colour = "forestgreen"),
@@ -77,7 +77,7 @@ g + guides(x = guide_axis_colour(colour = "forestgreen"))
 
 The motivation for this axis is that it used to be a mild inconvenience to set the colour of all these theme elements, if you wanted a colour correspondence between data on a secondary axis.
 
-```{r}
+```{r coloured_secondary}
 ggplot(economics, aes(date)) +
   geom_line(aes(y = unemploy)) +
   geom_line(aes(y = pop / 30), colour = "red") +
@@ -93,13 +93,13 @@ ggplot(economics, aes(date)) +
 
 The truncated axes is not a very special axis: it just makes the axis line shorter. By default, it trims the axis line to the outermost break positions.
 
-```{r}
+```{r truncated_guide}
 g + guides(x = "axis_truncated")
 ```
 
 You can control how far the axis line is trimmed by setting the `trunc_lower` and `trunc_upper` options in the guide function. These truncation arguments are supported in all other position guides described further on too.
 
-```{r, fig.width = 3, fig.show='hold'}
+```{r truncated_args, fig.width = 3, fig.show='hold'}
 # Using grid units to specify data-independent truncation points.
 g + guides(x = guide_axis_truncated(trunc_lower = unit(0.1, "npc"),
                                     trunc_upper = unit(0.9, "npc")))
@@ -111,7 +111,7 @@ g + guides(x = guide_axis_truncated(trunc_lower = 2.5,
 
 Besides scalar truncation points, the truncation points can also take vectors that give the impression of a discontinuous axis. Alternatively, you can also give functions, or formulas, that take the existing break positions and return truncation points.
 
-```{r}
+```{r truncated_vectors}
 g + guides(x = guide_axis_truncated(trunc_lower = c(2, 4),
                                     trunc_upper = c(3, 5)),
            y = guide_axis_truncated(trunc_lower = ~ .x - 1,
@@ -120,7 +120,7 @@ g + guides(x = guide_axis_truncated(trunc_lower = c(2, 4),
 
 A particular use-case I've found in the wilds of the internet, is to label divergent bar charts with separated axes.
 
-```{r}
+```{r truncated_divergent}
 df <- data.frame(x = seq(-3, 3, length.out = 6), y = LETTERS[1:6])
 
 ggplot(df, aes(x, y)) +
@@ -138,7 +138,7 @@ ggplot(df, aes(x, y)) +
 
 The idea behind manual axes is to allow greater freedom in how breaks and labels are defined. In particular, one can use grid units to set the position of the breaks, as well as atomic data that is mapped to the scale, and set the label attributes as vectors.
 
-```{r}
+```{r manual_guide_example}
 g + guides(y.sec = guide_axis_manual(
   breaks = unit(c(1, 3), "cm"), 
   labels = expression("treshold"^2, "annotation"[3]),
@@ -148,7 +148,7 @@ g + guides(y.sec = guide_axis_manual(
 
 While this all might not seem immediately exiting, consider for a moment that discrete position scales don't support secondary axes. Manual axis guides extend the capabilities of discrete scales by offering a way to specify secondary axes. One way to use this is to provide additional information about categories.
 
-```{r}
+```{r manual_discrete}
 tab <- table(diamonds$cut)
 
 ggplot(diamonds, aes(cut, price)) +
@@ -159,9 +159,9 @@ ggplot(diamonds, aes(cut, price)) +
   ))
 ```
 
-Another use case is to highlight a few select cases of an otherwise crowded axis.
+Another use case is to highlight a few select cases of an otherwise crowded axis. More information on the dendrogram axis follows further below.
 
-```{r}
+```{r manual_highlight}
 highlight <- c("New York", "California", "Alabama", "Hawaii")
 
 clust <- hclust(dist(USArrests))
@@ -180,13 +180,13 @@ ggplot(df, aes(name, state, fill = value)) +
 
 Perhaps a more useful addition to the axis guide is to also place tick marks at places where the minor breaks are. 
 
-```{r}
+```{r minor_example}
 g + guides(x = "axis_minor", y = "axis_minor")
 ```
 
 The guide constructor, `guide_axis_minor()` has no unique arguments, because the positions of the minor breaks are taken directly from the scale. Therefore, you can use the `minor_breaks` argument of the position scale to determine where the minor ticks are drawn.
 
-```{r}
+```{r minor_positions}
 g + scale_x_continuous(
   minor_breaks = seq(2, 4, by = 0.2),
   guide = "axis_minor"
@@ -195,7 +195,7 @@ g + scale_x_continuous(
 
 The length of the minor ticks are controlled by the `ggh4x.axis.ticks.length.minor` theme element, and are specified relative to the major ticks using the `rel()` function.
 
-```{r}
+```{r minor_length}
 g + guides(x = "axis_minor") +
   theme(axis.ticks.length.x = unit(0.5, "cm"),
         ggh4x.axis.ticks.length.minor = rel(0.5))
@@ -205,7 +205,7 @@ g + guides(x = "axis_minor") +
 
 A variation on the minor ticks is placing ticks for logarithmic axes. A thing to note is that these work best log<sub>10</sub> transformations. The ticks now come in three lengths, the major length, the minor length and what is referred to 'mini' length. Like with the minor ticks, the mini ticks are also defined relative to the major ticks.
 
-```{r}
+```{r logticks_example}
 pres <- ggplot(pressure, aes(temperature, pressure)) +
   geom_line()
 
@@ -217,7 +217,7 @@ pres + scale_y_log10(guide = "axis_logticks") +
 
 A difference with the `annotation_logticks` function is that by default, ticks are placed on the outside of the panel and are controlled by the theme. To get good looking log-ticks on the outside, you'd have to set clipping off and dodge the axis text. Whereas using log ticks as a guide takes care of most of the extra steps naturally.
 
-```{r, fig.width = 3, fig.show='hold'}
+```{r logticks_comparison, fig.width = 3, fig.show='hold'}
 # Using annotation log-ticks
 pres + scale_y_log10() +
   annotation_logticks(sides = 'l', outside = TRUE) +
@@ -231,7 +231,7 @@ pres + scale_y_log10(guide = "axis_logticks") +
 
 Inversely, you can also place the axis ticks on the inside with negative values for the `axis.ticks.length`, but you would need to dodge the axis text again.
 
-```{r}
+```{r logticks_inward}
 pres + scale_y_log10(guide = "axis_logticks") +
   theme(axis.ticks.length.y = unit(-0.3, "cm"),
         axis.text.y = element_text(margin = margin(r = 10)))
@@ -243,7 +243,7 @@ Discrete variables that have some kind of categories or interactions to them can
 
 In the example below we use the `interaction()` function to paste together the name of the item and the group it belongs to, with a `"."` in between. The `guide_axis_nested()` function tries to split the labels on the `"."` symbol to tease apart the item and their group membership.
 
-```{r}
+```{r nested_example}
 df <- data.frame(
   item = c("Coffee", "Tea", "Apple", "Pear", "Car"),
   type = c("Drink", "Drink", "Fruit", "Fruit", ""),
@@ -258,7 +258,7 @@ ggplot(df, aes(interaction(item, type), amount)) +
 
 Note above that the ordering of the x-axis is different than the order of the input data. An alternative that can be tried is using the `paste0()` function to paste together names. In the case below, the names are automatically ordered alphabetically, so the group membership information is disorganised with `paste0()`. Here, we use the `delim` argument to split the labels based on a delimiter. The extra tildes (~) are to show where the split happens.
 
-```{r}
+```{r nested_stringbreaks}
 ggplot(df, aes(paste0(item, "~nonsense~", type), amount)) +
   geom_col() +
   guides(x = guide_axis_nested(delim = "nonsense"))
@@ -266,7 +266,7 @@ ggplot(df, aes(paste0(item, "~nonsense~", type), amount)) +
 
 To counter some of the pains with `interaction()` and `paste0()` in ordering the items, ggh4x has the `weave_factors()` convenience function that attempts to preserve the natural order of factor levels in which they occur.
 
-```{r}
+```{r nested_weaving}
 ggplot(df, aes(weave_factors(item, type), amount)) +
   geom_col() +
   guides(x = "axis_nested")
@@ -274,7 +274,7 @@ ggplot(df, aes(weave_factors(item, type), amount)) +
 
 The looks of the indicator line can be controlled by the `ggh4x.axis.nestline` theme element (also `*.x` and `*.y` variants), which by default takes values from the axis ticks. In the example below, the indicator line is red because it takes the colour from the ticks, but is thicker because its own size is set larger. Also the text underneath the indicators can be made different with the `ggh4x.axis.nesttext.(x/y)` elements.
 
-```{r}
+```{r nested_theming}
 ggplot(df, aes(weave_factors(item, type), amount)) +
   geom_col() +
   guides(x = "axis_nested") +
@@ -287,7 +287,7 @@ ggplot(df, aes(weave_factors(item, type), amount)) +
 
 Lastly, the guide will also stack multiple group memberships.
 
-```{r}
+```{r nested_stacking}
 df$type2 <- c(rep("Consumables", 4), "Vehicle")
 df$appletea <- c("", rep("Ingredient of apple tea", 2), rep(NA, 2))
 
@@ -300,7 +300,7 @@ ggplot(df, aes(weave_factors(item, type, appletea, type2), amount)) +
 
 Another thing people might want to indicate are hierarchical clustering relationships among variables. To accommodate this, there is `scale_(x/y)_dendrogram()`, which uses the **ggdendro** package convert a `hclust` object into a dendrogram. Since any set of scales should only be dependent on their aesthetics and cannot see other aesthetics, the dendrogram scales requires you to provide it with the result of a hierarchical clustering. By using the scale, it reorders the variables for you according to the clustering result, and places a dendrogram over the labels.
 
-```{r, fig.height = 5, fig.width = 5}
+```{r dendrogram_scale, fig.height = 5, fig.width = 5}
 clusters <- hclust(dist(USArrests), "ave")
 
 # reshaping USArrests
@@ -317,7 +317,7 @@ g + scale_y_dendrogram(hclust = clusters)
 
 Since the dendrogram replaces the axis ticks, it uses these as theme element from which it takes the looks. The size of the dendrogram is also controlled by the tick length: it is ten times the `axis.tick.length` element.
 
-```{r, fig.height = 5, fig.width = 5}
+```{r dendrogram_theming, fig.height = 5, fig.width = 5}
 g + scale_y_dendrogram(hclust = clusters) +
   theme(
   axis.ticks.y = element_line(size  = 2, lineend = "round"),
@@ -327,14 +327,14 @@ g + scale_y_dendrogram(hclust = clusters) +
 
 There also is the `guide_dendro()` function to tune some of the guide behaviour. It is intended to be used within a `scale_(x/y)_dendrogram()` function.
 
-```{r, fig.height = 5, fig.width = 5}
+```{r dendrogram_guide, fig.height = 5, fig.width = 5}
 g + scale_y_dendrogram(guide = guide_dendro(position = "right"), 
                        hclust = clusters)
 ```
 
 Using `guide_dendro()` outside dendrogram scales is not recommended, because that would break the relationship between the axis order and the dendrogram that is displayed. To discourage this use, it has been made slightly more inconvenient to use this function outside dendrogram scales: you manually have to supply the digested dendrogram. Notice below that the y-axis order and the dendrogram don't match and is their implied relationship is thus false.
 
-```{r, fig.height = 5, fig.width = 5}
+```{r dendrogram_forbidden, fig.height = 5, fig.width = 5}
 # Don't do this
 ggplot(df, aes(variable, State, fill = value)) +
   geom_raster() +
