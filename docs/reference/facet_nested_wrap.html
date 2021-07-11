@@ -169,7 +169,8 @@ layout, and nests grouped facets where possible.</p>
   strip.position <span class='op'>=</span> <span class='st'>"top"</span>,
   nest_line <span class='op'>=</span> <span class='cn'>FALSE</span>,
   resect <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"mm"</span><span class='op'>)</span>,
-  bleed <span class='op'>=</span> <span class='cn'>FALSE</span>
+  strip <span class='op'>=</span> <span class='fu'><a href='strip_nested.html'>strip_nested</a></span><span class='op'>(</span><span class='op'>)</span>,
+  bleed <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -283,10 +284,14 @@ element.</p></td>
 nesting line should be shortened.</p></td>
     </tr>
     <tr>
+      <th>strip</th>
+      <td><p>An object created by a call to a strip function, such as
+<code><a href='strip_nested.html'>strip_nested</a>()</code>.</p></td>
+    </tr>
+    <tr>
       <th>bleed</th>
-      <td><p>a <code>logical</code> vector of length 1, indicating whether merging
-of lower-level variables is allowed when the higher-level variables are
-separate. See details.</p></td>
+      <td><p>Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
+See details.</p></td>
     </tr>
     </table>
 
@@ -317,8 +322,13 @@ separate. See details.</p></td>
 <p><code>[_1_][___2____]</code> <br /> <code>[___3____][_4_]</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other facetting functions: 
+    <div class='dont-index'><p>See <code><a href='strip_nested.html'>strip_nested</a></code> for nested strips. See
+  <code><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></code> for descriptions of the original
+  arguments. See <code><a href='https://rdrr.io/r/grid/unit.html'>unit</a></code> for the construction of a
+  <code>unit</code> vector.</p>
+<p>Other facetting functions: 
 <code><a href='facet_grid2.html'>facet_grid2</a>()</code>,
+<code><a href='facet_manual.html'>facet_manual</a>()</code>,
 <code><a href='facet_nested.html'>facet_nested</a>()</code>,
 <code><a href='facet_wrap2.html'>facet_wrap2</a>()</code></p></div>
 
@@ -333,7 +343,7 @@ separate. See details.</p></td>
 </div><div class='img'><img src='facet_nested_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Ignore nested hierarchies with the 'bleed' argument</span>
  <span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>drv</span>, <span class='va'>cyl</span><span class='op'>)</span>, bleed <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='facet_nested_wrap-3.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>The `bleed` argument should be set in the  `strip_nested()` function.</span></div><div class='img'><img src='facet_nested_wrap-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

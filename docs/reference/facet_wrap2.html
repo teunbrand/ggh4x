@@ -166,7 +166,8 @@ extra options on axis drawing when scales are fixed.</p>
   as.table <span class='op'>=</span> <span class='cn'>TRUE</span>,
   drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
   dir <span class='op'>=</span> <span class='st'>"h"</span>,
-  strip.position <span class='op'>=</span> <span class='st'>"top"</span>
+  strip.position <span class='op'>=</span> <span class='st'>"top"</span>,
+  strip <span class='op'>=</span> <span class='fu'><a href='strip_vanilla.html'>strip_vanilla</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -267,6 +268,11 @@ the plot. Using <code>strip.position</code> it is possible to place the labels o
 either of the four sides by setting <code>strip.position = c("top",
   "bottom", "left", "right")</code></p></td>
     </tr>
+    <tr>
+      <th>strip</th>
+      <td><p>An object created by a call to a strip function, such as
+<code><a href='strip_vanilla.html'>strip_vanilla</a></code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -276,6 +282,7 @@ either of the four sides by setting <code>strip.position = c("top",
 
     <div class='dont-index'><p>Other facetting functions: 
 <code><a href='facet_grid2.html'>facet_grid2</a>()</code>,
+<code><a href='facet_manual.html'>facet_manual</a>()</code>,
 <code><a href='facet_nested_wrap.html'>facet_nested_wrap</a>()</code>,
 <code><a href='facet_nested.html'>facet_nested</a>()</code></p></div>
 

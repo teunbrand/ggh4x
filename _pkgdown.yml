@@ -10,11 +10,15 @@ reference:
   - facet_wrap2
   - facet_nested
   - facet_nested_wrap
+  - facet_manual
 - title: "Facet helpers"
   desc: >
-    Helper functions that can tweak the appearance of facet panels and their
-    scales by resizing panels or manually assigning position scales to panels.
+    Helper functions that can tweak the appearance of facet panels, the strips
+    and position scales..
 - contents:
+  - strip_vanilla
+  - strip_themed
+  - strip_nested
   - force_panelsizes
   - facetted_pos_scales
 - title: Position guides and scales
@@ -24,9 +28,11 @@ reference:
   - scale_x_dendrogram
   - guide_dendro
   - guide_axis_truncated
+  - guide_axis_colour
   - guide_axis_minor
   - guide_axis_logticks
   - guide_axis_nested
+  - guide_axis_manual
 - title: "Colour scales and guide"
   desc: >
     Two ways of mapping non-standard aesthetics to colour/fill scales and a
@@ -62,7 +68,9 @@ reference:
 - title: "Miscellaneous"
   desc: >
     Functions that don't belong to a family of functions, may might be
-    useful on their own.
+    helpful in specific circumstances.
 - contents:
   - help_secondary
+  - elem_list_rect
+  - weave_factors
   - center_limits
