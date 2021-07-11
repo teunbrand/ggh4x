@@ -15,7 +15,7 @@ elem_list_rect(...)
 \arguments{
 \item{...}{Vectorised arguments to pass on to functions.}
 
-\item{fun}{A function to distribute arguments to.}
+\item{.fun}{A function to distribute arguments to.}
 }
 \value{
 A \code{list} of outputs from \code{fun}.

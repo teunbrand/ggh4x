@@ -171,6 +171,7 @@ p + facet_grid2(cyl ~ drv, scales = "free", independent = "all")
 }
 \seealso{
 Other facetting functions: 
+\code{\link{facet_manual}()},
 \code{\link{facet_nested_wrap}()},
 \code{\link{facet_nested}()},
 \code{\link{facet_wrap2}()}

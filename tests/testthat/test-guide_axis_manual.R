@@ -7,6 +7,9 @@ build <- ggplot_build(base)
 scale_y <- build$layout$panel_params[[1]]$y # continuous
 scale_x <- build$layout$panel_params[[1]]$x # discrete
 
+
+# Construction ------------------------------------------------------------
+
 test_that("constructor works", {
   guide <- guide_axis_manual(
     breaks = ~ .x, labels = ~ .x
@@ -18,8 +21,9 @@ test_that("constructor works", {
 
 })
 
+# Correctness -------------------------------------------------------------
 
-test_that("breaks and labels are handled correctly in continuous axes", {
+test_that("guide_axis_manual training is correct in continuous axes", {
   scale <- scale_y
 
   # Test default training, i.e. waivers
@@ -73,7 +77,7 @@ test_that("breaks and labels are handled correctly in continuous axes", {
 
 })
 
-test_that("breaks and labels are handled correctly in discrete axes", {
+test_that("guide_axis_manual training is correct in continuous axes", {
   scale <- scale_x
 
   # Test basic functionality
@@ -110,6 +114,8 @@ test_that("breaks and labels are handled correctly in discrete axes", {
   expect_s3_class(key$x, "unit")
 })
 
+
+
 test_that("guide_axis_manual can be placed at every position", {
   g <- guides(
     x = guide_axis_manual(label_colour = c("green", "red", "blue")),
@@ -138,11 +144,18 @@ test_that("guide_axis_manual can be placed at every position", {
                     c("green", "red", "blue"))
 })
 
+# Warnings and errors -----------------------------------------------------
+
 test_that("warnings and errors work", {
   guide <- guide_axis_manual(breaks = unit(0.5, "cm"))
   expr <- substitute(guide_train(guide, scale_y))
 
   expect_warning(expect_error(eval(expr), "not meaningful for units"),
                  "Setting units for breaks might not work")
+
+  guide <- guide_axis_manual()
+  guide$available_aes <- "z"
+  test <- substitute(guide_train(guide, scale_x))
+  expect_warning(eval(test), "needs appropriate scales")
 
 })
