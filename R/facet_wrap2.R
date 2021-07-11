@@ -153,48 +153,52 @@ FacetWrap2 <- ggproto(
 
     layout
   },
-  setup_panel_table = function(self, panels, empty, position,
-                               theme, coord, ranges, free) {
-    # Puts panels into a gtable with names and spacing
-    dim <- dim(empty)
-    panel_table <- empty
-    panel_table[position] <- panels
+  setup_panel_table = function(self, panels, layout, #empty, position,
+                               theme, coord, ranges, params) { #free) {
+    ncol <- max(c(layout$.LEFT, layout$.RIGHT))
+    nrow <- max(c(layout$.TOP,  layout$.BOTTOM))
 
-    aspect_ratio <- self$setup_aspect_ratio(coord, free, theme, ranges)
+    aspect <- self$setup_aspect_ratio(coord, params$free, theme, ranges)
 
-    empties <- apply(panel_table, c(1, 2), function(x){.int$is.zero(x[[1]])})
-    panel_table <- gtable_matrix(
-      "layout", panel_table,
-      widths  = unit(rep(1, dim[2]), "null"),
-      heights = unit(rep(abs(aspect_ratio), dim[1]), "null"),
-      respect = attr(aspect_ratio, "respect"), clip = coord$clip,
-      z = matrix(1, ncol = dim[2], nrow = dim[1])
+    respect <- params$respect %||% attr(aspect, "respect") %||% FALSE
+    widths  <- params$widths  %||% unit(1, "null")
+    heights <- params$heights %||% unit(abs(aspect %||% 1), "null")
+
+    panel_table <- gtable(
+      widths  = rep_len(widths, ncol),
+      heights = rep_len(heights, nrow),
+      respect = respect
     )
-    panel_table$layout$name <- paste0("panel-", rep(seq_len(dim[2]), dim[1]),
-                                      "-", rep(seq_len(dim[1]), each = dim[2]))
-
+    panel_table <- gtable_add_grob(
+      panel_table, panels,
+      t = layout$.TOP,  b = layout$.BOTTOM,
+      l = layout$.LEFT, r = layout$.RIGHT,
+      z = 1, clip = coord$clip, name = paste0("panel-", seq_along(panels))
+    )
     panel_table <- gtable_add_col_space(
       panel_table, calc_element("panel.spacing.x", theme)
     )
     panel_table <- gtable_add_row_space(
       panel_table, calc_element("panel.spacing.y", theme)
     )
-    list(panels = panel_table, empty = empties)
+    panel_table
   },
-  setup_axes = function(axes, empty, position, layout,
-                        params, empties, theme) {
+  setup_axes = function(axes, layout, params, theme) {
+
     # Takes rendered axes and picks the right ones for the facets
-    dim <- dim(empty)
-    nrow <- dim[1]
-    ncol <- dim[2]
+    nrow  <- max(layout$ROW)
+    ncol  <- max(layout$COL)
+    index <- cbind(layout$ROW, layout$COL)
+    empties <- matrix(TRUE, nrow, ncol)
+    empties[index] <- FALSE
 
     # Initialise empty axes
-    top <- bottom <- left <- right <- empty
+    top <- bottom <- left <- right <- matrix(list(zeroGrob()), nrow, ncol)
     # Fill axes by scale ID
-    top[position]    <- axes$x$top[layout$SCALE_X]
-    bottom[position] <- axes$x$bottom[layout$SCALE_X]
-    left[position]   <- axes$y$left[layout$SCALE_Y]
-    right[position]  <- axes$y$right[layout$SCALE_Y]
+    top[index]    <- axes$x$top[layout$SCALE_X]
+    bottom[index] <- axes$x$bottom[layout$SCALE_X]
+    left[index]   <- axes$y$left[layout$SCALE_Y]
+    right[index]  <- axes$y$right[layout$SCALE_Y]
 
     repeat_x <- params$free$x | params$axes$x
     repeat_y <- params$free$y | params$axes$y
@@ -219,9 +223,15 @@ FacetWrap2 <- ggproto(
       right[, -ncol] <- lapply(right[, -ncol], purge_guide_labels)
     }
 
+    # Measure after deletion of axes, but before placing them back.
+    # This assures that the gap between dangling panels isn't too big.
+    measurements <- .measure_axes(list(top = top, bottom = bottom,
+                                       left = left, right = right))
+
     # Place back necessary axes that were removed prior, e.g. when there are
     # missing panels so the marginal axes should not be the most extreme one.
     if (any(empties)) {
+
       # Find first non-empty panel
       first_row <- which(apply(empties, 1, any))[1] - 1
       first_col <- which(apply(empties, 2, any))[1] - 1
@@ -235,8 +245,8 @@ FacetWrap2 <- ggproto(
                                  nrow)
 
       # Find corresponding axes
-      row_axes <- axes$x$bottom[layout$SCALE_X[row_panels]]
-      col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
+      row_axes <- axes$x$bottom[layout$SCALE_X[first_row]]
+      col_axes <- axes$y$right[layout$SCALE_Y[first_col]]
 
       inside <- (theme$strip.placement %||% "inside") == "inside"
 
@@ -265,7 +275,8 @@ FacetWrap2 <- ggproto(
       top = top,
       bottom = bottom,
       left = left,
-      right = right
+      right = right,
+      measurements = measurements
     )
   },
   attach_axes = function(panel_table, axes, sizes) {
@@ -301,28 +312,23 @@ FacetWrap2 <- ggproto(
     nrow <- max(layout$ROW)
     n <- nrow(layout)
     panel_order <- order(layout$ROW, layout$COL)
-    layout <- layout[panel_order, ]
-    panels <- panels[panel_order]
-    panel_pos <- .int$convertInd(layout$ROW, layout$COL, nrow)
+    layout$.TOP  <- layout$.BOTTOM <- layout$ROW
+    layout$.LEFT <- layout$.RIGHT  <- layout$COL
 
     # Setup panels
-    empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
-    panel_table <- self$setup_panel_table(panels, empty_table, panel_pos,
-                                          theme, coord, ranges, params$free)
-    empties <- panel_table$empty
-    panel_table <- panel_table$panels
+    panel_table <- self$setup_panel_table(
+      panels, layout, theme, coord, ranges, params
+    )
 
     # Deal with axes
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
-    axes <- self$setup_axes(axes, empty_table, panel_pos, layout,
-                            params, empties, theme)
-    sizes <- .measure_axes(axes)
-    panel_table <- self$attach_axes(panel_table, axes, sizes)
+    axes <- self$setup_axes(axes, layout, params,theme)
+    panel_table <- self$attach_axes(panel_table, axes, axes$measurements)
 
     # Deal with strips
     strip$setup(layout, params, theme, type = "wrap")
     panel_table <- strip$incorporate_wrap(
-      panel_table, params$strip.position, clip = coord$clip, sizes
+      panel_table, params$strip.position, clip = coord$clip, axes$measurements
     )
 
     self$finish_panels(panels = panel_table, layout = layout,
