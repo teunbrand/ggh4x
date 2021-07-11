@@ -10,7 +10,7 @@
 #' [`element_rect()`][ggplot2::element_text()] theme elements.
 #'
 #' @param ... Vectorised arguments to pass on to functions.
-#' @param fun A function to distribute arguments to.
+#' @param .fun A function to distribute arguments to.
 #'
 #' @details `NA`s and `NULL`s will be silently dropped. If you want to pass on a
 #'   transparent `fill` or `colour` argument, you should use the more verbose
