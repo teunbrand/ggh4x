@@ -166,10 +166,15 @@ highlight <- c("New York", "California", "Alabama", "Hawaii")
 
 clust <- hclust(dist(USArrests))
 
-df <- cbind(as.data.frame(USArrests), state = rownames(USArrests))
-df <- tidyr::pivot_longer(df, Murder:Rape)
+# Melting USArrests
+df <- data.frame(
+  state = rownames(USArrests)[as.vector(row(USArrests))],
+  crime = colnames(USArrests)[as.vector(col(USArrests))],
+  value = as.vector(as.matrix(USArrests)), 
+  row.names = NULL
+)
 
-ggplot(df, aes(name, state, fill = value)) +
+ggplot(df, aes(crime, state, fill = value)) +
   geom_raster() +
   scale_y_dendrogram(hclust = clust, labels = NULL) +
   guides(y.sec = guide_axis_manual(breaks = highlight, labels = highlight))
