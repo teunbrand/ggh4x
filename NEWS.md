@@ -9,7 +9,10 @@ In addition to the previous `facet_wrap2()`, there is now also the cousin
 but for the grid layout. Moreover, it allows for independent scales across 
 rows and columns, which is a constraint in `ggplot2::facet_grid()`. The 
 `facet_nested()` function now inherits from `facet_grid2()` so that it too can
-use the extended axis drawing functions. 
+use the extended axis drawing functions.
+
+New in the family of facets is now `facet_manual()`: a facet that can take
+a user specified design for a layout and populate the panels accordingly.
 
 The facet functions in ggh4x now have `strip` arguments, which can be used
 with new `strip_*()` functions that control how the strips are drawn. For now,
