@@ -129,8 +129,8 @@ StripNested <- ggproto(
       o <- order(layout$COL, layout$ROW)
       sepvar <- "COL"
     }
-    labels <- labels[o, ]
-    layout <- layout[o, ]
+    labels <- labels[o, , drop = FALSE]
+    layout <- layout[o, , drop = FALSE]
 
     # Dummy label dataframe
     tmp <- as.data.frame(labels)
