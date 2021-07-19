@@ -38,9 +38,16 @@ examples. Links to these topics are below.
 -   Options to tailor
     [facets](https://teunbrand.github.io/ggh4x/articles/Facets.html),
     including:
+    -   Additional options for axis labelling and placement in [extended
+        facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#extended-facets-1).
     -   [Nested
         facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#nested-facets)
         that have strips that can span multiple panels.
+    -   Custom layouts in [manual
+        facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#manual-facets-1).
+    -   More types of
+        [strips](https://teunbrand.github.io/ggh4x/articles/Facets.html#strips-1)
+        to use in facets.
     -   Adjusting the [position
         scales](https://teunbrand.github.io/ggh4x/articles/Facets.html#position-scales)
         on a per-panel basis.
@@ -51,10 +58,15 @@ examples. Links to these topics are below.
 -   ggh4x has some [position
     guides](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html)
     that change the way x- and y-axes look. You can:
+    -   [recolour](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#coloured-axis-1)
+        the axis or cut the axis line with [truncated
+        axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#truncated-axes-1).
     -   include the [minor breaks as minor tick
         marks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks).
     -   detail log<sub>10</sub> axes with [logarithmic
         tickmarks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#logarithmic-ticks).
+    -   fine-tune the placement of labels and breaks with [manual
+        axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#manual-axes-1).
     -   indicate [nested
         relations](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#nested-relations)
         in discrete axes.
