@@ -146,9 +146,11 @@ guide_transform.dendroguide <- function(guide, coord, panel_params) {
 #' @noRd
 guide_gengrob.dendroguide <- function(guide, theme) {
   aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
+  key <- guide$key
+  key$.label <- guide$dendro$labels$label
 
   draw_dendroguide(
-    key = guide$key,
+    key = key,
     axis_position = guide$position,
     theme = theme,
     check.overlap = guide$check.overlap,
