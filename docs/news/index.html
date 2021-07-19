@@ -150,6 +150,25 @@
 <h1 class="page-header" data-toc-text="0.1.2.1.9">
 <a href="#ggh4x-01219-dev-version-on-github" class="anchor"></a>ggh4x 0.1.2.1.9 (dev version on github)<small> Unreleased </small>
 </h1>
+<div id="facets" class="section level2">
+<h2 class="hasAnchor">
+<a href="#facets" class="anchor"></a>Facets</h2>
+<p>Facets have largely been refactored.</p>
+<p>In addition to the previous <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code>, there is now also the cousin <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code>. It offers the same axis drawing extensions as <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code>, but for the grid layout. Moreover, it allows for independent scales across rows and columns, which is a constraint in <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">ggplot2::facet_grid()</a></code>. The <code><a href="../reference/facet_nested.html">facet_nested()</a></code> function now inherits from <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code> so that it too can use the extended axis drawing functions.</p>
+<p>New in the family of facets is now <code><a href="../reference/facet_manual.html">facet_manual()</a></code>: a facet that can take a user specified design for a layout and populate the panels accordingly.</p>
+<p>The facet functions in ggh4x now have <code>strip</code> arguments, which can be used with new <code>strip_*()</code> functions that control how the strips are drawn. For now, they come in the following three variants:</p>
+<ul>
+<li>
+<code><a href="../reference/strip_vanilla.html">strip_vanilla()</a></code> which draws normal strips, but allows you to control whether labels should be clipped and has the <code>size</code> argument that can let strips on different layers have different sizes. This can be convenient when the strip labels have very different sizes.</li>
+<li>
+<code><a href="../reference/strip_themed.html">strip_themed()</a></code> does all of the above, but also let’s you assign <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect()</a></code> to different strips, allowing you to have greater control of their styling. These elements can be assigned independently for the horizontal and vertical strips and can be applied to single strips or layers of strips.</li>
+<li>
+<code><a href="../reference/strip_nested.html">strip_nested()</a></code> again does all of the above, but also merges the strips with the same labels if they are next to one another. This means that the core functionality of <code><a href="../reference/facet_nested.html">facet_nested()</a></code> and <code><a href="../reference/facet_nested.html">facet_nested()</a></code> wrap has been moved and is now powered by the <code>strip</code> argument. They can still be convenient to draw nesting indicators.</li>
+</ul>
+</div>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other changes</h2>
 <ul>
 <li><p>Fixed spelling in README (<a href='https://github.com/teunbrand/ggh4x/issues/32'>#32</a>, thanks <a href='https://github.com/vikatti'>@vikatti</a>!)</p></li>
 <li><p>Added helper for secondary axes: help_secondary()</p></li>
@@ -163,9 +182,11 @@
 </blockquote>
 </li>
 <li><p>Changed facet_wrap2()/facet_nested_wrap() ‘free’, ‘axes’ and ‘remove_labels’ arguments to be less ambiguous.</p></li>
-<li><p>Added facet_grid2() offering the same axis drawing extensions as facet_wrap2() but for grid layouts. Also allows independent scales across rows and columns.</p></li>
-<li><p>facet_nested() now builds off facet_grid2() instead of facet_grid(), inheriting these extensions above.</p></li>
+<li><p>Fix bug in truncated axes with discrete scales (<a href='https://github.com/teunbrand/ggh4x/issues/39'>#39</a>).</p></li>
+<li><p>Fix bug in geom_pointpath() with 1-member groups (<a href='https://github.com/teunbrand/ggh4x/issues/43'>#43</a>).</p></li>
+<li><p>New axis function <code><a href="../reference/guide_axis_manual.html">guide_axis_manual()</a></code>.</p></li>
 </ul>
+</div>
 </div>
     <div id="ggh4x-0121" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.2.1">
