@@ -92,24 +92,9 @@ facet_nested_wrap <- function(
   }
 
   # Setup free scales
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
-  free <- list(
-    x = any(scales %in% c("free_x", "free")),
-    y = any(scales %in% c("free_y", "free"))
-  )
-
-  # Setup axis positions
-  axes <- match.arg(axes, c("margins", "rows", "cols", "full"))
-  axes <- list(
-    x = any(axes %in% c("rows", "full")),
-    y = any(axes %in% c("cols", "full"))
-  )
-
-  rmlab <- match.arg(remove_labels, c("none", "rows", "cols", "all"))
-  rmlab <- list(
-    x = any(rmlab %in% c("rows", "all")),
-    y = any(rmlab %in% c("cols", "all"))
-  )
+  free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
+  axes  <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
+  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
 
   if (!is.null(bleed)) {
     message(paste0("The `bleed` argument should be set in the ",
