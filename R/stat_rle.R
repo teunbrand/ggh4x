@@ -3,7 +3,7 @@
 #' @title Run length encoding
 #'
 #' @description Run length encoding takes a vector of values and calculates the
-#' lengths of consequetive repeated values.
+#' lengths of consecutive repeated values.
 #'
 #' @inheritParams ggplot2::stat_density
 #' @param align A \code{character} of length one that effect the computed

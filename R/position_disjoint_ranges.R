@@ -1,9 +1,9 @@
 # Main function -----------------------------------------------------------
 
-#' Segregrating overlapping ranges
+#' Segregating overlapping ranges
 #'
 #' @description One-dimensional ranged data in the x-direction is segregated in
-#'   the y-direction such that no overlap in twodimensional space occurs. This
+#'   the y-direction such that no overlap in two-dimensional space occurs. This
 #'   positioning works best when no relevant information is plotted in the
 #'   y-direction.
 #'

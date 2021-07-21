@@ -130,7 +130,7 @@ p + coord_polar(theta = "y")
 
 # Polygon rasters
 
-When you want to do more with rasters than just displaying them, the `geom_raster()` and related tile- and rect geoms can be a bit inflexible. To allow transformations of rasters, there is `geom_polygonraster()`, which reparameterises the raster into `x` and `y` parameterised polygons. This is less efficient than the regular raster, but more flexible. With `position_lineartrans()` you can perform linear transformations on the coordinates.
+When you want to do more with rasters than just displaying them, the `geom_raster()` and related tile- and rect geoms can be a bit inflexible. To allow transformations of rasters, there is `geom_polygonraster()`, which reparametrises the raster into `x` and `y` parametrised polygons. This is less efficient than the regular raster, but more flexible. With `position_lineartrans()` you can perform linear transformations on the coordinates.
 
 ```{r, fig.show='hold', fig.width = 3}
 df <- data.frame(

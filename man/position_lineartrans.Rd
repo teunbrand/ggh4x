@@ -10,7 +10,7 @@ position_lineartrans(scale = c(1, 1), shear = c(0, 0), angle = 0, M = NULL)
 \item{scale}{A \code{numeric} of length two describing relative units with
 which to multiply the \code{x} and \code{y} coordinates respectively.}
 
-\item{shear}{A \code{numeric} of length two giving relavite units by which to
+\item{shear}{A \code{numeric} of length two giving relative units by which to
 shear the output. The first number is for vertical shearing whereas the
 second is for horizontal shearing.}
 
@@ -75,7 +75,7 @@ Linear transformation matrices are \code{2} x \code{2} real
   \tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <-
   matrix(c(1, 0, 2, 1), 2)} } \subsection{Rotation}{A rotation performs a
   motion around a fixed point, typically the origin the coordinate system. To
-  rotate the coordinates by 90 degrees counterclockwise: \tabular{cclcrcc}{ |
+  rotate the coordinates by 90 degrees counter-clockwise: \tabular{cclcrcc}{ |
   \tab\tab \code{0} \tab\tab \code{-1} \tab\tab | \cr | \tab\tab \code{1}
   \tab\tab \code{0} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(0, 1, -1,
   0), 2)} \cr\cr For a rotation around any angle \eqn{\theta} :

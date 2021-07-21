@@ -13,7 +13,7 @@ force_panelsizes(rows = NULL, cols = NULL, respect = NULL)
 
 \item{respect}{a \code{logical} value. If \code{TRUE}, widths and heights
 specified in \code{"null" unit}s are proportional. If \code{FALSE},
-\code{"null" unit}s in x- and y-direction vary idependently.}
+\code{"null" unit}s in x- and y-direction vary independently.}
 }
 \value{
 A \code{forcedsize} S3 object that can be added to a plot.

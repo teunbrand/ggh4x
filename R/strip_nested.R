@@ -9,7 +9,7 @@ NULL
 #' [`facet_nested_wrap()`][facet_nested_wrap()].
 #'
 #' @inheritParams strip_vanilla
-#' @param bleed A `logical(1)` indicating whether mergin of lower-layer
+#' @param bleed A `logical(1)` indicating whether merging of lower-layer
 #'   variables is allowed when the higher-layer variables are separate. See
 #'   details.
 #' @param text_x,text_y A `list()` with

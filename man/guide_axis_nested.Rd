@@ -84,7 +84,7 @@ A \emph{axis_nested} guide class object.
 }
 \description{
 Discrete position scales containing interacting factors can be visualised
-more clearly with a nested axis guide. Nested axis guides seperate labels
+more clearly with a nested axis guide. Nested axis guides separate labels
 based on a delimiter and groups identical later labels, indicating the
 grouping with a line spanning the earlier labels.
 }

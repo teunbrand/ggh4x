@@ -88,7 +88,7 @@ ggplot(correct, aes(x, colour = group)) +
   stat_theodensity(distri = "nbinom")
 ```
 
-A practical difference can be seen above: using simple lines are not very appropriate for distrete distributions, as they imply a continuity that is not there.
+A practical difference can be seen above: using simple lines are not very appropriate for discrete distributions, as they imply a continuity that is not there.
 
 Instead, one can work with centred steps:
 
@@ -246,7 +246,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   scale_linetype_manual(values = c(2, 1))
 ```
 
-## Rollling mean
+## Rolling mean
 
 As a final note on this stat, a rolling mean-equivalent can be calculated using the `"mean"` kernel. This is the same as setting the kernel to `"unif"`, since it uses the uniform distribution as kernel. Typically, this is a bit more blocky than using Gaussian kernels.
 

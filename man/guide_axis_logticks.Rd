@@ -42,7 +42,7 @@ top-to-bottom), if more than one  guide must be drawn at the same location.}
 \item{position}{Where this guide should be drawn: one of top, bottom,
 left, or right.}
 
-\item{prescaled}{A \code{logical} of length one, indicating wether the data
+\item{prescaled}{A \code{logical} of length one, indicating whether the data
 has been manually rescaled (\code{TRUE}) or the scale takes care of the
 transformation (\code{FALSE}).}
 

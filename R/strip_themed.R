@@ -16,7 +16,7 @@ NULL
 #'   different elements to individual strips, possibly repeating the elements
 #'   to match the number of strips through `rep_len()`.
 #'
-#' @details With repect to the `text_*` and `background_*` arguments, they can
+#' @details With respect to the `text_*` and `background_*` arguments, they can
 #'   be a list with (a mix of) the following objects:
 #'
 #'   * `NULL` indicates that the global plot theme applies.

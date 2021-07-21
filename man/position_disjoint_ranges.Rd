@@ -2,7 +2,7 @@
 % Please edit documentation in R/position_disjoint_ranges.R
 \name{position_disjoint_ranges}
 \alias{position_disjoint_ranges}
-\title{Segregrating overlapping ranges}
+\title{Segregating overlapping ranges}
 \usage{
 position_disjoint_ranges(extend = 1, stepsize = 1)
 }
@@ -21,7 +21,7 @@ A \emph{PositionDisjointRanges} object.
 }
 \description{
 One-dimensional ranged data in the x-direction is segregated in
-  the y-direction such that no overlap in twodimensional space occurs. This
+  the y-direction such that no overlap in two-dimensional space occurs. This
   positioning works best when no relevant information is plotted in the
   y-direction.
 }

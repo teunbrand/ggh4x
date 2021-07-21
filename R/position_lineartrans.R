@@ -7,7 +7,7 @@
 #'
 #' @param scale A \code{numeric} of length two describing relative units with
 #'   which to multiply the \code{x} and \code{y} coordinates respectively.
-#' @param shear A \code{numeric} of length two giving relavite units by which to
+#' @param shear A \code{numeric} of length two giving relative units by which to
 #'   shear the output. The first number is for vertical shearing whereas the
 #'   second is for horizontal shearing.
 #' @param angle A \code{numeric} noting an angle in degrees by which to rotate
@@ -61,7 +61,7 @@
 #'   \tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <-
 #'   matrix(c(1, 0, 2, 1), 2)} } \subsection{Rotation}{A rotation performs a
 #'   motion around a fixed point, typically the origin the coordinate system. To
-#'   rotate the coordinates by 90 degrees counterclockwise: \tabular{cclcrcc}{ |
+#'   rotate the coordinates by 90 degrees counter-clockwise: \tabular{cclcrcc}{ |
 #'   \tab\tab \code{0} \tab\tab \code{-1} \tab\tab | \cr | \tab\tab \code{1}
 #'   \tab\tab \code{0} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(0, 1, -1,
 #'   0), 2)} \cr\cr For a rotation around any angle \eqn{\theta} :

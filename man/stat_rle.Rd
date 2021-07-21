@@ -84,7 +84,7 @@ A \code{ggplot2} layer
 }
 \description{
 Run length encoding takes a vector of values and calculates the
-lengths of consequetive repeated values.
+lengths of consecutive repeated values.
 }
 \details{
 The data is first ordered on the \code{x} aesthetic before run

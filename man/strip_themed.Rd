@@ -42,7 +42,7 @@ facets in ggh4x.
 A style of strips with individually themed strips.
 }
 \details{
-With repect to the \verb{text_*} and \verb{background_*} arguments, they can
+With respect to the \verb{text_*} and \verb{background_*} arguments, they can
 be a list with (a mix of) the following objects:
 \itemize{
 \item \code{NULL} indicates that the global plot theme applies.

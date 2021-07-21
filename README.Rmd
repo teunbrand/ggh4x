@@ -54,7 +54,7 @@ There are a few topics explored in the package's vignettes with examples. Links 
     
 * There are some [stat layers](https://teunbrand.github.io/ggh4x/articles/Statistics.html) that can make it easier to plot. These stat layers can:
   * overlaying the [theoretical density](https://teunbrand.github.io/ggh4x/articles/Statistics.html#theoretical-densities) of several distributions, which are computed with the **fitdistrplus** package.
-  * draw a trendline of your data with a [rolling kernel](https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels).
+  * draw a trend line of your data with a [rolling kernel](https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels).
   * plainly [transform x and y](https://teunbrand.github.io/ggh4x/articles/Statistics.html#function-x-y) position in a group-wise manner.
   * calculate [run-length encodings](https://teunbrand.github.io/ggh4x/articles/Statistics.html#run-length-encoding) of your data.
 
@@ -131,7 +131,7 @@ g
 
 ## Footnote
 
-I would like to mention that there are also packages that do some similar things to what this package does. [facetscales](https://github.com/zeehio/facetscales) also has a facet function wherein scales can set per row/colum. The [egg](https://github.com/jwdink/egg) package can also set panel sizes. The [lemon](https://github.com/stefanedwards/lemon) package also has options to tweak position axes. The [relayer](https://github.com/clauswilke/relayer) and [ggnewscale](https://github.com/cran/ggnewscale) packages also allow multiple colour scales in the same plot.  
+I would like to mention that there are also packages that do some similar things to what this package does. [facetscales](https://github.com/zeehio/facetscales) also has a facet function wherein scales can set per row/column. The [egg](https://github.com/jwdink/egg) package can also set panel sizes. The [lemon](https://github.com/stefanedwards/lemon) package also has options to tweak position axes. The [relayer](https://github.com/clauswilke/relayer) and [ggnewscale](https://github.com/cran/ggnewscale) packages also allow multiple colour scales in the same plot.  
 
 Historically, many of these functions come from the [ggnomics](https://github.com/teunbrand/ggnomics) package, but have been moved here as a package independent of Bioconductor infrastructure.
 

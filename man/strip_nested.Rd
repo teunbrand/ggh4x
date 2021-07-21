@@ -24,7 +24,7 @@ the background boxes. Can be either \code{"inherit"} (default), \code{"on"} or
 \item{size}{A \code{character(1)} stating that the strip margins in different
 layers remain \code{"constant"} or are \code{"variable"}.}
 
-\item{bleed}{A \code{logical(1)} indicating whether mergin of lower-layer
+\item{bleed}{A \code{logical(1)} indicating whether merging of lower-layer
 variables is allowed when the higher-layer variables are separate. See
 details.}
 

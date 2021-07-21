@@ -9,7 +9,7 @@
 #' @param cols a \code{numeric} or \code{unit} vector for setting panel widths.
 #' @param respect a \code{logical} value. If \code{TRUE}, widths and heights
 #'   specified in \code{"null" unit}s are proportional. If \code{FALSE},
-#'   \code{"null" unit}s in x- and y-direction vary idependently.
+#'   \code{"null" unit}s in x- and y-direction vary independently.
 #'
 #' @details Forcing the panel sizes should in theory work regardless of what
 #'   facetting choice was made, as long as this function is called after the

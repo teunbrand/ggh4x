@@ -54,7 +54,7 @@ g + scale_x_continuous(
 )
 ```
 
-The main takeways that apply also to ggh4x's position guides are the following:
+The main takeaways that apply also to ggh4x's position guides are the following:
 
 * Position guides can be set in the `guides()` function or as an argument to the position scales.
 * One can use the name of the guides (`"axis"`) to take the defaults, or use a constructor function such as `guide_axis()` to pass specific arguments.
@@ -244,7 +244,7 @@ pres + scale_y_log10(guide = "axis_logticks") +
 
 # Nested relations
 
-Discrete variables that have some kind of categories or interactions to them can be layed out in a nested fashion. This can be convenient to indicate for example group membership. 
+Discrete variables that have some kind of categories or interactions to them can be laid out in a nested fashion. This can be convenient to indicate for example group membership. 
 
 In the example below we use the `interaction()` function to paste together the name of the item and the group it belongs to, with a `"."` in between. The `guide_axis_nested()` function tries to split the labels on the `"."` symbol to tease apart the item and their group membership.
 

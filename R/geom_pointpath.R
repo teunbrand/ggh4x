@@ -3,7 +3,7 @@
 #' Point Paths
 #'
 #' The point path geom is used to make a scatterplot wherein the points are
-#' connected with lines in some order. This geom intends to mimick the
+#' connected with lines in some order. This geom intends to mimic the
 #' \code{type = 'b'} style of base R line plots.
 #'
 #' @inheritParams ggplot2::geom_point
@@ -21,9 +21,9 @@
 #'   aesthetic for \code{geom_line()}. The \code{mult} is a numeric value to
 #'   scale the proportion of gaps in the line around points.
 #'
-#'   While the need for this geom is not very aparrent, since it can be
+#'   While the need for this geom is not very apparent, since it can be
 #'   approximated in a variety of ways, the trick up its sleeve is that it
-#'   dynamically adapts the interpoint segments so these  don't deform under
+#'   dynamically adapts the inter-point segments so these  don't deform under
 #'   different aspect ratios or device sizes.
 #'
 #' @return A \emph{Layer} ggproto object.

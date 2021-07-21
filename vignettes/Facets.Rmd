@@ -113,7 +113,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() + 
   facet_nested_wrap(
     vars(cyl, drv), dir = "v", strip.position = "left",
-    axes = "full", remove_labels = "rows") +
+    axes = "all", remove_labels = "x") +
   theme(strip.placement = "outside")
 ```
 
@@ -296,7 +296,7 @@ p + facet_wrap2(
   ggtitle('bleed = FALSE')
 ```
 
-In contrast, when `bleed = TRUE`, lower layer strips are allowed to 'bleed' into oneanother even though the higher level strips are different. In the example below, you can see that the "f" strips of the 2nd and 3rd panel have merged, even though they have different labels ("4" and "5") in higher layer strips.
+In contrast, when `bleed = TRUE`, lower layer strips are allowed to 'bleed' into one another even though the higher level strips are different. In the example below, you can see that the "f" strips of the 2nd and 3rd panel have merged, even though they have different labels ("4" and "5") in higher layer strips.
 
 ```{r strip_bleed}
 p + facet_wrap2(

@@ -312,7 +312,7 @@ FacetGrid2 <- ggproto(
     nrow <- dim[1]
     ncol <- dim[2]
 
-    # Initalise empty axes
+    # Initialise empty axes
     top <- bottom <- left <- right <- empty
     # Fill axes by scale ID
     top[position]    <- axes$x$top[position]

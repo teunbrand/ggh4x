@@ -4,11 +4,11 @@
 #'
 #' @description Like rug plots display data points of a 2D plot as lines in the
 #'   margins, this function plots rectangles in the margins. Rectangular rugs
-#'   are convenient for displaying onedimensional, ranged annotations for
-#'   twodimensional plots.
+#'   are convenient for displaying one-dimensional, ranged annotations for
+#'   two-dimensional plots.
 #'
 #' @inheritParams ggplot2::geom_rect
-#' @param outside \code{logical} of length 1 that controls wether to move the
+#' @param outside \code{logical} of length 1 that controls whether to move the
 #'   rectangles outside of the plot area. For the best results, it is probably
 #'   best to set \code{coord_cartesian(clip = "off")} and avoid overlap with the
 #'   default axes by changing the sides argument to \code{"tr"}.
@@ -22,10 +22,10 @@
 #' @details By default, scales are expanded 5\% on either side of the plot,
 #'   whereas the rug rectangles will occupy 3\% of the total plot size by
 #'   default. The \code{geom_rectmargin()} and \code{geom_tilemargin()} versions do the
-#'   same thing, but are parameterised differently; see
+#'   same thing, but are parametrised differently; see
 #'   \code{\link[ggplot2:geom_tile]{geom_rect}}.
 #'
-#'   These functions do not have hardcoded required aesthetics, since the x and
+#'   These functions do not have hard-coded required aesthetics, since the x and
 #'   y directions can be omitted by not choosing a side in the corresponding
 #'   direction, i.e. y-direction variables are omitted when plotting the rug only
 #'   on the top and/or bottom. This can result in errors when the aesthetics are

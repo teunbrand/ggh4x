@@ -7,7 +7,7 @@
 #' of a geom. The tick marks probably best suit log10 transformations.
 #'
 #' @inheritParams guide_axis_minor
-#' @param prescaled A \code{logical} of length one, indicating wether the data
+#' @param prescaled A \code{logical} of length one, indicating whether the data
 #'   has been manually rescaled (\code{TRUE}) or the scale takes care of the
 #'   transformation (\code{FALSE}).
 #' @param base When this is provided, the guide takes this as the base for the

@@ -68,7 +68,7 @@ to the paired geom/stat.}
 \item{argx, argy}{A named \code{list} containing arguments to the \code{funx},
 and \code{funy} function calls.}
 
-\item{crop_other}{A \code{logical} of length one; wether the other data
+\item{crop_other}{A \code{logical} of length one; whether the other data
 should be fitted to the length of \code{x} and \code{y} (default:
 \code{TRUE}). Useful to set to \code{FALSE} when \code{funx} or \code{funy}
 calculate summaries of length one that need to be recycled.}
