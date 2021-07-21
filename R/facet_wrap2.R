@@ -32,6 +32,10 @@
 #'     \item{`"y"`}{Display axis text at outer margins and all inner x-axes.}
 #'     \item{`"all"` or `TRUE`}{Only display axis text at the outer margins.}
 #'   }
+#' @param trim_blank A `logical(1)`. When `TRUE` (default), does not draw rows
+#'   and columns containing no panels. When `FALSE`, the `nrow` and `ncol`
+#'   arguments are taken literally, even when there are more than needed to
+#'   fit all panels.
 #' @param strip An object created by a call to a strip function, such as
 #'   [`strip_vanilla`][strip_vanilla()].
 #'
@@ -61,6 +65,7 @@ facet_wrap2 <- function(
   shrink = TRUE, labeller = "label_value",
   as.table = TRUE, drop = TRUE,
   dir = "h", strip.position = "top",
+  trim_blank = TRUE,
   strip = strip_vanilla()
 ) {
 
@@ -88,6 +93,12 @@ facet_wrap2 <- function(
 
   strip <- assert_strip(strip)
 
+  if (trim_blank) {
+    dim <- NULL
+  } else {
+    dim <- c(nrow %||% NA_integer_, ncol %||% NA_integer_)
+  }
+
   ggproto(
     NULL, FacetWrap2,
     shrink = shrink,
@@ -103,7 +114,8 @@ facet_wrap2 <- function(
       labeller = labeller,
       dir = dir,
       axes = axes,
-      rmlab = rmlab
+      rmlab = rmlab,
+      dim = dim
     )
   )
 }
@@ -154,9 +166,9 @@ FacetWrap2 <- ggproto(
     layout
   },
   setup_panel_table = function(self, panels, layout, #empty, position,
-                               theme, coord, ranges, params) { #free) {
-    ncol <- max(c(layout$.LEFT, layout$.RIGHT))
-    nrow <- max(c(layout$.TOP,  layout$.BOTTOM))
+                               theme, coord, ranges, params) {
+    ncol <- params$dim[2] %||% max(c(layout$.LEFT, layout$.RIGHT))
+    nrow <- params$dim[1] %||% max(c(layout$.TOP,  layout$.BOTTOM))
 
     aspect <- self$setup_aspect_ratio(coord, params$free, theme, ranges)
 
@@ -310,10 +322,16 @@ FacetWrap2 <- ggproto(
     # Setup parameters
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
-    n <- nrow(layout)
-    panel_order <- order(layout$ROW, layout$COL)
     layout$.TOP  <- layout$.BOTTOM <- layout$ROW
     layout$.LEFT <- layout$.RIGHT  <- layout$COL
+    if (!is.null(params$dim)) {
+      if (is.na(params$dim[1])) {
+        params$dim[1] <- nrow
+      }
+      if (is.na(params$dim[2])) {
+        params$dim[2] <- ncol
+      }
+    }
 
     # Setup panels
     panel_table <- self$setup_panel_table(

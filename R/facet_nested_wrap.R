@@ -69,6 +69,7 @@ facet_nested_wrap <- function(
   dir = "h", strip.position = "top",
   nest_line = FALSE,
   resect = unit(0, "mm"),
+  trim_blank = TRUE,
   strip = strip_nested(),
   bleed = NULL
 ) {
@@ -117,6 +118,12 @@ facet_nested_wrap <- function(
   }
   strip <- assert_strip(strip)
 
+  if (trim_blank) {
+    dim <- NULL
+  } else {
+    dim <- c(nrow %||% NA_integer_, ncol %||% NA_integer_)
+  }
+
   ggproto(
     NULL, FacetNestedWrap,
     shrink = shrink,
@@ -135,7 +142,8 @@ facet_nested_wrap <- function(
       rmlab = rmlab,
       nest_line = nest_line,
       resect = resect,
-      independent = list(x = FALSE, y = FALSE)
+      independent = list(x = FALSE, y = FALSE),
+      dim = dim
     )
   )
 }
