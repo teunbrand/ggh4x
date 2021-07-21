@@ -14,6 +14,7 @@ facet_manual(
   strip.position = "top",
   scales = "fixed",
   labeller = "label_value",
+  trim_blank = TRUE,
   strip = strip_vanilla()
 )
 }
@@ -70,6 +71,9 @@ for compatibility with \code{\link[ggplot2:labeller]{labeller()}}. You can use d
 functions for different kind of labels, for example use \code{\link[ggplot2:labellers]{label_parsed()}} for
 formatting facet labels. \code{\link[ggplot2:labellers]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
+
+\item{trim_blank}{A \code{logical(1)}. When \code{TRUE} (default), the design will
+be trimmed to remove empty rows and columns.}
 
 \item{strip}{An object created by a call to a strip function, such as
 \code{\link[=strip_vanilla]{strip_vanilla}}.}

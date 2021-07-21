@@ -19,6 +19,7 @@ facet_nested_wrap(
   strip.position = "top",
   nest_line = FALSE,
   resect = unit(0, "mm"),
+  trim_blank = TRUE,
   strip = strip_nested(),
   bleed = NULL
 )
@@ -103,6 +104,11 @@ element.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
+
+\item{trim_blank}{A \code{logical(1)}. When \code{TRUE} (default), does not draw rows
+and columns containing no panels. When \code{FALSE}, the \code{nrow} and \code{ncol}
+arguments are taken literally, even when there are more than needed to
+fit all panels.}
 
 \item{strip}{An object created by a call to a strip function, such as
 \code{\link[ggh4x]{strip_nested}()}.}

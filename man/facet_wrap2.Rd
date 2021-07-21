@@ -17,6 +17,7 @@ facet_wrap2(
   drop = TRUE,
   dir = "h",
   strip.position = "top",
+  trim_blank = TRUE,
   strip = strip_vanilla()
 )
 }
@@ -92,6 +93,11 @@ for vertical.}
 the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
+
+\item{trim_blank}{A \code{logical(1)}. When \code{TRUE} (default), does not draw rows
+and columns containing no panels. When \code{FALSE}, the \code{nrow} and \code{ncol}
+arguments are taken literally, even when there are more than needed to
+fit all panels.}
 
 \item{strip}{An object created by a call to a strip function, such as
 \code{\link[=strip_vanilla]{strip_vanilla}}.}
