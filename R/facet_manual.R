@@ -22,6 +22,8 @@ NULL
 #'   `"null"` units are proportional. If `FALSE`, `"null"` units in the x- and
 #'   y-directions can vary independently. Alternatively, when `NULL`, the
 #'   `respect` parameter takes instructions from the coord or theme.
+#' @param trim_blank A `logical(1)`. When `TRUE` (default), the design will
+#'   be trimmed to remove empty rows and columns.
 #' @inheritParams facet_wrap2
 #'
 #' @return A `Facet` ggproto object that can be added to a plot.
@@ -67,13 +69,14 @@ facet_manual <- function(
   strip.position = "top",
   scales = "fixed",
   labeller = "label_value",
+  trim_blank = TRUE,
   strip = strip_vanilla()
 ) {
   strip.position <- arg_match0(
     strip.position, c("top", "bottom", "left", "right")
   )
 
-  design <- validate_design(design)
+  design <- validate_design(design, trim_blank)
   facets <- .int$wrap_as_facets_list(facets)
 
   if (length(facets) == 0) {
@@ -86,14 +89,13 @@ facet_manual <- function(
   if (!is.unit(heights) && !is.null(heights)) {
     heights <- unit(heights, "null")
   }
-  ncol <- max(design$.RIGHT)
-  nrow <- max(design$.BOTTOM)
+  dim <- dim(design)
 
   if (!is.null(widths)) {
-    widths  <- rep_len(widths,  ncol)
+    widths  <- rep_len(widths,  dim[2])
   }
   if (!is.null(heights)) {
-    heights <- rep_len(heights, nrow)
+    heights <- rep_len(heights, dim[1])
   }
 
   free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
@@ -108,9 +110,10 @@ facet_manual <- function(
     strip.position = strip.position,
     labeller = labeller,
     drop = drop,
-    nrow = nrow,
-    ncol = ncol,
-    free = free
+    nrow = dim[1],
+    ncol = dim[2],
+    free = free,
+    dim = dim
   )
 
   ggproto(
@@ -140,12 +143,24 @@ FacetManual <- ggproto(
       return(df)
     }
 
+    # Translate design to layout
+    design <- params$design
+    rows <- vapply(split(row(design), design), range, integer(2))
+    cols <- vapply(split(col(design), design), range, integer(2))
+    id   <- vapply(split(design, design), unique, integer(1))
+    layout <- .int$new_data_frame(list(
+      .TOP = rows[1,],
+      .RIGHT = cols[2,],
+      .BOTTOM = rows[2,],
+      .LEFT = cols[1,],
+      PANEL = factor(id, levels = unique(id))
+    ))
+
     base <- combine_vars(data, params$plot_env, vars, drop = params$drop)
     rownames(base) <- NULL
     id <- .int$id(base, drop = TRUE)
     n <- attr(id, "n")
 
-    layout <- params$design
     if (n > nrow(layout)) {
       n  <- nrow(layout)
       id <- id[seq_len(n)]
@@ -226,8 +241,8 @@ FacetManual <- ggproto(
   },
 
   setup_axes = function(axes, layout, params, theme) {
-    ncol  <- max(layout$.LEFT, layout$.RIGHT)
-    nrow  <- max(layout$.TOP, layout$.BOTTOM)
+    # ncol  <- max(layout$.LEFT, layout$.RIGHT)
+    # nrow  <- max(layout$.TOP, layout$.BOTTOM)
     panel <- as.integer(layout$PANEL)
 
     .int$new_data_frame(list(
@@ -305,7 +320,7 @@ FacetManual <- ggproto(
 
 # Helpers -----------------------------------------------------------------
 
-validate_design <- function(design = NULL) {
+validate_design <- function(design = NULL, trim = TRUE) {
   if (is.null(design)) {
     stop("Cannot interpret design.", call. = FALSE)
   }
@@ -329,6 +344,9 @@ validate_design <- function(design = NULL) {
   }
   if (is.matrix(design)) {
     dim <- dim(design)
+    if (length(dim) != 2 || any(dim < 1) || any(is.na(dim))) {
+      stop("The `design` argument has invalid dimensions.")
+    }
     if (typeof(design) == "character") {
       design[design == "#"] <- NA
     }
@@ -336,21 +354,17 @@ validate_design <- function(design = NULL) {
     design <- match(design, uniq)
     dim(design) <- dim
 
-    rows <- vapply(split(row(design), design), range, integer(2))
-    cols <- vapply(split(col(design), design), range, integer(2))
-    id   <- vapply(split(design, design), unique, integer(1))
-
-    df <- .int$new_data_frame(list(
-      .TOP = rows[1,],
-      .RIGHT = cols[2,],
-      .BOTTOM = rows[2,],
-      .LEFT = cols[1,],
-      PANEL = factor(id, levels = unique(id))
-    ))
-    if (!is.numeric(uniq)) {
-      attr(df, "design_names") <- uniq
+    if (trim) {
+      non_empty <- !is.na(design)
+      keep_row <- seq_range(which(apply(non_empty, 1, any)))
+      keep_col <- seq_range(which(apply(non_empty, 2, any)))
+      design <- design[keep_row, keep_col, drop = FALSE]
     }
-    return(df)
+
+    if (!is.numeric(uniq)) {
+      attr(design, "design_names") <- uniq
+    }
+    return(design)
   } else {
     stop("The `design` argument should be interpretable as a matrix.")
   }
