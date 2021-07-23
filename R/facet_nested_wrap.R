@@ -17,27 +17,12 @@
 #'   through regular \code{facet_wrap()} layout behaviour.
 #'
 #'   Hierarchies are inferred from the order of variables supplied to
-#'   \code{rows} or \code{cols}. The first variable is interpreted to be the
-#'   outermost variable, while the last variable is interpreted to be the
-#'   innermost variable. They display order is always such that the outermost
-#'   variable is placed the furthest away from the panels. Strips are
-#'   automatically grouped when they span a nested variable.
-#'
-#'   The \code{bleed} argument controls whether lower-level strips are allowed
-#'   to be merged when higher-level strips are different, i.e. they can bleed
-#'   over hierarchies. Suppose the \code{facet_wrap()} behaviour would be the
-#'   following for strips:
-#'
-#'   \code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}
-#'
-#'   In such case, the default \code{bleed = FALSE} argument would result in the
-#'   following:
-#'
-#'   \code{[_1_][___2____]} \cr \code{[_3_][_3_][_4_]}
-#'
-#'   Whereas \code{bleed = TRUE} would allow the following:
-#'
-#'   \code{[_1_][___2____]} \cr \code{[___3____][_4_]}
+#'   \code{facets}. The first variable is interpreted to be the outermost
+#'   variable, while the last variable is interpreted to be the innermost
+#'   variable. They display order is always such that the outermost
+#'   variable is placed the furthest away from the panels. For more information
+#'   about the nesting of strips, please visit the documentation of
+#'   \code{\link[ggh4x]{strip_nested}()}.
 #'
 #' @return A \code{FacetNestedWrap} ggproto object that can be added to a plot.
 #' @export
@@ -57,9 +42,6 @@
 #' # Controlling the nest line
 #' p + facet_nested_wrap(vars(cyl, drv), nest_line = TRUE) +
 #'   theme(ggh4x.facet.nestline = element_line(linetype = 3))
-#'
-#' # Ignore nested hierarchies with the 'bleed' argument
-#'  p + facet_nested_wrap(vars(drv, cyl), bleed = TRUE)
 facet_nested_wrap <- function(
   facets, nrow = NULL, ncol = NULL,
   scales = "fixed", axes = "margins",
@@ -73,66 +55,26 @@ facet_nested_wrap <- function(
   strip = strip_nested(),
   bleed = NULL
 ) {
-
-  strip.position <- match.arg(strip.position,
-                              c("top", "bottom", "left",  "right"))
-  labeller <- .int$check_labeller(labeller)
-  facets <- .int$wrap_as_facets_list(facets)
-
-  # Take care of direction
-  dir <- match.arg(dir, c("h", "v"))
-  if (identical(dir, "v")) {
-    nrow_swap <- ncol
-    ncol_swap <- nrow
-    nrow <- .int$sanitise_dim(nrow_swap)
-    ncol <- .int$sanitise_dim(ncol_swap)
-  } else {
-    nrow <- .int$sanitise_dim(nrow)
-    ncol <- .int$sanitise_dim(ncol)
-  }
-
-  # Setup free scales
-  free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
-  axes  <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
-  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
-
+  strip <- assert_strip(strip)
   if (!is.null(bleed)) {
     message(paste0("The `bleed` argument should be set in the ",
                    " `strip_nested()` function."))
     strip$params$bleed <- isTRUE(bleed)
   }
-  strip <- assert_strip(strip)
-
-  if (trim_blank) {
-    dim <- NULL
-  } else {
-    dim <- c(nrow %||% NA_integer_, ncol %||% NA_integer_)
-  }
-
-  ggproto(
-    NULL, FacetNestedWrap,
-    shrink = shrink,
-    strip = strip,
-    params = list(
-      facets = facets,
-      free = free,
-      as.table = as.table,
-      strip.position = strip.position,
-      drop = drop,
-      ncol = ncol,
-      nrow = nrow,
-      labeller = labeller,
-      dir = dir,
-      axes = axes,
-      rmlab = rmlab,
-      nest_line = nest_line,
-      resect = resect,
-      independent = list(x = FALSE, y = FALSE),
-      dim = dim
-    )
+  params <- list(
+    nest_line = nest_line,
+    resect = resect
+  )
+  new_wrap_facets(
+    facets, nrow, ncol,
+    scales, axes, remove_labels,
+    shrink, labeller,
+    as.table, drop, dir,
+    strip.position, strip,
+    trim_blank, params,
+    super = FacetNestedWrap
   )
 }
-
 
 # ggproto -----------------------------------------------------------------
 

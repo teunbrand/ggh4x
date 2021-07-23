@@ -1,4 +1,6 @@
-# User function -----------------------------------------------------------
+# Constructor -------------------------------------------------------------
+
+## External ---------------------------------------------------------------
 
 #' Extended grid facets
 #'
@@ -101,43 +103,58 @@ facet_grid2 <- function(
   margins = FALSE,
   strip = strip_vanilla()
 ) {
-  if (is.logical(cols)) {
-    abort(paste0("The `col` argument should not be logical.",
-                 " Did you intend `margin` instead?"))
-  }
-  # Match arguments
-  free <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
-  space_free <- .match_facet_arg(space, c("fixed", "free_x", "free_y", "free"))
-  axes <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
-  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
-  independent <- .match_facet_arg(independent, c("none", "x", "y", "all"))
+  new_grid_facets(
+    rows, cols,
+    scales, space, axes, remove_labels, independent,
+    shrink, labeller, as.table, switch,
+    drop, margins, strip,
+    super = FacetGrid2
+  )
+}
 
-  # Check incompatible arguments
-  params <- .validate_independent(independent, free, space_free, rmlab)
+# Internal ----------------------------------------------------------------
 
-  if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    abort("Switch must be either 'both', 'x' or 'y'.")
-  }
-
-  facets_list <- .int$grid_as_facets_list(rows, cols)
+new_grid_facets <- function(
+  rows, cols,
+  scales, space, axes, rmlab, indy,
+  shrink, labeller, as.table, switch,
+  drop, margins, strip,
+  params = list(), super = FacetGrid2
+) {
+  # Check arguments
+  switch <- switch %||% "none"
+  switch <- arg_match0(switch, c("none", "both", "x", "y"))
   labeller <- .int$check_labeller(labeller)
+  axes  <- .match_facet_arg(axes,   c("margins", "x", "y", "all"))
+  free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
+  space <- .match_facet_arg(space,  c("fixed", "free_x", "free_y", "free"))
+  rmlab <- .match_facet_arg(rmlab,  c("none", "x", "y", "all"))
+  indy  <- .match_facet_arg(indy,   c("none", "x", "y", "all"))
   strip <- assert_strip(strip)
 
+  # Validate axes drawing parameters
+  axis_params <- .validate_independent(indy, free, space, rmlab)
+
+  # Setup facet variables
+  facets <- .int$grid_as_facets_list(rows, cols)
+
+  # Make list of parameters
+  params <- c(params, axis_params, list(
+    rows = facets$rows,
+    cols = facets$cols,
+    margins = margins,
+    labeller = labeller,
+    as.table = as.table,
+    switch = switch,
+    drop = drop,
+    axes = axes
+  ))
+
   ggproto(
-    NULL,
-    FacetGrid2,
+    NULL, super,
     shrink = shrink,
-    strip = force(strip),
-    params = c(list(
-      rows = facets_list$rows,
-      cols = facets_list$cols,
-      margins = margins,
-      labeller = labeller,
-      as.table = as.table,
-      switch = switch,
-      drop = drop,
-      axes = axes
-    ), params)
+    strip  = strip,
+    params = params
   )
 }
 
@@ -384,6 +401,8 @@ FacetGrid2 <- ggproto(
                        params = params, theme = theme)
   }
 )
+
+# Helpers -----------------------------------------------------------------
 
 .validate_independent <- function(independent, free, space_free, rmlab) {
   if (independent$x) {

@@ -29,28 +29,13 @@
 #'   \code{rows} or \code{cols}. The first variable is interpreted to be the
 #'   outermost variable, while the last variable is interpreted to be the
 #'   innermost variable. They display order is always such that the outermost
-#'   variable is placed the furthest away from the panels. Strips are
-#'   automatically grouped when they span a nested variable.
-#'
-#'   The \code{bleed} argument controls whether lower-level strips are allowed
-#'   to be merged when higher-level strips are different, i.e. they can bleed
-#'   over hierarchies. Suppose the \code{facet_grid()} behaviour would be the
-#'   following for strips:
-#'
-#'   \code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}
-#'
-#'   In such case, the default \code{bleed = FALSE} argument would result in the
-#'   following:
-#'
-#'   \code{[_1_][___2____]} \cr \code{[_3_][_3_][_4_]}
-#'
-#'   Whereas \code{bleed = TRUE} would allow the following:
-#'
-#'   \code{[_1_][___2____]} \cr \code{[___3____][_4_]}
+#'   variable is placed the furthest away from the panels. For more information
+#'   about the nesting of strips, please visit the documentation of
+#'   \code{\link[ggh4x]{strip_nested}()}.
 #'
 #' @export
 #'
-#' @return A \emph{FacetNested} ggproto object.
+#' @return A \emph{FacetNested} ggproto object that can be added to a plot.
 #' @family facetting functions
 
 #' @seealso See \code{\link[ggh4x]{strip_nested}} for nested strips. See
@@ -92,50 +77,25 @@ facet_nested <- function(
   strip = strip_nested(),
   bleed = NULL
 ) {
-  if (is.logical(cols)) {
-    abort(paste0("The `col` argument should not be logical.",
-                 " Did you intend `margin` instead?"))
-  }
-  # Match arguments
-  free <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
-  space_free <- .match_facet_arg(space, c("fixed", "free_x", "free_y", "free"))
-  axes <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
-  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
-  independent <- .match_facet_arg(independent, c("none", "x", "y", "all"))
-
-  # Check incompatible arguments
-  params <- .validate_independent(independent, free, space_free, rmlab)
-
-  if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
-  }
-
-  facets_list <- .int$grid_as_facets_list(rows, cols)
-  labeller <- .int$check_labeller(labeller)
-
+  strip <- assert_strip(strip)
   if (!is.null(bleed)) {
     message(paste0("The `bleed` argument should be set in the ",
                    " `strip_nested()` function."))
     strip$params$bleed <- isTRUE(bleed)
   }
-  strip <- assert_strip(strip)
+  params <- list(
+    nest_line = nest_line,
+    resect = resect
+  )
 
-  ggproto(
-    NULL, FacetNested,
-    shrink = shrink,
-    strip = strip,
-    params = c(list(
-      rows = facets_list$rows,
-      cols = facets_list$cols,
-      margins = margins,
-      labeller = labeller,
-      as.table = as.table,
-      switch = switch,
-      drop = drop,
-      nest_line = nest_line,
-      resect = resect,
-      axes = axes
-    ), params))
+  new_grid_facets(
+    rows, cols,
+    scales, space, axes, remove_labels, independent,
+    shrink, labeller, as.table, switch,
+    drop, margins, strip,
+    params = params,
+    super = FacetNested
+  )
 }
 
 # ggproto -----------------------------------------------------------------

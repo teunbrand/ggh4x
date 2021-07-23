@@ -155,7 +155,7 @@ nesting line should be shortened.}
 See details.}
 }
 \value{
-A \emph{FacetNested} ggproto object.
+A \emph{FacetNested} ggproto object that can be added to a plot.
 }
 \description{
 \code{facet_nested()} forms a matrix of panels defined by row
@@ -174,24 +174,9 @@ This function inherits the capabilities of
   \code{rows} or \code{cols}. The first variable is interpreted to be the
   outermost variable, while the last variable is interpreted to be the
   innermost variable. They display order is always such that the outermost
-  variable is placed the furthest away from the panels. Strips are
-  automatically grouped when they span a nested variable.
-
-  The \code{bleed} argument controls whether lower-level strips are allowed
-  to be merged when higher-level strips are different, i.e. they can bleed
-  over hierarchies. Suppose the \code{facet_grid()} behaviour would be the
-  following for strips:
-
-  \code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}
-
-  In such case, the default \code{bleed = FALSE} argument would result in the
-  following:
-
-  \code{[_1_][___2____]} \cr \code{[_3_][_3_][_4_]}
-
-  Whereas \code{bleed = TRUE} would allow the following:
-
-  \code{[_1_][___2____]} \cr \code{[___3____][_4_]}
+  variable is placed the furthest away from the panels. For more information
+  about the nesting of strips, please visit the documentation of
+  \code{\link[ggh4x]{strip_nested}()}.
 }
 \examples{
 df <- iris

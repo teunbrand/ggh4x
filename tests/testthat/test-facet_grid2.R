@@ -57,8 +57,4 @@ test_that("facet_grid2 warns about inappropriate arguments", {
   expect_warning(eval(expr), "x-axes must be labelled")
   expr <- substitute(facet_grid2(vs ~ am, independent = "y", scales = "free_y", remove_labels = "y"))
   expect_warning(eval(expr), "y-axes must be labelled")
-  expr <- substitute(facet_grid2(cols = TRUE))
-  expect_error(eval(expr), "should not be logical")
-  expr <- substitute(facet_grid2(switch = "bs"))
-  expect_error(eval(expr), "Switch must be")
 })

@@ -1,4 +1,6 @@
-# User function -----------------------------------------------------------
+# Constructor -------------------------------------------------------------
+
+## External ---------------------------------------------------------------
 
 #' Extended wrapped facets
 #'
@@ -68,14 +70,43 @@ facet_wrap2 <- function(
   trim_blank = TRUE,
   strip = strip_vanilla()
 ) {
+  new_wrap_facets(
+    facets, nrow, ncol,
+    scales, axes, remove_labels,
+    shrink, labeller,
+    as.table, drop, dir,
+    strip.position, strip,
+    trim_blank,
+    super = FacetWrap2
+  )
+}
 
-  strip.position <- match.arg(strip.position,
-                              c("top", "bottom", "left",  "right"))
+## Internal ---------------------------------------------------------------
+
+new_wrap_facets <- function(
+  facets, nrow, ncol,
+  scales, axes, rmlab,
+  shrink, labeller,
+  as.table, drop, dir,
+  strip.position, strip,
+  trim_blank,
+  params = list(), super = FacetWrap2
+) {
+  # Check arguments
   labeller <- .int$check_labeller(labeller)
-  facets <- .int$wrap_as_facets_list(facets)
+  strip.position <- arg_match0(
+    strip.position, c("top", "bottom", "left",  "right")
+  )
+  dir <- arg_match0(dir, c("h", "v"))
+  free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
+  axes  <- .match_facet_arg(axes,   c("margins", "x", "y", "all"))
+  rmlab <- .match_facet_arg(rmlab,  c("none", "x", "y", "all"))
+  strip <- assert_strip(strip)
 
-  # Take care of direction
-  dir <- match.arg(dir, c("h", "v"))
+  # Setup facet variables
+  facets   <- .int$wrap_as_facets_list(facets)
+
+  # Setup dimensions
   if (identical(dir, "v")) {
     nrow_swap <- ncol
     ncol_swap <- nrow
@@ -85,38 +116,22 @@ facet_wrap2 <- function(
     nrow <- .int$sanitise_dim(nrow)
     ncol <- .int$sanitise_dim(ncol)
   }
+  dim <- if (trim_blank) NULL else c(nrow %||% NA, ncol %||% NA)
 
-  # Setup facet params
-  free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
-  axes  <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
-  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
-
-  strip <- assert_strip(strip)
-
-  if (trim_blank) {
-    dim <- NULL
-  } else {
-    dim <- c(nrow %||% NA_integer_, ncol %||% NA_integer_)
-  }
+  # Make list of parameters
+  params <- c(params, list(
+    facets = facets, free = free, as.table = as.table,
+    strip.position = strip.position, drop = drop,
+    ncol = ncol, nrow = nrow, dim = dim,
+    labeller = labeller, dir = dir,
+    axes = axes, rmlab = rmlab
+  ))
 
   ggproto(
-    NULL, FacetWrap2,
+    NULL, super,
     shrink = shrink,
-    strip  = strip,
-    params = list(
-      facets = facets,
-      free = free,
-      as.table = as.table,
-      strip.position = strip.position,
-      drop = drop,
-      ncol = ncol,
-      nrow = nrow,
-      labeller = labeller,
-      dir = dir,
-      axes = axes,
-      rmlab = rmlab,
-      dim = dim
-    )
+    strip = strip,
+    params = params
   )
 }
 

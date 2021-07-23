@@ -26,6 +26,13 @@ test_that("function grabber grabs functions", {
   expect_gt(classes["function"], 10)
 })
 
+test_that("center_limits centers limits", {
+  f <- center_limits()
+  expect_equal(f(c(-1, 3)), c(-3, 3))
+  f <- center_limits(1)
+  expect_equal(f(c(-1, 3)), c(-1, 3))
+})
+
 test_that("weave_factors combines factors", {
   f1 <- c("banana", "apple", "apple", "kiwi", NA)
   f2 <- factor(c(1, NA, 1:3), labels = c("house", "cat", "dog"))

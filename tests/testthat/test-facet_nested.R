@@ -69,11 +69,6 @@ test_that("facet_nested returns helpful error messages", {
   test <- basic + facet_nested(~ Nester + Species)
   ctrl <- expect_silent(layer_data(ctrl))
   test <- expect_error(layer_data(test), "Plot is missing")
-
-  # Upon invalid switch
-  test <- substitute(basic + facet_nested(~ nester + Species,
-                                          switch = "Nonsense"))
-  expect_error(eval(test), "switch must be either")
 })
 
 # Strip nesting tests -----------------------------------------------------
@@ -339,9 +334,4 @@ test_that("facet_nested handles combined datasets with missing inner variables",
   expect_equal(length(ctrl_striplabels) - length(test_striplabels), 3)
   expect_equal(ctrl_striplabels, c("1", "A", "1", "B", "2", "A", "2", 'B'))
   expect_equal(test_striplabels, c("1", "2", "A", "B", ""))
-})
-
-test_that("facet_nested gives errors", {
-  expr <- substitute(facet_nested(cols = TRUE))
-  expect_error(eval(expr), "should not be logical")
 })

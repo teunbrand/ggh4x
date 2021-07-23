@@ -131,27 +131,12 @@ This function inherits the capabilities of
   through regular \code{facet_wrap()} layout behaviour.
 
   Hierarchies are inferred from the order of variables supplied to
-  \code{rows} or \code{cols}. The first variable is interpreted to be the
-  outermost variable, while the last variable is interpreted to be the
-  innermost variable. They display order is always such that the outermost
-  variable is placed the furthest away from the panels. Strips are
-  automatically grouped when they span a nested variable.
-
-  The \code{bleed} argument controls whether lower-level strips are allowed
-  to be merged when higher-level strips are different, i.e. they can bleed
-  over hierarchies. Suppose the \code{facet_wrap()} behaviour would be the
-  following for strips:
-
-  \code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}
-
-  In such case, the default \code{bleed = FALSE} argument would result in the
-  following:
-
-  \code{[_1_][___2____]} \cr \code{[_3_][_3_][_4_]}
-
-  Whereas \code{bleed = TRUE} would allow the following:
-
-  \code{[_1_][___2____]} \cr \code{[___3____][_4_]}
+  \code{facets}. The first variable is interpreted to be the outermost
+  variable, while the last variable is interpreted to be the innermost
+  variable. They display order is always such that the outermost
+  variable is placed the furthest away from the panels. For more information
+  about the nesting of strips, please visit the documentation of
+  \code{\link[ggh4x]{strip_nested}()}.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, hwy)) +
@@ -161,9 +146,6 @@ p + facet_nested_wrap(vars(cyl, drv))
 # Controlling the nest line
 p + facet_nested_wrap(vars(cyl, drv), nest_line = TRUE) +
   theme(ggh4x.facet.nestline = element_line(linetype = 3))
-
-# Ignore nested hierarchies with the 'bleed' argument
- p + facet_nested_wrap(vars(drv, cyl), bleed = TRUE)
 }
 \seealso{
 See \code{\link[ggh4x]{strip_nested}} for nested strips. See
