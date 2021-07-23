@@ -14,25 +14,6 @@ try_require <- function(package, fun) {
   }
 }
 
-# R3.4.0 minimal data.frame constructor
-list2df <- function (x = list(), nrow = NULL)
-{
-  stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
-  if (n <- length(x)) {
-    if (is.null(nrow))
-      nrow <- max(lengths(x), 0L)
-    x <- lapply(x, rep_len, nrow)
-  }
-  else {
-    if (is.null(nrow))
-      nrow <- 0L
-  }
-  if (is.null(names(x)))
-    names(x) <- character(n)
-  class(x) <- "data.frame"
-  attr(x, "row.names") <- .set_row_names(nrow)
-  x
-}
 
 seq_range <- function(dat, ...) {
   seq.int(min(dat, na.rm = TRUE), max(dat, na.rm = TRUE), ...)

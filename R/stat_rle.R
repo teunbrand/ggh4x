@@ -154,7 +154,7 @@ StatRle <- ggproto(
       values <- factor(values, levels = lvls)
     }
 
-    list2df(list(
+    .int$new_data_frame(list(
       start = start,
       end = end,
       start_id = start_id,

@@ -135,6 +135,6 @@ StatFunxy <- ggproto(
     # Combine data
     data <- c(other, list(x = x, y = y))
     data <- do.call(vec_recycle_common, data)
-    list2df(data)
+    .int$new_data_frame(data)
   }
 )
