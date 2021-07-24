@@ -171,9 +171,23 @@ validate_facetted_scale <- function(x, aes = "x") {
 #' @keywords internal
 ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
 
-  if (is.null(object$x) & is.null(object$y)) {
+  empty_x <- vapply(object$x, is.null, logical(1))
+  empty_y <- vapply(object$y, is.null, logical(1))
+  if (all(empty_x) && all(empty_y)) {
     return(plot)
   }
+  if (startsWith(class(plot$facet)[[1]], "FreeScaled")) {
+    # We have already initialised facetted position scales
+    # Just need to update the new scales
+    if (!all(empty_x)) {
+      plot$facet$new_x_scales <- object$x
+    }
+    if (!all(emtpy_y)) {
+      plot$facet$new_y_scales <- object$y
+    }
+    return(plot)
+  }
+
   # Check if we can overide core functions
   valid_init <- identical(body(environment(Facet$init_scales)$f),
                           body(environment(plot$facet$init_scales)$f))
@@ -183,7 +197,7 @@ ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
                             body(environment(plot$facet$finish_data)$f))
 
   if (!all(c(valid_init, valid_train, valid_finish))) {
-    warning("Unknown facet, overriding facetted scales may be unstable.",
+    warning("Unknown facet: overriding facetted scales may be unstable.",
             call. = FALSE)
   }
 
