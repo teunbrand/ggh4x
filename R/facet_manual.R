@@ -172,9 +172,10 @@ FacetManual <- ggproto(
       id <- id[seq_len(n)]
       rlang::warn(paste0(
         "Found more facetting levels than designed. The following levels are ",
-        "dropped: ", paste0(base[[1]][-seq_len(n)], collapse = ", ")
+        "dropped: ",
+        paste0(do.call(paste, c(as.list(base), list(sep = ":")))[-seq_len(n)],
+               collapse = ", ")
       ))
-      base <- base[id, , drop = FALSE]
     }
     lnames <- attr(layout, "design_names")
     isect  <- intersect(lnames, base[[1]])
@@ -191,9 +192,10 @@ FacetManual <- ggproto(
       layout$PANEL <- droplevels(layout$PANEL)
     }
 
-    panels <- cbind(layout, base[id, , drop = FALSE])
+    panels <- cbind(layout, base[order(id), , drop = FALSE])
     panels$SCALE_X <- if (params$free$x) seq_len(n) else 1L
     panels$SCALE_Y <- if (params$free$y) seq_len(n) else 1L
+    panels <- panels[order(panels$PANEL),]
     rownames(panels) <- NULL
     panels
   },
