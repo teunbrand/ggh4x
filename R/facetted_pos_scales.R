@@ -182,7 +182,7 @@ ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
     if (!all(empty_x)) {
       plot$facet$new_x_scales <- object$x
     }
-    if (!all(emtpy_y)) {
+    if (!all(empty_y)) {
       plot$facet$new_y_scales <- object$y
     }
     return(plot)

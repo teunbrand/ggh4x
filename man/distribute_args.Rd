@@ -6,7 +6,7 @@
 \alias{elem_list_rect}
 \title{Element list constructors}
 \usage{
-distribute_args(..., .fun = element_text)
+distribute_args(..., .fun = element_text, .cull = TRUE)
 
 elem_list_text(...)
 
@@ -16,6 +16,9 @@ elem_list_rect(...)
 \item{...}{Vectorised arguments to pass on to functions.}
 
 \item{.fun}{A function to distribute arguments to.}
+
+\item{.cull}{A \code{logical(1)} determining if unknown arguments are being
+culled.}
 }
 \value{
 A \code{list} of outputs from \code{fun}.

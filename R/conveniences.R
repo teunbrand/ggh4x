@@ -11,6 +11,8 @@
 #'
 #' @param ... Vectorised arguments to pass on to functions.
 #' @param .fun A function to distribute arguments to.
+#' @param .cull A `logical(1)` determining if unknown arguments are being
+#'   culled.
 #'
 #' @details `NA`s and `NULL`s will be silently dropped. If you want to pass on a
 #'   transparent `fill` or `colour` argument, you should use the more verbose
@@ -60,12 +62,17 @@
 #'   colour = list(c("blue", "red"), "green"),
 #'   .fun = element_line
 #' )
-distribute_args <- function(..., .fun = element_text) {
+distribute_args <- function(..., .fun = element_text, .cull = TRUE) {
   # Format arguments
   args <- list(...)
   fun_args <- names(formals(.fun))
-  args <- args[intersect(names(args), fun_args)]
+  if (.cull) {
+    args <- args[intersect(names(args), fun_args)]
+  }
   args <- args[lengths(args) > 0]
+  if (length(args) == 0) {
+    return(.fun())
+  }
 
   # Measure arguments
   nms  <- names(args)
@@ -80,7 +87,8 @@ distribute_args <- function(..., .fun = element_text) {
                            use.names = FALSE, recursive = FALSE)
 
   # Replace NAs by NULLs
-  m[] <- lapply(m, function(x) {
+  vectors <- vapply(m, is.vector, logical(1))
+  m[vectors] <- lapply(m[vectors], function(x) {
     if (any(is.na(x))) NULL else x
   })
 
