@@ -344,7 +344,7 @@ Strip <- ggproto(
       )
       if (!inside$x) {
         # Apply extra padding
-        panels <- weave_tables_row(
+        panels <- weave_panel_rows(
           panels, row_shift = offset, row_height = padding
         )
       }

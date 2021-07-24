@@ -13,6 +13,8 @@ facet_manual(
   drop = TRUE,
   strip.position = "top",
   scales = "fixed",
+  axes = "margins",
+  remove_labels = "none",
   labeller = "label_value",
   trim_blank = TRUE,
   strip = strip_vanilla()
@@ -59,6 +61,25 @@ across facets or allowed to vary. One of the following:
 \item{\code{"free_x"}}{x-scales are allowed to vary.}
 \item{\code{"free_y"}}{y-scales are allowed to vary.}
 \item{\code{"free"} or \code{TRUE}}{Both scales can vary}
+}}
+
+\item{axes}{A \code{character(1)} or \code{logical(1)} where axes should be drawn. One
+of the following:
+\describe{
+\item{\code{"margins"} or \code{FALSE}}{Only draw axes at the outer margins
+(default).}
+\item{\code{"x"}}{Draw axes at the outer margins and all inner x-axes too.}
+\item{\code{"y"}}{Draw axes at the outer margins and all inner y-axes too.}
+\item{\code{"all"} or \code{TRUE}}{Draw the axes for every panel.}
+}}
+
+\item{remove_labels}{A \code{character(1)} or \code{logical(1)} determining whether
+axis text is displayed at inner panels. One of the following:
+\describe{
+\item{\code{"none"} or \code{FALSE}}{Display axis text at all axes (default).}
+\item{\code{"x"}}{Display axis text at outer margins and all inner y-axes.}
+\item{\code{"y"}}{Display axis text at outer margins and all inner x-axes.}
+\item{\code{"all"} or \code{TRUE}}{Only display axis text at the outer margins.}
 }}
 
 \item{labeller}{A function that takes one data frame of labels and

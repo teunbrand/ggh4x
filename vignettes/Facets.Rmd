@@ -134,7 +134,7 @@ Before discussing manual facets, let me first explain the motivation behind it.
 
 ## The base-R `layout()` function
 
-The 'grid' and 'wrap' layouts of facets are great because they dynamically adapt based on the available data. However, these layouts come with the limitation that every panel occupies a cell in a grid, and we lose some control over where data is drawn. A base R graphics equivalent to setup multi-panel figures is the `layout()` function. A neat property of this function is that a single plot can occupy more than one cell in a grid.
+The 'grid' and 'wrap' layouts of facets are great because they dynamically adapt based on the available data. However, these layouts come with the limitation that every panel occupies a cell in a grid, and we lose some control over where data is drawn. A base R graphics equivalent to set-up multi-panel figures is the `layout()` function. A neat property of this function is that a single plot can occupy more than one cell in a grid.
 
 ```{r base_layout}
 # Setting up a design for a layout
@@ -187,7 +187,7 @@ p + facet_manual(
 )
 ```
 
-The panels above all share the same axes ranges, but because these are drawn in a staggered fashion they should all be displayed. Because there are only limited constraints of where axes can be placed, it is hard to decide what duplicated axes are OK to omit. The manual facets are not 'smart' enough to figure this out and just draw the axes for every panel, regardless of whether they are fixed or free. Because of this, the `remove_labels` and `axes` argument that `facet_wrap2()` and `facet_grid2()` have, are not available for `facet_manual()`.
+The panels above all share the same axes ranges, but because these are drawn in a staggered fashion they should all be displayed. Because there are only limited constraints of where axes can be placed, it is hard to decide what duplicated axes are OK to omit. The manual facets are not 'smart' enough to figure this out exactly and just draw the axes for every panel, regardless of whether they are fixed or free. The only exception to this rule, is when all panel occupies *exactly* 1 cell in the horizontal or vertical direction. Because of this, the `remove_labels` and `axes` arguments are trickier to use for `facet_manual()`, and may only be applied when the criterion above is met.
 
 ## A word of warning
 

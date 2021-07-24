@@ -68,6 +68,8 @@ facet_manual <- function(
   drop = TRUE,
   strip.position = "top",
   scales = "fixed",
+  axes = "margins",
+  remove_labels = "none",
   labeller = "label_value",
   trim_blank = TRUE,
   strip = strip_vanilla()
@@ -99,6 +101,8 @@ facet_manual <- function(
   }
 
   free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
+  axes  <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
+  rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
   strip <- assert_strip(strip)
 
   params <- list(
@@ -113,6 +117,8 @@ facet_manual <- function(
     nrow = dim[1],
     ncol = dim[2],
     free = free,
+    axes = axes,
+    rmlab = rmlab,
     dim = dim
   )
 
@@ -188,6 +194,7 @@ FacetManual <- ggproto(
     panels <- cbind(layout, base[id, , drop = FALSE])
     panels$SCALE_X <- if (params$free$x) seq_len(n) else 1L
     panels$SCALE_Y <- if (params$free$y) seq_len(n) else 1L
+    rownames(panels) <- NULL
     panels
   },
 
@@ -241,16 +248,44 @@ FacetManual <- ggproto(
   },
 
   setup_axes = function(axes, layout, params, theme) {
-    # ncol  <- max(layout$.LEFT, layout$.RIGHT)
-    # nrow  <- max(layout$.TOP, layout$.BOTTOM)
+
     panel <- as.integer(layout$PANEL)
+
+    top    <- axes$x$top[layout$SCALE_X]
+    bottom <- axes$x$bottom[layout$SCALE_X]
+    left   <- axes$y$left[layout$SCALE_Y]
+    right  <- axes$y$right[layout$SCALE_Y]
+
+    # Should we purge in theory?
+    purge_x <- !params$free$x && (params$rmlab$x || !params$axes$x)
+    purge_y <- !params$free$y && (params$rmlab$y || !params$axes$y)
+
+    # Should we purge in practise?
+    purge_x <- purge_x && all(layout$.LEFT == layout$.RIGHT)
+    purge_y <- purge_y && all(layout$.TOP  == layout$.BOTTOM)
+
+    if (purge_x) {
+      purger <- if (params$rmlab$x) purge_guide_labels else zeroGrob()
+      top <- restrict_axes(top, layout$.TOP, layout$.LEFT,
+                           min, purger)
+      bottom <- restrict_axes(bottom, layout$.BOTTOM, layout$.LEFT,
+                              max, purger)
+    }
+
+    if (purge_y) {
+      purger <- if (params$rmlab$y) purge_guide_labels else zeroGrob()
+      left <- restrict_axes(left, layout$.LEFT, layout$.TOP,
+                            min, purger)
+      right <- restrict_axes(right, layout$.RIGHT, layout$.TOP,
+                             max, purger)
+    }
 
     .int$new_data_frame(list(
       t = panel, b = panel, l = panel, r = panel,
-      axes_top    = axes$x$top[layout$SCALE_X],
-      axes_bottom = axes$x$bottom[layout$SCALE_X],
-      axes_left   = axes$y$left[layout$SCALE_Y],
-      axes_right  = axes$y$right[layout$SCALE_Y]
+      axes_top    = top,
+      axes_bottom = bottom,
+      axes_left   = left,
+      axes_right  = right
     ))
   },
 
@@ -371,5 +406,18 @@ validate_design <- function(design = NULL, trim = TRUE) {
 }
 
 
+# Helpers -----------------------------------------------------------------
 
+restrict_axes <- function(axes, position, by, which_fun = min,
+                          restrictor = zeroGrob) {
+  keep <- split(unname(position), by)
+  keep <- lapply(keep, function(x) {x == which_fun(x)})
+  keep <- unsplit(keep, by)
+  if (is.function(restrictor)) {
+    axes[!keep] <- lapply(axes[!keep], restrictor)
+  } else {
+    axes[!keep] <- list(restrictor)
+  }
+  axes
+}
 
