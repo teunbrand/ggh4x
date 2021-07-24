@@ -2,17 +2,41 @@
 
 ## Facets
 
-Facets have largely been refactored. 
+Facets have largely been refactored. Accordingly, the 
+[vignette](https://teunbrand.github.io/ggh4x/articles/Facets.html) has been 
+updated to reflect the latest changes.
 
-In addition to the previous `facet_wrap2()`, there is now also the cousin 
-`facet_grid2()`. It offers the same axis drawing extensions as `facet_wrap2()`, 
-but for the grid layout. Moreover, it allows for independent scales across 
-rows and columns, which is a constraint in `ggplot2::facet_grid()`. The 
-`facet_nested()` function now inherits from `facet_grid2()` so that it too can
-use the extended axis drawing functions.
+### Wrap
+
+The previously existing `facet_wrap2()` now has the `trim_blank` option to force
+`nrow` and `ncol` argument if these exceed the number of rows or columns needed
+to place all the panels. Thanks to @coolbutuseless for letting me steal the idea
+from the [{facetious}](https://github.com/coolbutuseless/facetious) package. 
+The `facet_wrap2()` function was already used to offer more options over axis 
+drawing.
+
+### Grid
+
+In addition, the cousin `facet_grid2()` makes an entrance. It offers the same 
+axis drawing extensions as `facet_wrap2()`, but for the grid layout. Moreover, 
+it allows for independent scales across  rows and columns, which is a constraint 
+in `ggplot2::facet_grid()`.
+
+### Nested facets
+
+Besides `facet_nested_wrap()` inheriting from `facet_wrap2()`, which was already
+the case, now `facet_nested()` also inherits from `facet_grid2()` to make use
+of the extended axis drawing options. Also, the `nest_line` argument now takes
+a `element_line()` or `element_blank()` to draw the indicator instead of the 
+`logical(1)` argument it took previously. The `bleed` argument has been moved
+from the nested facet to the new `strip_nested()` function (see below).
+
+### Manual
 
 New in the family of facets is now `facet_manual()`: a facet that can take
 a user specified design for a layout and populate the panels accordingly.
+
+### Strips
 
 The facet functions in ggh4x now have `strip` arguments, which can be used
 with new `strip_*()` functions that control how the strips are drawn. For now,

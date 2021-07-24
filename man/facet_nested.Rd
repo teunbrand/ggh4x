@@ -18,7 +18,7 @@ facet_nested(
   switch = NULL,
   drop = TRUE,
   margins = FALSE,
-  nest_line = FALSE,
+  nest_line = element_blank(),
   resect = unit(0, "mm"),
   strip = strip_nested(),
   bleed = NULL
@@ -140,10 +140,9 @@ default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
 
-\item{nest_line}{a \code{logical} vector of length 1, indicating whether to
-draw a nesting line to indicate the nesting of variables. Control the look
-of the nesting line by setting the \code{ggh4x.facet.nestline} theme
-element.}
+\item{nest_line}{a theme element, either \code{element_blank()} or inheriting
+from \code{\link[ggplot2]{element_line}()}. This element inherits from
+the \code{ggh4x.facet.nestline} element in the theme.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
@@ -179,19 +178,15 @@ This function inherits the capabilities of
   \code{\link[ggh4x]{strip_nested}()}.
 }
 \examples{
-df <- iris
-df$nester <- ifelse(df$Species == "setosa",
-                    "Short Leaves",
-                    "Long Leaves")
+# A standard plot
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
 
-ggplot(df, aes(Sepal.Length, Petal.Length)) +
-  geom_point() +
-  facet_nested(~ nester + Species)
+# Similar to `facet_grid2(..., strip = strip_nested())`
+p + facet_nested(~ vs + cyl)
 
-# Controlling the nest line
-ggplot(df, aes(Sepal.Length, Petal.Length)) +
-  geom_point() +
-  facet_nested(~ nester + Species, nest_line = TRUE) +
+# The nest line inherits from the global theme
+p + facet_nested(~ cyl + vs, nest_line = element_line(colour = "red")) +
   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 }
 \seealso{

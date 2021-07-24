@@ -30,7 +30,10 @@ This package offers two extensions to the vanilla `facet_wrap()` and `facet_grid
 The default behaviour of `facet_wrap2()` is to replicate exactly what `ggplot2::facet_wrap()` does.
 
 ```{r wrap_mimick}
-p <- ggplot(mpg, aes(displ, hwy, colour = as.factor(cyl))) + geom_point()
+# Make a standard plot
+p <- ggplot(mpg, aes(displ, hwy, colour = as.factor(cyl))) + geom_point() +
+  labs(x = "Engine displacement", y = "Highway miles per gallon") +
+  guides(colour = "none")
 
 p + facet_wrap2(vars(class))
 ```
@@ -39,6 +42,12 @@ The difference is even when `scales = "fixed"` (the default), you can draw the a
 
 ```{r wrap_axes}
 p + facet_wrap2(vars(class), axes = "all", remove_labels = "x")
+```
+
+Another nicety is that you can force an exact number of rows and columns.
+
+```{r wrap_trimming}
+p + facet_wrap2(vars(class), nrow = 4, ncol = 4, trim_blank = FALSE)
 ```
 
 ## Grid
@@ -69,24 +78,25 @@ Perhaps this package might be best known for generating nested facets; wherein o
 In the example below, we'll categorise the Iris species for having long or short leaves.
 
 ```{r nested_grid}
-df <- cbind(
-  iris,
-  Nester = ifelse(iris$Species == "setosa", "Short Leaves", "Long Leaves")
+new_iris <- transform(
+  iris, 
+  Nester = ifelse(Species == "setosa", "Short Leaves", "Long Leaves")
 )
 
-ggplot(df, aes(Sepal.Width, Sepal.Length)) +
-  geom_point() +
+iris_plot <- ggplot(new_iris, aes(Sepal.Width, Sepal.Length)) +
+  geom_point()
+
+iris_plot +
   facet_nested(~ Nester + Species)
 ```
 
 ## Nesting lines
 
-If you prefer your strips to have blank backgrounds, you could still indicate the hierarchical nature by setting `nest_line = TRUE`. The appearance of the line is controlled by the theme element `ggh4x.facet.nestline`.
+If you prefer your strips to have blank backgrounds, you could still indicate the hierarchical nature by setting `nest_line = elment_line()`. The appearance of the line is inherited from the theme element `ggh4x.facet.nestline`. In the example below, the nesting line is dotted because the given element has `linetype = 2`, but is also blue because it inherits from the theme element.
 
 ```{r nested_nesting_lines}
-ggplot(df, aes(Sepal.Width, Sepal.Length)) +
-  geom_point() +
-  facet_nested(~ Nester + Species, nest_line = TRUE) +
+iris_plot +
+  facet_nested(~ Nester + Species, nest_line = element_line(linetype = 2)) +
   theme(strip.background = element_blank(),
         ggh4x.facet.nestline = element_line(colour = "blue"))
 ```
@@ -98,9 +108,8 @@ While `facet_nested()` is based on `facet_grid())`, there are a few differences.
 Furthermore, when strips are placed at the bottom, it rearranges the strips so that the inner strips are closest to the panels and spanning strips are furthest from the panel.
 
 ```{r nested_grid_difference}
-ggplot(df, aes(Sepal.Width, Sepal.Length)) +
-  geom_point() +
-  geom_point(data = transform(iris, Species = NULL, Nester = "All")) +
+iris_plot +
+  geom_point(data = ~ transform(.x, Species = NULL, Nester = "All")) +
   facet_nested(~ Nester + Species, switch = "x")
 ```
 
@@ -109,13 +118,15 @@ ggplot(df, aes(Sepal.Width, Sepal.Length)) +
 A similar variant exists for wrapping in facets. It can span the strips for every `strip.position` argument, and has a few nifty tricks for duplicating the axes or just the axis ticks.
 
 ```{r nested_wrap}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() + 
+p + 
   facet_nested_wrap(
     vars(cyl, drv), dir = "v", strip.position = "left",
-    axes = "all", remove_labels = "x") +
+    axes = "all", remove_labels = "x"
+  ) +
   theme(strip.placement = "outside")
 ```
+
+Please note that `facet_nested_wrap()` does not change the underlying layout strategy of `ggplot2::facet_wrap()`. It does *not* split sets to separate rows or columns. If you have need of this type of custom layout, read on what `facet_manual()` can do!
 
 # Manual facets
 
@@ -149,8 +160,7 @@ for (i in seq_along(splitted)) {
 To achieve a similar level of control over ggplot2 facets, `facet_manual()` was brought into life. Like the `layout()` function, `facet_manual()` requires a pre-specified design of which panels go where. I've called these 'manual' facets, because it doesn't dynamically generate a layout based on the available data, like the grid and wrap facets do. The matrix that we had given to the `layout()` function in the plots above, can now be used as the `design` argument for the manual facets.
 
 ```{r facet_manual}
-p <- ggplot(mpg, aes(displ, cty)) +
-  geom_point(aes(colour = as.factor(cyl)))
+# Use design from previous chunk
 p + facet_manual(vars(factor(drv)), design = design)
 ```
 
@@ -203,15 +213,14 @@ A style of strips that most closely resembles strips in ggplot2 are vanilla stri
 The `clip` argument controls whether the content of the strip is clipped to the boundaries of the strip background. When clipping is on (the default), any line-width applied to the strip background is effectively halved in size and near impossible to get nicely aligned with, for example, axis lines. When clipping is off, the strip backgrounds have their full line-widths, and strip text is allowed to exceed the confines of the background.
 
 ```{r strip_clip, fig.show='hold', fig.width = 3}
-p <- ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
+p2 <- p +
   theme(strip.background = element_rect(colour = "black", size = 2),
         axis.line.y = element_line(colour = "black", size = 2))
 
-p + facet_wrap2(vars(year), strip = strip_vanilla(clip = "on")) +
+p2 + facet_wrap2(vars(year), strip = strip_vanilla(clip = "on")) +
   ggtitle('clip = "on"')
 
-p + facet_wrap2(vars(year), strip = strip_vanilla(clip = "off")) +
+p2 + facet_wrap2(vars(year), strip = strip_vanilla(clip = "off")) +
   ggtitle('clip = "off"')
 ```
 
@@ -224,13 +233,13 @@ df <- data.frame(
   short = LETTERS[1:3],
   x = 1:3, y = 1:3
 )
-p <- ggplot(df, aes(x, y)) +
+p2 <- ggplot(df, aes(x, y)) +
   geom_point() +
   theme(strip.text.y.left = element_text(angle = 0),
         strip.placement = "outside",
         plot.title.position = "plot")
 
-p + facet_grid2(long + short ~ ., switch = "y",
+p2 + facet_grid2(long + short ~ ., switch = "y",
                 strip = strip_vanilla(size = "constant")) +
   ggtitle('size = "constant"')
 ```
@@ -238,7 +247,7 @@ p + facet_grid2(long + short ~ ., switch = "y",
 Setting `size = "variable"` instead shrinks excessive spacing from strips on a per-layer basis.
 
 ```{r strip_size_variable}
-p + facet_grid2(long + short ~ ., switch = "y",
+p2 + facet_grid2(long + short ~ ., switch = "y",
                 strip = strip_vanilla(size = "variable")) +
   ggtitle('size = "variable"')
 ```
@@ -250,12 +259,7 @@ An extension of the vanilla strips is themed strips. In addition to the `clip` a
 It can be a bit of a pain to construct a list of elements per the following: `list(element_text(colour = "dodgerblue", face = "bold), element_text(colour = "limegreen", face = "bold))`. Instead, there are convenience functions that let you get the exact same results by using `elem_list_text(colour = c("dodgerblue", "limegreen"), face = c("bold", "bold"))`, which is slightly less verbose. There is also a `elem_list_rect()` function to do the same for `element_rect()`.
 
 ```{r strip_themed}
-p <- ggplot(mpg, aes(displ, hwy)) +
-  geom_point()
-
-p + facet_grid2(
-   class ~ drv + year,
-   strip = strip_themed(
+ridiculous_strips <- strip_themed(
      # Horizontal strips
      background_x = elem_list_rect(fill = c("limegreen", "dodgerblue")),
      text_x = elem_list_text(colour = c("dodgerblue", "limegreen"),
@@ -267,8 +271,9 @@ p + facet_grid2(
      ),
      text_y = elem_list_text(angle = c(0, 90)),
      by_layer_y = FALSE
-   )
 )
+
+p + facet_grid2(class ~ drv + year, strip = ridiculous_strips)
 ```
 
 The list of elements does not need to be a homogeneous list of the same type of elements. You can use `NULL` to inherit directly from the theme, and `element_blank()` to skip drawing the element. The themed strips should *in theory* also accept extended theme elements -it accepts for example `ggtext::element_markdown()`- provided that the implementation has a `element_grob()` method and the resulting graphical objects communicate their size appropriately. The constraints are similar to the constraints in `theme()`: text elements should inherit from `element_text` and background elements should inherit from `element_rect`.
@@ -340,9 +345,7 @@ scales <- list(
                      guide = "axis_minor")
 )
 
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  facet_wrap(vars(drv), scales = "free_x") +
+p + facet_wrap(vars(drv), scales = "free_x") +
   facetted_pos_scales(x = scales)
 ```
 
@@ -351,8 +354,7 @@ ggplot(mpg, aes(displ, hwy)) +
 Because it might be inconvenient to predict in programmatically which data might end up in what position, there is also an option to use two-sided formulas to set scales by panel. The formula notation is inspired by `dplyr::case_when()` and lets you use the left hand side (LHS) to decide *where* to apply scales, and the right hand side (RHS) to decide *what* scales to apply. The LHS of the formula will be evaluated in the context of the plot's layout. This is an internal structure that (for good reasons) isn't normally exposed, so it requires a bit of knowledge to know what can be used. For most facets, the plot layout is a `data.frame` that contains the `COL`, `ROW` and `PANEL` columns that keep track of what panel goes where in the grid of cells. In addition, it contains the faceting variables, such as `class` in the example below.
 
 ```{r position_scales_formula}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
+p +
   facet_wrap(vars(class), nrow = 1, scales = "free_x") +
   xlim(range(mpg$displ)) +
   facetted_pos_scales(x = list(

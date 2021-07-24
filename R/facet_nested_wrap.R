@@ -35,12 +35,16 @@
 #'   \code{unit} vector.
 #'
 #' @examples
+#' # A standard plot
 #' p <- ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point()
+#'
+#' # Similar to `facet_wrap2(..., strip = strip_nested())`.
 #' p + facet_nested_wrap(vars(cyl, drv))
 #'
-#' # Controlling the nest line
-#' p + facet_nested_wrap(vars(cyl, drv), nest_line = TRUE) +
+#' # A nest line inherits from the global theme
+#' p + facet_nested_wrap(vars(cyl, drv),
+#'                       nest_line = element_line(colour = "red")) +
 #'   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 facet_nested_wrap <- function(
   facets, nrow = NULL, ncol = NULL,
@@ -49,7 +53,7 @@ facet_nested_wrap <- function(
   shrink = TRUE, labeller = "label_value",
   as.table = TRUE, drop = TRUE,
   dir = "h", strip.position = "top",
-  nest_line = FALSE,
+  nest_line = element_blank(),
   resect = unit(0, "mm"),
   trim_blank = TRUE,
   strip = strip_nested(),
@@ -60,6 +64,17 @@ facet_nested_wrap <- function(
     message(paste0("The `bleed` argument should be set in the ",
                    " `strip_nested()` function."))
     strip$params$bleed <- isTRUE(bleed)
+  }
+  # Convert logical to elements for backward compatibility
+  if (isTRUE(nest_line)) {
+    nest_line <- element_line()
+  }
+  if (isFALSE(nest_line)) {
+    nest_line <- element_blank()
+  }
+  if (!inherits(nest_line, c("element_line", "element_blank"))) {
+    abort(paste0("The `nest_line` argument must be an 'element_blank' or ",
+                 "inherit from an 'element_line'."))
   }
   params <- list(
     nest_line = nest_line,

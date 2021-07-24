@@ -17,7 +17,7 @@ facet_nested_wrap(
   drop = TRUE,
   dir = "h",
   strip.position = "top",
-  nest_line = FALSE,
+  nest_line = element_blank(),
   resect = unit(0, "mm"),
   trim_blank = TRUE,
   strip = strip_nested(),
@@ -97,10 +97,9 @@ the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
 
-\item{nest_line}{a \code{logical} vector of length 1, indicating whether to
-draw a nesting line to indicate the nesting of variables. Control the look
-of the nesting line by setting the \code{ggh4x.facet.nestline} theme
-element.}
+\item{nest_line}{a theme element, either \code{element_blank()} or inheriting
+from \code{\link[ggplot2]{element_line}()}. This element inherits from
+the \code{ggh4x.facet.nestline} element in the theme.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
@@ -139,12 +138,16 @@ This function inherits the capabilities of
   \code{\link[ggh4x]{strip_nested}()}.
 }
 \examples{
+# A standard plot
 p <- ggplot(mpg, aes(displ, hwy)) +
   geom_point()
+
+# Similar to `facet_wrap2(..., strip = strip_nested())`.
 p + facet_nested_wrap(vars(cyl, drv))
 
-# Controlling the nest line
-p + facet_nested_wrap(vars(cyl, drv), nest_line = TRUE) +
+# A nest line inherits from the global theme
+p + facet_nested_wrap(vars(cyl, drv),
+                      nest_line = element_line(colour = "red")) +
   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 }
 \seealso{

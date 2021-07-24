@@ -6,10 +6,9 @@
 #'   and column faceting variables and nests grouped facets.
 #'
 #' @inheritParams facet_grid2
-#' @param nest_line a \code{logical} vector of length 1, indicating whether to
-#'   draw a nesting line to indicate the nesting of variables. Control the look
-#'   of the nesting line by setting the \code{ggh4x.facet.nestline} theme
-#'   element.
+#' @param nest_line a theme element, either \code{element_blank()} or inheriting
+#'   from \code{\link[ggplot2]{element_line}()}. This element inherits from
+#'   the \code{ggh4x.facet.nestline} element in the theme.
 #' @param resect  a \code{unit} vector of length 1, indicating how much the
 #'   nesting line should be shortened.
 #' @param strip An object created by a call to a strip function, such as
@@ -37,26 +36,21 @@
 #'
 #' @return A \emph{FacetNested} ggproto object that can be added to a plot.
 #' @family facetting functions
-
 #' @seealso See \code{\link[ggh4x]{strip_nested}} for nested strips. See
 #'   \code{\link[ggplot2]{facet_grid}} for descriptions of the original
 #'   arguments. See \code{\link[grid]{unit}} for the construction of a
 #'   \code{unit} vector.
-
+#'
 #' @examples
-#' df <- iris
-#' df$nester <- ifelse(df$Species == "setosa",
-#'                     "Short Leaves",
-#'                     "Long Leaves")
+#' # A standard plot
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
 #'
-#' ggplot(df, aes(Sepal.Length, Petal.Length)) +
-#'   geom_point() +
-#'   facet_nested(~ nester + Species)
+#' # Similar to `facet_grid2(..., strip = strip_nested())`
+#' p + facet_nested(~ vs + cyl)
 #'
-#' # Controlling the nest line
-#' ggplot(df, aes(Sepal.Length, Petal.Length)) +
-#'   geom_point() +
-#'   facet_nested(~ nester + Species, nest_line = TRUE) +
+#' # The nest line inherits from the global theme
+#' p + facet_nested(~ cyl + vs, nest_line = element_line(colour = "red")) +
 #'   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 facet_nested <- function(
   rows = NULL,
@@ -72,7 +66,7 @@ facet_nested <- function(
   switch = NULL,
   drop = TRUE,
   margins = FALSE,
-  nest_line = FALSE,
+  nest_line = element_blank(),
   resect = unit(0, "mm"),
   strip = strip_nested(),
   bleed = NULL
@@ -83,6 +77,18 @@ facet_nested <- function(
                    " `strip_nested()` function."))
     strip$params$bleed <- isTRUE(bleed)
   }
+  # Convert logical to elements for backward compatibility
+  if (isTRUE(nest_line)) {
+    nest_line <- element_line()
+  }
+  if (isFALSE(nest_line)) {
+    nest_line <- element_blank()
+  }
+  if (!inherits(nest_line, c("element_line", "element_blank"))) {
+    abort(paste0("The `nest_line` argument must be an 'element_blank' or ",
+                 "inherit from an 'element_line'."))
+  }
+
   params <- list(
     nest_line = nest_line,
     resect = resect
@@ -215,9 +221,17 @@ FacetNested <- ggproto(
 # Helper functions -----------------------------------------------
 
 add_nest_indicator <- function(panels, params, theme) {
-  if (!params$nest_line) {
+  # Convert nest line to proper element
+  nest_line <- params$nest_line
+  if (is.null(nest_line) || isFALSE(nest_line) ||
+      inherits(nest_line, "element_blank")) {
     return(panels)
   }
+  nest_line <- inherit_element(
+    nest_line, calc_element("ggh4x.facet.nestline", theme)
+  )
+
+  # Find strips
   layout <- panels$layout
   layout$index <- seq_len(nrow(layout))
   is_strip <- grepl("^strip-", layout$name)
@@ -231,10 +245,7 @@ add_nest_indicator <- function(panels, params, theme) {
     is_secondary <- any(grepl("^strip-b", h_strip$name))
     passive <- rep(as.numeric(is_secondary), 2)
     # Draw the line
-    indicator <- element_render(
-      theme, "ggh4x.facet.nestline",
-      x = active, y = passive
-    )
+    indicator <- element_grob(nest_line, x = active, y = passive)
     # Add the line to the strip-grob
     panels$grobs[index] <- lapply(
       panels$grobs[index],
@@ -263,10 +274,7 @@ add_nest_indicator <- function(panels, params, theme) {
     is_secondary <- any(grepl("^strip-r", v_strip$name))
     passive <- rep(as.numeric(!is_secondary), 2)
     # Draw the line
-    indicator <- element_render(
-      theme, "ggh4x.facet.nestline",
-      x = passive, y = active
-    )
+    indicator <- element_grob(nest_line, x = active, y = passive)
     # Add the line to the strip grob
     panels$grobs[index] <- lapply(
       panels$grobs[index],
