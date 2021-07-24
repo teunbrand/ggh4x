@@ -204,6 +204,14 @@ ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
   # Copy facet
   oldfacet <- plot$facet
 
+  free <- plot$facet$params$free
+  if (!is.null(free$x) && sum(!empty_x) > 1 && !free$x) {
+    warn("Attempting to add facetted x scales, while x scales are not free.")
+  }
+  if (!is.null(free$y) && sum(!empty_y) > 1 && !free$y) {
+    warn("Attempting to add facetted y scales, while y scales are not free.")
+  }
+
   # Reconstitute new facet
   newfacet <- ggproto(
     paste0("FreeScaled", class(oldfacet)[[1]]),
