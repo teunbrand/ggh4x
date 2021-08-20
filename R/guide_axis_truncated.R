@@ -178,7 +178,7 @@ draw_axis_ggh4x <- function(
   params <- setup_axis_params(axis_position)
   line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
-  if ({n_breaks <- nrow(key)} == 0) {
+  if (nrow(key) == 0) {
     out <- gTree(
       children = gList(line_grob),
       width    = grobWidth(line_grob),

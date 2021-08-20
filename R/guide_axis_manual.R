@@ -273,8 +273,8 @@ draw_axis_manual <- function(
   axis_position,
   theme,
   check.overlap,
-  angle,
-  n.dodge,
+  angle = NULL,
+  n.dodge = 1,
   trunc,
   colour = NULL,
   label_params
@@ -286,7 +286,7 @@ draw_axis_manual <- function(
   params$margin <- label_params$margin
   line_grob <- build_trunc_axis_line(elements$line, params, trunc)
 
-  if ({n_breaks <- nrow(key)} == 0) {
+  if (nrow(key) == 0) {
     out <- gTree(
       children = gList(line_grob),
       width    = grobWidth(line_grob),
