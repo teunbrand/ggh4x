@@ -1,4 +1,4 @@
-# ggh4x 0.1.2.1.9 (dev version on github)
+# ggh4x 0.2.0
 
 ## Facets
 
