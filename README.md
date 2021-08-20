@@ -80,7 +80,7 @@ examples. Links to these topics are below.
         density](https://teunbrand.github.io/ggh4x/articles/Statistics.html#theoretical-densities)
         of several distributions, which are computed with the
         **fitdistrplus** package.
-    -   draw a trendline of your data with a [rolling
+    -   draw a trend line of your data with a [rolling
         kernel](https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels).
     -   plainly [transform x and
         y](https://teunbrand.github.io/ggh4x/articles/Statistics.html#function-x-y)
@@ -142,7 +142,7 @@ g <- g +
 g
 ```
 
-<img src="man/figures/README-multicolour-1.png" width="80%" />
+<img src="man/figures/README-multicolour-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 # We can make a facet wherein duplicated strip labels are merged into one strip
@@ -167,14 +167,14 @@ g <- g + force_panelsizes(cols = c(1, size, size ^ 2), respect = TRUE)
 g
 ```
 
-<img src="man/figures/README-facets-1.png" width="80%" />
+<img src="man/figures/README-facets-1.png" width="80%" style="display: block; margin: auto;" />
 
 ## Footnote
 
 I would like to mention that there are also packages that do some
 similar things to what this package does.
 [facetscales](https://github.com/zeehio/facetscales) also has a facet
-function wherein scales can set per row/colum. The
+function wherein scales can set per row/column. The
 [egg](https://github.com/jwdink/egg) package can also set panel sizes.
 The [lemon](https://github.com/stefanedwards/lemon) package also has
 options to tweak position axes. The

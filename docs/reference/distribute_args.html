@@ -162,7 +162,7 @@ constructing lists of <code>element_text()</code> and
 <code>element_rect()</code> theme elements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>distribute_args</span><span class='op'>(</span><span class='va'>...</span>, .fun <span class='op'>=</span> <span class='va'>element_text</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>distribute_args</span><span class='op'>(</span><span class='va'>...</span>, .fun <span class='op'>=</span> <span class='va'>element_text</span>, .cull <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='fu'>elem_list_text</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
@@ -178,6 +178,11 @@ constructing lists of <code>element_text()</code> and
     <tr>
       <th>.fun</th>
       <td><p>A function to distribute arguments to.</p></td>
+    </tr>
+    <tr>
+      <th>.cull</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> determining if unknown arguments are being
+culled.</p></td>
     </tr>
     </table>
 

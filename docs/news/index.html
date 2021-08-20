@@ -153,9 +153,30 @@
 <div id="facets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#facets" class="anchor"></a>Facets</h2>
-<p>Facets have largely been refactored.</p>
-<p>In addition to the previous <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code>, there is now also the cousin <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code>. It offers the same axis drawing extensions as <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code>, but for the grid layout. Moreover, it allows for independent scales across rows and columns, which is a constraint in <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">ggplot2::facet_grid()</a></code>. The <code><a href="../reference/facet_nested.html">facet_nested()</a></code> function now inherits from <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code> so that it too can use the extended axis drawing functions.</p>
+<p>Facets have largely been refactored. Accordingly, the <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html">vignette</a> has been updated to reflect the latest changes.</p>
+<div id="wrap" class="section level3">
+<h3 class="hasAnchor">
+<a href="#wrap" class="anchor"></a>Wrap</h3>
+<p>The previously existing <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code> now has the <code>trim_blank</code> option to force <code>nrow</code> and <code>ncol</code> argument if these exceed the number of rows or columns needed to place all the panels. Thanks to <a href='https://github.com/coolbutuseless'>@coolbutuseless</a> for letting me steal the idea from the <a href="https://github.com/coolbutuseless/facetious">{facetious}</a> package. The <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code> function was already used to offer more options over axis drawing.</p>
+</div>
+<div id="grid" class="section level3">
+<h3 class="hasAnchor">
+<a href="#grid" class="anchor"></a>Grid</h3>
+<p>In addition, the cousin <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code> makes an entrance. It offers the same axis drawing extensions as <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code>, but for the grid layout. Moreover, it allows for independent scales across rows and columns, which is a constraint in <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">ggplot2::facet_grid()</a></code>.</p>
+</div>
+<div id="nested-facets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#nested-facets" class="anchor"></a>Nested facets</h3>
+<p>Besides <code><a href="../reference/facet_nested_wrap.html">facet_nested_wrap()</a></code> inheriting from <code><a href="../reference/facet_wrap2.html">facet_wrap2()</a></code>, which was already the case, now <code><a href="../reference/facet_nested.html">facet_nested()</a></code> also inherits from <code><a href="../reference/facet_grid2.html">facet_grid2()</a></code> to make use of the extended axis drawing options. Also, the <code>nest_line</code> argument now takes a <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank()</a></code> to draw the indicator instead of the <code><a href="https://rdrr.io/r/base/logical.html">logical(1)</a></code> argument it took previously. The <code>bleed</code> argument has been moved from the nested facet to the new <code><a href="../reference/strip_nested.html">strip_nested()</a></code> function (see below).</p>
+</div>
+<div id="manual" class="section level3">
+<h3 class="hasAnchor">
+<a href="#manual" class="anchor"></a>Manual</h3>
 <p>New in the family of facets is now <code><a href="../reference/facet_manual.html">facet_manual()</a></code>: a facet that can take a user specified design for a layout and populate the panels accordingly.</p>
+</div>
+<div id="strips" class="section level3">
+<h3 class="hasAnchor">
+<a href="#strips" class="anchor"></a>Strips</h3>
 <p>The facet functions in ggh4x now have <code>strip</code> arguments, which can be used with new <code>strip_*()</code> functions that control how the strips are drawn. For now, they come in the following three variants:</p>
 <ul>
 <li>
@@ -165,6 +186,7 @@
 <li>
 <code><a href="../reference/strip_nested.html">strip_nested()</a></code> again does all of the above, but also merges the strips with the same labels if they are next to one another. This means that the core functionality of <code><a href="../reference/facet_nested.html">facet_nested()</a></code> and <code><a href="../reference/facet_nested.html">facet_nested()</a></code> wrap has been moved and is now powered by the <code>strip</code> argument. They can still be convenient to draw nesting indicators.</li>
 </ul>
+</div>
 </div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">

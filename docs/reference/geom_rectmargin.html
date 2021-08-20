@@ -49,8 +49,8 @@
 <meta property="og:title" content="Rectangular rugs in the margins — geom_rectmargin" />
 <meta property="og:description" content="Like rug plots display data points of a 2D plot as lines in the
   margins, this function plots rectangles in the margins. Rectangular rugs
-  are convenient for displaying onedimensional, ranged annotations for
-  twodimensional plots." />
+  are convenient for displaying one-dimensional, ranged annotations for
+  two-dimensional plots." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -154,8 +154,8 @@
     <div class="ref-description">
     <p>Like rug plots display data points of a 2D plot as lines in the
   margins, this function plots rectangles in the margins. Rectangular rugs
-  are convenient for displaying onedimensional, ranged annotations for
-  twodimensional plots.</p>
+  are convenient for displaying one-dimensional, ranged annotations for
+  two-dimensional plots.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_rectmargin</span><span class='op'>(</span>
@@ -231,7 +231,7 @@ to the paired geom/stat.</p></td>
     </tr>
     <tr>
       <th>outside</th>
-      <td><p><code>logical</code> of length 1 that controls wether to move the
+      <td><p><code>logical</code> of length 1 that controls whether to move the
 rectangles outside of the plot area. For the best results, it is probably
 best to set <code>coord_cartesian(clip = "off")</code> and avoid overlap with the
 default axes by changing the sides argument to <code>"tr"</code>.</p></td>
@@ -282,9 +282,9 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
     <p>By default, scales are expanded 5% on either side of the plot,
   whereas the rug rectangles will occupy 3% of the total plot size by
   default. The <code>geom_rectmargin()</code> and <code>geom_tilemargin()</code> versions do the
-  same thing, but are parameterised differently; see
+  same thing, but are parametrised differently; see
   <code><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_rect</a></code>.</p>
-<p>These functions do not have hardcoded required aesthetics, since the x and
+<p>These functions do not have hard-coded required aesthetics, since the x and
   y directions can be omitted by not choosing a side in the corresponding
   direction, i.e. y-direction variables are omitted when plotting the rug only
   on the top and/or bottom. This can result in errors when the aesthetics are

@@ -167,8 +167,9 @@ layout, and nests grouped facets where possible.</p>
   drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
   dir <span class='op'>=</span> <span class='st'>"h"</span>,
   strip.position <span class='op'>=</span> <span class='st'>"top"</span>,
-  nest_line <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  nest_line <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
   resect <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"mm"</span><span class='op'>)</span>,
+  trim_blank <span class='op'>=</span> <span class='cn'>TRUE</span>,
   strip <span class='op'>=</span> <span class='fu'><a href='strip_nested.html'>strip_nested</a></span><span class='op'>(</span><span class='op'>)</span>,
   bleed <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -273,15 +274,21 @@ either of the four sides by setting <code>strip.position = c("top",
     </tr>
     <tr>
       <th>nest_line</th>
-      <td><p>a <code>logical</code> vector of length 1, indicating whether to
-draw a nesting line to indicate the nesting of variables. Control the look
-of the nesting line by setting the <code>ggh4x.facet.nestline</code> theme
-element.</p></td>
+      <td><p>a theme element, either <code>element_blank()</code> or inheriting
+from <code><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_line</a>()</code>. This element inherits from
+the <code>ggh4x.facet.nestline</code> element in the theme.</p></td>
     </tr>
     <tr>
       <th>resect</th>
       <td><p>a <code>unit</code> vector of length 1, indicating how much the
 nesting line should be shortened.</p></td>
+    </tr>
+    <tr>
+      <th>trim_blank</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>. When <code>TRUE</code> (default), does not draw rows
+and columns containing no panels. When <code>FALSE</code>, the <code>nrow</code> and <code>ncol</code>
+arguments are taken literally, even when there are more than needed to
+fit all panels.</p></td>
     </tr>
     <tr>
       <th>strip</th>
@@ -305,21 +312,12 @@ See details.</p></td>
 <p>This function only merges strips in the same row or column as they appear
   through regular <code>facet_wrap()</code> layout behaviour.</p>
 <p>Hierarchies are inferred from the order of variables supplied to
-  <code>rows</code> or <code>cols</code>. The first variable is interpreted to be the
-  outermost variable, while the last variable is interpreted to be the
-  innermost variable. They display order is always such that the outermost
-  variable is placed the furthest away from the panels. Strips are
-  automatically grouped when they span a nested variable.</p>
-<p>The <code>bleed</code> argument controls whether lower-level strips are allowed
-  to be merged when higher-level strips are different, i.e. they can bleed
-  over hierarchies. Suppose the <code>facet_wrap()</code> behaviour would be the
-  following for strips:</p>
-<p><code>[_1_][_2_][_2_]</code> <br /> <code>[_3_][_3_][_4_]</code></p>
-<p>In such case, the default <code>bleed = FALSE</code> argument would result in the
-  following:</p>
-<p><code>[_1_][___2____]</code> <br /> <code>[_3_][_3_][_4_]</code></p>
-<p>Whereas <code>bleed = TRUE</code> would allow the following:</p>
-<p><code>[_1_][___2____]</code> <br /> <code>[___3____][_4_]</code></p>
+  <code>facets</code>. The first variable is interpreted to be the outermost
+  variable, while the last variable is interpreted to be the innermost
+  variable. They display order is always such that the outermost
+  variable is placed the furthest away from the panels. For more information
+  about the nesting of strips, please visit the documentation of
+  <code><a href='strip_nested.html'>strip_nested</a>()</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='strip_nested.html'>strip_nested</a></code> for nested strips. See
@@ -333,17 +331,18 @@ See details.</p></td>
 <code><a href='facet_wrap2.html'>facet_wrap2</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <pre class="examples"><div class='input'><span class='co'># A standard plot</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>displ</span>, <span class='va'>hwy</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'># Similar to `facet_wrap2(..., strip = strip_nested())`.</span>
 <span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>drv</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='facet_nested_wrap-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Controlling the nest line</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>drv</span><span class='op'>)</span>, nest_line <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+<span class='co'># A nest line inherits from the global theme</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>cyl</span>, <span class='va'>drv</span><span class='op'>)</span>,
+                      nest_line <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>theme</span><span class='op'>(</span>ggh4x.facet.nestline <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='facet_nested_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Ignore nested hierarchies with the 'bleed' argument</span>
- <span class='va'>p</span> <span class='op'>+</span> <span class='fu'>facet_nested_wrap</span><span class='op'>(</span><span class='fu'>vars</span><span class='op'>(</span><span class='va'>drv</span>, <span class='va'>cyl</span><span class='op'>)</span>, bleed <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>The `bleed` argument should be set in the  `strip_nested()` function.</span></div><div class='img'><img src='facet_nested_wrap-3.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='facet_nested_wrap-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

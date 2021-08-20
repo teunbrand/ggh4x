@@ -3,9 +3,9 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Facets: Facets.html
+  ggh4x: ggh4x.html
   Miscellaneous: Miscellaneous.html
   PositionGuides: PositionGuides.html
   Statistics: Statistics.html
-  ggh4x: ggh4x.html
-last_built: 2021-07-11T18:53Z
+last_built: 2021-08-20T12:38Z
 

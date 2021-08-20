@@ -127,16 +127,22 @@
 <ul>
 <li>Options to tailor <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html">facets</a>, including:
 <ul>
+<li>Additional options for axis labelling and placement in <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html#extended-facets-1">extended facets</a>.</li>
 <li>
 <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html#nested-facets">Nested facets</a> that have strips that can span multiple panels.</li>
+<li>Custom layouts in <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html#manual-facets-1">manual facets</a>.</li>
+<li>More types of <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html#strips-1">strips</a> to use in facets.</li>
 <li>Adjusting the <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html#position-scales">position scales</a> on a per-panel basis.</li>
 <li>Varying the <a href="https://teunbrand.github.io/ggh4x/articles/Facets.html#sizes">size of panels</a> without being limited to the global <code>aspect.ratio</code> or fixed coordinates.</li>
 </ul>
 </li>
 <li>ggh4x has some <a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html">position guides</a> that change the way x- and y-axes look. You can:
 <ul>
+<li>
+<a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#coloured-axis-1">recolour</a> the axis or cut the axis line with <a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#truncated-axes-1">truncated axes</a>.</li>
 <li>include the <a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks">minor breaks as minor tick marks</a>.</li>
 <li>detail log<sub>10</sub> axes with <a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#logarithmic-ticks">logarithmic tickmarks</a>.</li>
+<li>fine-tune the placement of labels and breaks with <a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#manual-axes-1">manual axes</a>.</li>
 <li>indicate <a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#nested-relations">nested relations</a> in discrete axes.</li>
 <li>mirror the results of hierarchical clustering with <a href="https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#dendrograms">dendrogram axes</a> with help from the <strong>ggdendro</strong> package.</li>
 </ul>
@@ -144,7 +150,7 @@
 <li>There are some <a href="https://teunbrand.github.io/ggh4x/articles/Statistics.html">stat layers</a> that can make it easier to plot. These stat layers can:
 <ul>
 <li>overlaying the <a href="https://teunbrand.github.io/ggh4x/articles/Statistics.html#theoretical-densities">theoretical density</a> of several distributions, which are computed with the <strong>fitdistrplus</strong> package.</li>
-<li>draw a trendline of your data with a <a href="https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels">rolling kernel</a>.</li>
+<li>draw a trend line of your data with a <a href="https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels">rolling kernel</a>.</li>
 <li>plainly <a href="https://teunbrand.github.io/ggh4x/articles/Statistics.html#function-x-y">transform x and y</a> position in a group-wise manner.</li>
 <li>calculate <a href="https://teunbrand.github.io/ggh4x/articles/Statistics.html#run-length-encoding">run-length encodings</a> of your data.</li>
 </ul>
@@ -201,7 +207,7 @@
     guide <span class="op">=</span> <span class="fu">guide_colorbar</span><span class="op">(</span>barheight <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">50</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="va">g</span></code></pre></div>
-<p><img src="reference/figures/README-multicolour-1.png" width="80%"></p>
+<p><img src="reference/figures/README-multicolour-1.png" width="80%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># We can make a facet wherein duplicated strip labels are merged into one strip</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> 
@@ -223,12 +229,12 @@
 <span class="va">size</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">size</span>, <span class="va">size</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">g</span></code></pre></div>
-<p><img src="reference/figures/README-facets-1.png" width="80%"></p>
+<p><img src="reference/figures/README-facets-1.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div id="footnote" class="section level2">
 <h2 class="hasAnchor">
 <a href="#footnote" class="anchor"></a>Footnote</h2>
-<p>I would like to mention that there are also packages that do some similar things to what this package does. <a href="https://github.com/zeehio/facetscales">facetscales</a> also has a facet function wherein scales can set per row/colum. The <a href="https://github.com/jwdink/egg">egg</a> package can also set panel sizes. The <a href="https://github.com/stefanedwards/lemon">lemon</a> package also has options to tweak position axes. The <a href="https://github.com/clauswilke/relayer">relayer</a> and <a href="https://github.com/cran/ggnewscale">ggnewscale</a> packages also allow multiple colour scales in the same plot.</p>
+<p>I would like to mention that there are also packages that do some similar things to what this package does. <a href="https://github.com/zeehio/facetscales">facetscales</a> also has a facet function wherein scales can set per row/column. The <a href="https://github.com/jwdink/egg">egg</a> package can also set panel sizes. The <a href="https://github.com/stefanedwards/lemon">lemon</a> package also has options to tweak position axes. The <a href="https://github.com/clauswilke/relayer">relayer</a> and <a href="https://github.com/cran/ggnewscale">ggnewscale</a> packages also allow multiple colour scales in the same plot.</p>
 <p>Historically, many of these functions come from the <a href="https://github.com/teunbrand/ggnomics">ggnomics</a> package, but have been moved here as a package independent of Bioconductor infrastructure.</p>
 </div>
 </div>
