@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* Fixed misplacement of nest lines in vertical strips (#50)
+
 # ggh4x 0.2.0
 
 ## Facets

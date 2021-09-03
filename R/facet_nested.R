@@ -274,7 +274,7 @@ add_nest_indicator <- function(panels, params, theme) {
     is_secondary <- any(grepl("^strip-r", v_strip$name))
     passive <- rep(as.numeric(!is_secondary), 2)
     # Draw the line
-    indicator <- element_grob(nest_line, x = active, y = passive)
+    indicator <- element_grob(nest_line, x = passive, y = active)
     # Add the line to the strip grob
     panels$grobs[index] <- lapply(
       panels$grobs[index],
