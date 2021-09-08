@@ -192,8 +192,8 @@ FacetWrap2 <- ggproto(
     heights <- params$heights %||% unit(abs(aspect %||% 1), "null")
 
     panel_table <- gtable(
-      widths  = rep_len(widths, ncol),
-      heights = rep_len(heights, nrow),
+      widths  = rep(widths,  length.out = ncol),
+      heights = rep(heights, length.out = nrow),
       respect = respect
     )
     panel_table <- gtable_add_grob(

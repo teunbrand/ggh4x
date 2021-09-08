@@ -160,8 +160,8 @@ StripNested <- ggproto(
     elems  <- self$init_strip(elements, position, index)
     strips <- self$draw_labels(labels, elems, position, layer_id = index,
                                size = params$size)
-    width  <- rep_len(attr(strips, "width"),  nlayers)
-    height <- rep_len(attr(strips, "height"), nlayers)
+    width  <- rep(attr(strips, "width"),  length.out = nlayers)
+    height <- rep(attr(strips, "height"), length.out = nlayers)
 
     self$finish_strip(unname(strips), width, height, position, layout,
                       dim = c(nrow(layout), nlayers), params$clip)

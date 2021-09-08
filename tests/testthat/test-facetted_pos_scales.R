@@ -305,7 +305,7 @@ test_that("facetted_pos_scales can handle empty panels", {
 
   g <- ggplot(df, aes(x, x)) +
     geom_point() +
-    facet_grid(Var1 ~ Var2) +
+    facet_grid(Var1 ~ Var2, scales = "free_y") +
     facetted_pos_scales(y = list(
       scale_y_continuous(),
       scale_y_reverse()

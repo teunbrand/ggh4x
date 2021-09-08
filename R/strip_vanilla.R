@@ -232,8 +232,8 @@ Strip <- ggproto(
       strip <- lapply(strip, function(mat) {
         gtable_matrix(
           "strip", mat,
-          rep_len(width,  ncol(mat)),
-          rep_len(height, nrow(mat)),
+          rep(width,  length.out = ncol(mat)),
+          rep(height, length.out = nrow(mat)),
           clip = clip
         )
       })
