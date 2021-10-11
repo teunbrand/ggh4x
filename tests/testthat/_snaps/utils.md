@@ -1,4 +1,5 @@
 # try_require returns error when package is absent
 
-    The package `nonsense` is required for `test`.
+    The `nonsense` package is required for `test`.
+    
 

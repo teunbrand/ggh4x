@@ -310,7 +310,7 @@ test_that("facetted_pos_scales can handle empty panels", {
       scale_y_continuous(),
       scale_y_reverse()
     ))
-  expect_silent(print(g))
+  expect_silent(ggplotGrob(g))
 })
 
 test_that("facetted_pos_scales can handle discrete scales", {
@@ -323,7 +323,7 @@ test_that("facetted_pos_scales can handle discrete scales", {
       y = list(scale_y_discrete(limits = c("C", "A")),
                scale_y_discrete(limits = c("B", "D")))
     )
-  expect_silent(print(g))
+  expect_silent(ggplotGrob(g))
 })
 
 test_that("facetted_pos_scales can handle date scales", {
@@ -338,7 +338,7 @@ test_that("facetted_pos_scales can handle date scales", {
         scale_x_date(date_breaks = "1 day")
       )
     )
-  expect_silent(print(g))
+  expect_silent(ggplotGrob(g))
 })
 
 # Warning tests -----------------------------------------------------------
@@ -387,3 +387,4 @@ test_that("facetted_pos_scales warns about unusual facets", {
 
   expect_warning(eval(test), "Unknown facet")
 })
+

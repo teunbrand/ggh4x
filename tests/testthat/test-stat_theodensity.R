@@ -25,10 +25,10 @@ test_that("class_distri identifies unknown distributions correctly", {
 
   rxyz <- function(n, mean = 0, sd = 1) {rnorm(n, mean, sd)}
   rzyx <- function(n, lambda) {rpois(n, lambda)}
-  
+
   test <- class_distri("xyz")
   expect_equal(test, "continuous")
-  
+
   test <- class_distri("zyx")
   expect_equal(test, "discrete")
 })
@@ -45,14 +45,14 @@ test_that("stat_theodensity warns about hypergeometric and multinomial distribut
 
 test_that("stat_theodensity warns about discrete distributions with continuous data", {
   plot <- basic + stat_theodensity(distri = "binom")
-  expect_error(print(plot))
+  expect_error(ggplot_build(plot))
 })
 
 test_that("stat_theodensity skips groups with less than two datapoints", {
   # Only include 1 setosa observation
   plot <- ggplot(iris[c(1,51:150),], aes(x = Sepal.Length, colour = Species)) +
     stat_theodensity()
-  dat <- expect_warning(layer_data(plot))
+  expect_warning(dat <- layer_data(plot))
   tab <- as.numeric(table(dat$group))
   expect_equal(tab, c(1, 512, 512))
   expect_true(all(c(is.na(dat$y[1]),
@@ -100,18 +100,18 @@ test_that("stat_theodensity fits negative binomial", {
 })
 
 test_that("stat_theodensity fits binomial", {
-  df <- expect_message(dat_by_distri("binom"))
+  expect_message(df <- dat_by_distri("binom"))
   expect_equal(df$x, seq(min(dat), max(dat), by = 1))
   thismax <- df$x[which.max(df$y)]
   expect_lt(abs(mean(dat) - thismax), 10)
 })
 
 test_that("stat_theodensity fits sign rank", {
-  df <- expect_error(dat_by_distri("signrank"))
+  expect_error(dat_by_distri("signrank"))
 })
 
 test_that("stat_theodensity fits wilcoxon", {
-  df <- expect_error(dat_by_distri("wilcox"))
+  expect_error(dat_by_distri("wilcox"))
 })
 
 
@@ -271,3 +271,4 @@ test_that("stat_theodensity fits logistic", {
   expect_true(all(diff(ld$y[max:512]) < 0))
   expect_true(all(diff(ld$y[1:max]) > 0))
 })
+
