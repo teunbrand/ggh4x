@@ -1,10 +1,5 @@
 test_that("try_require returns error when package is absent", {
-  if (utils::packageVersion("rlang") >= package_version("0.4.10")) {
-    text <- "The `nonsense` package is required"
-  } else {
-    text <- "Please install and try again"
-  }
-  expect_error(try_require("nonsense", "test"), text)
+  expect_snapshot_error(try_require("nonsense", "test"))
 })
 
 test_that("try_require loads package namespace", {
