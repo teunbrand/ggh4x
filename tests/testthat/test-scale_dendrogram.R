@@ -5,8 +5,8 @@ test_that("scale_xy_dendrogram return correct scale types", {
   plain_y <- scale_y_dendrogram()
 
   # Without hclust argument, should simply return discrete position scale
-  expect_is(scale_x_dendrogram(), "ScaleDiscretePosition")
-  expect_is(scale_y_dendrogram(), "ScaleDiscretePosition")
+  expect_s3_class(scale_x_dendrogram(), "ScaleDiscretePosition")
+  expect_s3_class(scale_y_dendrogram(), "ScaleDiscretePosition")
   expect_false(inherits(plain_x, "ScaleDendrogram"))
   expect_false(inherits(plain_y, "ScaleDendrogram"))
 
@@ -14,10 +14,10 @@ test_that("scale_xy_dendrogram return correct scale types", {
   proper_y <- scale_y_dendrogram(hclust = clus)
 
   # With hclust argument should return dendrogram scale
-  expect_is(proper_x, "ScaleDiscretePosition")
-  expect_is(proper_y, "ScaleDiscretePosition")
-  expect_is(proper_x, "ScaleDendrogram")
-  expect_is(proper_y, "ScaleDendrogram")
+  expect_s3_class(proper_x, "ScaleDiscretePosition")
+  expect_s3_class(proper_y, "ScaleDiscretePosition")
+  expect_s3_class(proper_x, "ScaleDendrogram")
+  expect_s3_class(proper_y, "ScaleDendrogram")
 
   # hclust object should be in scale
   expect_identical(proper_x$hclust, clus)
@@ -28,13 +28,13 @@ test_that("scale_xy_dendrogram sets guide correctly", {
   x <- scale_x_dendrogram(hclust = clus)
   y <- scale_y_dendrogram(hclust = clus)
 
-  expect_is(x$guide, "guide")
-  expect_is(x$guide, "dendroguide")
-  expect_is(x$guide$dendro, "dendro")
+  expect_s3_class(x$guide, "guide")
+  expect_s3_class(x$guide, "dendroguide")
+  expect_s3_class(x$guide$dendro, "dendro")
 
-  expect_is(y$guide, "guide")
-  expect_is(y$guide, "dendroguide")
-  expect_is(y$guide$dendro, "dendro")
+  expect_s3_class(y$guide, "guide")
+  expect_s3_class(y$guide, "dendroguide")
+  expect_s3_class(y$guide$dendro, "dendro")
 
   # Should not override manual axis
   x <- scale_x_dendrogram(guide = guide_axis())
@@ -163,7 +163,7 @@ test_that("scale_xy_dendrogram can be draw without labels", {
   ctrl <- ctrl$grobs[[which(ctrl$layout$name == "axis-b")]]$children[[2]][1,1]$grobs[[1]]
   test <- test$grobs[[which(test$layout$name == "axis-b")]]$children[[2]][1,1]$grobs[[1]]
 
-  expect_is(ctrl, "titleGrob")
-  expect_is(test, "zeroGrob")
+  expect_s3_class(ctrl, "titleGrob")
+  expect_s3_class(test, "zeroGrob")
 
 })

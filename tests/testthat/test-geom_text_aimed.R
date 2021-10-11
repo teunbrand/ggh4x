@@ -14,7 +14,7 @@ test_that("geom_text_aimed aims text", {
 
   grob <- layer_grob(p + geom_text_aimed())[[1]]
 
-  expect_is(grob, "aimed_text")
+  expect_s3_class(grob, "aimed_text")
   expect_equal(grob$rot, c(0, 0, 0, 0))
 
   rotgrob <- makeContent(grob)

@@ -30,8 +30,8 @@ test_that("facetted_pos_scales accepts a list of scales", {
   expect_false("lhs" %in% names(attributes(x$x)))
   expect_null(x$y[[1]])
   expect_equal(unname(lengths(x)), c(2, 1))
-  expect_is(x$x[[1]], "ScaleContinuous")
-  expect_is(x$x[[2]], "ScaleContinuous")
+  expect_s3_class(x$x[[1]], "ScaleContinuous")
+  expect_s3_class(x$x[[2]], "ScaleContinuous")
 
 })
 
@@ -42,7 +42,7 @@ test_that("facetted_pos_scales accepts formula input", {
   expect_true("lhs" %in% names(attributes(x$x)))
   expect_null(x$y[[1]])
   expect_equal(unname(lengths(x)), c(1, 1))
-  expect_is(x$x[[1]], "ScaleContinuous")
+  expect_s3_class(x$x[[1]], "ScaleContinuous")
 })
 
 test_that("facetted_pos_scales add to facet_grid correctly", {
@@ -50,9 +50,9 @@ test_that("facetted_pos_scales add to facet_grid correctly", {
     facetted_pos_scales(x = list(NULL, scale_x_reverse()))
 
   facet <- g$facet
-  expect_is(facet, "Facet")
-  expect_is(facet, "FacetGrid")
-  expect_is(facet, "FreeScaledFacetGrid")
+  expect_s3_class(facet, "Facet")
+  expect_s3_class(facet, "FacetGrid")
+  expect_s3_class(facet, "FreeScaledFacetGrid")
 
   # Check relevant functions are updated
   expect_false(identical(
@@ -74,9 +74,9 @@ test_that("facetted_pos_scales add to facet_wrap correctly", {
     facetted_pos_scales(x = list(NULL, scale_x_reverse()))
 
   facet <- g$facet
-  expect_is(facet, "Facet")
-  expect_is(facet, "FacetWrap")
-  expect_is(facet, "FreeScaledFacetWrap")
+  expect_s3_class(facet, "Facet")
+  expect_s3_class(facet, "FacetWrap")
+  expect_s3_class(facet, "FreeScaledFacetWrap")
 
   # Check relevant functions are updated
   expect_false(identical(
@@ -106,8 +106,8 @@ test_that("facetted_pos_scales can make transformations on x", {
   b <- layer_data(b)
 
   # First and third panel are untouched
-  expect_equivalent(a[a$PANEL %in% c(1,3), ],
-                    b[b$PANEL %in% c(1,3), ])
+  expect_equal(a[a$PANEL %in% c(1,3), ], b[b$PANEL %in% c(1,3), ],
+               ignore_attr = TRUE)
 
   # Second panel coordinates are negative
   expect_equal(a[a$PANEL == 2, "x"] * -1,
@@ -122,8 +122,8 @@ test_that("facetted_pos_scales can make transformation on y", {
   b <- layer_data(b)
 
   # First and third panel are untouched
-  expect_equivalent(a[a$PANEL %in% c(1,3), ],
-                    b[b$PANEL %in% c(1,3), ])
+  expect_equal(a[a$PANEL %in% c(1,3), ], b[b$PANEL %in% c(1,3), ],
+               ignore_attr = TRUE)
 
   # Second panel coordinates are negative
   expect_equal(a[a$PANEL == 2, "y"] * -1,

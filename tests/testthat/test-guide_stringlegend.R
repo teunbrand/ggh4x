@@ -1,9 +1,9 @@
 test_that("guide_stringlegend returns correct object", {
   xx <- guide_stringlegend(spacing.x = 1, spacing.y = 2, spacing = 3,
                            default.units = "mm")
-  expect_is(xx, "guide")
-  expect_is(xx, "legend")
-  expect_is(xx, "stringlegend")
+  expect_s3_class(xx, "guide")
+  expect_s3_class(xx, "legend")
+  expect_s3_class(xx, "stringlegend")
   expect_equal(xx$label.spacing.x, unit(1, "mm"))
   expect_equal(xx$label.spacing.y, unit(2, "mm"))
 })

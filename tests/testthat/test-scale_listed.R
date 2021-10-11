@@ -26,10 +26,10 @@ replaces <- c("colour", "colour", "fill", "fill")
 
 test_that("scale_listed returns list with MultiScale elements", {
   test <- scale_listed(scalelist, replaces)
-  expect_is(test, "list")
+  expect_type(test, "list")
   expect_equal(length(test), 2)
-  expect_is(test[[1]], "MultiScale")
-  expect_is(test[[2]], "MultiScale")
+  expect_s3_class(test[[1]], "MultiScale")
+  expect_s3_class(test[[2]], "MultiScale")
 })
 
 test_that("scale_listed adds scales to plot", {
@@ -127,8 +127,8 @@ test_that("scale_listed can mix discrete and continuous colours", {
 
   continuous <- col2rgb(continuous$a)
   discrete <- col2rgb(discrete$b)
-  expect_is(continuous, "matrix")
-  expect_is(discrete, "matrix")
+  expect_equal(dim(continuous), c(3, 10))
+  expect_equal(dim(discrete), c(3, 10))
 
   # Test guide
   gt <- ggplotGrob(test)
@@ -167,8 +167,8 @@ test_that("scale_listed can mix discrete and continuous fills", {
 
   continuous <- col2rgb(continuous$c)
   discrete <- col2rgb(discrete$d)
-  expect_is(continuous, "matrix")
-  expect_is(discrete, "matrix")
+  expect_equal(dim(continuous), c(3, 10))
+  expect_equal(dim(discrete), c(3, 10))
 
   # Test guide
   gt <- ggplotGrob(test)
@@ -185,12 +185,12 @@ test_that("scale_listed can mix discrete and continuous fills", {
   })
 
   nbin <- formals(guide_colourbar)$nbin
-  
+
   key_should <- scales::viridis_pal()(5)
-  
+
   expect_equal(keys, key_should)
   expect_equal(length(bar), nbin)
-  
+
 })
 
 # Error tests -------------------------------------------------------------

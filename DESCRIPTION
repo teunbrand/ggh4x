@@ -33,12 +33,13 @@ Suggests:
     MASS,
     rmarkdown,
     stats,
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     utils
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 RoxygenNote: 7.1.1
+Config/testthat/edition: 3
 Collate: 
     'conveniences.R'
     'element_part_rect.R'

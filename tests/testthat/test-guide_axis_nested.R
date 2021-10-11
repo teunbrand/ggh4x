@@ -97,7 +97,7 @@ test_that("NULL breaks return zeroGrob as labels", {
     scale_x_discrete(guide = "axis_nested", breaks = NULL)
   g <- ggplotGrob(g)
   g <- g$grobs[[which(g$layout$name == "axis-b")]]$children[[1]]
-  expect_is(g, "zeroGrob")
+  expect_s3_class(g, "zeroGrob")
 })
 
 

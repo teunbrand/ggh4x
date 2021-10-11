@@ -1,6 +1,3 @@
-context("test-position_disjoint_ranges")
-
-
 # Setup data --------------------------------------------------------------
 
 df <- data.frame(xmin = c(1, 4, 7,  13, 19),

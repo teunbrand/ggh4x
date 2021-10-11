@@ -73,7 +73,7 @@ test_that("NULL breaks return zeroGrob as labels", {
   g <- base + scale_x_continuous(guide = "axis_minor", breaks = NULL)
   g <- ggplotGrob(g)
   g <- g$grobs[[which(g$layout$name == "axis-b")]]$children[[1]]
-  expect_is(g, "zeroGrob")
+  expect_s3_class(g, "zeroGrob")
 })
 
 test_that("guide_axis_minor errors upon misuse", {

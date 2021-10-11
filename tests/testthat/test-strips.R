@@ -87,8 +87,9 @@ test_that("strip_themed uses by_layer arguments correctly", {
   # Test individual
   is_strip <- grepl("^strip-r-", individ$layout$name)
   lay <- individ$layout[is_strip,]
-  expect_equivalent(lay[c("t", "l")],
-                    list(t = c(7, 7, 7), l = c(6, 11, 16)))
+  expect_equal(lay[c("t", "l")],
+               list(t = c(7, 7, 7), l = c(6, 11, 16)),
+               ignore_attr = TRUE)
   individ <- individ$grobs[is_strip]
   individ <- vapply(individ, function(x) {
     fills <- vapply(x$grobs, function(y) {
@@ -101,8 +102,9 @@ test_that("strip_themed uses by_layer arguments correctly", {
   # Test layered
   is_strip <- grepl("^strip-r-", layered$layout$name)
   lay <- layered$layout[is_strip,]
-  expect_equivalent(lay[c("t", "l")],
-                    list(t = c(7, 7, 7), l = c(6, 11, 16)))
+  expect_equal(lay[c("t", "l")],
+               list(t = c(7, 7, 7), l = c(6, 11, 16)),
+               ignore_attr = TRUE)
   layered <- layered$grobs[is_strip]
   layered <- vapply(layered, function(x) {
     fills <- vapply(x$grobs, function(y) {

@@ -13,14 +13,14 @@ base <- ggplot(df, aes(xmin = xmin, xmax = xmax,
 
 test_that("geom_rectmargin can be added to plots", {
   g <- base + geom_rectmargin()
-  expect_is(g$layers[[2]]$geom, "GeomRectMargin")
+  expect_s3_class(g$layers[[2]]$geom, "GeomRectMargin")
 
   gt <- ggplotGrob(g)
   gt <- gt$grobs[grepl("panel", gt$layout$name)][[1]]
   gt <- gt$children[[4]]$children
 
-  expect_is(gt[[1]], "rect")
-  expect_is(gt[[2]], "rect")
+  expect_s3_class(gt[[1]], "rect")
+  expect_s3_class(gt[[2]], "rect")
 })
 
 test_that("geom_rectmargin recognises sides argument", {
@@ -80,15 +80,15 @@ base <- ggplot(df, aes(x, y,
 
 test_that("geom_rectmargin can be added to plots", {
   g <- base + geom_tilemargin()
-  expect_is(g$layers[[2]]$geom, "GeomTileMargin")
-  expect_is(g$layers[[2]]$geom, "GeomRectMargin")
+  expect_s3_class(g$layers[[2]]$geom, "GeomTileMargin")
+  expect_s3_class(g$layers[[2]]$geom, "GeomRectMargin")
 
   gt <- ggplotGrob(g)
   gt <- gt$grobs[grepl("panel", gt$layout$name)][[1]]
   gt <- gt$children[[4]]$children
 
-  expect_is(gt[[1]], "rect")
-  expect_is(gt[[2]], "rect")
+  expect_s3_class(gt[[1]], "rect")
+  expect_s3_class(gt[[2]], "rect")
 })
 
 test_that("geom_tilemargin recognises sides argument", {

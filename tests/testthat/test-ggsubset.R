@@ -1,14 +1,12 @@
-context("test-ggsubset")
-
 test_that("ggsubset returns a function", {
   f <- ggsubset()
-  expect_is(f, "function")
+  expect_type(f, "closure")
 })
 
 test_that("ggsubset returns a function that can be used on a data.frame", {
   f <- ggsubset(Species == "setosa")
   results <- f(iris)
-  expect_is(results, "data.frame")
+  expect_s3_class(results, "data.frame")
 })
 
 test_that("ggsubset function correctly subsets", {
@@ -75,9 +73,9 @@ test_that("ggsubset can be used in a ggplot", {
   ctrl_tab <- table(ctrl$colour, iris$Species)
   test_tab <- table(test$colour, iris$Species)
 
-  expect_equivalent(ctrl_tab, test_tab)
-  expect_equivalent(colSums(ctrl_tab), c(50, 50, 50))
-  expect_equivalent(rowSums(ctrl_tab), c(50, 50, 50))
-  expect_equivalent(colSums(test_tab), c(50, 50, 50))
-  expect_equivalent(rowSums(test_tab), c(50, 50, 50))
+  expect_equal(ctrl_tab, test_tab, ignore_attr = TRUE)
+  expect_equal(colSums(ctrl_tab), c(50, 50, 50), ignore_attr = TRUE)
+  expect_equal(rowSums(ctrl_tab), c(50, 50, 50), ignore_attr = TRUE)
+  expect_equal(colSums(test_tab), c(50, 50, 50), ignore_attr = TRUE)
+  expect_equal(rowSums(test_tab), c(50, 50, 50), ignore_attr = TRUE)
 })

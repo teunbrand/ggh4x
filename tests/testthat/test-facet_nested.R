@@ -16,20 +16,20 @@ basic <- ggplot(df, aes(Sepal.Length, Petal.Length)) +
 
 test_that("facet_nested can be added to a plot", {
   g <- basic + facet_nested()
-  expect_is(g$facet, "gg")
-  expect_is(g$facet, "Facet")
-  expect_is(g$facet, "FacetGrid")
-  expect_is(g$facet, "FacetNested")
+  expect_s3_class(g$facet, "gg")
+  expect_s3_class(g$facet, "Facet")
+  expect_s3_class(g$facet, "FacetGrid")
+  expect_s3_class(g$facet, "FacetNested")
 })
 
 test_that("facet_nested can be build", {
   g <- basic + facet_nested(~ nester + Species)
   g <- ggplot_build(g)
-  expect_is(g, "ggplot_built")
-  expect_is(g$layout, "gg")
-  expect_is(g$layout, "Layout")
-  expect_is(g$plot, "gg")
-  expect_is(g$plot, "ggplot")
+  expect_s3_class(g, "ggplot_built")
+  expect_s3_class(g$layout, "gg")
+  expect_s3_class(g$layout, "Layout")
+  expect_s3_class(g$plot, "gg")
+  expect_s3_class(g$plot, "ggplot")
 })
 
 test_that("facet_nested can be interpreted as gtable", {
@@ -43,7 +43,7 @@ test_that("facet_nested can be interpreted as gtable", {
 
   # Tests
   expect_equal(class(ctrl), class(test))
-  expect_is(test, "gtable")
+  expect_s3_class(test, "gtable")
 })
 
 test_that("facet_nested splits up data", {

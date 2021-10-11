@@ -65,7 +65,7 @@ test_that("guide_axis_manual training is correct in continuous axes", {
   key <- guide_train(guide, scale)$key
 
   expect_s3_class(key$y, "unit")
-  expect_equivalent(unclass(key$y), c(0.45, 0.5, 0.55))
+  expect_equal(unclass(key$y), c(0.45, 0.5, 0.55), ignore_attr = TRUE)
 
   # Test function breaks and labels
   guide <- guide_axis_manual(breaks = mean,
@@ -110,7 +110,7 @@ test_that("guide_axis_manual training is correct in continuous axes", {
   key <- guide_train(guide, scale)$key
   xx <<- key
 
-  expect_equivalent(unclass(key$x), c(0.5))
+  expect_equal(unclass(key$x), c(0.5), ignore_attr = TRUE)
   expect_s3_class(key$x, "unit")
 })
 
@@ -137,11 +137,13 @@ test_that("guide_axis_manual can be placed at every position", {
                left$grobs[[1]]$children[[1]]$y[c(1,3)])
 
   top <- gt$grobs[gt$layout$name == "axis-t"][[1]]$children[[2]]
-  expect_equivalent(unclass(top$grobs[[1]]$children[[1]]$x), c(0.1, 0.2))
+  expect_equal(unclass(top$grobs[[1]]$children[[1]]$x), c(0.1, 0.2),
+               ignore_attr = TRUE)
 
   bottom <- gt$grobs[gt$layout$name == "axis-b"][[1]]$children[[2]]
-  expect_equivalent(bottom$grobs[[2]]$children[[1]]$gp$col,
-                    c("green", "red", "blue"))
+  expect_equal(bottom$grobs[[2]]$children[[1]]$gp$col,
+               c("green", "red", "blue"),
+               ignore_attr = TRUE)
 })
 
 # Warnings and errors -----------------------------------------------------

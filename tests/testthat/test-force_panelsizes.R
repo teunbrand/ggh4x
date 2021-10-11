@@ -9,17 +9,17 @@ rowwrap <- basic + facet_wrap(~ Species, nrow = 3)
 # Basic tests -------------------------------------------------------------
 
 test_that("force_panelsizes updates facet class correctly", {
-  ctrl <- colwrap + force_panelsizes()
+  ctrl  <- colwrap + force_panelsizes()
   test1 <- colwrap + force_panelsizes(respect = TRUE)
   test2 <- colwrap + force_panelsizes(cols = 1:3)
 
-  expect_is(ctrl$facet, "FacetWrap")
-  expect_is(test1$facet, "FacetWrap")
-  expect_is(test2$facet, "FacetWrap")
+  expect_s3_class(ctrl$facet, "FacetWrap")
+  expect_s3_class(test1$facet, "FacetWrap")
+  expect_s3_class(test2$facet, "FacetWrap")
 
   expect_false(inherits(ctrl$facet, "ForcedFacetWrap"))
-  expect_is(test1$facet, "ForcedFacetWrap")
-  expect_is(test2$facet, "ForcedFacetWrap")
+  expect_s3_class(test1$facet, "ForcedFacetWrap")
+  expect_s3_class(test2$facet, "ForcedFacetWrap")
 })
 
 test_that("force_panelsizes can set respect", {

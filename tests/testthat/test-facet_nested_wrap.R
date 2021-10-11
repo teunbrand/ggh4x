@@ -8,17 +8,17 @@ basic <- ggplot(mpg, aes(displ, hwy)) +
 
 test_that("facet_nested_wrap can be added to a plot", {
   g <- basic + facet_nested_wrap(vars(cyl, drv))
-  expect_is(g$facet, "gg")
-  expect_is(g$facet, "Facet")
-  expect_is(g$facet, "FacetWrap2")
-  expect_is(g$facet, "FacetNestedWrap")
+  expect_s3_class(g$facet, "gg")
+  expect_s3_class(g$facet, "Facet")
+  expect_s3_class(g$facet, "FacetWrap2")
+  expect_s3_class(g$facet, "FacetNestedWrap")
 })
 
 test_that("facet_nested_wrap can be build", {
   g <- basic + facet_nested_wrap(vars(cyl, drv), dir = "v")
   g <- ggplot_build(g)
-  expect_is(g, "ggplot_built")
-  expect_is(g$layout, "gg")
+  expect_s3_class(g, "ggplot_built")
+  expect_s3_class(g$layout, "gg")
 })
 
 test_that("facet_nested_wrap can be interpreted as gtable", {
@@ -29,7 +29,7 @@ test_that("facet_nested_wrap can be interpreted as gtable", {
   ctrl <- ggplotGrob(ctrl)
 
   expect_equal(class(ctrl), class(test))
-  expect_is(test, "gtable")
+  expect_s3_class(test, "gtable")
 })
 
 default <- basic + facet_nested_wrap(vars(cyl, drv))
@@ -76,10 +76,15 @@ test_that("facet_nested_wrap nest_line parameter works", {
 })
 
 test_that("facet_nested_wrap all strip positions are OK", {
-  top <- basic + facet_nested_wrap(vars(cyl, drv), strip.position = "top")
-  bottom <- basic + facet_nested_wrap(vars(cyl, drv), strip.position = "bottom")
-  left <- basic + facet_nested_wrap(vars(cyl, drv), strip.position = "left", dir = "v")
-  right <- basic + facet_nested_wrap(vars(cyl, drv), strip.position = "right", bleed = TRUE)
+  top <- basic + facet_nested_wrap(vars(cyl, drv),
+                                   strip.position = "top")
+  bottom <- basic + facet_nested_wrap(vars(cyl, drv),
+                                      strip.position = "bottom")
+  left <- basic + facet_nested_wrap(vars(cyl, drv),
+                                    strip.position = "left", dir = "v")
+  right <- basic + facet_nested_wrap(vars(cyl, drv),
+                                     strip.position = "right",
+                                     strip = strip_nested(bleed = TRUE))
 
   tables <- lapply(list(top, bottom, left, right), ggplotGrob)
 
