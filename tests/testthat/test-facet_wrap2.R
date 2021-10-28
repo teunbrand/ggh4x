@@ -64,6 +64,26 @@ test_that("facet_wrap2() can some repeat axes", {
   expect_equal(sum(ctrl), 4L)
 })
 
+test_that("facet_wrap2 respects aspect ratio", {
+  case_null <- p + facet_wrap2(~ vs)
+  case_asp  <- case_null + theme(aspect.ratio = 2)
+
+  case_null <- ggplotGrob(case_null)
+  case_asp  <- ggplotGrob(case_asp)
+
+  panel_col <- panel_cols(case_null)$l
+  panel_row <- panel_rows(case_null)$t
+
+  expect_equal(as.character(case_null$widths[panel_col]), c("1null", "1null"))
+  expect_equal(as.character(case_asp$widths[panel_col]),  c("1null", "1null"))
+
+  expect_equal(as.character(case_null$heights[panel_row]), "1null")
+  expect_equal(as.character(case_asp$heights[panel_row]),  "2null")
+
+  expect_false(case_null$respect)
+  expect_true(case_asp$respect)
+})
+
 test_that("facet_wrap2() can remove some labels", {
   case1 <- p + facet_wrap2(am~cyl, axes = "all", remove_labels = "y")
   case2 <- p + facet_wrap2(am~cyl, axes = "all", remove_labels = "x")

@@ -283,7 +283,7 @@ FacetGrid2 <- ggproto(
       heights <- vapply(ps, function(i) diff(ranges[[i]]$y.range), numeric(1))
       heights <- unit(heights, "null")
     } else {
-      heights <- rep(unit(1, "null"), nrow)
+      heights <- rep(unit(1 * abs(aspect), "null"), nrow)
     }
 
     panel_table <- gtable(

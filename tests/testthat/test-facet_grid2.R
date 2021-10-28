@@ -43,6 +43,26 @@ test_that("facet_grid2 can have free and independent scales", {
   expect_equal(ctrl$SCALE_Y, c(1L, 1L, 2L, 2L))
 })
 
+test_that("facet_grid2 respects aspect ratio", {
+  case_null <- p + facet_grid2(~ vs)
+  case_asp  <- case_null + theme(aspect.ratio = 2)
+
+  case_null <- ggplotGrob(case_null)
+  case_asp  <- ggplotGrob(case_asp)
+
+  panel_col <- panel_cols(case_null)$l
+  panel_row <- panel_rows(case_null)$t
+
+  expect_equal(as.character(case_null$widths[panel_col]), c("1null", "1null"))
+  expect_equal(as.character(case_asp$widths[panel_col]),  c("1null", "1null"))
+
+  expect_equal(as.character(case_null$heights[panel_row]), "1null")
+  expect_equal(as.character(case_asp$heights[panel_row]),  "2null")
+
+  expect_false(case_null$respect)
+  expect_true(case_asp$respect)
+})
+
 test_that("facet_grid2 warns about inappropriate arguments", {
   expr <- substitute(facet_grid2(vs ~ am, independent = "x"))
   expect_error(eval(expr), "Rows cannot be independent")

@@ -1,6 +1,7 @@
 # ggh4x (development version)
 
-* Fixed misplacement of nest lines in vertical strips (#50)
+* Fixed misplacement of nest lines in vertical strips (#50).
+* Fixed bug in setting aspect ratio in `facet_grid2()` and family (#56).
 
 # ggh4x 0.2.0
 
