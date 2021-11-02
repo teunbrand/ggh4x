@@ -12,6 +12,7 @@ geom_pointpath(
   ...,
   na.rm = FALSE,
   show.legend = NA,
+  arrow = NULL,
   inherit.aes = TRUE
 )
 }
@@ -55,6 +56,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
+
+\item{arrow}{Arrow specification as created by
+\code{\link[grid:arrow]{grid::arrow()}}.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions

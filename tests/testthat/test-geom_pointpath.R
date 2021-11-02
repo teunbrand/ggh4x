@@ -38,5 +38,5 @@ test_that("geom_pointpath makeContext works with polar coordinates", {
   grob <- layer_grob(g)[[1]]$children[[1]]
   expect_s3_class(grob, "gapsegmentschain")
   out <- grid::makeContext(grob)
-  expect_s3_class(out, "segments")
+  expect_s3_class(out, "polyline")
 })

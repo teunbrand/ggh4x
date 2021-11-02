@@ -7,6 +7,8 @@
 #' \code{type = 'b'} style of base R line plots.
 #'
 #' @inheritParams ggplot2::geom_point
+#' @param arrow Arrow specification as created by
+#'   \code{\link[grid:arrow]{grid::arrow()}}.
 #'
 #' @export
 #'
@@ -34,12 +36,13 @@
 geom_pointpath <- function(
   mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  arrow = NULL,
   inherit.aes = TRUE
 ) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPointPath,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list(na.rm = na.rm, arrow = arrow, ...)
   )
 }
 
@@ -51,7 +54,10 @@ geom_pointpath <- function(
 #' @rdname ggh4x_extensions
 GeomPointPath <- ggplot2::ggproto(
   "GeomPointPath", ggplot2::GeomPoint,
-  draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
+  draw_panel = function(
+    self, data, panel_params, coord,
+    arrow = NULL, na.rm = FALSE
+    ) {
     # Default geom point behaviour
     pointgrob <- ggproto_parent(GeomPoint, self)$draw_panel(
       data, panel_params, coord, na.rm = na.rm
@@ -77,15 +83,17 @@ GeomPointPath <- ggplot2::ggproto(
 
     ## Make custom grob class
     my_path <- grob(
-      x0 = unit(data$x, "npc"), x1 = unit(data$xend, "npc"),
-      y0 = unit(data$y, "npc"), y1 = unit(data$yend, "npc"),
-      mult = (data$size * .pt + data$stroke * .stroke / 2) * data$mult,
-      id = data$id,
-      name = "pointpath",
-      gp = gpar(
-        col = alpha(data$colour, data$alpha),
-        lwd = (data$linesize * .pt),
-        lty = data$linetype,
+      x0    = unit(data$x, "npc"), x1 = unit(data$xend, "npc"),
+      y0    = unit(data$y, "npc"), y1 = unit(data$yend, "npc"),
+      mult  = (data$size * .pt + data$stroke * .stroke / 2) * data$mult,
+      id    = data$id,
+      name  = "pointpath",
+      arrow = arrow,
+      gp    = gpar(
+        col  = alpha(data$colour, data$alpha),
+        fill = alpha(data$colour, data$alpha),
+        lwd  = (data$linesize * .pt),
+        lty  = data$linetype,
         lineend = "butt",
         linejoin = "round", linemitre = 10
       ),
@@ -193,20 +201,37 @@ makeContext.gapsegmentschain <- function(x) {
   y1[right] <- xy$y
 
   # Apply keep to graphical parameters.
-  x$gp[] <- lapply(x$gp, function(x) {
-    if (length(x) == 1L) return(x) else x[keep]
-  })
+  gp <- filter_gp(x$gp, keep)
 
-  # Supply new xy coordinates
-  x$x0 <- unit(x0[keep], "mm")
-  x$x1 <- unit(x1[keep], "mm")
-  x$y0 <- unit(y0[keep], "mm")
-  x$y1 <- unit(y1[keep], "mm")
+  # Calculate index to convert segments -> polyline
+  idx <- seq_len(length(x0))[keep]
+  idx <- rbind(idx, idx + length(x0))
+  dim(idx) <- NULL
 
-  x$mult <- NULL
-  x$id <- NULL
-  class(x)[1] <- "segments"
-  x
+  # Use index to format as polyline
+  xy <- .int$new_data_frame(list(
+    x = c(x0, x1)[idx],
+    y = c(y0, y1)[idx],
+    id = c(x$id, x$id)[idx]
+  ))
+
+  # Deduplicate points
+  n <- nrow(xy)
+  dup <- vapply(xy, function(x) x[-1] == x[-n], logical(n - 1))
+  dup <- c(FALSE, rowSums(dup) == 3)
+  xy  <- xy[!dup, , drop = FALSE]
+
+  # Filter to 1 graphical parameter per group
+  id  <- x$id[keep]
+  start <- c(TRUE, id[-1] != id[-length(id)])
+  gp <- filter_gp(gp, start)
+
+  polylineGrob(
+    x  = unit(xy$x, "mm"),
+    y  = unit(xy$y, "mm"),
+    id = xy$id, gp = gp,
+    arrow = x$arrow
+  )
 }
 
 #' @title Calculate broken segments for a point-interrupted path
@@ -224,24 +249,8 @@ makeContext.gapsegments <- function(x) {
 
   cut <- crop_segment_ends(x0, x1, y0, y1, x$mult)
 
-  # # Do trigonometry stuff
-  # dx <- x1 - x0
-  # dy <- y1 - y0
-  # hyp <- sqrt(dx ^ 2 + dy ^ 2)
-  # nudge_y <- (dy / hyp) * x$mult
-  # nudge_x <- (dx / hyp) * x$mult
-  #
-  # # Calculate new positions
-  # x0 <- x0 + nudge_x
-  # x1 <- x1 - nudge_x
-  # y0 <- y0 + nudge_y
-  # y1 <- y1 - nudge_y
-
   # Filter overshoot
-  # keep <- (sign(dx) == sign(x1 - x0)) & (sign(dy) == sign(y1 - y0))
-  x$gp[] <- lapply(x$gp, function(x) {
-    if (length(x) == 1L) return(x) else x[cut$keep]
-  })
+  x$gp <- filter_gp(x$gp, cut$keep)
 
   # Supply new xy coordinates
   x$x0 <- unit(cut$x0[cut$keep], "mm")
@@ -338,4 +347,10 @@ crop_segment_ends <- function(x0, x1, y0, y1, r) {
   # Decide to keep
   keep <- (sign(dx) == sign(x1 - x0)) & (sign(dy) == sign(y1 - y0))
   list(x0 = x0, x1 = x1, y0 = y0, y1 = y1, keep = keep)
+}
+
+filter_gp <- function(gp, keep) {
+  consider <- lengths(gp) > 1L
+  gp[consider] <- lapply(unclass(gp)[consider], `[`, i = keep)
+  gp
 }
