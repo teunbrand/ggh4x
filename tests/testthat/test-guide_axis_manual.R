@@ -126,24 +126,9 @@ test_that("guide_axis_manual can be placed at every position", {
                               labels = ~ .x ^ 2)
   )
 
-  gt <- ggplotGrob(base + g)
-  expect_s3_class(gt, "gtable")
-
-  left <- gt$grobs[gt$layout$name == "axis-l"][[1]]$children[[2]]
-  expect_equal(left$grobs[[1]]$children[[1]]$gp$fontface, rep("bold", 4))
-
-  right <- gt$grobs[gt$layout$name == "axis-r"][[1]]$children[[2]]
-  expect_equal(right$grobs[[2]]$children[[1]]$y,
-               left$grobs[[1]]$children[[1]]$y[c(1,3)])
-
-  top <- gt$grobs[gt$layout$name == "axis-t"][[1]]$children[[2]]
-  expect_equal(unclass(top$grobs[[1]]$children[[1]]$x), c(0.1, 0.2),
-               ignore_attr = TRUE)
-
-  bottom <- gt$grobs[gt$layout$name == "axis-b"][[1]]$children[[2]]
-  expect_equal(bottom$grobs[[2]]$children[[1]]$gp$col,
-               c("green", "red", "blue"),
-               ignore_attr = TRUE)
+  if (requireNamespace("vdiffr", quietly = TRUE)) {
+    vdiffr::expect_doppelganger("Manual axis all sides", base + g + theme_test())
+  }
 })
 
 # Warnings and errors -----------------------------------------------------

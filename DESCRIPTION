@@ -29,6 +29,7 @@ Suggests:
     digest,
     fitdistrplus,
     ggdendro,
+    vdiffr,
     knitr,
     MASS,
     rmarkdown,
