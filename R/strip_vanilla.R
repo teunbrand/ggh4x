@@ -75,11 +75,11 @@ Strip <- ggproto(
     )
     text <- list(
       "x" = list(
-        "top"    = calc_element("strip.text.x.top", theme),
+        "top"    = calc_element("strip.text.x.top",    theme),
         "bottom" = calc_element("strip.text.x.bottom", theme)
       ),
       "y" = list(
-        "left"  = calc_element("strip.text.y.left", theme),
+        "left"  = calc_element("strip.text.y.left",  theme),
         "right" = calc_element("strip.text.y.right", theme)
       )
     )
@@ -88,12 +88,11 @@ Strip <- ggproto(
       "x" = calc_element("strip.placement.x", theme) %||% "inside" == "inside",
       "y" = calc_element("strip.placement.y", theme) %||% "inside" == "inside"
     )
-    if (type == "wrap") {
-      padding <- calc_element("strip.switch.pad.wrap", theme)
-    } else {
-      padding <- calc_element("strip.switch.pad.grid", theme)
-    }
-    padding <- convertUnit(padding, "cm")
+    padding <- calc_element(
+      paste0("strip.switch.pad.", if (type == "wrap") "wrap" else "grid"),
+      theme
+    )
+    padding <- convertUnit(padding,  "cm")
 
     list(
       padding = padding,
@@ -178,21 +177,15 @@ Strip <- ggproto(
     }
 
     # Set all margins equal
+    idx_w <- c("vp", "parent", "layout", "widths")
+    idx_h <- c("vp", "parent", "layout", "heights")
     labels[!zeros] <- mapply(function(x, i) {
       w <- width[i]
       h <- height[i]
-      x$widths  <- unit.c(x$widths[1],  w,  x$widths[c(-1,  -2)])
-      x$heights <- unit.c(x$heights[1], h, x$heights[c(-1, -2)])
-      x$vp$parent$layout$widths <- unit.c(
-        x$vp$parent$layout$widths[1],
-        w,
-        x$vp$parent$layout$widths[c(-1, -2)]
-      )
-      x$vp$parent$layout$heights <- unit.c(
-        x$vp$parent$layout$heights[1],
-        h,
-        x$vp$parent$layout$heights[c(-1, -2)]
-      )
+      x$widths   <- unit.c(  x$widths[1], w,   x$widths[c(-1, -2)])
+      x$heights  <- unit.c( x$heights[1], h,  x$heights[c(-1, -2)])
+      x[[idx_w]] <- unit.c(x[[idx_w]][1], w, x[[idx_w]][c(-1, -2)])
+      x[[idx_h]] <- unit.c(x[[idx_h]][1], h, x[[idx_h]][c(-1, -2)])
       x
     }, x = labels[!zeros], i = layer_id[!zeros], SIMPLIFY = FALSE)
 
@@ -287,32 +280,28 @@ Strip <- ggproto(
   # Function adapted from ggplot2:::build_strip
   build_strip = function(self, data, labeller, theme, horizontal,
                          params, layout) {
-    labeller <- match.fun(labeller)
-    elem <- self$elements
 
     if (.int$empty(data)) {
-      if (horizontal) {
-        return(list(top = NULL, bottom = NULL))
-      } else {
-        return(list(left = NULL, right = NULL))
-      }
+      ans <- list(NULL, NULL)
+      names(ans) <- if (horizontal) c("top", "bottom") else c("left", "right")
+      return(ans)
     }
 
-    labels <- lapply(labeller(data), cbind)
+    labels <- match.fun(labeller)
+    labels <- lapply(labels(data), cbind)
     labels <- do.call("cbind", labels)
-    ncol <- ncol(labels)
-    nrow <- ncol(labels)
+
+    elem <- self$elements
 
     if (horizontal) {
       top    <- self$assemble_strip(labels, "top",    elem, params, layout)
       bottom <- self$assemble_strip(labels, "bottom", elem, params, layout)
       list(top = top, bottom = bottom)
     } else {
-      left  <- self$assemble_strip(labels, "left", elem, params, layout)
-      right <- self$assemble_strip(
-        labels[, rev(seq_len(ncol)), drop = FALSE],
-        "right", elem, params, layout
-      )
+      # Labels on the right are inside-out
+      revlab <- labels[, rev(seq_len(ncol(labels))), drop = FALSE]
+      right <- self$assemble_strip(revlab, "right", elem, params, layout)
+      left  <- self$assemble_strip(labels, "left",  elem, params, layout)
       list(left = left, right = right)
     }
   },
@@ -320,22 +309,28 @@ Strip <- ggproto(
   # Receives panels and parameters from facet, then adds
   incorporate_wrap = function(self, panels, position,
                               clip = "off", sizes) {
-    # Setup parameters
+
+    # Setup padding
     strip_padding <- self$elements$padding
     padding  <- sizes[[position]]
     padding[as.numeric(padding) != 0] <- strip_padding
+
+    # Setup parameters
     strip <- unlist(unname(self$strips), recursive = FALSE)[[position]]
     inside <- self$elements$inside
     position <- substr(position, 1, 1)
     strip_name <- paste0("strip-", position)
+    offset <- switch(
+      position,
+      "t" = -2 + inside$x,
+      "b" =  1 - inside$x,
+      "l" = -2 + inside$y,
+      "r" =  1 - inside$y
+    )
 
 
     if (position %in% c("t", "b")) {
-      if (position == "t") {
-        offset <- -2 + inside$x
-      } else {
-        offset <-  1 - inside$x
-      }
+
       strip_height <- split_heights_cm(strip$grobs, strip$t)
 
       # Add top/bottom strips
@@ -349,11 +344,7 @@ Strip <- ggproto(
         )
       }
     } else {
-      if (position == "l") {
-        offset <- -2 + inside$y
-      } else {
-        offset <-  1 - inside$y
-      }
+
       strip_width <- split_widths_cm(strip$grobs, strip$l)
 
       # Add left/right strips
