@@ -1,4 +1,6 @@
-# ggh4x (development version)
+# ggh4x 0.2.1
+
+This is a patch release fixing a few bugs and a broken 
 
 * Fixed misplacement of nest lines in vertical strips (#50).
 * Fixed bug in setting aspect ratio in `facet_grid2()` and family (#56).
