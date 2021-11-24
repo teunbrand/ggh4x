@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Codecov test
-coverage](https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg)](https://codecov.io/gh/teunbrand/ggh4x?branch=master)
+coverage](https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg)](https://app.codecov.io/gh/teunbrand/ggh4x?branch=master)
 [![R-CMD-check](https://github.com/teunbrand/ggh4x/workflows/R-CMD-check/badge.svg)](https://github.com/teunbrand/ggh4x/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggh4x)](https://CRAN.R-project.org/package=ggh4x)
@@ -97,6 +97,7 @@ ggh4x.
 ``` r
 library(ggh4x)
 #> Loading required package: ggplot2
+#> Warning: package 'ggplot2' was built under R version 4.1.1
 library(scales)
 
 df <- transform(
