@@ -311,13 +311,14 @@ train_scales_individual <- function(x_scales, y_scales, layout, data, params, se
 
 #' @keywords internal
 finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
+
   # Divide data by panel
-  panels <- split(data, data$PANEL, drop = FALSE)
-  panels <- lapply(names(panels), function(i) {
-    dat  <- panels[[i]]
+  idx    <- vec_group_loc(data$PANEL)$loc
+  panels <- vec_chop(data, idx)
+  panels <- lapply(panels, function(dat) {
 
     # Match panel to their scales
-    panel_id <- match(as.numeric(i), layout$PANEL)
+    panel_id <- match(as.numeric(dat$PANEL[[1]]), layout$PANEL)
     xidx <- layout[panel_id, "SCALE_X"]
     yidx <- layout[panel_id, "SCALE_Y"]
 
@@ -334,9 +335,7 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
     }
     dat
   })
-
-  # Recombine the data
-  data <- unsplit(panels, data$PANEL)
+  data <- vec_unchop(panels, idx)
   data
 }
 
