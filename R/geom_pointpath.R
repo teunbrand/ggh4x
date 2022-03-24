@@ -248,6 +248,9 @@ makeContext.gapsegments <- function(x) {
   y1 <- convertY(x$y1, "mm", TRUE)
 
   cut <- crop_segment_ends(x0, x1, y0, y1, x$mult)
+  if (!any(cut$keep)) {
+    return(zeroGrob())
+  }
 
   # Filter overshoot
   x$gp <- filter_gp(x$gp, cut$keep)
