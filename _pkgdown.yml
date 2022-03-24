@@ -1,4 +1,6 @@
-destination: docs
+url: https://teunbrand.github.io/ggh4x
+template:
+  bootstrap: 5
 
 reference:
 - title: "Facets"
@@ -73,4 +75,3 @@ reference:
   - help_secondary
   - elem_list_rect
   - weave_factors
-  - center_limits
