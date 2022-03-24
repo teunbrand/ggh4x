@@ -401,7 +401,11 @@ If you plan on using `facetted_pos_scales()` to tweak the axis of the plots, do 
 
 # Panel sizes
 
-Lastly, we can also set the sizes of the panels to what we want. This can be especially convenient when you want different sizes for facets, for example when you want to add a density next to your plot. The function `force_panelsizes()` can let you set relative or absolute sizes for the rows and columns. The function should be applicable to facets that follow typical ggplot2 conventions. That includes, but is not limited to, the facet functions in 'ggplot2', those in the 'ggforce' package, those in 'ggh4x' and possibly others (it's redundant for `facet_manual()` though).
+Lastly, we can also set the sizes of the panels to what we want. The function `force_panelsizes()` can let you set relative or absolute sizes for the rows and columns. The function should be applicable to facets that follow typical ggplot2 conventions. That includes, but is not limited to, the facet functions in 'ggplot2', those in the 'ggforce' package, those in 'ggh4x' and possibly others (it's redundant for `facet_manual()` though). Notably, it also applies to `facet_null()`, the default facet in every plot.
+
+```{r panel_size_null}
+p + force_panelsizes(rows = unit(2, "cm"), cols = unit(2, "in"))
+``` 
 
 The settings overrule the coordinates' or theme's aspect ratio and `space = "free"` facet arguments. By default, rows and columns are set relative within themselves only. When `respect = TRUE`, the rows and columns relative units become also relative between rows and columns, as you can see in the plot below. Alternatively, you can set them as absolute units with the `grid::unit()` function. Again, these need to be added *after* any facets.
 
