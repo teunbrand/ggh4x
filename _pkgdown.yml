@@ -73,5 +73,9 @@ reference:
     helpful in specific circumstances.
 - contents:
   - help_secondary
+  - center_limits
+  - element_part_rect
+  - FacetGrid2
+  - ggsubset
   - elem_list_rect
   - weave_factors
