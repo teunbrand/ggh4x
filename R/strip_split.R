@@ -66,7 +66,6 @@ strip_split <- function(
   position = c("top", "left"),
   clip = "inherit",
   size = "constant",
-  nest = TRUE,
   bleed    = FALSE,
   text_x   = NULL,
   text_y   = NULL,
@@ -78,7 +77,6 @@ strip_split <- function(
   params <- list(
     clip  = arg_match0(clip, c("on", "off", "inherit")),
     size  = arg_match0(size, c("constant", "variable")),
-    nest  = isTRUE(nest),
     bleed = isTRUE(bleed),
     position = arg_match(position, values = c("top", "bottom", "left", "right"),
                          multiple = TRUE)

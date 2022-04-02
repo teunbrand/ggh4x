@@ -8,7 +8,6 @@ strip_split(
   position = c("top", "left"),
   clip = "inherit",
   size = "constant",
-  nest = TRUE,
   bleed = FALSE,
   text_x = NULL,
   text_y = NULL,
