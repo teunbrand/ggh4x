@@ -1,10 +1,10 @@
 
 
 strip_split <- function(
+  position = c("top", "left"),
   clip = "inherit",
   size = "constant",
   nest = TRUE,
-  position = c("top", "left"),
   bleed    = FALSE,
   text_x   = NULL,
   text_y   = NULL,
@@ -54,9 +54,9 @@ StripSplit <- ggproto(
       }
       vars <- labels
     } else {
+      # Split strips don't care whether variable is for columns or rows
       var_names <- union(names(params$rows), names(params$cols))
       vars      <- !duplicated(layout[var_names])
-
       layout <- layout[vars, ]
       vars   <- layout[var_names]
 
@@ -74,10 +74,7 @@ StripSplit <- ggproto(
     self, vars,
     labeller, theme, params, layout
   ) {
-
-    positions <- params$position
-    style <- attr(vars, "facet")
-
+    # Early exit if we have no facetting variables
     if (.int$empty(vars)) {
       ans <- list(x = list(top = NULL, bottom = NULL),
                   y = list(left = NULL, right = NULL))
@@ -85,14 +82,29 @@ StripSplit <- ggproto(
       return(invisible())
     }
 
-    labels <- match.fun(labeller)
+    # Setup some parameters/functions
+    positions <- params$position
+    labels    <- match.fun(labeller)
+    elem      <- self$elements
 
-    elem <- self$elements
+    # Check position has correct length
+    # TODO: See if we can do this check earlier somewhere
+    if (length(positions) != ncol(vars)) {
+      rlang::warn(paste0(
+        "The `position` argument in `strip_split()` is being recycled ",
+        "to match the length of the facetting variables,  as provided in the ",
+        "`facets`, `rows`, or `cols` arguments in the facet function."
+      ))
+      positions <- rep_len(positions, ncol(vars))
+    }
 
+    # Construct a data.frame of IDs, it controls the hierarchy in which
+    # strips can be drawn.
     ids <- lapply(seq_len(ncol(vars)), seq_len)
     ids <- lapply(ids, function(i) .int$id(vars[, i, drop = FALSE]))
     ids <- .int$new_data_frame(setNames(ids, colnames(vars)))
 
+    # For every side of the panel, make a strip
     strips <- lapply(
       setNames(nm = c("top", "bottom", "left", "right")),
       function(pos) {
@@ -101,9 +113,11 @@ StripSplit <- ggproto(
         }
         cn  <- colnames(vars[positions == pos])
 
+        # Select relevant bit of the layout
         i   <- !duplicated(ids[positions == pos])
         lay <- layout[i, , drop = FALSE]
 
+        # Format labels
         out <- cbind(labels(lay[cn]))
         lab <- do.call("cbind", out)
 
@@ -113,6 +127,7 @@ StripSplit <- ggproto(
 
         strp <- self$assemble_strip(lab, pos, elem, params, lay)
 
+        # Span strips over multiple panels if there is only a single variable
         if (length(cn) == 1) {
           if (all(strp$t == strp$b)) {
             strp$b <- vapply(split(layout$ROW, ids[[cn]]), max, integer(1))
@@ -142,6 +157,8 @@ StripSplit <- ggproto(
     pos_cols <- panels$layout[grepl("^panel-", panels$layout$name), ,
                               drop = FALSE]
 
+    # TODO: There must be a smarter way than to add strips 4 times in very
+    # similar but slightly different ways.
     if (!is.null(strips$x$top)) {
       strip  <- strips$x$top$grobs
       table  <- strips$x$top[c("t", "b", "l", "r")]
@@ -250,6 +267,8 @@ StripSplit <- ggproto(
   },
 
   incorporate_wrap = function(self, panels, position, clip = "off", sizes) {
+    # The grid way of doing this is probably robust enough to reuse it for
+    # wrapped facets
     self$incorporate_grid(panels, FALSE)
   }
 )
