@@ -3,74 +3,74 @@
 #' Linearly transform coordinates
 #'
 #' Transforms coordinates in two dimensions in a linear manner for layers that
-#' have an \code{x} and \code{y} parametrisation.
+#' have an `x` and `y` parametrisation.
 #'
-#' @param scale A \code{numeric} of length two describing relative units with
-#'   which to multiply the \code{x} and \code{y} coordinates respectively.
-#' @param shear A \code{numeric} of length two giving relative units by which to
+#' @param scale A `numeric` of length two describing relative units with
+#'   which to multiply the `x` and `y` coordinates respectively.
+#' @param shear A `numeric` of length two giving relative units by which to
 #'   shear the output. The first number is for vertical shearing whereas the
 #'   second is for horizontal shearing.
-#' @param angle A \code{numeric} noting an angle in degrees by which to rotate
+#' @param angle A `numeric` noting an angle in degrees by which to rotate
 #'   the input clockwise.
-#' @param M A \code{2} x \code{2} real \code{matrix}: the transformation matrix
+#' @param M A `2` x `2` real `matrix`: the transformation matrix
 #'   for linear mapping. Overrides other arguments if provided.
 #'
-#' @details Linear transformation matrices are \code{2} x \code{2} real
-#'   matrices. The '\code{scale}', '\code{shear}' and '\code{rotation}'
+#' @details Linear transformation matrices are `2` x `2` real
+#'   matrices. The '`scale`', '`shear`' and '`rotation`'
 #'   arguments are convenience arguments to construct a transformation matrix.
 #'   These operations occur in the order: scaling - shearing - rotating. To
-#'   apply the transformations in another order, build a custom '\code{M}'
+#'   apply the transformations in another order, build a custom '`M`'
 #'   argument.
 #'
 #'   For some common transformations, you can find appropriate matrices for the
-#'   '\code{M}' argument below.
+#'   '`M`' argument below.
 #'
 #' @section Common transformations: \subsection{Identity transformations}{An
 #'   identity transformation, or returning the original coordinates, can be
-#'   performed by using the following transformation matrix: \cr\cr\code{| 1 0
-#'   |}\cr\code{| 0 1 |}\cr\cr or \cr\cr\code{M <- matrix(c(1, 0, 0, 1), 2)}}
+#'   performed by using the following transformation matrix: \cr\cr`| 1 0
+#'   |`\cr`| 0 1 |`\cr\cr or \cr\cr`M <- matrix(c(1, 0, 0, 1), 2)`}
 #'   \subsection{Scaling}{A scaling transformation multiplies the dimension of
 #'   an object by some amount. An example transformation matrix for scaling
-#'   everything by a factor 2: \cr\cr\code{| 2 0 |}\cr\code{| 0 2 |}\cr\cr or
-#'   \cr\cr\code{M <- matrix(c(2, 0, 0, 2), 2)}} \subsection{Squeezing}{Similar
+#'   everything by a factor 2: \cr\cr`| 2 0 |`\cr`| 0 2 |`\cr\cr or
+#'   \cr\cr`M <- matrix(c(2, 0, 0, 2), 2)`} \subsection{Squeezing}{Similar
 #'   to scaling, squeezing multiplies the dimensions by some amount that is
-#'   unequal for the \code{x} and \code{y} coordinates. For example, squeezing
-#'   \code{y} by half and expanding \code{x} by two: \tabular{cclclcc}{ |
-#'   \tab\tab \code{2} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0}
-#'   \tab\tab \code{0.5} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(2, 0, 0,
-#'   0.5), 2)}} \subsection{Reflection}{Mirroring the coordinates around one of
+#'   unequal for the `x` and `y` coordinates. For example, squeezing
+#'   `y` by half and expanding `x` by two: \tabular{cclclcc}{ |
+#'   \tab\tab `2` \tab\tab `0` \tab\tab | \cr | \tab\tab `0`
+#'   \tab\tab `0.5` \tab\tab | \cr } or \cr\cr `M <- matrix(c(2, 0, 0,
+#'   0.5), 2)`} \subsection{Reflection}{Mirroring the coordinates around one of
 #'   the axes. Reflecting around the x-axis: \tabular{cclcrcc}{ | \tab\tab
-#'   \code{1} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0} \tab\tab
-#'   \code{-1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(1, 0, 0, -1), 2)}
+#'   `1` \tab\tab `0` \tab\tab | \cr | \tab\tab `0` \tab\tab
+#'   `-1` \tab\tab | \cr } or \cr\cr `M <- matrix(c(1, 0, 0, -1), 2)`
 #'   \cr\cr Reflecting around the y-axis: \tabular{ccrclcc}{ | \tab\tab
-#'   \code{-1} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0} \tab\tab
-#'   \code{1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(-1, 0, 0, 1), 2)} }
+#'   `-1` \tab\tab `0` \tab\tab | \cr | \tab\tab `0` \tab\tab
+#'   `1` \tab\tab | \cr } or \cr\cr `M <- matrix(c(-1, 0, 0, 1), 2)` }
 #'   \subsection{Projection}{For projecting the coordinates on one of the axes,
 #'   while collapsing everything from the other axis. Projecting onto the
-#'   \code{y}-axis: \tabular{cclclcc}{ | \tab\tab \code{0} \tab\tab \code{0}
-#'   \tab\tab | \cr | \tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or
-#'   \cr\cr \code{M <- matrix(c(0, 0, 0, 1), 2)} \cr\cr Projecting onto the
-#'   \code{x}-axis: \tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{0}
-#'   \tab\tab | \cr | \tab\tab \code{0} \tab\tab \code{0} \tab\tab | \cr } or
-#'   \cr\cr \code{M <- matrix(c(1, 0, 0, 0), 2)} } \subsection{Shearing}{Tilting
+#'   `y`-axis: \tabular{cclclcc}{ | \tab\tab `0` \tab\tab `0`
+#'   \tab\tab | \cr | \tab\tab `0` \tab\tab `1` \tab\tab | \cr } or
+#'   \cr\cr `M <- matrix(c(0, 0, 0, 1), 2)` \cr\cr Projecting onto the
+#'   `x`-axis: \tabular{cclclcc}{ | \tab\tab `1` \tab\tab `0`
+#'   \tab\tab | \cr | \tab\tab `0` \tab\tab `0` \tab\tab | \cr } or
+#'   \cr\cr `M <- matrix(c(1, 0, 0, 0), 2)` } \subsection{Shearing}{Tilting
 #'   the coordinates horizontally or vertically. Shearing vertically by 10\%:
-#'   \tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{0} \tab\tab | \cr |
-#'   \tab\tab \code{0.1} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <-
-#'   matrix(c(1, 0.1, 0, 1), 2)} \cr\cr Shearing horizontally by 200\%:
-#'   \tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{2} \tab\tab | \cr |
-#'   \tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <-
-#'   matrix(c(1, 0, 2, 1), 2)} } \subsection{Rotation}{A rotation performs a
+#'   \tabular{cclclcc}{ | \tab\tab `1` \tab\tab `0` \tab\tab | \cr |
+#'   \tab\tab `0.1` \tab\tab `1` \tab\tab | \cr } or \cr\cr `M <-
+#'   matrix(c(1, 0.1, 0, 1), 2)` \cr\cr Shearing horizontally by 200\%:
+#'   \tabular{cclclcc}{ | \tab\tab `1` \tab\tab `2` \tab\tab | \cr |
+#'   \tab\tab `0` \tab\tab `1` \tab\tab | \cr } or \cr\cr `M <-
+#'   matrix(c(1, 0, 2, 1), 2)` } \subsection{Rotation}{A rotation performs a
 #'   motion around a fixed point, typically the origin the coordinate system. To
 #'   rotate the coordinates by 90 degrees counter-clockwise: \tabular{cclcrcc}{ |
-#'   \tab\tab \code{0} \tab\tab \code{-1} \tab\tab | \cr | \tab\tab \code{1}
-#'   \tab\tab \code{0} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(0, 1, -1,
-#'   0), 2)} \cr\cr For a rotation around any angle \eqn{\theta} :
+#'   \tab\tab `0` \tab\tab `-1` \tab\tab | \cr | \tab\tab `1`
+#'   \tab\tab `0` \tab\tab | \cr } or \cr\cr `M <- matrix(c(0, 1, -1,
+#'   0), 2)` \cr\cr For a rotation around any angle \eqn{\theta} :
 #'   \tabular{cclcrcc}{ | \tab\tab \eqn{cos\theta} \tab\tab \eqn{-sin\theta}
 #'   \tab\tab | \cr | \tab\tab \eqn{sin\theta} \tab\tab \eqn{cos\theta} \tab\tab
-#'   | \cr } or \cr\cr \code{M <- matrix(c(cos(theta), sin(theta), -sin(theta),
-#'   cos(theta)), 2)} \cr with '\code{theta}' defined in radians. }
+#'   | \cr } or \cr\cr `M <- matrix(c(cos(theta), sin(theta), -sin(theta),
+#'   cos(theta)), 2)` \cr with '`theta`' defined in radians. }
 #'
-#' @return A \emph{PositionLinearTrans} ggproto object.
+#' @return A *PositionLinearTrans* ggproto object.
 #'
 #' @export
 #'

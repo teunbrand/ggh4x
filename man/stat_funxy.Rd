@@ -96,8 +96,8 @@ as-is, but can be supplied functions and arguments.
 }
 \details{
 This statistic only makes a minimal attempt at ensuring that the
-  results from calling both functions are of equal length. Results of length
-  1 are recycled to match the longest length result.
+results from calling both functions are of equal length. Results of length
+1 are recycled to match the longest length result.
 }
 \examples{
 p <- ggplot(iris, aes(Sepal.Width, Sepal.Length, colour = Species))

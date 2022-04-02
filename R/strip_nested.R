@@ -27,21 +27,21 @@ NULL
 #'   variable is placed the furthest away from the panels. Strips are
 #'   automatically grouped when they span a nested variable.
 #'
-#'   The \code{bleed} argument controls whether lower-layer strips are allowed
+#'   The `bleed` argument controls whether lower-layer strips are allowed
 #'   to be merged when higher-layer strips are different, i.e. they can bleed
-#'   over hierarchies. Suppose the \code{strip_vanilla()} behaviour would be the
+#'   over hierarchies. Suppose the `strip_vanilla()` behaviour would be the
 #'   following for strips:
 #'
-#'   \code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}
+#'   `[_1_][_2_][_2_]` \cr `[_3_][_3_][_4_]`
 #'
-#'   In such case, the default \code{bleed = FALSE} argument would result in the
+#'   In such case, the default `bleed = FALSE` argument would result in the
 #'   following:
 #'
-#'   \code{[_1_][___2____]} \cr \code{[_3_][_3_][_4_]}
+#'   `[_1_][___2____]` \cr `[_3_][_3_][_4_]`
 #'
-#'   Whereas \code{bleed = TRUE} would allow the following:
+#'   Whereas `bleed = TRUE` would allow the following:
 #'
-#'   \code{[_1_][___2____]} \cr \code{[___3____][_4_]}
+#'   `[_1_][___2____]` \cr `[___3____][_4_]`
 #'
 #' @return A `StripNested` ggproto object that can be given as an argument to
 #'   facets in ggh4x.

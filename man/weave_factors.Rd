@@ -25,14 +25,13 @@ A \code{factor} representing combinations of input factors.
 Computes a new factor out of combinations of input factors.
 }
 \details{
-\code{weave_factors()} broadly resembles \code{interaction(...,
-  lex.order = TRUE)}, with a slightly altered approach to non-factor inputs.
-  In other words, this function orders the new levels such that the levels of
-  the first input variable in \code{...} is given priority over the second
-  input, the second input has priority over the third, etc.
+\code{weave_factors()} broadly resembles \code{interaction(..., lex.order = TRUE)}, with a slightly altered approach to non-factor inputs.
+In other words, this function orders the new levels such that the levels of
+the first input variable in \code{...} is given priority over the second
+input, the second input has priority over the third, etc.
 
-  This function treats non-factor inputs as if their levels were
-  \code{unique(as.character(x))}, wherein \code{x} represents an input.
+This function treats non-factor inputs as if their levels were
+\code{unique(as.character(x))}, wherein \code{x} represents an input.
 }
 \examples{
 f1 <- c("banana", "apple", "apple", "kiwi")
@@ -49,5 +48,5 @@ interaction(f1, f2, drop = TRUE, lex.order = TRUE)
 weave_factors(as.factor(f1), f2)
 }
 \seealso{
-\code{\link{interaction}}
+\code{\link[=interaction]{interaction()}}
 }

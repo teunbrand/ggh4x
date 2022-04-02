@@ -7,23 +7,23 @@
 #' aesthetics. Useful for mapping different geoms to different scales for
 #' example.
 #'
-#' @param scalelist A \code{list} wherein elements are the results of calls to a
-#'   scale function with a non-standard aesthetic set as the \code{aesthetic}
+#' @param scalelist A `list` wherein elements are the results of calls to a
+#'   scale function with a non-standard aesthetic set as the `aesthetic`
 #'   argument.
-#' @param replaces A \code{character} vector of the same length as- and parallel
-#'   to- \code{scalelist}, indicating what standard aesthetic to replace with
-#'   the non-standard aesthetic. Typically \code{"colour"} or \code{"fill"}.
+#' @param replaces A `character` vector of the same length as- and parallel
+#'   to- `scalelist`, indicating what standard aesthetic to replace with
+#'   the non-standard aesthetic. Typically `"colour"` or `"fill"`.
 #'
 #' @description This function should only be called after all layers that the
 #'   non-standard aesthetic scales affects have been added to the plot.
 #'
 #'   Inside a layer, the non-standard aesthetic should be part of the call to
-#'   \code{aes} mapping.
+#'   `aes` mapping.
 #'
 #'   May return a warning that the plot is ignoring unknown aesthetics.
 #'
-#' @return A \code{list} of which the elements are of the class
-#'   \code{MultiScale}.
+#' @return A `list` of which the elements are of the class
+#'   `MultiScale`.
 #' @export
 #'
 #' @examples

@@ -2,7 +2,7 @@
 
 #' Polygon parameterisation for rasters
 #'
-#' \code{geom_polygonraster} takes data that describes a raster with pixels of
+#' `geom_polygonraster` takes data that describes a raster with pixels of
 #' the same size and reparametrises the data as a polygon. This allows for more
 #' flexible transformations of the data, but comes at an efficiency cost.
 #'
@@ -10,29 +10,29 @@
 #'
 #' @details For each pixel in a raster, makes a vertex for each of the four
 #'   corner points. These coordinates can then by transformed by
-#'   \code{coord}-functions such as \code{\link[ggplot2]{coord_polar}} or
-#'   \code{position}-functions such as
-#'   \code{\link[ggh4x]{position_lineartrans}}. Currently substitutes group
+#'   `coord`-functions such as [ggplot2::coord_polar()] or
+#'   `position`-functions such as
+#'   [ggh4x::position_lineartrans()]. Currently substitutes group
 #'   aesthetics right before drawing in favour of pixel identifiers.
 #'
 #' @section Aesthetics:
 #'
-#'   \code{geom_raster()} understands the following aesthetics (required
+#'   `geom_raster()` understands the following aesthetics (required
 #'   aesthetics are in bold):
 #'
 #'   \itemize{
-#'     \item \strong{x}
-#'     \item \strong{y}
+#'     \item **x**
+#'     \item **y**
 #'     \item fill
 #'     \item alpha
 #'     \item group
 #'   }
 #'
-#' @seealso \code{\link[ggplot2:geom_tile]{geom_raster}}
+#' @seealso [`geom_raster()`][ggplot2::geom_tile]
 #'
 #' @export
 #'
-#' @return A \emph{Layer} ggproto object.
+#' @return A *Layer* ggproto object.
 #'
 #' @examples
 #' # Combining with coord_polar()

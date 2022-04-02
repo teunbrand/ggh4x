@@ -85,3 +85,4 @@ Collate:
     'utils.R'
     'utils_grid.R'
     'utils_gtable.R'
+Roxygen: list(markdown = TRUE)

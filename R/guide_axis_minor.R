@@ -8,10 +8,10 @@
 #' @inheritParams guide_axis_truncated
 #'
 #' @details The length of minor ticks can be controlled relative to the length
-#'   of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
-#'   \code{rel} object.
+#'   of major ticks by setting `ggh4x.axis.ticks.length.minor` as a
+#'   `rel` object.
 #'
-#' @return An \emph{axis_minor} guide class object.
+#' @return An *axis_minor* guide class object.
 #' @export
 #'
 #' @family axis-guides

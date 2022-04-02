@@ -8,9 +8,9 @@
 #'   distribution.
 #'
 #' @inheritParams ggplot2::geom_density
-#' @param distri A \code{character} of length 1 naming a distribution without
+#' @param distri A `character` of length 1 naming a distribution without
 #'   prefix. See details.
-#' @param n An \code{integer} of length 1 with the number of equally spaced
+#' @param n An `integer` of length 1 with the number of equally spaced
 #'   points at which the density function is evaluated. Ignored if distribution
 #'   is discrete.
 #' @param fix.arg An optional named list giving values of fixed parameters of
@@ -19,33 +19,33 @@
 #' @param start.arg A named list giving initial values of parameters for the
 #'   named distribution. This argument may be omitted (default) for some
 #'   distributions for which reasonable starting values are computed.
-#' @param geom Use to override the default geom for \code{stat_theodensity}.
+#' @param geom Use to override the default geom for `stat_theodensity`.
 #'
-#' @details Valid \code{distri} arguments are the names of distributions for
+#' @details Valid `distri` arguments are the names of distributions for
 #'   which there exists a density function. The names should be given without a
-#'   prefix (typically 'd', 'r', 'q' and 'r'). For example: \code{"norm"} for
-#'   the normal distribution and \code{"nbinom"} for the negative binomial
-#'   distribution. Take a look at \code{\link[stats:Distributions]{distributions}} in the
+#'   prefix (typically 'd', 'r', 'q' and 'r'). For example: `"norm"` for
+#'   the normal distribution and `"nbinom"` for the negative binomial
+#'   distribution. Take a look at [`distributions()`][stats::Distributions] in the
 #'   \pkg{stats} package for an overview.
 #'
 #'   There are a couple of distribution for which there exist no reasonable
 #'   starting values, such as the Student t-distribution and the F-distribution.
 #'   In these cases, it would probably be wise to provide reasonable starting
-#'   values as a named list to the \code{start.arg} argument. When estimating a
-#'   binomial distribution, it would be best to supply the \code{size} to the
-#'   \code{fix.arg} argument.
+#'   values as a named list to the `start.arg` argument. When estimating a
+#'   binomial distribution, it would be best to supply the `size` to the
+#'   `fix.arg` argument.
 #'
 #'   By default, the y values are such that the integral of the distribution is
 #'   1, which scales well with the defaults of kernel density estimates. When
 #'   comparing distributions with absolute count histograms, a sensible choice
-#'   for aesthetic mapping would be \code{aes(y = stat(count) * binwidth)},
-#'   wherein \code{binwidth} is matched with the bin width of the histogram.
+#'   for aesthetic mapping would be `aes(y = stat(count) * binwidth)`,
+#'   wherein `binwidth` is matched with the bin width of the histogram.
 #'
 #'   For discrete distributions, the input data are expected to be integers, or
 #'   doubles that can be divided by 1 without remainders.
 #'
 #'   Parameters are estimated using the
-#'   \code{\link[fitdistrplus]{fitdist}}\code{()} function in the
+#'   [fitdistrplus::fitdist()]`()` function in the
 #'   \pkg{fitdistrplus} package using maximum likelihood estimation.
 #'   Hypergeometric and multinomial distributions from the \pkg{stats} package
 #'   are not supported.
@@ -54,13 +54,13 @@
 #'   \item{count}{density * number of observations - useful for comparing to
 #'   histograms} \item{scaled}{density scaled to a maximum of 1} }
 #'
-#' @seealso \code{\link[stats:Distributions]{Distributions}}
-#'   \code{\link[fitdistrplus]{fitdist}} \code{\link[ggplot2]{geom_density}}
-#'   \code{\link[ggplot2]{geom_histogram}}
+#' @seealso [stats::Distributions()]
+#'   [fitdistrplus::fitdist()] [ggplot2::geom_density()]
+#'   [ggplot2::geom_histogram()]
 #'
 #' @export
 #'
-#' @return A \emph{Layer} ggproto object.
+#' @return A *Layer* ggproto object.
 #'
 #' @examples
 #' # A mixture of normal distributions where the standard deviation is

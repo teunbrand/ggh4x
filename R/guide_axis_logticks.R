@@ -3,24 +3,24 @@
 #' Axis guide with ticks for logarithmic breaks
 #'
 #' This axis guide is probably best described as
-#' \code{\link[ggplot2]{annotation_logticks}} but implemented as a guide instead
+#' [ggplot2::annotation_logticks()] but implemented as a guide instead
 #' of a geom. The tick marks probably best suit log10 transformations.
 #'
 #' @inheritParams guide_axis_minor
-#' @param prescaled A \code{logical} of length one, indicating whether the data
-#'   has been manually rescaled (\code{TRUE}) or the scale takes care of the
-#'   transformation (\code{FALSE}).
+#' @param prescaled A `logical` of length one, indicating whether the data
+#'   has been manually rescaled (`TRUE`) or the scale takes care of the
+#'   transformation (`FALSE`).
 #' @param base When this is provided, the guide takes this as the base for the
 #'   log transformation instead of trying to guess the base. It is recommended
-#'   to use this argument if the base is not \code{10}.
+#'   to use this argument if the base is not `10`.
 #'
 #' @details The length of minor ticks can be controlled relative to the length
-#'   of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
-#'   \code{rel} object. Likewise the size of the smallest ticks are controlled
-#'   by the \code{ggh4x.axis.ticks.length.minor}, also relative to the major
+#'   of major ticks by setting `ggh4x.axis.ticks.length.minor` as a
+#'   `rel` object. Likewise the size of the smallest ticks are controlled
+#'   by the `ggh4x.axis.ticks.length.minor`, also relative to the major
 #'   ticks.
 #'
-#' @return An \emph{axis_logticks} guide class object.
+#' @return An *axis_logticks* guide class object.
 #' @export
 #'
 #' @family axis-guides

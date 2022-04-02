@@ -12,7 +12,7 @@ facetted_pos_scales(x = NULL, y = NULL)
 }
 \value{
 A \emph{facetted_pos_scales} object, instructing a ggplot how to
-  adjust the scales per facet.
+adjust the scales per facet.
 }
 \description{
 This function allows the tweaking of the position scales (x and y) of
@@ -21,43 +21,43 @@ parameters for individual facets, provided the facet allows free scales.
 }
 \details{
 It is intended that this function works with both
-  \code{\link[ggplot2]{facet_wrap}} and \code{\link[ggplot2]{facet_grid}}.
-  For \code{facet_wrap}, the scales are used for each individual panel. For
-  \code{facet_grid}, the scales are used for the rows and columns. Note that
-  these facets must be used with \code{scales = "free"} or \code{"free_x"} or
-  \code{"free_y"}, depending on what scales are added.
+\code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} and \code{\link[ggplot2:facet_grid]{ggplot2::facet_grid()}}.
+For \code{facet_wrap}, the scales are used for each individual panel. For
+\code{facet_grid}, the scales are used for the rows and columns. Note that
+these facets must be used with \code{scales = "free"} or \code{"free_x"} or
+\code{"free_y"}, depending on what scales are added.
 
-  Axis titles are derived from the first scale in the list (or the default
-  position scale when the first list element is \code{NULL}).
+Axis titles are derived from the first scale in the list (or the default
+position scale when the first list element is \code{NULL}).
 
-  \subsection{Scale transformations}{It is allowed to use individual scale
-  transformations for facets, but this functionality comes with the trade-off
-  that the out of bounds (\code{oob}) argument for individual scales is
-  ignored. Values that are out of bounds will be clipped. Whereas the
-  \code{stat} part of a ggplot layer is typically calculated after scale
-  transformations, the calculation of the \code{stat} happens before scale
-  transformation with this function, which can lead to some awkward results.
-  The suggested workaround is to pre-transform the data for layers with
-  non-identity \code{stat} parts.}
+\subsection{Scale transformations}{It is allowed to use individual scale
+transformations for facets, but this functionality comes with the trade-off
+that the out of bounds (\code{oob}) argument for individual scales is
+ignored. Values that are out of bounds will be clipped. Whereas the
+\code{stat} part of a ggplot layer is typically calculated after scale
+transformations, the calculation of the \code{stat} happens before scale
+transformation with this function, which can lead to some awkward results.
+The suggested workaround is to pre-transform the data for layers with
+non-identity \code{stat} parts.}
 
-  \subsection{Scale list input}{\code{NULL}s are valid list elements and
-  signal that the default position scale should be used at the position in
-  the list where the \code{NULL} occurs. Since transformations are applied
-  before facet scales are initiated, it is not recommended to use a default
-  position (either the first in the list, or defined outside
-  \code{facetted_pos_scales()}) scale with a transformation other than
-  \code{trans = "identity"} (the default).}
+\subsection{Scale list input}{\code{NULL}s are valid list elements and
+signal that the default position scale should be used at the position in
+the list where the \code{NULL} occurs. Since transformations are applied
+before facet scales are initiated, it is not recommended to use a default
+position (either the first in the list, or defined outside
+\code{facetted_pos_scales()}) scale with a transformation other than
+\code{trans = "identity"} (the default).}
 
-  \subsection{Formula list input}{The \code{x} and \code{y} arguments also
-  accept a list of two-sided formulas. The left hand side of a formula should
-  evaluate to a \code{logical} vector. The right hand side of the formula
-  should evaluate to a position scale, wherein the \code{x} argument accepts
-  x-position scales and the \code{y} argument accepts y-position scales.
-  Notably, the left hand side of the formula is evaluated using the tidy
-  evaluation framework, whereby the \code{data.frame} with the plot's layout
-  is given priority over the environment in which the formula was created. As
-  a consequence, variables (columns) that define faceting groups can be
-  references directly.}
+\subsection{Formula list input}{The \code{x} and \code{y} arguments also
+accept a list of two-sided formulas. The left hand side of a formula should
+evaluate to a \code{logical} vector. The right hand side of the formula
+should evaluate to a position scale, wherein the \code{x} argument accepts
+x-position scales and the \code{y} argument accepts y-position scales.
+Notably, the left hand side of the formula is evaluated using the tidy
+evaluation framework, whereby the \code{data.frame} with the plot's layout
+is given priority over the environment in which the formula was created. As
+a consequence, variables (columns) that define faceting groups can be
+references directly.}
 }
 \examples{
 plot <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
@@ -82,5 +82,5 @@ plot +
   )
 }
 \seealso{
-\code{\link[ggplot2]{scale_continuous}} and \code{scale_x_discrete}.
+\code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}} and \code{scale_x_discrete}.
 }

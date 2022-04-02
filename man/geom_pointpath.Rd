@@ -75,21 +75,21 @@ connected with lines in some order. This geom intends to mimic the
 }
 \details{
 The \code{linesize} aesthetic can be interpreted as the \code{size}
-  aesthetic for \code{geom_line()}. The \code{mult} is a numeric value to
-  scale the proportion of gaps in the line around points.
+aesthetic for \code{geom_line()}. The \code{mult} is a numeric value to
+scale the proportion of gaps in the line around points.
 
-  While the need for this geom is not very apparent, since it can be
-  approximated in a variety of ways, the trick up its sleeve is that it
-  dynamically adapts the inter-point segments so these  don't deform under
-  different aspect ratios or device sizes.
+While the need for this geom is not very apparent, since it can be
+approximated in a variety of ways, the trick up its sleeve is that it
+dynamically adapts the inter-point segments so these  don't deform under
+different aspect ratios or device sizes.
 }
 \section{Aesthetics}{
  \code{geom_pointpath()} understands the following
-  aesthetics (required aesthetics are in bold):
-  \itemize{\item{\strong{\code{x}}} \item{\strong{\code{y}}}
-  \item{\code{alpha}} \item{\code{colour}} \item{\code{group}}
-  \item{\code{shape}} \item{\code{size}} \item{\code{stroke}}
-  \item{\code{linesize}} \item{\code{linetype}} \item{\code{mult}}}
+aesthetics (required aesthetics are in bold):
+\itemize{\item{\strong{\code{x}}} \item{\strong{\code{y}}}
+\item{\code{alpha}} \item{\code{colour}} \item{\code{group}}
+\item{\code{shape}} \item{\code{size}} \item{\code{stroke}}
+\item{\code{linesize}} \item{\code{linetype}} \item{\code{mult}}}
 }
 
 \examples{

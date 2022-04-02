@@ -13,7 +13,7 @@ ggsubset(rowtest = NULL, omit = NULL)
 }
 \value{
 A function that takes a \code{data.frame} as argument and returns a
-  subset of that \code{data.frame} according to \code{rowtest}
+subset of that \code{data.frame} according to \code{rowtest}
 }
 \description{
 This is a convenience function to allow layer objects, such as geoms, to take
@@ -22,18 +22,18 @@ duplicate of the subset in the ggplot object.
 }
 \details{
 \code{ggsubset} is a wrapper around \code{subset.data.frame} where
-  the \code{subset} argument is set to \code{rowtest} and the \code{select}
-  argument to \code{-omit}. Since the \code{data} argument in the
-  \code{layer()} function can take a function with one argument, we can pass
-  the function returned from \code{ggsubset} as that argument to subset the
-  data by rows.
+the \code{subset} argument is set to \code{rowtest} and the \code{select}
+argument to \code{-omit}. Since the \code{data} argument in the
+\code{layer()} function can take a function with one argument, we can pass
+the function returned from \code{ggsubset} as that argument to subset the
+data by rows.
 }
 \examples{
 ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
   geom_point(data = ggsubset(Species == "setosa"))
 }
 \seealso{
-See \code{\link[ggplot2]{layer}}, specifically the \code{data}
-  argument. See \code{\link[base:subset]{subset.data.frame}} for the internal
-  function.
+See \code{\link[ggplot2:layer]{ggplot2::layer()}}, specifically the \code{data}
+argument. See \code{\link[base:subset]{subset.data.frame()}} for the internal
+function.
 }

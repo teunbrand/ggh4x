@@ -76,7 +76,7 @@ default axes by changing the sides argument to \code{"tr"}.}
 plot the rug-rectangles appear on. A string containing any letters in
 \code{"trbl"} will set it to top, right, bottom and left respectively.}
 
-\item{length}{A \code{\link[grid]{unit}} object that sets the width and
+\item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the width and
 height of the rectangles in the x- and y-directions respectively. Note that
 scale expansion can affect the look of this.}
 
@@ -101,22 +101,22 @@ A \emph{Layer} ggproto object.
 }
 \description{
 Like rug plots display data points of a 2D plot as lines in the
-  margins, this function plots rectangles in the margins. Rectangular rugs
-  are convenient for displaying one-dimensional, ranged annotations for
-  two-dimensional plots.
+margins, this function plots rectangles in the margins. Rectangular rugs
+are convenient for displaying one-dimensional, ranged annotations for
+two-dimensional plots.
 }
 \details{
-By default, scales are expanded 5\% on either side of the plot,
-  whereas the rug rectangles will occupy 3\% of the total plot size by
-  default. The \code{geom_rectmargin()} and \code{geom_tilemargin()} versions do the
-  same thing, but are parametrised differently; see
-  \code{\link[ggplot2:geom_tile]{geom_rect}}.
+By default, scales are expanded 5\\% on either side of the plot,
+whereas the rug rectangles will occupy 3\\% of the total plot size by
+default. The \code{geom_rectmargin()} and \code{geom_tilemargin()} versions do the
+same thing, but are parametrised differently; see
+\code{\link[ggplot2:geom_tile]{geom_rect()}}.
 
-  These functions do not have hard-coded required aesthetics, since the x and
-  y directions can be omitted by not choosing a side in the corresponding
-  direction, i.e. y-direction variables are omitted when plotting the rug only
-  on the top and/or bottom. This can result in errors when the aesthetics are
-  not specified appropriately, so some caution is advised.
+These functions do not have hard-coded required aesthetics, since the x and
+y directions can be omitted by not choosing a side in the corresponding
+direction, i.e. y-direction variables are omitted when plotting the rug only
+on the top and/or bottom. This can result in errors when the aesthetics are
+not specified appropriately, so some caution is advised.
 }
 \section{Aesthetics}{
 
@@ -124,42 +124,42 @@ By default, scales are expanded 5\% on either side of the plot,
 sets of aesthetics, but also can use both:
 
 \itemize{
- \item \strong{xmin}
- \item \strong{xmax}
+\item \strong{xmin}
+\item \strong{xmax}
 }
 
 and/or:
 
 \itemize{
- \item \strong{ymin}
- \item \strong{ymax}
+\item \strong{ymin}
+\item \strong{ymax}
 }
 
 \code{geom_tilemargin()} requires either one of the following
 sets of aesthetics, but can also use both:
 
 \itemize{
- \item \strong{x}
- \item \strong{width}
+\item \strong{x}
+\item \strong{width}
 }
 
 and/or:
 
 \itemize{
- \item \strong{y}
- \item \strong{height}
+\item \strong{y}
+\item \strong{height}
 }
 
 Furthermore, \code{geom_rectmargin()} and \code{geom_tilemargin()} also
 understand these shared aesthetics:
 
 \itemize{
- \item alpha
- \item colour
- \item fill
- \item group
- \item linetype
- \item size
+\item alpha
+\item colour
+\item fill
+\item group
+\item linetype
+\item size
 }
 }
 
@@ -196,6 +196,6 @@ ggplot(df, aes(x, y,
   geom_tilemargin()
 }
 \seealso{
-\code{\link[ggplot2]{geom_rug}}, \code{\link[ggplot2:geom_tile]{geom_rect}},
-  \code{\link[ggplot2:geom_tile]{geom_tile}}
+\code{\link[ggplot2:geom_rug]{ggplot2::geom_rug()}}, \code{\link[ggplot2:geom_tile]{geom_rect()}},
+\code{\link[ggplot2:geom_tile]{ggplot2::geom_tile()}}
 }

@@ -2,44 +2,44 @@
 
 #' @title Layout panels in a grid with nested strips
 #'
-#' @description \code{facet_nested()} forms a matrix of panels defined by row
+#' @description `facet_nested()` forms a matrix of panels defined by row
 #'   and column faceting variables and nests grouped facets.
 #'
 #' @inheritParams facet_grid2
-#' @param nest_line a theme element, either \code{element_blank()} or inheriting
-#'   from \code{\link[ggplot2]{element_line}()}. This element inherits from
-#'   the \code{ggh4x.facet.nestline} element in the theme.
-#' @param resect  a \code{unit} vector of length 1, indicating how much the
+#' @param nest_line a theme element, either `element_blank()` or inheriting
+#'   from [ggplot2::element_line()]. This element inherits from
+#'   the `ggh4x.facet.nestline` element in the theme.
+#' @param resect  a `unit` vector of length 1, indicating how much the
 #'   nesting line should be shortened.
 #' @param strip An object created by a call to a strip function, such as
-#'   \code{\link[ggh4x]{strip_nested}()}.
+#'   [ggh4x::strip_nested()].
 #' @param bleed Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
 #'   See details.
 #'
 #' @details This function inherits the capabilities of
-#'   \code{\link[ggh4x]{facet_grid2}()}.
+#'   [ggh4x::facet_grid2()].
 #'
-#'   Unlike \code{facet_grid()}, this function only automatically expands
+#'   Unlike `facet_grid()`, this function only automatically expands
 #'   missing variables when they have no variables in that direction, to allow
 #'   for unnested variables. It still requires at least one layer to have all
 #'   faceting variables.
 #'
 #'   Hierarchies are inferred from the order of variables supplied to
-#'   \code{rows} or \code{cols}. The first variable is interpreted to be the
+#'   `rows` or `cols`. The first variable is interpreted to be the
 #'   outermost variable, while the last variable is interpreted to be the
 #'   innermost variable. They display order is always such that the outermost
 #'   variable is placed the furthest away from the panels. For more information
 #'   about the nesting of strips, please visit the documentation of
-#'   \code{\link[ggh4x]{strip_nested}()}.
+#'   [ggh4x::strip_nested()].
 #'
 #' @export
 #'
-#' @return A \emph{FacetNested} ggproto object that can be added to a plot.
+#' @return A *FacetNested* ggproto object that can be added to a plot.
 #' @family facetting functions
-#' @seealso See \code{\link[ggh4x]{strip_nested}} for nested strips. See
-#'   \code{\link[ggplot2]{facet_grid}} for descriptions of the original
-#'   arguments. See \code{\link[grid]{unit}} for the construction of a
-#'   \code{unit} vector.
+#' @seealso See [ggh4x::strip_nested()] for nested strips. See
+#'   [ggplot2::facet_grid()] for descriptions of the original
+#'   arguments. See [grid::unit()] for the construction of a
+#'   `unit` vector.
 #'
 #' @examples
 #' # A standard plot

@@ -12,7 +12,7 @@ center the limits.}
 }
 \value{
 A \code{function} that takes limits and returns expanded limits
-  centered at the \code{around} argument.
+centered at the \code{around} argument.
 }
 \description{
 This a function factory that allows the centering of scales around a certain

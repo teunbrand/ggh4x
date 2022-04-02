@@ -10,18 +10,18 @@
 #' @inheritParams ggplot2::scale_x_discrete
 #' @inheritDotParams ggplot2::discrete_scale -breaks
 #' @param hclust An object of the type produced by the
-#'   \code{\link[stats]{hclust}} function.
+#'   [stats::hclust()] function.
 #'
 #' @details The dendrogram type of scale does two things, first it reorders the
 #'   values along the relevant direction such that they follow the order
-#'   captured in the \code{hclust} argument. Secondly, it draws the dendrogram
+#'   captured in the `hclust` argument. Secondly, it draws the dendrogram
 #'   at the axis. The dendrogram visuals inherit from the ticks theme elements,
 #'   so defining a linetype for the tick marks sets the linetype for the
 #'   dendrogram.
 #'
 #' @export
 #'
-#' @return A \emph{ScaleDendrogram} ggproto object.
+#' @return A *ScaleDendrogram* ggproto object.
 #'
 #' @examples
 #' # Hierarchically cluster USArrests

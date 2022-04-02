@@ -27,8 +27,7 @@ scale_colour_multi(
 }
 \arguments{
 \item{..., colours, values, na.value, guide, colors}{listed arguments in
-\code{\link[ggplot2:scale_gradient]{scale_colour_gradientn}} (e.g. \code{colours =
-list(c("white", "red"), c("black", "blue"))}).}
+\code{\link[ggplot2:scale_gradient]{scale_colour_gradientn()}} (e.g. \code{colours = list(c("white", "red"), c("black", "blue"))}).}
 
 \item{aesthetics}{a \code{character} vector with names of aesthetic mapping.}
 }
@@ -37,25 +36,25 @@ A nested list-like structure of the class \code{MultiScale}.
 }
 \description{
 Maps multiple aesthetics to multiple colour fill gradient
-  scales. It takes in listed arguments for each aesthetic and disseminates
-  these to \code{\link[ggplot2]{continuous_scale}}.
+scales. It takes in listed arguments for each aesthetic and disseminates
+these to \code{\link[ggplot2:continuous_scale]{ggplot2::continuous_scale()}}.
 }
 \details{
 This function should only be called after all layers that this
-  function affects are added to the plot.
+function affects are added to the plot.
 
-  The list elements of the listed arguments are assumed to follow the
-  \code{aesthetics} order, i.e. the n\emph{th} list element belongs to the n\emph{th}
-  aesthetic. When there are more list elements than n aesthetics, only the
-  first n\emph{th} list elements are taken. When there are more \code{aesthetics}
-  than list elements, the first list element is used for the remaining
-  aesthethics.
+The list elements of the listed arguments are assumed to follow the
+\code{aesthetics} order, i.e. the n\emph{th} list element belongs to the n\emph{th}
+aesthetic. When there are more list elements than n aesthetics, only the
+first n\emph{th} list elements are taken. When there are more \code{aesthetics}
+than list elements, the first list element is used for the remaining
+aesthethics.
 
-  In contrast to other \code{scale_*_continous}-family functions, the
-  \code{guide} argument is interpreted before adding it to the plot instead
-  of at the time of plot building. This behaviour ensures that the
-  \code{available_aes} argument of the guides are set correctly, but may
-  interfere with the \code{\link[ggplot2]{guides}} function.
+In contrast to other \verb{scale_*_continous}-family functions, the
+\code{guide} argument is interpreted before adding it to the plot instead
+of at the time of plot building. This behaviour ensures that the
+\code{available_aes} argument of the guides are set correctly, but may
+interfere with the \code{\link[ggplot2:guides]{ggplot2::guides()}} function.
 }
 \examples{
 # Setup dummy data

@@ -98,7 +98,7 @@ either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
 
 \item{nest_line}{a theme element, either \code{element_blank()} or inheriting
-from \code{\link[ggplot2]{element_line}()}. This element inherits from
+from \code{\link[ggplot2:element]{ggplot2::element_line()}}. This element inherits from
 the \code{ggh4x.facet.nestline} element in the theme.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
@@ -110,9 +110,9 @@ arguments are taken literally, even when there are more than needed to
 fit all panels.}
 
 \item{strip}{An object created by a call to a strip function, such as
-\code{\link[ggh4x]{strip_nested}()}.}
+\code{\link[=strip_nested]{strip_nested()}}.}
 
-\item{bleed}{Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
+\item{bleed}{Deprecated. Use \code{strip = strip_nested(bleed = ...)} instead.
 See details.}
 }
 \value{
@@ -124,18 +124,18 @@ layout, and nests grouped facets where possible.
 }
 \details{
 This function inherits the capabilities of
-  \code{\link[ggh4x]{facet_wrap2}()}.
+\code{\link[=facet_wrap2]{facet_wrap2()}}.
 
-  This function only merges strips in the same row or column as they appear
-  through regular \code{facet_wrap()} layout behaviour.
+This function only merges strips in the same row or column as they appear
+through regular \code{facet_wrap()} layout behaviour.
 
-  Hierarchies are inferred from the order of variables supplied to
-  \code{facets}. The first variable is interpreted to be the outermost
-  variable, while the last variable is interpreted to be the innermost
-  variable. They display order is always such that the outermost
-  variable is placed the furthest away from the panels. For more information
-  about the nesting of strips, please visit the documentation of
-  \code{\link[ggh4x]{strip_nested}()}.
+Hierarchies are inferred from the order of variables supplied to
+\code{facets}. The first variable is interpreted to be the outermost
+variable, while the last variable is interpreted to be the innermost
+variable. They display order is always such that the outermost
+variable is placed the furthest away from the panels. For more information
+about the nesting of strips, please visit the documentation of
+\code{\link[=strip_nested]{strip_nested()}}.
 }
 \examples{
 # A standard plot
@@ -151,10 +151,10 @@ p + facet_nested_wrap(vars(cyl, drv),
   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 }
 \seealso{
-See \code{\link[ggh4x]{strip_nested}} for nested strips. See
-  \code{\link[ggplot2]{facet_wrap}} for descriptions of the original
-  arguments. See \code{\link[grid]{unit}} for the construction of a
-  \code{unit} vector.
+See \code{\link[=strip_nested]{strip_nested()}} for nested strips. See
+\code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} for descriptions of the original
+arguments. See \code{\link[grid:unit]{grid::unit()}} for the construction of a
+\code{unit} vector.
 
 Other facetting functions: 
 \code{\link{facet_grid2}()},

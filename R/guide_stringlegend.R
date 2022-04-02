@@ -1,21 +1,21 @@
 #' String legend
 #'
 #' This type of legend shows colour and fill mappings as coloured text. It does
-#' not draw keys as \code{guide_legend()} does.
+#' not draw keys as `guide_legend()` does.
 #'
 #' @inheritParams ggplot2::guide_legend
-#' @param family A \code{character(1)} setting a font family for labels.
-#' @param face A \code{character(1)} setting a font face for labels. One of the
-#'   following: \code{"plain"}, \code{"italic"} or \code{"bold"},
-#'   \code{"bold.italic"}.
-#' @param size A \code{numeric(1)} setting the label text size in pts.
-#' @param spacing.x,spacing.y,spacing A \code{numeric(1)} or \code{unit} for the
+#' @param family A `character(1)` setting a font family for labels.
+#' @param face A `character(1)` setting a font face for labels. One of the
+#'   following: `"plain"`, `"italic"` or `"bold"`,
+#'   `"bold.italic"`.
+#' @param size A `numeric(1)` setting the label text size in pts.
+#' @param spacing.x,spacing.y,spacing A `numeric(1)` or `unit` for the
 #'   spacing between label rows and columns. Internally defaults to half the
 #'   size of the title.
-#' @param default.units A \code{character(1)} indicating the default units to
-#'   use if the \code{spacing.*} arguments are only given as numeric vectors.
+#' @param default.units A `character(1)` indicating the default units to
+#'   use if the `spacing.*` arguments are only given as numeric vectors.
 #'
-#' @return A \code{guide}, \code{stringlegend} S3 object.
+#' @return A `guide`, `stringlegend` S3 object.
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) +

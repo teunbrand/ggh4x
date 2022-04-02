@@ -8,22 +8,22 @@
 #'   two-dimensional plots.
 #'
 #' @inheritParams ggplot2::geom_rect
-#' @param outside \code{logical} of length 1 that controls whether to move the
+#' @param outside `logical` of length 1 that controls whether to move the
 #'   rectangles outside of the plot area. For the best results, it is probably
-#'   best to set \code{coord_cartesian(clip = "off")} and avoid overlap with the
-#'   default axes by changing the sides argument to \code{"tr"}.
-#' @param sides A \code{string} of length 1 that controls which sides of the
+#'   best to set `coord_cartesian(clip = "off")` and avoid overlap with the
+#'   default axes by changing the sides argument to `"tr"`.
+#' @param sides A `string` of length 1 that controls which sides of the
 #'   plot the rug-rectangles appear on. A string containing any letters in
-#'   \code{"trbl"} will set it to top, right, bottom and left respectively.
-#' @param length A \code{\link[grid]{unit}} object that sets the width and
+#'   `"trbl"` will set it to top, right, bottom and left respectively.
+#' @param length A [grid::unit()] object that sets the width and
 #'   height of the rectangles in the x- and y-directions respectively. Note that
 #'   scale expansion can affect the look of this.
 #'
 #' @details By default, scales are expanded 5\% on either side of the plot,
 #'   whereas the rug rectangles will occupy 3\% of the total plot size by
-#'   default. The \code{geom_rectmargin()} and \code{geom_tilemargin()} versions do the
+#'   default. The `geom_rectmargin()` and `geom_tilemargin()` versions do the
 #'   same thing, but are parametrised differently; see
-#'   \code{\link[ggplot2:geom_tile]{geom_rect}}.
+#'   [`geom_rect()`][ggplot2::geom_tile].
 #'
 #'   These functions do not have hard-coded required aesthetics, since the x and
 #'   y directions can be omitted by not choosing a side in the corresponding
@@ -33,42 +33,42 @@
 #'
 #' @export
 #'
-#' @return A \emph{Layer} ggproto object.
+#' @return A *Layer* ggproto object.
 #'
 #' @importFrom ggplot2 layer
 #'
 #' @section Aesthetics:
-#' \code{geom_rectmargin()} requires either one of the following
+#' `geom_rectmargin()` requires either one of the following
 #' sets of aesthetics, but also can use both:
 #'
 #' \itemize{
-#'  \item \strong{xmin}
-#'  \item \strong{xmax}
+#'  \item **xmin**
+#'  \item **xmax**
 #' }
 #'
 #' and/or:
 #'
 #' \itemize{
-#'  \item \strong{ymin}
-#'  \item \strong{ymax}
+#'  \item **ymin**
+#'  \item **ymax**
 #' }
 #'
-#' \code{geom_tilemargin()} requires either one of the following
+#' `geom_tilemargin()` requires either one of the following
 #' sets of aesthetics, but can also use both:
 #'
 #' \itemize{
-#'  \item \strong{x}
-#'  \item \strong{width}
+#'  \item **x**
+#'  \item **width**
 #' }
 #'
 #' and/or:
 #'
 #' \itemize{
-#'  \item \strong{y}
-#'  \item \strong{height}
+#'  \item **y**
+#'  \item **height**
 #' }
 #'
-#' Furthermore, \code{geom_rectmargin()} and \code{geom_tilemargin()} also
+#' Furthermore, `geom_rectmargin()` and `geom_tilemargin()` also
 #' understand these shared aesthetics:
 #'
 #' \itemize{
@@ -80,8 +80,8 @@
 #'  \item size
 #' }
 #'
-#' @seealso \code{\link[ggplot2]{geom_rug}}, \code{\link[ggplot2:geom_tile]{geom_rect}},
-#'   \code{\link[ggplot2:geom_tile]{geom_tile}}
+#' @seealso [ggplot2::geom_rug()], [`geom_rect()`][ggplot2::geom_tile],
+#'   [ggplot2::geom_tile()]
 #'
 #' @examples
 #' # geom_rectmargin() is parameterised by the four corners

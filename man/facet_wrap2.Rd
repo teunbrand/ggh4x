@@ -106,7 +106,7 @@ fit all panels.}
 A \code{Facet} ggproto object that can be added to a plot.
 }
 \description{
-This function behaves like \code{\link[ggplot2]{facet_wrap}()}, but has a few
+This function behaves like \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}, but has a few
 extra options on axis drawing when scales are fixed.
 }
 \examples{

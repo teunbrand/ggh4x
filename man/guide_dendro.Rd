@@ -71,7 +71,7 @@ axis text, axis ticks and axis line. Overrules the colour assigned by the
 theme.}
 
 \item{dendro}{Relevant plotting data for a dendrogram such as those returned
-by \code{\link[ggdendro]{dendro_data}}.}
+by \code{\link[ggdendro:dendro_data]{ggdendro::dendro_data()}}.}
 }
 \value{
 A \emph{dendroguide} class object.
@@ -79,12 +79,12 @@ A \emph{dendroguide} class object.
 \description{
 Visual representation of a discrete variable with hierarchical relationships
 between members, like those detailed in
-\code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)}}.
+\code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)()}}.
 }
 \details{
 The dendrogram guide inherits graphical elements from the
-  \code{axis.ticks} theme element. However, the size of the dendrogram is set
-  to 10 times the \code{axis.ticks.length} theme element.
+\code{axis.ticks} theme element. However, the size of the dendrogram is set
+to 10 times the \code{axis.ticks.length} theme element.
 }
 \examples{
 clust <- hclust(dist(USArrests), "ave")

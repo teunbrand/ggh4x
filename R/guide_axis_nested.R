@@ -8,20 +8,20 @@
 #' grouping with a line spanning the earlier labels.
 #'
 #' @inheritParams guide_axis_truncated
-#' @param delim A \code{character} of length 1 to tell \code{strsplit} how
-#'   hierarchies should be broken up. Internally defaults to \code{"."} to match
-#'   \code{interaction}'s default delimiter.
-#' @param extend A \code{numeric} of length 1 indicating how much to extend
+#' @param delim A `character` of length 1 to tell `strsplit` how
+#'   hierarchies should be broken up. Internally defaults to `"."` to match
+#'   `interaction`'s default delimiter.
+#' @param extend A `numeric` of length 1 indicating how much to extend
 #'   nesting lines relative to the smallest difference in break positions.
 #'
 #' @details The guide itself makes no effort to group and order labels. To get
 #'   nice groupings, consider re-ordering the levels of factor variables, or try
 #'   setting the 'breaks' argument of a scale appropriately.
 #'
-#' @return A \emph{axis_nested} guide class object.
-#' @seealso \code{\link[ggplot2]{guide_axis}} for the classic axis
-#'   documentation. \cr \code{\link[ggh4x]{weave_factors}} for an alternative to
-#'   \code{interaction()}.
+#' @return A *axis_nested* guide class object.
+#' @seealso [ggplot2::guide_axis()] for the classic axis
+#'   documentation. \cr [ggh4x::weave_factors()] for an alternative to
+#'   `interaction()`.
 #'
 #' @export
 #'

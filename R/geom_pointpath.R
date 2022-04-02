@@ -4,23 +4,23 @@
 #'
 #' The point path geom is used to make a scatterplot wherein the points are
 #' connected with lines in some order. This geom intends to mimic the
-#' \code{type = 'b'} style of base R line plots.
+#' `type = 'b'` style of base R line plots.
 #'
 #' @inheritParams ggplot2::geom_point
 #' @param arrow Arrow specification as created by
-#'   \code{\link[grid:arrow]{grid::arrow()}}.
+#'   [grid::arrow()].
 #'
 #' @export
 #'
-#' @section Aesthetics: \code{geom_pointpath()} understands the following
+#' @section Aesthetics: `geom_pointpath()` understands the following
 #'   aesthetics (required aesthetics are in bold):
-#'   \itemize{\item{\strong{\code{x}}} \item{\strong{\code{y}}}
-#'   \item{\code{alpha}} \item{\code{colour}} \item{\code{group}}
-#'   \item{\code{shape}} \item{\code{size}} \item{\code{stroke}}
-#'   \item{\code{linesize}} \item{\code{linetype}} \item{\code{mult}}}
+#'   \itemize{\item{**`x`**} \item{**`y`**}
+#'   \item{`alpha`} \item{`colour`} \item{`group`}
+#'   \item{`shape`} \item{`size`} \item{`stroke`}
+#'   \item{`linesize`} \item{`linetype`} \item{`mult`}}
 #'
-#' @details The \code{linesize} aesthetic can be interpreted as the \code{size}
-#'   aesthetic for \code{geom_line()}. The \code{mult} is a numeric value to
+#' @details The `linesize` aesthetic can be interpreted as the `size`
+#'   aesthetic for `geom_line()`. The `mult` is a numeric value to
 #'   scale the proportion of gaps in the line around points.
 #'
 #'   While the need for this geom is not very apparent, since it can be
@@ -28,7 +28,7 @@
 #'   dynamically adapts the inter-point segments so these  don't deform under
 #'   different aspect ratios or device sizes.
 #'
-#' @return A \emph{Layer} ggproto object.
+#' @return A *Layer* ggproto object.
 #'
 #' @examples
 #' ggplot(pressure, aes(temperature, pressure)) +

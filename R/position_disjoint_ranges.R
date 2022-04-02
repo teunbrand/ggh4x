@@ -7,34 +7,34 @@
 #'   positioning works best when no relevant information is plotted in the
 #'   y-direction.
 #'
-#' @param extend a \code{numeric} of length 1 indicating how far a range should
+#' @param extend a `numeric` of length 1 indicating how far a range should
 #'   be extended in total for calculating overlaps. Setting this argument to a
 #'   positive number leaves some space between ranges in the same bin.
-#' @param stepsize a \code{numeric} of length 1 that determines how much space
+#' @param stepsize a `numeric` of length 1 that determines how much space
 #'   is added between bins in the y-direction. A positive value grows the bins
 #'   from bottom to top, while a negative value grows the bins from top to
 #'   bottom.
 #'
 #' @export
 #'
-#' @return A \emph{PositionDisjointRanges} object.
+#' @return A *PositionDisjointRanges* object.
 #'
 #' @details An object is considered disjoint from a second object when the range
-#'   between their \code{xmin} and \code{xmax} coordinates don't overlap.
+#'   between their `xmin` and `xmax` coordinates don't overlap.
 #'   Objects that overlap are assigned to different bins in the y-direction,
 #'   whereby lower bins are filled first. This way, information in the
 #'   x-direction is preserved and different objects can be discerned.
 #'
 #'   Note that this positioning is only particularly useful when y-coordinates
 #'   do not encode relevant information. Geoms that pair well with this
-#'   positioning are \code{\link[ggplot2:geom_tile]{geom_rect}} and
-#'   \code{\link[ggplot2]{geom_tile}}.
+#'   positioning are [`geom_rect()`][ggplot2::geom_tile] and
+#'   [ggplot2::geom_tile()].
 #'
-#'   This positioning function was inspired by the \code{disjointBins()}
-#'   function in the \code{IRanges} package, but has been written such that it
+#'   This positioning function was inspired by the `disjointBins()`
+#'   function in the `IRanges` package, but has been written such that it
 #'   accepts any numeric input next to solely integer input.
 #'
-#' @seealso The \code{disjointBins} function the Bioconductor IRanges package.
+#' @seealso The `disjointBins` function the Bioconductor IRanges package.
 #'
 #' @examples
 #' # Even though geom_tile() is parametrised by middle-x values, it is

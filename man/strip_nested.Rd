@@ -60,16 +60,16 @@ to be merged when higher-layer strips are different, i.e. they can bleed
 over hierarchies. Suppose the \code{strip_vanilla()} behaviour would be the
 following for strips:
 
-\code{[_1_][_2_][_2_]} \cr \code{[_3_][_3_][_4_]}
+\verb{[_1_][_2_][_2_]} \cr \verb{[_3_][_3_][_4_]}
 
 In such case, the default \code{bleed = FALSE} argument would result in the
 following:
 
-\code{[_1_][___2____]} \cr \code{[_3_][_3_][_4_]}
+\verb{[_1_][___2____]} \cr \verb{[_3_][_3_][_4_]}
 
 Whereas \code{bleed = TRUE} would allow the following:
 
-\code{[_1_][___2____]} \cr \code{[___3____][_4_]}
+\verb{[_1_][___2____]} \cr \verb{[___3____][_4_]}
 }
 \examples{
 # A standard plot

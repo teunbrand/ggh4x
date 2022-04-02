@@ -90,8 +90,8 @@ grouping with a line spanning the earlier labels.
 }
 \details{
 The guide itself makes no effort to group and order labels. To get
-  nice groupings, consider re-ordering the levels of factor variables, or try
-  setting the 'breaks' argument of a scale appropriately.
+nice groupings, consider re-ordering the levels of factor variables, or try
+setting the 'breaks' argument of a scale appropriately.
 }
 \examples{
 # The defaults are suited for interaction variables
@@ -117,9 +117,9 @@ ggplot(mpg, aes(interaction(cyl, class), hwy)) +
   theme(ggh4x.axis.nestline = element_line(linetype = 2))
 }
 \seealso{
-\code{\link[ggplot2]{guide_axis}} for the classic axis
-  documentation. \cr \code{\link[ggh4x]{weave_factors}} for an alternative to
-  \code{interaction()}.
+\code{\link[ggplot2:guide_axis]{ggplot2::guide_axis()}} for the classic axis
+documentation. \cr \code{\link[=weave_factors]{weave_factors()}} for an alternative to
+\code{interaction()}.
 
 Other axis-guides: 
 \code{\link{guide_axis_logticks}()},

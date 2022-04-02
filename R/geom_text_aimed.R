@@ -2,24 +2,24 @@
 
 #' Aimed text
 #'
-#' Similar to \code{geom_text()}, this geom also generates text but places the
+#' Similar to `geom_text()`, this geom also generates text but places the
 #' text at an angle so that the text seems aimed towards a point defined by
-#' \code{[xend, yend]}.
+#' `[xend, yend]`.
 #'
 #' @inheritParams ggplot2::geom_text
-#' @param flip_upsidedown A \code{logical(1)}. If \code{TRUE} (default), the
+#' @param flip_upsidedown A `logical(1)`. If `TRUE` (default), the
 #'   angle of text placed at angles between 90 and 270 degrees is flipped so
-#'   that it is more comfortable to read. If \code{FALSE}, will take calculated
+#'   that it is more comfortable to read. If `FALSE`, will take calculated
 #'   angles literally.
 #'
 #' @details The calculated angle is such that the text will be parallel to a
-#'   line passing through the coordinates \code{[x, y]} and \code{[xend, yend]}.
-#'   The calculated angle is added to the \code{angle} angle aesthetic, so that
-#'   you can set text perpendicular to that line by setting \code{angle = 90}.
+#'   line passing through the coordinates `[x, y]` and `[xend, yend]`.
+#'   The calculated angle is added to the `angle` angle aesthetic, so that
+#'   you can set text perpendicular to that line by setting `angle = 90`.
 #'   These angles are calculated in absolute coordinates, meaning that resizing
 #'   the plot will retain the same appearance.
 #'
-#' @return A ggplot2 \code{Layer}
+#' @return A ggplot2 `Layer`
 #' @export
 #'
 #' @note When using this geom to aim text at the centre of a polar plot, make

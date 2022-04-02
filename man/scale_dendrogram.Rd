@@ -68,7 +68,7 @@ The default, \code{TRUE}, uses the levels that appear in the data;
   }}
 
 \item{hclust}{An object of the type produced by the
-\code{\link[stats]{hclust}} function.}
+\code{\link[stats:hclust]{stats::hclust()}} function.}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
@@ -88,15 +88,15 @@ A \emph{ScaleDendrogram} ggproto object.
 }
 \description{
 When discrete data has some inherent hierarchy to the relationship between
-  discrete categories, you can display a dendrogram instead of a tick axis.
+discrete categories, you can display a dendrogram instead of a tick axis.
 }
 \details{
 The dendrogram type of scale does two things, first it reorders the
-  values along the relevant direction such that they follow the order
-  captured in the \code{hclust} argument. Secondly, it draws the dendrogram
-  at the axis. The dendrogram visuals inherit from the ticks theme elements,
-  so defining a linetype for the tick marks sets the linetype for the
-  dendrogram.
+values along the relevant direction such that they follow the order
+captured in the \code{hclust} argument. Secondly, it draws the dendrogram
+at the axis. The dendrogram visuals inherit from the ticks theme elements,
+so defining a linetype for the tick marks sets the linetype for the
+dendrogram.
 }
 \examples{
 # Hierarchically cluster USArrests

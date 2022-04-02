@@ -21,25 +21,25 @@ A \emph{PositionDisjointRanges} object.
 }
 \description{
 One-dimensional ranged data in the x-direction is segregated in
-  the y-direction such that no overlap in two-dimensional space occurs. This
-  positioning works best when no relevant information is plotted in the
-  y-direction.
+the y-direction such that no overlap in two-dimensional space occurs. This
+positioning works best when no relevant information is plotted in the
+y-direction.
 }
 \details{
 An object is considered disjoint from a second object when the range
-  between their \code{xmin} and \code{xmax} coordinates don't overlap.
-  Objects that overlap are assigned to different bins in the y-direction,
-  whereby lower bins are filled first. This way, information in the
-  x-direction is preserved and different objects can be discerned.
+between their \code{xmin} and \code{xmax} coordinates don't overlap.
+Objects that overlap are assigned to different bins in the y-direction,
+whereby lower bins are filled first. This way, information in the
+x-direction is preserved and different objects can be discerned.
 
-  Note that this positioning is only particularly useful when y-coordinates
-  do not encode relevant information. Geoms that pair well with this
-  positioning are \code{\link[ggplot2:geom_tile]{geom_rect}} and
-  \code{\link[ggplot2]{geom_tile}}.
+Note that this positioning is only particularly useful when y-coordinates
+do not encode relevant information. Geoms that pair well with this
+positioning are \code{\link[ggplot2:geom_tile]{geom_rect()}} and
+\code{\link[ggplot2:geom_tile]{ggplot2::geom_tile()}}.
 
-  This positioning function was inspired by the \code{disjointBins()}
-  function in the \code{IRanges} package, but has been written such that it
-  accepts any numeric input next to solely integer input.
+This positioning function was inspired by the \code{disjointBins()}
+function in the \code{IRanges} package, but has been written such that it
+accepts any numeric input next to solely integer input.
 }
 \examples{
 # Even though geom_tile() is parametrised by middle-x values, it is

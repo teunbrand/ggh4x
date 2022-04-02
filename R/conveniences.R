@@ -120,26 +120,26 @@ elem_list_rect <- function(...) {
 #' Computes a new factor out of combinations of input factors.
 #'
 #' @param ... The vectors
-#' @param drop A \code{logical} of length 1 which when \code{TRUE} will remove
+#' @param drop A `logical` of length 1 which when `TRUE` will remove
 #'   combinations of factors not occurring in the input data.
-#' @param sep A \code{character} of length 1 with a string to delimit the new
+#' @param sep A `character` of length 1 with a string to delimit the new
 #'   level labels.
-#' @param replaceNA A \code{logical} of length 1: replace \code{NA} values with
+#' @param replaceNA A `logical` of length 1: replace `NA` values with
 #'   empty strings?
 #'
-#' @details \code{weave_factors()} broadly resembles \code{interaction(...,
-#'   lex.order = TRUE)}, with a slightly altered approach to non-factor inputs.
+#' @details `weave_factors()` broadly resembles `interaction(...,
+#'   lex.order = TRUE)`, with a slightly altered approach to non-factor inputs.
 #'   In other words, this function orders the new levels such that the levels of
-#'   the first input variable in \code{...} is given priority over the second
+#'   the first input variable in `...` is given priority over the second
 #'   input, the second input has priority over the third, etc.
 #'
 #'   This function treats non-factor inputs as if their levels were
-#'   \code{unique(as.character(x))}, wherein \code{x} represents an input.
+#'   `unique(as.character(x))`, wherein `x` represents an input.
 #'
-#' @return A \code{factor} representing combinations of input factors.
+#' @return A `factor` representing combinations of input factors.
 #' @export
 #'
-#' @seealso \code{\link{interaction}}
+#' @seealso [interaction()]
 #'
 #' @examples
 #' f1 <- c("banana", "apple", "apple", "kiwi")
@@ -211,11 +211,11 @@ weave_factors <- function(..., drop = TRUE, sep = ".", replaceNA = TRUE) {
 #' value while still including all values. Convenient for centering log2 fold
 #' change limits around zero.
 #'
-#' @param around A \code{numeric} of length 1 indicating around which value to
+#' @param around A `numeric` of length 1 indicating around which value to
 #'   center the limits.
 #'
-#' @return A \code{function} that takes limits and returns expanded limits
-#'   centered at the \code{around} argument.
+#' @return A `function` that takes limits and returns expanded limits
+#'   centered at the `around` argument.
 #' @export
 #'
 #' @examples
@@ -238,25 +238,25 @@ center_limits <- function(around = 0) {
 #' Passing a subset of data to ggplot2 layers.
 #'
 #' This is a convenience function to allow layer objects, such as geoms, to take
-#' a subset of the data in the main \code{ggplot()} call, without storing a
+#' a subset of the data in the main `ggplot()` call, without storing a
 #' duplicate of the subset in the ggplot object.
 #'
-#' @param rowtest logical \code{expression} indicating which rows to keep.
-#' @param omit a \code{character} column name to exclude.
+#' @param rowtest logical `expression` indicating which rows to keep.
+#' @param omit a `character` column name to exclude.
 #'
-#' @return A function that takes a \code{data.frame} as argument and returns a
-#'   subset of that \code{data.frame} according to \code{rowtest}
+#' @return A function that takes a `data.frame` as argument and returns a
+#'   subset of that `data.frame` according to `rowtest`
 #' @export
 #'
-#' @details \code{ggsubset} is a wrapper around \code{subset.data.frame} where
-#'   the \code{subset} argument is set to \code{rowtest} and the \code{select}
-#'   argument to \code{-omit}. Since the \code{data} argument in the
-#'   \code{layer()} function can take a function with one argument, we can pass
-#'   the function returned from \code{ggsubset} as that argument to subset the
+#' @details `ggsubset` is a wrapper around `subset.data.frame` where
+#'   the `subset` argument is set to `rowtest` and the `select`
+#'   argument to `-omit`. Since the `data` argument in the
+#'   `layer()` function can take a function with one argument, we can pass
+#'   the function returned from `ggsubset` as that argument to subset the
 #'   data by rows.
 #'
-#' @seealso See \code{\link[ggplot2]{layer}}, specifically the \code{data}
-#'   argument. See \code{\link[base:subset]{subset.data.frame}} for the internal
+#' @seealso See [ggplot2::layer()], specifically the `data`
+#'   argument. See [`subset.data.frame()`][base::subset] for the internal
 #'   function.
 #'
 #' @examples

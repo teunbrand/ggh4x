@@ -56,7 +56,7 @@ to the paired geom/stat.}
 units. \item A \code{rel} object of length one constructed for setting a
 bandwidth relative to the group data range. Can be constructed with the
 \code{rel()} function. \item A \code{character} of length one, naming one
-of the functions documented in \code{\link[stats:bandwidth]{bw.nrd}()}. }}
+of the functions documented in \code{\link[stats:bandwidth]{bw.nrd()}}. }}
 
 \item{kernel}{One of the following: \itemize{ \item A \code{function} that
 takes a vector of distances as first argument, a numeric bandwidth as
@@ -108,21 +108,21 @@ datapoints do not need to be constant.
 }
 \section{Aesthetics}{
  \code{stat_rollingkernel()} understands the following
-  aesthetics (required aesthetics are in bold)
-  \itemize{
-    \item \strong{x}
-    \item \strong{y}
-    \item group
-  }
+aesthetics (required aesthetics are in bold)
+\itemize{
+\item \strong{x}
+\item \strong{y}
+\item group
+}
 }
 
 \section{Computed variables}{
  \describe{
- \item{\code{x}}{A sequence of ordered x positions.}
- \item{\code{y}}{The weighted value of the rolling kernel.}
- \item{\code{weight}}{The sum of weight strengths at a position.}
- \item{\code{scaled}}{The fraction of weight strengths at a position. This is
- the same as \code{weight / sum(weight)} by group.}
+\item{\code{x}}{A sequence of ordered x positions.}
+\item{\code{y}}{The weighted value of the rolling kernel.}
+\item{\code{weight}}{The sum of weight strengths at a position.}
+\item{\code{scaled}}{The fraction of weight strengths at a position. This is
+the same as \code{weight / sum(weight)} by group.}
 }
 }
 

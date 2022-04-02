@@ -4,21 +4,21 @@
 #'
 #' Visual representation of a discrete variable with hierarchical relationships
 #' between members, like those detailed in
-#' \code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)}}.
+#' [`scale_(x|y)_dendrogram)()`][scale_x_dendrogram].
 #'
 #' @inheritParams guide_axis_truncated
-#' @param label A \code{logical(1)}. If \code{TRUE}, labels are drawn at the
-#'   dendrogram leaves. If \code{FALSE}, labels are not drawn.
+#' @param label A `logical(1)`. If `TRUE`, labels are drawn at the
+#'   dendrogram leaves. If `FALSE`, labels are not drawn.
 #' @param dendro Relevant plotting data for a dendrogram such as those returned
-#'   by \code{\link[ggdendro]{dendro_data}}.
+#'   by [ggdendro::dendro_data()].
 #'
 #' @details The dendrogram guide inherits graphical elements from the
-#'   \code{axis.ticks} theme element. However, the size of the dendrogram is set
-#'   to 10 times the \code{axis.ticks.length} theme element.
+#'   `axis.ticks` theme element. However, the size of the dendrogram is set
+#'   to 10 times the `axis.ticks.length` theme element.
 #'
 #' @export
 #'
-#' @return A \emph{dendroguide} class object.
+#' @return A *dendroguide* class object.
 #'
 #' @examples
 #' clust <- hclust(dist(USArrests), "ave")

@@ -29,60 +29,54 @@ have an \code{x} and \code{y} parametrisation.
 }
 \details{
 Linear transformation matrices are \code{2} x \code{2} real
-  matrices. The '\code{scale}', '\code{shear}' and '\code{rotation}'
-  arguments are convenience arguments to construct a transformation matrix.
-  These operations occur in the order: scaling - shearing - rotating. To
-  apply the transformations in another order, build a custom '\code{M}'
-  argument.
+matrices. The '\code{scale}', '\code{shear}' and '\code{rotation}'
+arguments are convenience arguments to construct a transformation matrix.
+These operations occur in the order: scaling - shearing - rotating. To
+apply the transformations in another order, build a custom '\code{M}'
+argument.
 
-  For some common transformations, you can find appropriate matrices for the
-  '\code{M}' argument below.
+For some common transformations, you can find appropriate matrices for the
+'\code{M}' argument below.
 }
 \section{Common transformations}{
  \subsection{Identity transformations}{An
-  identity transformation, or returning the original coordinates, can be
-  performed by using the following transformation matrix: \cr\cr\code{| 1 0
-  |}\cr\code{| 0 1 |}\cr\cr or \cr\cr\code{M <- matrix(c(1, 0, 0, 1), 2)}}
-  \subsection{Scaling}{A scaling transformation multiplies the dimension of
-  an object by some amount. An example transformation matrix for scaling
-  everything by a factor 2: \cr\cr\code{| 2 0 |}\cr\code{| 0 2 |}\cr\cr or
-  \cr\cr\code{M <- matrix(c(2, 0, 0, 2), 2)}} \subsection{Squeezing}{Similar
-  to scaling, squeezing multiplies the dimensions by some amount that is
-  unequal for the \code{x} and \code{y} coordinates. For example, squeezing
-  \code{y} by half and expanding \code{x} by two: \tabular{cclclcc}{ |
-  \tab\tab \code{2} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0}
-  \tab\tab \code{0.5} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(2, 0, 0,
-  0.5), 2)}} \subsection{Reflection}{Mirroring the coordinates around one of
-  the axes. Reflecting around the x-axis: \tabular{cclcrcc}{ | \tab\tab
-  \code{1} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0} \tab\tab
-  \code{-1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(1, 0, 0, -1), 2)}
-  \cr\cr Reflecting around the y-axis: \tabular{ccrclcc}{ | \tab\tab
-  \code{-1} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0} \tab\tab
-  \code{1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(-1, 0, 0, 1), 2)} }
-  \subsection{Projection}{For projecting the coordinates on one of the axes,
-  while collapsing everything from the other axis. Projecting onto the
-  \code{y}-axis: \tabular{cclclcc}{ | \tab\tab \code{0} \tab\tab \code{0}
-  \tab\tab | \cr | \tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or
-  \cr\cr \code{M <- matrix(c(0, 0, 0, 1), 2)} \cr\cr Projecting onto the
-  \code{x}-axis: \tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{0}
-  \tab\tab | \cr | \tab\tab \code{0} \tab\tab \code{0} \tab\tab | \cr } or
-  \cr\cr \code{M <- matrix(c(1, 0, 0, 0), 2)} } \subsection{Shearing}{Tilting
-  the coordinates horizontally or vertically. Shearing vertically by 10\%:
-  \tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{0} \tab\tab | \cr |
-  \tab\tab \code{0.1} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <-
-  matrix(c(1, 0.1, 0, 1), 2)} \cr\cr Shearing horizontally by 200\%:
-  \tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{2} \tab\tab | \cr |
-  \tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <-
-  matrix(c(1, 0, 2, 1), 2)} } \subsection{Rotation}{A rotation performs a
-  motion around a fixed point, typically the origin the coordinate system. To
-  rotate the coordinates by 90 degrees counter-clockwise: \tabular{cclcrcc}{ |
-  \tab\tab \code{0} \tab\tab \code{-1} \tab\tab | \cr | \tab\tab \code{1}
-  \tab\tab \code{0} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(0, 1, -1,
-  0), 2)} \cr\cr For a rotation around any angle \eqn{\theta} :
-  \tabular{cclcrcc}{ | \tab\tab \eqn{cos\theta} \tab\tab \eqn{-sin\theta}
-  \tab\tab | \cr | \tab\tab \eqn{sin\theta} \tab\tab \eqn{cos\theta} \tab\tab
-  | \cr } or \cr\cr \code{M <- matrix(c(cos(theta), sin(theta), -sin(theta),
-  cos(theta)), 2)} \cr with '\code{theta}' defined in radians. }
+identity transformation, or returning the original coordinates, can be
+performed by using the following transformation matrix: \cr\cr\verb{| 1 0 |}\cr\verb{| 0 1 |}\cr\cr or \cr\cr\code{M <- matrix(c(1, 0, 0, 1), 2)}}
+\subsection{Scaling}{A scaling transformation multiplies the dimension of
+an object by some amount. An example transformation matrix for scaling
+everything by a factor 2: \cr\cr\verb{| 2 0 |}\cr\verb{| 0 2 |}\cr\cr or
+\cr\cr\code{M <- matrix(c(2, 0, 0, 2), 2)}} \subsection{Squeezing}{Similar
+to scaling, squeezing multiplies the dimensions by some amount that is
+unequal for the \code{x} and \code{y} coordinates. For example, squeezing
+\code{y} by half and expanding \code{x} by two: \tabular{cclclcc}{ |
+\tab\tab \code{2} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0}
+\tab\tab \code{0.5} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(2, 0, 0, 0.5), 2)}} \subsection{Reflection}{Mirroring the coordinates around one of
+the axes. Reflecting around the x-axis: \tabular{cclcrcc}{ | \tab\tab
+\code{1} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0} \tab\tab
+\code{-1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(1, 0, 0, -1), 2)}
+\cr\cr Reflecting around the y-axis: \tabular{ccrclcc}{ | \tab\tab
+\code{-1} \tab\tab \code{0} \tab\tab | \cr | \tab\tab \code{0} \tab\tab
+\code{1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(-1, 0, 0, 1), 2)} }
+\subsection{Projection}{For projecting the coordinates on one of the axes,
+while collapsing everything from the other axis. Projecting onto the
+\code{y}-axis: \tabular{cclclcc}{ | \tab\tab \code{0} \tab\tab \code{0}
+\tab\tab | \cr | \tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or
+\cr\cr \code{M <- matrix(c(0, 0, 0, 1), 2)} \cr\cr Projecting onto the
+\code{x}-axis: \tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{0}
+\tab\tab | \cr | \tab\tab \code{0} \tab\tab \code{0} \tab\tab | \cr } or
+\cr\cr \code{M <- matrix(c(1, 0, 0, 0), 2)} } \subsection{Shearing}{Tilting
+the coordinates horizontally or vertically. Shearing vertically by 10\\%:
+\tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{0} \tab\tab | \cr |
+\tab\tab \code{0.1} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(1, 0.1, 0, 1), 2)} \cr\cr Shearing horizontally by 200\\%:
+\tabular{cclclcc}{ | \tab\tab \code{1} \tab\tab \code{2} \tab\tab | \cr |
+\tab\tab \code{0} \tab\tab \code{1} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(1, 0, 2, 1), 2)} } \subsection{Rotation}{A rotation performs a
+motion around a fixed point, typically the origin the coordinate system. To
+rotate the coordinates by 90 degrees counter-clockwise: \tabular{cclcrcc}{ |
+\tab\tab \code{0} \tab\tab \code{-1} \tab\tab | \cr | \tab\tab \code{1}
+\tab\tab \code{0} \tab\tab | \cr } or \cr\cr \code{M <- matrix(c(0, 1, -1, 0), 2)} \cr\cr For a rotation around any angle \eqn{\theta} :
+\tabular{cclcrcc}{ | \tab\tab \eqn{cos\theta} \tab\tab \eqn{-sin\theta}
+\tab\tab | \cr | \tab\tab \eqn{sin\theta} \tab\tab \eqn{cos\theta} \tab\tab
+| \cr } or \cr\cr \code{M <- matrix(c(cos(theta), sin(theta), -sin(theta), cos(theta)), 2)} \cr with '\code{theta}' defined in radians. }
 }
 
 \examples{

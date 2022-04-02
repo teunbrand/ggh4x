@@ -70,6 +70,8 @@ A \code{StripSplit} ggproto object that can be given as an argument to
 facets in ggh4x.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 This strip style allows a greater control over where a strip is placed
 relative to the panel. Different facetting variables are allowed to be
 placed on different sides.

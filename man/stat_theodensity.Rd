@@ -84,44 +84,44 @@ A \emph{Layer} ggproto object.
 }
 \description{
 Estimates the parameters of a given distribution and evaluates
-  the probability density function with these parameters. This can be useful
-  for comparing histograms or kernel density estimates against a theoretical
-  distribution.
+the probability density function with these parameters. This can be useful
+for comparing histograms or kernel density estimates against a theoretical
+distribution.
 }
 \details{
 Valid \code{distri} arguments are the names of distributions for
-  which there exists a density function. The names should be given without a
-  prefix (typically 'd', 'r', 'q' and 'r'). For example: \code{"norm"} for
-  the normal distribution and \code{"nbinom"} for the negative binomial
-  distribution. Take a look at \code{\link[stats:Distributions]{distributions}} in the
-  \pkg{stats} package for an overview.
+which there exists a density function. The names should be given without a
+prefix (typically 'd', 'r', 'q' and 'r'). For example: \code{"norm"} for
+the normal distribution and \code{"nbinom"} for the negative binomial
+distribution. Take a look at \code{\link[stats:Distributions]{distributions()}} in the
+\pkg{stats} package for an overview.
 
-  There are a couple of distribution for which there exist no reasonable
-  starting values, such as the Student t-distribution and the F-distribution.
-  In these cases, it would probably be wise to provide reasonable starting
-  values as a named list to the \code{start.arg} argument. When estimating a
-  binomial distribution, it would be best to supply the \code{size} to the
-  \code{fix.arg} argument.
+There are a couple of distribution for which there exist no reasonable
+starting values, such as the Student t-distribution and the F-distribution.
+In these cases, it would probably be wise to provide reasonable starting
+values as a named list to the \code{start.arg} argument. When estimating a
+binomial distribution, it would be best to supply the \code{size} to the
+\code{fix.arg} argument.
 
-  By default, the y values are such that the integral of the distribution is
-  1, which scales well with the defaults of kernel density estimates. When
-  comparing distributions with absolute count histograms, a sensible choice
-  for aesthetic mapping would be \code{aes(y = stat(count) * binwidth)},
-  wherein \code{binwidth} is matched with the bin width of the histogram.
+By default, the y values are such that the integral of the distribution is
+1, which scales well with the defaults of kernel density estimates. When
+comparing distributions with absolute count histograms, a sensible choice
+for aesthetic mapping would be \code{aes(y = stat(count) * binwidth)},
+wherein \code{binwidth} is matched with the bin width of the histogram.
 
-  For discrete distributions, the input data are expected to be integers, or
-  doubles that can be divided by 1 without remainders.
+For discrete distributions, the input data are expected to be integers, or
+doubles that can be divided by 1 without remainders.
 
-  Parameters are estimated using the
-  \code{\link[fitdistrplus]{fitdist}}\code{()} function in the
-  \pkg{fitdistrplus} package using maximum likelihood estimation.
-  Hypergeometric and multinomial distributions from the \pkg{stats} package
-  are not supported.
+Parameters are estimated using the
+\code{\link[fitdistrplus:fitdist]{fitdistrplus::fitdist()}}\verb{()} function in the
+\pkg{fitdistrplus} package using maximum likelihood estimation.
+Hypergeometric and multinomial distributions from the \pkg{stats} package
+are not supported.
 }
 \section{Computed variables}{
  \describe{ \item{density}{probability density}
-  \item{count}{density * number of observations - useful for comparing to
-  histograms} \item{scaled}{density scaled to a maximum of 1} }
+\item{count}{density * number of observations - useful for comparing to
+histograms} \item{scaled}{density scaled to a maximum of 1} }
 }
 
 \examples{
@@ -154,7 +154,7 @@ ggplot(df, aes(x)) +
                geom = "vline")
 }
 \seealso{
-\code{\link[stats:Distributions]{Distributions}}
-  \code{\link[fitdistrplus]{fitdist}} \code{\link[ggplot2]{geom_density}}
-  \code{\link[ggplot2]{geom_histogram}}
+\code{\link[stats:Distributions]{stats::Distributions()}}
+\code{\link[fitdistrplus:fitdist]{fitdistrplus::fitdist()}} \code{\link[ggplot2:geom_density]{ggplot2::geom_density()}}
+\code{\link[ggplot2:geom_histogram]{ggplot2::geom_histogram()}}
 }

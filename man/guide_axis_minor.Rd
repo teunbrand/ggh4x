@@ -79,8 +79,8 @@ place tickmarks at minor break positions.
 }
 \details{
 The length of minor ticks can be controlled relative to the length
-  of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
-  \code{rel} object.
+of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
+\code{rel} object.
 }
 \examples{
 # Using the minor breaks axis

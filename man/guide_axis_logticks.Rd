@@ -85,15 +85,15 @@ An \emph{axis_logticks} guide class object.
 }
 \description{
 This axis guide is probably best described as
-\code{\link[ggplot2]{annotation_logticks}} but implemented as a guide instead
+\code{\link[ggplot2:annotation_logticks]{ggplot2::annotation_logticks()}} but implemented as a guide instead
 of a geom. The tick marks probably best suit log10 transformations.
 }
 \details{
 The length of minor ticks can be controlled relative to the length
-  of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
-  \code{rel} object. Likewise the size of the smallest ticks are controlled
-  by the \code{ggh4x.axis.ticks.length.minor}, also relative to the major
-  ticks.
+of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
+\code{rel} object. Likewise the size of the smallest ticks are controlled
+by the \code{ggh4x.axis.ticks.length.minor}, also relative to the major
+ticks.
 }
 \examples{
 # The guide works well out of the box with log10 scales

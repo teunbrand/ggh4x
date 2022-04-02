@@ -95,39 +95,39 @@ A ggplot2 \code{Layer}
 \description{
 Similar to \code{geom_text()}, this geom also generates text but places the
 text at an angle so that the text seems aimed towards a point defined by
-\code{[xend, yend]}.
+\verb{[xend, yend]}.
 }
 \details{
 The calculated angle is such that the text will be parallel to a
-  line passing through the coordinates \code{[x, y]} and \code{[xend, yend]}.
-  The calculated angle is added to the \code{angle} angle aesthetic, so that
-  you can set text perpendicular to that line by setting \code{angle = 90}.
-  These angles are calculated in absolute coordinates, meaning that resizing
-  the plot will retain the same appearance.
+line passing through the coordinates \verb{[x, y]} and \verb{[xend, yend]}.
+The calculated angle is added to the \code{angle} angle aesthetic, so that
+you can set text perpendicular to that line by setting \code{angle = 90}.
+These angles are calculated in absolute coordinates, meaning that resizing
+the plot will retain the same appearance.
 }
 \note{
 When using this geom to aim text at the centre of a polar plot, make
-  sure the radius range does not have close to zero width.
+sure the radius range does not have close to zero width.
 }
 \section{Aesthetics}{
 
 \code{geom_text_aimed()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-  \item \strong{\code{x}}
-  \item \strong{\code{y}}
-  \item \strong{\code{label}}
-  \item \code{alpha}
-  \item \code{angle}
-  \item \code{colour}
-  \item \code{family}
-  \item \code{fontface}
-  \item \code{group}
-  \item \code{hjust}
-  \item \code{lineheight}
-  \item \code{size}
-  \item \code{vjust}
-  \item \code{xend}
-  \item \code{yend}
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \strong{\code{label}}
+\item \code{alpha}
+\item \code{angle}
+\item \code{colour}
+\item \code{family}
+\item \code{fontface}
+\item \code{group}
+\item \code{hjust}
+\item \code{lineheight}
+\item \code{size}
+\item \code{vjust}
+\item \code{xend}
+\item \code{yend}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

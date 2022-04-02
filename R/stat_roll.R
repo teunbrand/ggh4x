@@ -9,51 +9,51 @@
 #' datapoints do not need to be constant.
 #'
 #' @inheritParams ggplot2::stat_density
-#' @param geom Use to override the default geom (\code{"line"}).
+#' @param geom Use to override the default geom (`"line"`).
 #' @param bw A bandwidth, which can be one of the following: \itemize{ \item A
-#'   \code{numeric} of length one indicating a measure of kernel width, in data
-#'   units. \item A \code{rel} object of length one constructed for setting a
+#'   `numeric` of length one indicating a measure of kernel width, in data
+#'   units. \item A `rel` object of length one constructed for setting a
 #'   bandwidth relative to the group data range. Can be constructed with the
-#'   \code{rel()} function. \item A \code{character} of length one, naming one
-#'   of the functions documented in \code{\link[stats:bandwidth]{bw.nrd}()}. }
-#' @param kernel One of the following: \itemize{ \item A \code{function} that
+#'   `rel()` function. \item A `character` of length one, naming one
+#'   of the functions documented in [`bw.nrd()`][stats::bw.nrd]. }
+#' @param kernel One of the following: \itemize{ \item A `function` that
 #'   takes a vector of distances as first argument, a numeric bandwidth as
-#'   second argument and returns relative weights. \item A \code{character} of
+#'   second argument and returns relative weights. \item A `character` of
 #'   length one that can take one of the following values: \describe{
-#'   \item{\code{"gaussian"} or \code{"norm"}}{A kernel that follows a normal
+#'   \item{`"gaussian"` or `"norm"`}{A kernel that follows a normal
 #'   distribution with 0 mean and bandwidth as standard deviation.}
-#'   \item{\code{"mean"} or \code{"unif"}}{A kernel that follows a uniform
+#'   \item{`"mean"` or `"unif"`}{A kernel that follows a uniform
 #'   distribution with \eqn{bandwidth * -0.5} and \eqn{bandwidth * 0.5} as
 #'   minimum and maximum. This is similar to a simple, unweighted moving
-#'   average.} \item{\code{"cauchy"}}{A kernel that follows a Cauchy
+#'   average.} \item{`"cauchy"`}{A kernel that follows a Cauchy
 #'   distribution with 0 as location and bandwidth as scale parameters. The
 #'   Cauchy distribution has fatter tails than the normal distribution.} } }
-#' @param n An \code{integer} of length one: how many points to return per
+#' @param n An `integer` of length one: how many points to return per
 #'   group.
-#' @param expand A \code{numeric} of length one: how much to expand the range
+#' @param expand A `numeric` of length one: how much to expand the range
 #'   for which the rolling kernel is calculated beyond the most extreme
 #'   datapoints.
-#' @param orientation A \code{character} of length one, either \code{"x"}
-#'   (default) or \code{"y"}, setting the axis along which the rolling should
+#' @param orientation A `character` of length one, either `"x"`
+#'   (default) or `"y"`, setting the axis along which the rolling should
 #'   occur.
 
-#' @section Aesthetics: \code{stat_rollingkernel()} understands the following
+#' @section Aesthetics: `stat_rollingkernel()` understands the following
 #'   aesthetics (required aesthetics are in bold)
 #'   \itemize{
-#'     \item \strong{x}
-#'     \item \strong{y}
+#'     \item **x**
+#'     \item **y**
 #'     \item group
 #'   }
 #'
 #' @section Computed variables: \describe{
-#'  \item{\code{x}}{A sequence of ordered x positions.}
-#'  \item{\code{y}}{The weighted value of the rolling kernel.}
-#'  \item{\code{weight}}{The sum of weight strengths at a position.}
-#'  \item{\code{scaled}}{The fraction of weight strengths at a position. This is
-#'  the same as \code{weight / sum(weight)} by group.}
+#'  \item{`x`}{A sequence of ordered x positions.}
+#'  \item{`y`}{The weighted value of the rolling kernel.}
+#'  \item{`weight`}{The sum of weight strengths at a position.}
+#'  \item{`scaled`}{The fraction of weight strengths at a position. This is
+#'  the same as `weight / sum(weight)` by group.}
 #' }
 #'
-#' @return A \emph{Layer} ggproto object.
+#' @return A *Layer* ggproto object.
 #' @export
 #'
 #' @examples

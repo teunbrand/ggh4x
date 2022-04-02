@@ -72,7 +72,7 @@ spacing between label rows and columns. Internally defaults to half the
 size of the title.}
 
 \item{default.units}{A \code{character(1)} indicating the default units to
-use if the \code{spacing.*} arguments are only given as numeric vectors.}
+use if the \verb{spacing.*} arguments are only given as numeric vectors.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}

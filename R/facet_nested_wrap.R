@@ -2,37 +2,37 @@
 
 #' Ribbon of panels with nested strips.
 #'
-#' \code{facet_nested_wrap()} wraps a sequence of panels onto a two-dimensional
+#' `facet_nested_wrap()` wraps a sequence of panels onto a two-dimensional
 #' layout, and nests grouped facets where possible.
 #'
 #' @inheritParams facet_wrap2
 #' @inheritParams facet_nested
 #' @param strip An object created by a call to a strip function, such as
-#'   \code{\link[ggh4x]{strip_nested}()}.
+#'   [ggh4x::strip_nested()].
 #'
 #' @details This function inherits the capabilities of
-#'   \code{\link[ggh4x]{facet_wrap2}()}.
+#'   [ggh4x::facet_wrap2()].
 #'
 #'   This function only merges strips in the same row or column as they appear
-#'   through regular \code{facet_wrap()} layout behaviour.
+#'   through regular `facet_wrap()` layout behaviour.
 #'
 #'   Hierarchies are inferred from the order of variables supplied to
-#'   \code{facets}. The first variable is interpreted to be the outermost
+#'   `facets`. The first variable is interpreted to be the outermost
 #'   variable, while the last variable is interpreted to be the innermost
 #'   variable. They display order is always such that the outermost
 #'   variable is placed the furthest away from the panels. For more information
 #'   about the nesting of strips, please visit the documentation of
-#'   \code{\link[ggh4x]{strip_nested}()}.
+#'   [ggh4x::strip_nested()].
 #'
-#' @return A \code{FacetNestedWrap} ggproto object that can be added to a plot.
+#' @return A `FacetNestedWrap` ggproto object that can be added to a plot.
 #' @export
 #' @family facetting functions
 #' @include facet_wrap2.R
 #'
-#' @seealso See \code{\link[ggh4x]{strip_nested}} for nested strips. See
-#'   \code{\link[ggplot2]{facet_wrap}} for descriptions of the original
-#'   arguments. See \code{\link[grid]{unit}} for the construction of a
-#'   \code{unit} vector.
+#' @seealso See [ggh4x::strip_nested()] for nested strips. See
+#'   [ggplot2::facet_wrap()] for descriptions of the original
+#'   arguments. See [grid::unit()] for the construction of a
+#'   `unit` vector.
 #'
 #' @examples
 #' # A standard plot

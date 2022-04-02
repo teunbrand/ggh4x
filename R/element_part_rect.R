@@ -1,16 +1,16 @@
 #' Partial rectangle theme element
 #'
-#' The \code{element_part_rect()} function draws sides of a rectangle as theme
-#' elements. It can substitute \code{element_rect()} theme elements.
+#' The `element_part_rect()` function draws sides of a rectangle as theme
+#' elements. It can substitute `element_rect()` theme elements.
 #'
-#' @param side A \code{character} of length one containing any of \code{"t"},
-#'   \code{"l"}, \code{"b"}, \code{"r"}. If these letters are present it will
+#' @param side A `character` of length one containing any of `"t"`,
+#'   `"l"`, `"b"`, `"r"`. If these letters are present it will
 #'   draw an edge at the top (t), left (l), bottom (b) or right (r)
 #'   respectively. Including all or none of these letters will default to normal
-#'   \code{element_rect()}.
+#'   `element_rect()`.
 #' @inheritParams ggplot2::element_rect
 #'
-#' @return An S3 object of class \code{element_part_rect}.
+#' @return An S3 object of class `element_part_rect`.
 #' @export
 #'
 #' @examples

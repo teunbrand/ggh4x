@@ -3,26 +3,26 @@
 #' Apply function to position coordinates
 #'
 #' The function xy stat applies a function to the x- and y-coordinates of a
-#' layers positions by group. The \code{stat_centroid()} and
-#' \code{stat_midpoint()} functions are convenience wrappers for calculating
-#' centroids and midpoints. \code{stat_funxy()} by default leaves the data
+#' layers positions by group. The `stat_centroid()` and
+#' `stat_midpoint()` functions are convenience wrappers for calculating
+#' centroids and midpoints. `stat_funxy()` by default leaves the data
 #' as-is, but can be supplied functions and arguments.
 #'
 #' @inheritParams ggplot2::stat_identity
-#' @param funx,funy A \code{function} to call on the layer's \code{x} and
-#'   \code{y} positions respectively.
-#' @param argx,argy A named \code{list} containing arguments to the \code{funx},
-#'   and \code{funy} function calls.
-#' @param crop_other A \code{logical} of length one; whether the other data
-#'   should be fitted to the length of \code{x} and \code{y} (default:
-#'   \code{TRUE}). Useful to set to \code{FALSE} when \code{funx} or \code{funy}
+#' @param funx,funy A `function` to call on the layer's `x` and
+#'   `y` positions respectively.
+#' @param argx,argy A named `list` containing arguments to the `funx`,
+#'   and `funy` function calls.
+#' @param crop_other A `logical` of length one; whether the other data
+#'   should be fitted to the length of `x` and `y` (default:
+#'   `TRUE`). Useful to set to `FALSE` when `funx` or `funy`
 #'   calculate summaries of length one that need to be recycled.
 #'
 #' @details This statistic only makes a minimal attempt at ensuring that the
 #'   results from calling both functions are of equal length. Results of length
 #'   1 are recycled to match the longest length result.
 #'
-#' @return A \code{StatFunxy} ggproto object, that can be added to a plot.
+#' @return A `StatFunxy` ggproto object, that can be added to a plot.
 #' @export
 #'
 #' @examples

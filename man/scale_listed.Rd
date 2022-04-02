@@ -17,16 +17,16 @@ the non-standard aesthetic. Typically \code{"colour"} or \code{"fill"}.}
 }
 \value{
 A \code{list} of which the elements are of the class
-  \code{MultiScale}.
+\code{MultiScale}.
 }
 \description{
 This function should only be called after all layers that the
-  non-standard aesthetic scales affects have been added to the plot.
+non-standard aesthetic scales affects have been added to the plot.
 
-  Inside a layer, the non-standard aesthetic should be part of the call to
-  \code{aes} mapping.
+Inside a layer, the non-standard aesthetic should be part of the call to
+\code{aes} mapping.
 
-  May return a warning that the plot is ignoring unknown aesthetics.
+May return a warning that the plot is ignoring unknown aesthetics.
 }
 \details{
 Distributes a list of non-standard aesthetics scales to the plot,

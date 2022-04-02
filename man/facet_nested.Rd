@@ -141,16 +141,16 @@ variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
 
 \item{nest_line}{a theme element, either \code{element_blank()} or inheriting
-from \code{\link[ggplot2]{element_line}()}. This element inherits from
+from \code{\link[ggplot2:element]{ggplot2::element_line()}}. This element inherits from
 the \code{ggh4x.facet.nestline} element in the theme.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
 
 \item{strip}{An object created by a call to a strip function, such as
-\code{\link[ggh4x]{strip_nested}()}.}
+\code{\link[=strip_nested]{strip_nested()}}.}
 
-\item{bleed}{Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
+\item{bleed}{Deprecated. Use \code{strip = strip_nested(bleed = ...)} instead.
 See details.}
 }
 \value{
@@ -158,24 +158,24 @@ A \emph{FacetNested} ggproto object that can be added to a plot.
 }
 \description{
 \code{facet_nested()} forms a matrix of panels defined by row
-  and column faceting variables and nests grouped facets.
+and column faceting variables and nests grouped facets.
 }
 \details{
 This function inherits the capabilities of
-  \code{\link[ggh4x]{facet_grid2}()}.
+\code{\link[=facet_grid2]{facet_grid2()}}.
 
-  Unlike \code{facet_grid()}, this function only automatically expands
-  missing variables when they have no variables in that direction, to allow
-  for unnested variables. It still requires at least one layer to have all
-  faceting variables.
+Unlike \code{facet_grid()}, this function only automatically expands
+missing variables when they have no variables in that direction, to allow
+for unnested variables. It still requires at least one layer to have all
+faceting variables.
 
-  Hierarchies are inferred from the order of variables supplied to
-  \code{rows} or \code{cols}. The first variable is interpreted to be the
-  outermost variable, while the last variable is interpreted to be the
-  innermost variable. They display order is always such that the outermost
-  variable is placed the furthest away from the panels. For more information
-  about the nesting of strips, please visit the documentation of
-  \code{\link[ggh4x]{strip_nested}()}.
+Hierarchies are inferred from the order of variables supplied to
+\code{rows} or \code{cols}. The first variable is interpreted to be the
+outermost variable, while the last variable is interpreted to be the
+innermost variable. They display order is always such that the outermost
+variable is placed the furthest away from the panels. For more information
+about the nesting of strips, please visit the documentation of
+\code{\link[=strip_nested]{strip_nested()}}.
 }
 \examples{
 # A standard plot
@@ -190,10 +190,10 @@ p + facet_nested(~ cyl + vs, nest_line = element_line(colour = "red")) +
   theme(ggh4x.facet.nestline = element_line(linetype = 3))
 }
 \seealso{
-See \code{\link[ggh4x]{strip_nested}} for nested strips. See
-  \code{\link[ggplot2]{facet_grid}} for descriptions of the original
-  arguments. See \code{\link[grid]{unit}} for the construction of a
-  \code{unit} vector.
+See \code{\link[=strip_nested]{strip_nested()}} for nested strips. See
+\code{\link[ggplot2:facet_grid]{ggplot2::facet_grid()}} for descriptions of the original
+arguments. See \code{\link[grid:unit]{grid::unit()}} for the construction of a
+\code{unit} vector.
 
 Other facetting functions: 
 \code{\link{facet_grid2}()},

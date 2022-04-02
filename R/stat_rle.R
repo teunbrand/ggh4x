@@ -6,31 +6,31 @@
 #' lengths of consecutive repeated values.
 #'
 #' @inheritParams ggplot2::stat_density
-#' @param align A \code{character} of length one that effect the computed
-#' \code{start} and \code{end} variables. One of the following:
+#' @param align A `character` of length one that effect the computed
+#' `start` and `end` variables. One of the following:
 #' \describe{
-#'   \item{\code{"none"}}{Take exact start and end \code{x} values.}
-#'   \item{\code{"center"}}{Return start and end \code{x} values in between an
+#'   \item{`"none"`}{Take exact start and end `x` values.}
+#'   \item{`"center"`}{Return start and end `x` values in between an
 #'   end and the subsequent start.}
-#'   \item{\code{"start"}}{Align start values with previous end values.}
-#'   \item{\code{"end"}}{Align end values with next start values.}
+#'   \item{`"start"`}{Align start values with previous end values.}
+#'   \item{`"end"`}{Align end values with next start values.}
 #' }
 #'
-#' @details The data is first ordered on the \code{x} aesthetic before run
-#' lengths are calculated for the \code{label} aesthetic.
+#' @details The data is first ordered on the `x` aesthetic before run
+#' lengths are calculated for the `label` aesthetic.
 #'
-#' @section Aesthetics: \code{stat_rle()} understands the following
+#' @section Aesthetics: `stat_rle()` understands the following
 #'   aesthetics (required aesthetics are in bold)
 #' \itemize{
-#'   \item{\strong{x}}
-#'   \item{\strong{label}}
+#'   \item{**x**}
+#'   \item{**label**}
 #'   \item{group}
 #' }
 #'
 #' @section Computed variables:
 #' \describe{
-#'   \item{start}{The \code{x} values at the start of every run.}
-#'   \item{end}{The \code{x} values at the end of every run.}
+#'   \item{start}{The `x` values at the start of every run.}
+#'   \item{end}{The `x` values at the end of every run.}
 #'   \item{start_id}{The index where a run starts.}
 #'   \item{end_id}{The index where a run ends.}
 #'   \item{run_id}{The index of a run.}
@@ -38,7 +38,7 @@
 #'   \item{runvalue}{The value associated with a run.}
 #' }
 #'
-#' @return A \code{ggplot2} layer
+#' @return A `ggplot2` layer
 #' @export
 #' @name stat_rle
 #'
