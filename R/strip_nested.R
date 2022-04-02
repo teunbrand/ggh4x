@@ -43,7 +43,7 @@ NULL
 #'
 #'   \code{[_1_][___2____]} \cr \code{[___3____][_4_]}
 #'
-#' @return A `StripNested` ggproto object that can ge given as an argument to
+#' @return A `StripNested` ggproto object that can be given as an argument to
 #'   facets in ggh4x.
 #' @export
 #' @md

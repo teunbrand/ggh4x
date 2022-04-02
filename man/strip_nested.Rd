@@ -42,7 +42,7 @@ different elements to individual strips, possibly repeating the elements to
 match the number of strips through \code{rep_len()}.}
 }
 \value{
-A \code{StripNested} ggproto object that can ge given as an argument to
+A \code{StripNested} ggproto object that can be given as an argument to
 facets in ggh4x.
 }
 \description{
@@ -88,6 +88,7 @@ p + facet_wrap2(vars(cyl, drv), strip = strip_nested(bleed = TRUE))
 }
 \seealso{
 Other strips: 
+\code{\link{strip_split}()},
 \code{\link{strip_themed}()},
 \code{\link{strip_vanilla}()}
 }

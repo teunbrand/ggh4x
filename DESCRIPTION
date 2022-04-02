@@ -80,6 +80,7 @@ Collate:
     'strip_vanilla.R'
     'strip_themed.R'
     'strip_nested.R'
+    'strip_split.R'
     'themes.R'
     'utils.R'
     'utils_grid.R'

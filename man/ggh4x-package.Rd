@@ -14,6 +14,7 @@ A 'ggplot2' extension that does a variety of little helpful things. The package 
 Useful links:
 \itemize{
   \item \url{https://github.com/teunbrand/ggh4x}
+  \item \url{https://teunbrand.github.io/ggh4x}
   \item Report bugs at \url{https://github.com/teunbrand/ggh4x/issues}
 }
 

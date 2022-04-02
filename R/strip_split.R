@@ -1,5 +1,62 @@
+#' @include strip_nested.R
+NULL
 
+# Constructor -------------------------------------------------------------
 
+#' Split strips
+#'
+#' This strip style allows a greater control over where a strip is placed
+#' relative to the panel. Different facetting variables are allowed to be
+#' placed on different sides.
+#'
+#' @inheritParams strip_nested
+#' @param position A `character` vector stating where the strips of faceting
+#'   variables should be placed. Can be some of the following: `"top"`,
+#'   `"bottom"`, `"left"` or `"right"`. The length of the `position` argument
+#'   must match the length of variables provided to the `facets` argument in
+#'   wrap/manual layouts, or those provided to the `rows` and `cols` arguments
+#'   in the grid layout.
+#' @param bleed A `logical(1)` indicating whether merging of lower-layer
+#'   variables is allowed when the higher-layer variables are separate. See
+#'   the details of [`strip_nested`] for more info. Note that currently,
+#'   `strip_split()` cannot recognise collisions between strips, so changing
+#'   to `bleed = TRUE` can have unexpected results.
+#'
+#' @details Using this style of strip completely overrules the `strip.position`
+#'   and `switch` arguments.
+#'
+#' @return A `StripSplit` ggproto object that can be given as an argument to
+#'   facets in ggh4x.
+#' @export
+#' @md
+#' @family strips
+#'
+#' @examples
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' # --- Wrap examples ------
+#'
+#' # Defaults to 1st (cyl) at top, 2nd (drv) on left
+#' p + facet_wrap2(vars(cyl, drv), strip = strip_split())
+#'
+#' # Change cyl to left, drv to bottom
+#' p + facet_wrap2(vars(cyl, drv), strip = strip_split(c("left", "bottom")))
+#'
+#' # --- Grid examples -----
+#'
+#' # Display both strips levels on the left
+#' p + facet_grid2(vars(drv), vars(cyl),
+#'                 strip = strip_split(c("left", "left")))
+#'
+#' # Separate the strips again
+#' p + facet_grid2(vars(cyl, year),
+#'                 strip = strip_split(c("bottom", "left")))
+#'
+#' # Using a dummy variable as a title strip
+#' p + facet_grid2(vars(cyl, "year", year),
+#'                 strip = strip_split(c("bottom", "left", "left")))
 strip_split <- function(
   position = c("top", "left"),
   clip = "inherit",
@@ -40,6 +97,10 @@ strip_split <- function(
 
 # ggproto class -----------------------------------------------------------
 
+#' @usage NULL
+#' @format NULL
+#' @export
+#' @rdname ggh4x_extensions
 StripSplit <- ggproto(
   "StripSplit", StripNested,
 

@@ -5,7 +5,7 @@
 %   R/ggh4x_extensions.R, R/position_disjoint_ranges.R,
 %   R/position_lineartrans.R, R/scale_dendrogram.R, R/stat_difference.R,
 %   R/stat_funxy.R, R/stat_rle.R, R/stat_roll.R, R/stat_theodensity.R,
-%   R/strip_vanilla.R, R/strip_themed.R, R/strip_nested.R
+%   R/strip_vanilla.R, R/strip_themed.R, R/strip_nested.R, R/strip_split.R
 \docType{data}
 \name{FacetGrid2}
 \alias{FacetGrid2}
@@ -29,6 +29,7 @@
 \alias{Strip}
 \alias{StripThemed}
 \alias{StripNested}
+\alias{StripSplit}
 \title{ggh4x extensions to ggplot2}
 \description{
 ggnomics relies on the extension mechanism of ggplot2 through

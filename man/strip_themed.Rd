@@ -98,6 +98,7 @@ p + facet_wrap2(
 \seealso{
 Other strips: 
 \code{\link{strip_nested}()},
+\code{\link{strip_split}()},
 \code{\link{strip_vanilla}()}
 }
 \concept{strips}
