@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* New experimental `strip_split()` strip style for facets. This function might
+  still give unexpected results. Feel free to leave feedback!
 * Deprecated `ggsubset()`. Use `data = ~ subset(.x, ...)` instead.
 
 # ggh4x 0.2.1
