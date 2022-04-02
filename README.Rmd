@@ -28,7 +28,13 @@ The ggh4x package is a ggplot2 extension package. It provides some utility funct
 
 ## Installation
 
-You can install the development version from [GitHub](https://github.com/) with:
+You can install the most recent stable version of ggh4x from CRAN as follows:
+
+``` r
+install.packages("ggh4x")
+```
+
+Alternatively, you can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")

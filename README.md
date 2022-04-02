@@ -22,7 +22,14 @@ facets, positions, guides and stats.
 
 ## Installation
 
-You can install the development version from
+You can install the most recent stable version of ggh4x from CRAN as
+follows:
+
+``` r
+install.packages("ggh4x")
+```
+
+Alternatively, you can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -97,7 +104,7 @@ ggh4x.
 ``` r
 library(ggh4x)
 #> Loading required package: ggplot2
-#> Warning: package 'ggplot2' was built under R version 4.1.1
+#> Warning: package 'ggplot2' was built under R version 4.1.3
 library(scales)
 
 df <- transform(
