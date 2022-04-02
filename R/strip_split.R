@@ -5,7 +5,7 @@ strip_split <- function(
   size = "constant",
   nest = TRUE,
   position = c("top", "left"),
-  bleed    = TRUE,
+  bleed    = FALSE,
   text_x   = NULL,
   text_y   = NULL,
   background_x = NULL,
@@ -14,8 +14,8 @@ strip_split <- function(
   by_layer_y = FALSE
 ) {
   params <- list(
-    clip = arg_match0(clip, c("on", "off", "inherit")),
-    size = arg_match0(size, c("constant", "variable")),
+    clip  = arg_match0(clip, c("on", "off", "inherit")),
+    size  = arg_match0(size, c("constant", "variable")),
     nest  = isTRUE(nest),
     bleed = isTRUE(bleed),
     position = arg_match(position, values = c("top", "bottom", "left", "right"),
@@ -23,12 +23,12 @@ strip_split <- function(
   )
 
   given_elements <- list(
-    text_x = validate_element_list(text_x, "element_text"),
-    text_y = validate_element_list(text_y, "element_text"),
+    text_x       = validate_element_list(text_x, "element_text"),
+    text_y       = validate_element_list(text_y, "element_text"),
     background_x = validate_element_list(background_x, "element_rect"),
     background_y = validate_element_list(background_y, "element_rect"),
-    by_layer_x = isTRUE(by_layer_x),
-    by_layer_y = isTRUE(by_layer_y)
+    by_layer_x   = isTRUE(by_layer_x),
+    by_layer_y   = isTRUE(by_layer_y)
   )
 
   ggproto(
@@ -37,6 +37,8 @@ strip_split <- function(
     given_elements = given_elements
   )
 }
+
+# ggproto class -----------------------------------------------------------
 
 StripSplit <- ggproto(
   "StripSplit", StripNested,
@@ -52,13 +54,8 @@ StripSplit <- ggproto(
       }
       vars <- labels
     } else {
-      col_vars <- names(params$cols)
-      row_vars <- names(params$rows)
-      if (length(col_vars) > 0 && length(row_vars) > 0) {
-        abort("`strip_split()` can only work with either the `cols` or `rows` argument, but not both.")
-      }
-      var_names <- if (length(col_vars)) col_vars else row_vars
-      vars <- !duplicated(layout[var_names])
+      var_names <- union(names(params$rows), names(params$cols))
+      vars      <- !duplicated(layout[var_names])
 
       layout <- layout[vars, ]
       vars   <- layout[var_names]
@@ -78,7 +75,7 @@ StripSplit <- ggproto(
     labeller, theme, params, layout
   ) {
 
-    pos <- params$position
+    positions <- params$position
     style <- attr(vars, "facet")
 
     if (.int$empty(vars)) {
@@ -91,38 +88,42 @@ StripSplit <- ggproto(
     labels <- match.fun(labeller)
 
     elem <- self$elements
-    positions <- setNames(nm = c("top", "bottom", "left", "right"))
+
+    ids <- lapply(seq_len(ncol(vars)), seq_len)
+    ids <- lapply(ids, function(i) .int$id(vars[, i, drop = FALSE]))
+    ids <- .int$new_data_frame(setNames(ids, colnames(vars)))
 
     strips <- lapply(
-      positions,
-      function(p) {
-        browser()
-        cn  <- colnames(vars[pos == p])
+      setNames(nm = c("top", "bottom", "left", "right")),
+      function(pos) {
+        if (!(pos %in% positions)) {
+          return(NULL)
+        }
+        cn  <- colnames(vars[positions == pos])
 
-        i <- !duplicated(vars[pos == p])
+        i   <- !duplicated(ids[positions == pos])
         lay <- layout[i, , drop = FALSE]
 
         out <- cbind(labels(lay[cn]))
         lab <- do.call("cbind", out)
 
-        if (is.null(lab)) return(NULL)
-        if (p == "right") {
+        if (pos == "right") {
           lab <- lab[, rev(seq_len(ncol(lab)))]
         }
 
-        strp <- self$assemble_strip(lab, p, elem, params, lay)
+        strp <- self$assemble_strip(lab, pos, elem, params, lay)
 
-        if (length(cn) == 1 && style == "grid") {
+        if (length(cn) == 1) {
           if (all(strp$t == strp$b)) {
-            strp$b <- vapply(split(layout$ROW, layout[[cn]]), max, integer(1))
+            strp$b <- vapply(split(layout$ROW, ids[[cn]]), max, integer(1))
+            strp$b <- layout$PANEL[match(strp$b, layout$ROW)]
           }
           if (all(strp$l == strp$r)) {
-            strp$r <- vapply(split(layout$COL, layout[[cn]]), max, integer(1))
+            strp$r <- vapply(split(layout$COL, ids[[cn]]), max, integer(1))
+            strp$r <- layout$PANEL[match(strp$r, layout$COL)]
           }
         }
-
         strp
-
       }
     )
 
