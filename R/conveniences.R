@@ -263,8 +263,12 @@ center_limits <- function(around = 0) {
 #' ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 #'   geom_point(data = ggsubset(Species == "setosa"))
 ggsubset <- function(rowtest = NULL, omit = NULL) {
-  message(paste0("Consider using `data = ~ subset(.x, ...)` instead. ",
-                 "This function will likely be deprecated in the future."))
+  lifecycle::deprecate_warn(
+    "0.2.0",
+    "ggsubset()",
+    details = paste0("This is best replaced by using ",
+                     "`data = ~ subset(.x, ...)` instead.")
+  )
   rowtest <- substitute(rowtest)
   if (is.null(rowtest)) {
     rowtest <- substitute(TRUE)

@@ -1,9 +1,14 @@
 #' @include strip_nested.R
 NULL
 
+# TODO: write tests
+
 # Constructor -------------------------------------------------------------
 
 #' Split strips
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #'
 #' This strip style allows a greater control over where a strip is placed
 #' relative to the panel. Different facetting variables are allowed to be

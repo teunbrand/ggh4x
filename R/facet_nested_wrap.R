@@ -61,8 +61,12 @@ facet_nested_wrap <- function(
 ) {
   strip <- assert_strip(strip)
   if (!is.null(bleed)) {
-    message(paste0("The `bleed` argument should be set in the ",
-                   " `strip_nested()` function."))
+    lifecycle::deprecate_warn(
+      when = "0.2.0",
+      what = "facet_nested_wrap(bleed)",
+      details = paste0("The `bleed` argument should be set in the ",
+                       "`strip_nested()` function instead.")
+    )
     strip$params$bleed <- isTRUE(bleed)
   }
   # Convert logical to elements for backward compatibility

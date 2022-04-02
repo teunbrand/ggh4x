@@ -112,8 +112,8 @@ fit all panels.}
 \item{strip}{An object created by a call to a strip function, such as
 \code{\link[=strip_nested]{strip_nested()}}.}
 
-\item{bleed}{Deprecated. Use \code{strip = strip_nested(bleed = ...)} instead.
-See details.}
+\item{bleed}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} the \code{bleed} argument has
+moved to the \code{strip_nested()} function.}
 }
 \value{
 A \code{FacetNestedWrap} ggproto object that can be added to a plot.

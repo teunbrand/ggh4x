@@ -13,8 +13,8 @@
 #'   nesting line should be shortened.
 #' @param strip An object created by a call to a strip function, such as
 #'   [ggh4x::strip_nested()].
-#' @param bleed Deprecated. Use `strip = strip_nested(bleed = ...)` instead.
-#'   See details.
+#' @param bleed `r lifecycle::badge("deprecated")` the `bleed` argument has
+#'   moved to the `strip_nested()` function.
 #'
 #' @details This function inherits the capabilities of
 #'   [ggh4x::facet_grid2()].
@@ -73,8 +73,12 @@ facet_nested <- function(
 ) {
   strip <- assert_strip(strip)
   if (!is.null(bleed)) {
-    message(paste0("The `bleed` argument should be set in the ",
-                   " `strip_nested()` function."))
+    lifecycle::deprecate_warn(
+      when = "0.2.0",
+      what = "facet_nested(bleed)",
+      details = paste0("The `bleed` argument should be set in the ",
+                       "`strip_nested()` function instead.")
+    )
     strip$params$bleed <- isTRUE(bleed)
   }
   # Convert logical to elements for backward compatibility

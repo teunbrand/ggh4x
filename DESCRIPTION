@@ -24,7 +24,8 @@ Imports:
     gtable,
     scales,
     vctrs,
-    rlang
+    rlang,
+    lifecycle
 Suggests: 
     covr,
     digest,
