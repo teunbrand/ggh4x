@@ -186,7 +186,7 @@ StripSplit <- ggproto(
         lab <- do.call("cbind", out)
 
         if (pos == "right") {
-          lab <- lab[, rev(seq_len(ncol(lab)))]
+          lab <- lab[, rev(seq_len(ncol(lab))), drop = FALSE]
         }
 
         strp <- self$assemble_strip(lab, pos, elem, params, lay)
@@ -195,11 +195,11 @@ StripSplit <- ggproto(
         if (length(cn) == 1) {
           if (all(strp$t == strp$b)) {
             strp$b <- vapply(split(layout$ROW, ids[[cn]]), max, integer(1))
-            strp$b <- layout$PANEL[match(strp$b, layout$ROW)]
+            strp$b <- as.integer(layout$PANEL)[match(strp$b, layout$ROW)]
           }
           if (all(strp$l == strp$r)) {
             strp$r <- vapply(split(layout$COL, ids[[cn]]), max, integer(1))
-            strp$r <- layout$PANEL[match(strp$r, layout$COL)]
+            strp$r <- as.integer(layout$PANEL)[match(strp$r, layout$COL)]
           }
         }
         strp

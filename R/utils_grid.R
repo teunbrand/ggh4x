@@ -3,7 +3,7 @@ split_heights_cm <- function(grobs, split) {
   vals <- lapply(grobs, grobHeight)
   vals <- vapply(vals,  convertHeight, numeric(1),
                  unitTo = "cm", valueOnly = TRUE)
-  vals <- unname(vapply(split(vals, split), max, numeric(1)))
+  vals <- unname(vapply(split(vals, split, drop = TRUE), max, numeric(1)))
   unit(vals, "cm")
 }
 
@@ -12,6 +12,6 @@ split_widths_cm <- function(grobs, split) {
   vals <- lapply(grobs, grobWidth)
   vals <- vapply(vals,  convertWidth, numeric(1),
                  unitTo = "cm", valueOnly = TRUE)
-  vals <- unname(vapply(split(vals, split), max, numeric(1)))
+  vals <- unname(vapply(split(vals, split, drop = TRUE), max, numeric(1)))
   unit(vals, "cm")
 }
