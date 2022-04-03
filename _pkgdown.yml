@@ -74,10 +74,11 @@ reference:
     Functions that don't belong to a family of functions, may might be
     helpful in specific circumstances.
 - contents:
+  - ggh4x_extensions
+  - theme_extensions
   - help_secondary
   - center_limits
   - element_part_rect
-  - FacetGrid2
   - ggsubset
   - elem_list_rect
   - weave_factors

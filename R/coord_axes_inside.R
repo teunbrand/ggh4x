@@ -1,3 +1,6 @@
+#' @include ggh4x_extensions.R
+NULL
+
 # Constructor -------------------------------------------------------------
 
 #' Cartesian coordinates with interior axes

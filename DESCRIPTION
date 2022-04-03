@@ -43,8 +43,9 @@ VignetteBuilder:
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 Config/testthat/edition: 3
-Collate: 
+Collate:
     'conveniences.R'
+    'ggh4x_extensions.R'
     'coord_axes_inside.R'
     'element_part_rect.R'
     'facet_grid2.R'
@@ -59,7 +60,6 @@ Collate:
     'geom_rectrug.R'
     'geom_text_aimed.R'
     'ggh4x-package.R'
-    'ggh4x_extensions.R'
     'guide_axis_logticks.R'
     'guide_axis_manual.R'
     'guide_axis_minor.R'
