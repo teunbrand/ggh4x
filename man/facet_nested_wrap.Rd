@@ -99,7 +99,7 @@ either of the four sides by setting \code{strip.position = c("top",
 
 \item{nest_line}{a theme element, either \code{element_blank()} or inheriting
 from \code{\link[ggplot2:element]{ggplot2::element_line()}}. This element inherits from
-the \code{ggh4x.facet.nestline} element in the theme.}
+the \code{\link[=theme_extensions]{ggh4x.facet.nestline}} element in the theme.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}

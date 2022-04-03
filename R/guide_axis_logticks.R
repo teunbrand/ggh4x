@@ -14,11 +14,20 @@
 #'   log transformation instead of trying to guess the base. It is recommended
 #'   to use this argument if the base is not `10`.
 #'
-#' @details The length of minor ticks can be controlled relative to the length
-#'   of major ticks by setting `ggh4x.axis.ticks.length.minor` as a
-#'   `rel` object. Likewise the size of the smallest ticks are controlled
-#'   by the `ggh4x.axis.ticks.length.minor`, also relative to the major
-#'   ticks.
+#' @section Theme elements:
+#'   This axis guide uses the following the theme elements:
+#'
+#'   \describe{
+#'     \item{[`ggh4x.axis.ticks.length.minor`][theme_extensions]}{
+#'       An [`rel()`] object to set the size of minor ticks relative to the
+#'       length of major ticks (`axis.ticks.length`). Defaults to `rel(2/3)`.
+#'     }
+#'     \item{[`ggh4x.axis.ticks.length.mini`][theme_extensions]}{
+#'       An [`rel()`] object to set the size of smallest ticks, also relative to
+#'       the length of major ticks (`axis.ticks.length`). Defaults to
+#'       `rel(1/3)`.
+#'     }
+#'   }
 #'
 #' @return An *axis_logticks* guide class object.
 #' @export

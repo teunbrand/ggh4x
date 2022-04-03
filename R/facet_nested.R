@@ -8,7 +8,7 @@
 #' @inheritParams facet_grid2
 #' @param nest_line a theme element, either `element_blank()` or inheriting
 #'   from [ggplot2::element_line()]. This element inherits from
-#'   the `ggh4x.facet.nestline` element in the theme.
+#'   the [`ggh4x.facet.nestline`][theme_extensions] element in the theme.
 #' @param resect  a `unit` vector of length 1, indicating how much the
 #'   nesting line should be shortened.
 #' @param strip An object created by a call to a strip function, such as

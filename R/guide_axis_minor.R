@@ -7,9 +7,15 @@
 #'
 #' @inheritParams guide_axis_truncated
 #'
-#' @details The length of minor ticks can be controlled relative to the length
-#'   of major ticks by setting `ggh4x.axis.ticks.length.minor` as a
-#'   `rel` object.
+#' @section Theme elements:
+#'   This axis guide uses the following the theme elements:
+#'
+#'   \describe{
+#'     \item{[`ggh4x.axis.ticks.length.minor`][theme_extensions]}{
+#'       An [`rel()`] object to set the size of minor ticks relative to the
+#'       length of major ticks (`axis.ticks.length`). Defaults to `rel(2/3)`.
+#'     }
+#'   }
 #'
 #' @return An *axis_minor* guide class object.
 #' @export

@@ -18,6 +18,20 @@
 #'   nice groupings, consider re-ordering the levels of factor variables, or try
 #'   setting the 'breaks' argument of a scale appropriately.
 #'
+#' @section Theme elements:
+#'   This axis guide uses the following the theme elements:
+#'
+#'   \describe{
+#'     \item{[`ggh4x.axis.nestline.x/y`][theme_extensions]}{
+#'       An [`element_line()`] object to alter the display of the line
+#'       separating different layers of labels.
+#'     }
+#'     \item{[`ggh4x.axis.nesttext.x/y`][theme_extensions]}{
+#'       An [`element_text()`] object to differentiate text higher up in the
+#'       hierarchy, from the text closest to the axis line.
+#'     }
+#'   }
+#'
 #' @return A *axis_nested* guide class object.
 #' @seealso [ggplot2::guide_axis()] for the classic axis
 #'   documentation. \cr [ggh4x::weave_factors()] for an alternative to

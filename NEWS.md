@@ -4,6 +4,8 @@
   still give unexpected results. Feel free to leave feedback!
 * New `coord_axes_inside()` function that moves axes from outside the panel to
   inside the panel.
+* Documented `?theme_extensions` to collect information about extra theme 
+  elements in a single place.
 * Deprecated `ggsubset()`. Use `data = ~ subset(.x, ...)` instead.
 
 # ggh4x 0.2.1

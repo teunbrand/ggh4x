@@ -77,11 +77,18 @@ An \emph{axis_minor} guide class object.
 These are similar the the normal axis guides for position scales, but also
 place tickmarks at minor break positions.
 }
-\details{
-The length of minor ticks can be controlled relative to the length
-of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
-\code{rel} object.
+\section{Theme elements}{
+
+This axis guide uses the following the theme elements:
+
+\describe{
+\item{\code{\link[=theme_extensions]{ggh4x.axis.ticks.length.minor}}}{
+An \code{\link[=rel]{rel()}} object to set the size of minor ticks relative to the
+length of major ticks (\code{axis.ticks.length}). Defaults to \code{rel(2/3)}.
 }
+}
+}
+
 \examples{
 # Using the minor breaks axis
 p <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +

@@ -93,6 +93,22 @@ The guide itself makes no effort to group and order labels. To get
 nice groupings, consider re-ordering the levels of factor variables, or try
 setting the 'breaks' argument of a scale appropriately.
 }
+\section{Theme elements}{
+
+This axis guide uses the following the theme elements:
+
+\describe{
+\item{\code{\link[=theme_extensions]{ggh4x.axis.nestline.x/y}}}{
+An \code{\link[=element_line]{element_line()}} object to alter the display of the line
+separating different layers of labels.
+}
+\item{\code{\link[=theme_extensions]{ggh4x.axis.nesttext.x/y}}}{
+An \code{\link[=element_text]{element_text()}} object to differentiate text higher up in the
+hierarchy, from the text closest to the axis line.
+}
+}
+}
+
 \examples{
 # The defaults are suited for interaction variables
 ggplot(mpg, aes(interaction(cyl, class), hwy)) +

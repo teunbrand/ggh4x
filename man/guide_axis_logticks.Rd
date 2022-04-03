@@ -88,13 +88,23 @@ This axis guide is probably best described as
 \code{\link[ggplot2:annotation_logticks]{ggplot2::annotation_logticks()}} but implemented as a guide instead
 of a geom. The tick marks probably best suit log10 transformations.
 }
-\details{
-The length of minor ticks can be controlled relative to the length
-of major ticks by setting \code{ggh4x.axis.ticks.length.minor} as a
-\code{rel} object. Likewise the size of the smallest ticks are controlled
-by the \code{ggh4x.axis.ticks.length.minor}, also relative to the major
-ticks.
+\section{Theme elements}{
+
+This axis guide uses the following the theme elements:
+
+\describe{
+\item{\code{\link[=theme_extensions]{ggh4x.axis.ticks.length.minor}}}{
+An \code{\link[=rel]{rel()}} object to set the size of minor ticks relative to the
+length of major ticks (\code{axis.ticks.length}). Defaults to \code{rel(2/3)}.
 }
+\item{\code{\link[=theme_extensions]{ggh4x.axis.ticks.length.mini}}}{
+An \code{\link[=rel]{rel()}} object to set the size of smallest ticks, also relative to
+the length of major ticks (\code{axis.ticks.length}). Defaults to
+\code{rel(1/3)}.
+}
+}
+}
+
 \examples{
 # The guide works well out of the box with log10 scales
 p <- ggplot(pressure, aes(temperature, pressure)) +

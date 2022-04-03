@@ -16,7 +16,7 @@ reference:
 - title: "Facet helpers"
   desc: >
     Helper functions that can tweak the appearance of facet panels, the strips
-    and position scales..
+    and position scales.
 - contents:
   - strip_vanilla
   - strip_themed
@@ -36,7 +36,7 @@ reference:
   - guide_axis_logticks
   - guide_axis_nested
   - guide_axis_manual
-  - coord_axis_inside
+  - coord_axes_inside
 - title: "Colour scales and guide"
   desc: >
     Two ways of mapping non-standard aesthetics to colour/fill scales and a
