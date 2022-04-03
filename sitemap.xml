@@ -43,6 +43,9 @@
     <loc>https://teunbrand.github.io/ggh4x/reference/center_limits.html</loc>
   </url>
   <url>
+    <loc>https://teunbrand.github.io/ggh4x/reference/coord_axes_inside.html</loc>
+  </url>
+  <url>
     <loc>https://teunbrand.github.io/ggh4x/reference/distribute_args.html</loc>
   </url>
   <url>
@@ -151,10 +154,16 @@
     <loc>https://teunbrand.github.io/ggh4x/reference/strip_nested.html</loc>
   </url>
   <url>
+    <loc>https://teunbrand.github.io/ggh4x/reference/strip_split.html</loc>
+  </url>
+  <url>
     <loc>https://teunbrand.github.io/ggh4x/reference/strip_themed.html</loc>
   </url>
   <url>
     <loc>https://teunbrand.github.io/ggh4x/reference/strip_vanilla.html</loc>
+  </url>
+  <url>
+    <loc>https://teunbrand.github.io/ggh4x/reference/theme_extensions.html</loc>
   </url>
   <url>
     <loc>https://teunbrand.github.io/ggh4x/reference/weave_factors.html</loc>

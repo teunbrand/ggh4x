@@ -82,29 +82,32 @@ duplicate of the subset in the ggplot object.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A function that takes a <code>data.frame</code> as argument and returns a
-  subset of that <code>data.frame</code> according to <code>rowtest</code></p>
+subset of that <code>data.frame</code> according to <code>rowtest</code></p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>ggsubset</code> is a wrapper around <code>subset.data.frame</code> where
-  the <code>subset</code> argument is set to <code>rowtest</code> and the <code>select</code>
-  argument to <code>-omit</code>. Since the <code>data</code> argument in the
-  <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">layer()</a></code> function can take a function with one argument, we can pass
-  the function returned from <code>ggsubset</code> as that argument to subset the
-  data by rows.</p>
+the <code>subset</code> argument is set to <code>rowtest</code> and the <code>select</code>
+argument to <code>-omit</code>. Since the <code>data</code> argument in the
+<code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">layer()</a></code> function can take a function with one argument, we can pass
+the function returned from <code>ggsubset</code> as that argument to subset the
+data by rows.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">layer</a></code>, specifically the <code>data</code>
-  argument. See <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset.data.frame</a></code> for the internal
-  function.</p></div>
+    <div class="dont-index"><p>See <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">ggplot2::layer()</a></code>, specifically the <code>data</code>
+argument. See <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset.data.frame()</a></code> for the internal
+function.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu">ggsubset</span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Consider using `data = ~ subset(.x, ...)` instead. This function will likely be deprecated in the future.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`ggsubset()` was deprecated in ggh4x 0.2.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> This is best replaced by using `data = ~ subset(.x, ...)` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-plt img"><img src="ggsubset-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

@@ -87,28 +87,28 @@ specified in <code>"null" unit</code>s are proportional. If <code>FALSE</code>,
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Forcing the panel sizes should in theory work regardless of what
-  facetting choice was made, as long as this function is called after the
-  facet specification. Even when no facets are specified, ggplot2 defaults to
-  the <code><a href="https://ggplot2.tidyverse.org/reference/facet_null.html" class="external-link">facet_null</a></code> specification; a single panel.
-  <code>force_panelsizes</code> works by wrapping the original panel drawing
-  function inside a function that modifies the widths and heights of panel
-  grobs in the original function's output gtable.</p>
+facetting choice was made, as long as this function is called after the
+facet specification. Even when no facets are specified, ggplot2 defaults to
+the <code><a href="https://ggplot2.tidyverse.org/reference/facet_null.html" class="external-link">ggplot2::facet_null()</a></code> specification; a single panel.
+<code>force_panelsizes</code> works by wrapping the original panel drawing
+function inside a function that modifies the widths and heights of panel
+grobs in the original function's output gtable.</p>
 <p>When <code>rows</code> or <code>cols</code> are <code>numeric</code> vectors, panel sizes are
-  defined as ratios i.e. relative <code>"null" unit</code>s. <code>rows</code> and
-  <code>cols</code> vectors are repeated or shortened to fit the number of panels
-  in their direction. When <code>rows</code> or <code>cols</code> are <code>NULL</code>, no
-  changes are made in that direction.</p>
+defined as ratios i.e. relative <code>"null" unit</code>s. <code>rows</code> and
+<code>cols</code> vectors are repeated or shortened to fit the number of panels
+in their direction. When <code>rows</code> or <code>cols</code> are <code>NULL</code>, no
+changes are made in that direction.</p>
 <p>When <code>respect = NULL</code>, default behaviour specified elsewhere is
-  inherited.</p>
+inherited.</p>
 <p>No attempt is made to guarantee that the plot fits the output device. The
-  <code>space</code> argument in <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></code> will be
-  overruled. When individual panels span multiple rows or columns, this
-  function may not work as intended.</p>
+<code>space</code> argument in <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">ggplot2::facet_grid()</a></code> will be
+overruled. When individual panels span multiple rows or columns, this
+function may not work as intended.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></code> <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></code>
-  <code><a href="https://ggplot2.tidyverse.org/reference/facet_null.html" class="external-link">facet_null</a></code> <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></code></p></div>
+    <div class="dont-index"><p><code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">ggplot2::facet_grid()</a></code> <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap()</a></code>
+<code><a href="https://ggplot2.tidyverse.org/reference/facet_null.html" class="external-link">ggplot2::facet_null()</a></code> <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code></p></div>
     </div>
 
     <div class="section level2">

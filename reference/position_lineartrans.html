@@ -92,61 +92,57 @@ for linear mapping. Overrides other arguments if provided.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Linear transformation matrices are <code>2</code> x <code>2</code> real
-  matrices. The '<code>scale</code>', '<code>shear</code>' and '<code>rotation</code>'
-  arguments are convenience arguments to construct a transformation matrix.
-  These operations occur in the order: scaling - shearing - rotating. To
-  apply the transformations in another order, build a custom '<code>M</code>'
-  argument.</p>
+matrices. The '<code>scale</code>', '<code>shear</code>' and '<code>rotation</code>'
+arguments are convenience arguments to construct a transformation matrix.
+These operations occur in the order: scaling - shearing - rotating. To
+apply the transformations in another order, build a custom '<code>M</code>'
+argument.</p>
 <p>For some common transformations, you can find appropriate matrices for the
-  '<code>M</code>' argument below.</p>
+'<code>M</code>' argument below.</p>
     </div>
     <div class="section level2">
     <h2 id="common-transformations">Common transformations<a class="anchor" aria-label="anchor" href="#common-transformations"></a></h2>
     <p></p><div class="section">
 <h3 id="identity-transformations">Identity transformations<a class="anchor" aria-label="anchor" href="#identity-transformations"></a></h3>
 <p>An
-  identity transformation, or returning the original coordinates, can be
-  performed by using the following transformation matrix: <br><br><code>| 1 0
-  |</code><br><code>| 0 1 |</code><br><br> or <br><br><code>M &lt;- matrix(c(1, 0, 0, 1), 2)</code></p>
-</div><p></p><div class="section">
+identity transformation, or returning the original coordinates, can be
+performed by using the following transformation matrix: <br><br><code>| 1 0 |</code><br><code>| 0 1 |</code><br><br> or <br><br><code>M &lt;- matrix(c(1, 0, 0, 1), 2)</code></p>
+</div>
+<div class="section">
 <h3 id="scaling">Scaling<a class="anchor" aria-label="anchor" href="#scaling"></a></h3>
 <p>A scaling transformation multiplies the dimension of
-  an object by some amount. An example transformation matrix for scaling
-  everything by a factor 2: <br><br><code>| 2 0 |</code><br><code>| 0 2 |</code><br><br> or
-  <br><br><code>M &lt;- matrix(c(2, 0, 0, 2), 2)</code></p>
+an object by some amount. An example transformation matrix for scaling
+everything by a factor 2: <br><br><code>| 2 0 |</code><br><code>| 0 2 |</code><br><br> or
+<br><br><code>M &lt;- matrix(c(2, 0, 0, 2), 2)</code></p>
 </div><p></p><div class="section">
 <h3 id="squeezing">Squeezing<a class="anchor" aria-label="anchor" href="#squeezing"></a></h3>
 <p>Similar
-  to scaling, squeezing multiplies the dimensions by some amount that is
-  unequal for the <code>x</code> and <code>y</code> coordinates. For example, squeezing
-  <code>y</code> by half and expanding <code>x</code> by two:</p><table class="table table"><tr><td>|</td><td></td><td><code>2</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0.5</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(2, 0, 0,
-  0.5), 2)</code></p>
+to scaling, squeezing multiplies the dimensions by some amount that is
+unequal for the <code>x</code> and <code>y</code> coordinates. For example, squeezing
+<code>y</code> by half and expanding <code>x</code> by two:</p><table class="table table"><tr><td>|</td><td></td><td><code>2</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0.5</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(2, 0, 0, 0.5), 2)</code></p>
 </div><p></p><div class="section">
 <h3 id="reflection">Reflection<a class="anchor" aria-label="anchor" href="#reflection"></a></h3>
 <p>Mirroring the coordinates around one of
-  the axes. Reflecting around the x-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>-1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(1, 0, 0, -1), 2)</code>
-  <br><br> Reflecting around the y-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>-1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(-1, 0, 0, 1), 2)</code></p>
-</div><p></p><div class="section">
+the axes. Reflecting around the x-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>-1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(1, 0, 0, -1), 2)</code>
+<br><br> Reflecting around the y-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>-1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(-1, 0, 0, 1), 2)</code></p>
+</div>
+<div class="section">
 <h3 id="projection">Projection<a class="anchor" aria-label="anchor" href="#projection"></a></h3>
 <p>For projecting the coordinates on one of the axes,
-  while collapsing everything from the other axis. Projecting onto the
-  <code>y</code>-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or
-  <br><br><code>M &lt;- matrix(c(0, 0, 0, 1), 2)</code> <br><br> Projecting onto the
-  <code>x</code>-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr></table><p>or
-  <br><br><code>M &lt;- matrix(c(1, 0, 0, 0), 2)</code></p>
+while collapsing everything from the other axis. Projecting onto the
+<code>y</code>-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or
+<br><br><code>M &lt;- matrix(c(0, 0, 0, 1), 2)</code> <br><br> Projecting onto the
+<code>x</code>-axis:</p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr></table><p>or
+<br><br><code>M &lt;- matrix(c(1, 0, 0, 0), 2)</code></p>
 </div><p></p><div class="section">
 <h3 id="shearing">Shearing<a class="anchor" aria-label="anchor" href="#shearing"></a></h3>
 <p>Tilting
-  the coordinates horizontally or vertically. Shearing vertically by 10%:</p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0.1</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;-
-  matrix(c(1, 0.1, 0, 1), 2)</code> <br><br> Shearing horizontally by 200%:</p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>2</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;-
-  matrix(c(1, 0, 2, 1), 2)</code></p>
+the coordinates horizontally or vertically. Shearing vertically by 10\<!-- %: --></p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0.1</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(1, 0.1, 0, 1), 2)</code> <br><br> Shearing horizontally by 200\<!-- %: --></p><table class="table table"><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>2</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>1</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(1, 0, 2, 1), 2)</code></p>
 </div><p></p><div class="section">
 <h3 id="rotation">Rotation<a class="anchor" aria-label="anchor" href="#rotation"></a></h3>
 <p>A rotation performs a
-  motion around a fixed point, typically the origin the coordinate system. To
-  rotate the coordinates by 90 degrees counter-clockwise:</p><table class="table table"><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>-1</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(0, 1, -1,
-  0), 2)</code> <br><br> For a rotation around any angle \(\theta\) :</p><table class="table table"><tr><td>|</td><td></td><td>\(cos\theta\)</td><td></td><td>\(-sin\theta\)</td><td></td><td>|</td></tr><tr><td>|</td><td></td><td>\(sin\theta\)</td><td></td><td>\(cos\theta\)</td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(cos(theta), sin(theta), -sin(theta),
-  cos(theta)), 2)</code> <br> with '<code>theta</code>' defined in radians.</p>
+motion around a fixed point, typically the origin the coordinate system. To
+rotate the coordinates by 90 degrees counter-clockwise:</p><table class="table table"><tr><td>|</td><td></td><td><code>0</code></td><td></td><td><code>-1</code></td><td></td><td>|</td></tr><tr><td>|</td><td></td><td><code>1</code></td><td></td><td><code>0</code></td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(0, 1, -1, 0), 2)</code> <br><br> For a rotation around any angle \(\theta\) :</p><table class="table table"><tr><td>|</td><td></td><td>\(cos\theta\)</td><td></td><td>\(-sin\theta\)</td><td></td><td>|</td></tr><tr><td>|</td><td></td><td>\(sin\theta\)</td><td></td><td>\(cos\theta\)</td><td></td><td>|</td></tr></table><p>or <br><br><code>M &lt;- matrix(c(cos(theta), sin(theta), -sin(theta), cos(theta)), 2)</code> <br> with '<code>theta</code>' defined in radians.</p>
 </div>
 
     </div>

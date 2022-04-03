@@ -81,60 +81,60 @@ parameters for individual facets, provided the facet allows free scales.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <em>facetted_pos_scales</em> object, instructing a ggplot how to
-  adjust the scales per facet.</p>
+adjust the scales per facet.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>It is intended that this function works with both
-  <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></code>.
-  For <code>facet_wrap</code>, the scales are used for each individual panel. For
-  <code>facet_grid</code>, the scales are used for the rows and columns. Note that
-  these facets must be used with <code>scales = "free"</code> or <code>"free_x"</code> or
-  <code>"free_y"</code>, depending on what scales are added.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">ggplot2::facet_grid()</a></code>.
+For <code>facet_wrap</code>, the scales are used for each individual panel. For
+<code>facet_grid</code>, the scales are used for the rows and columns. Note that
+these facets must be used with <code>scales = "free"</code> or <code>"free_x"</code> or
+<code>"free_y"</code>, depending on what scales are added.</p>
 <p>Axis titles are derived from the first scale in the list (or the default
-  position scale when the first list element is <code>NULL</code>).</p>
-<p></p><div class="section">
+position scale when the first list element is <code>NULL</code>).</p>
+<div class="section">
 <h3 id="scale-transformations">Scale transformations<a class="anchor" aria-label="anchor" href="#scale-transformations"></a></h3>
 <p>It is allowed to use individual scale
-  transformations for facets, but this functionality comes with the trade-off
-  that the out of bounds (<code>oob</code>) argument for individual scales is
-  ignored. Values that are out of bounds will be clipped. Whereas the
-  <code>stat</code> part of a ggplot layer is typically calculated after scale
-  transformations, the calculation of the <code>stat</code> happens before scale
-  transformation with this function, which can lead to some awkward results.
-  The suggested workaround is to pre-transform the data for layers with
-  non-identity <code>stat</code> parts.</p>
+transformations for facets, but this functionality comes with the trade-off
+that the out of bounds (<code>oob</code>) argument for individual scales is
+ignored. Values that are out of bounds will be clipped. Whereas the
+<code>stat</code> part of a ggplot layer is typically calculated after scale
+transformations, the calculation of the <code>stat</code> happens before scale
+transformation with this function, which can lead to some awkward results.
+The suggested workaround is to pre-transform the data for layers with
+non-identity <code>stat</code> parts.</p>
 </div>
 
-<p></p><div class="section">
+<div class="section">
 <h3 id="scale-list-input">Scale list input<a class="anchor" aria-label="anchor" href="#scale-list-input"></a></h3>
 <p><code>NULL</code>s are valid list elements and
-  signal that the default position scale should be used at the position in
-  the list where the <code>NULL</code> occurs. Since transformations are applied
-  before facet scales are initiated, it is not recommended to use a default
-  position (either the first in the list, or defined outside
-  <code>facetted_pos_scales()</code>) scale with a transformation other than
-  <code>trans = "identity"</code> (the default).</p>
+signal that the default position scale should be used at the position in
+the list where the <code>NULL</code> occurs. Since transformations are applied
+before facet scales are initiated, it is not recommended to use a default
+position (either the first in the list, or defined outside
+<code>facetted_pos_scales()</code>) scale with a transformation other than
+<code>trans = "identity"</code> (the default).</p>
 </div>
 
-<p></p><div class="section">
+<div class="section">
 <h3 id="formula-list-input">Formula list input<a class="anchor" aria-label="anchor" href="#formula-list-input"></a></h3>
 <p>The <code>x</code> and <code>y</code> arguments also
-  accept a list of two-sided formulas. The left hand side of a formula should
-  evaluate to a <code>logical</code> vector. The right hand side of the formula
-  should evaluate to a position scale, wherein the <code>x</code> argument accepts
-  x-position scales and the <code>y</code> argument accepts y-position scales.
-  Notably, the left hand side of the formula is evaluated using the tidy
-  evaluation framework, whereby the <code>data.frame</code> with the plot's layout
-  is given priority over the environment in which the formula was created. As
-  a consequence, variables (columns) that define faceting groups can be
-  references directly.</p>
+accept a list of two-sided formulas. The left hand side of a formula should
+evaluate to a <code>logical</code> vector. The right hand side of the formula
+should evaluate to a position scale, wherein the <code>x</code> argument accepts
+x-position scales and the <code>y</code> argument accepts y-position scales.
+Notably, the left hand side of the formula is evaluated using the tidy
+evaluation framework, whereby the <code>data.frame</code> with the plot's layout
+is given priority over the environment in which the formula was created. As
+a consequence, variables (columns) that define faceting groups can be
+references directly.</p>
 </div>
 
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code>scale_continuous</code> and <code>scale_x_discrete</code>.</p></div>
+    <div class="dont-index"><p><code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">ggplot2::scale_x_continuous()</a></code> and <code>scale_x_discrete</code>.</p></div>
     </div>
 
     <div class="section level2">

@@ -100,8 +100,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the most recent stable version of ggh4x from CRAN as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggh4x"</span><span class="op">)</span></code></pre></div>
+<p>Alternatively, you can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"teunbrand/ggh4x"</span><span class="op">)</span></code></pre></div>
 </div>
@@ -146,10 +149,10 @@
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>Below you’ll find an example that illustrates some of the features of ggh4x.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x" class="external-link">ggh4x</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: ggplot2</span>
-<span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.1.1</span>
+<span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.1.3</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span>
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span>
@@ -194,7 +197,7 @@
   <span class="op">)</span>
 <span class="va">g</span></code></pre></div>
 <p><img src="reference/figures/README-multicolour-1.png" width="80%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># We can make a facet wherein duplicated strip labels are merged into one strip</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> 
   <span class="fu"><a href="reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span>, scales <span class="op">=</span> <span class="st">"free"</span>,

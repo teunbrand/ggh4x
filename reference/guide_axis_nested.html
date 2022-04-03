@@ -153,14 +153,29 @@ nesting lines relative to the smallest difference in break positions.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The guide itself makes no effort to group and order labels. To get
-  nice groupings, consider re-ordering the levels of factor variables, or try
-  setting the 'breaks' argument of a scale appropriately.</p>
+nice groupings, consider re-ordering the levels of factor variables, or try
+setting the 'breaks' argument of a scale appropriately.</p>
     </div>
     <div class="section level2">
+    <h2 id="theme-elements">Theme elements<a class="anchor" aria-label="anchor" href="#theme-elements"></a></h2>
+    
+
+<p>This axis guide uses the following the theme elements:</p>
+<dl><dt><code><a href="theme_extensions.html">ggh4x.axis.nestline.x/y</a></code></dt>
+<dd><p>An <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line()</a></code> object to alter the display of the line
+separating different layers of labels.</p></dd>
+
+<dt><code><a href="theme_extensions.html">ggh4x.axis.nesttext.x/y</a></code></dt>
+<dd><p>An <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text()</a></code> object to differentiate text higher up in the
+hierarchy, from the text closest to the axis line.</p></dd>
+
+
+</dl></div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://ggplot2.tidyverse.org/reference/guide_axis.html" class="external-link">guide_axis</a></code> for the classic axis
-  documentation. <br><code><a href="weave_factors.html">weave_factors</a></code> for an alternative to
-  <code><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction()</a></code>.</p>
+    <div class="dont-index"><p><code><a href="https://ggplot2.tidyverse.org/reference/guide_axis.html" class="external-link">ggplot2::guide_axis()</a></code> for the classic axis
+documentation. <br><code><a href="weave_factors.html">weave_factors()</a></code> for an alternative to
+<code><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction()</a></code>.</p>
 <p>Other axis-guides: 
 <code><a href="guide_axis_logticks.html">guide_axis_logticks</a>()</code>,
 <code><a href="guide_axis_manual.html">guide_axis_manual</a>()</code>,
