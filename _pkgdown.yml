@@ -21,6 +21,7 @@ reference:
   - strip_vanilla
   - strip_themed
   - strip_nested
+  - strip_split
   - force_panelsizes
   - facetted_pos_scales
 - title: Position guides and scales
@@ -35,6 +36,7 @@ reference:
   - guide_axis_logticks
   - guide_axis_nested
   - guide_axis_manual
+  - coord_axis_inside
 - title: "Colour scales and guide"
   desc: >
     Two ways of mapping non-standard aesthetics to colour/fill scales and a
