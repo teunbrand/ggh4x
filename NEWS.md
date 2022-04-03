@@ -2,6 +2,8 @@
 
 * New experimental `strip_split()` strip style for facets. This function might
   still give unexpected results. Feel free to leave feedback!
+* New `coord_axes_inside()` function that moves axes from outside the panel to
+  inside the panel.
 * Deprecated `ggsubset()`. Use `data = ~ subset(.x, ...)` instead.
 
 # ggh4x 0.2.1

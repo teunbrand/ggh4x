@@ -45,6 +45,7 @@ RoxygenNote: 7.1.2
 Config/testthat/edition: 3
 Collate: 
     'conveniences.R'
+    'coord_axes_inside.R'
     'element_part_rect.R'
     'facet_grid2.R'
     'facet_wrap2.R'
