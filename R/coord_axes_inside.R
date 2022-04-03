@@ -7,6 +7,7 @@
 #' [`coord_fixed()`][ggplot2::coord_fixed] (the latter if the `ratio` argument
 #' is set).
 #'
+#' @inheritParams ggplot2::coord_cartesian
 #' @inheritParams ggplot2::coord_fixed
 #' @param xintercept,yintercept A `numeric(1)` for the positions where the
 #'   orthogonal axes should be placed. If these are outside the bounds of the
