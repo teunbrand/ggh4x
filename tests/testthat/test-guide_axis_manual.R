@@ -126,7 +126,6 @@ test_that("guide_axis_manual can be placed at every position", {
                               labels = ~ .x ^ 2)
   )
 
-  skip_if(getRversion() >= "4.2.0")
   if (requireNamespace("vdiffr", quietly = TRUE)) {
     vdiffr::expect_doppelganger("Manual axis all sides", base + g + theme_test())
   }
