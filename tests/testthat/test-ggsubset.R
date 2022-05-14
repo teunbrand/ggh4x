@@ -1,42 +1,56 @@
 test_that("ggsubset returns a function", {
-  f <- ggsubset()
+  suppressWarnings({
+    f <- ggsubset()
+  }, classes = "lifecycle_warning_deprecated")
   expect_type(f, "closure")
 })
 
 test_that("ggsubset returns a function that can be used on a data.frame", {
-  f <- ggsubset(Species == "setosa")
+  suppressWarnings({
+    f <- ggsubset(Species == "setosa")
+  }, classes = "lifecycle_warning_deprecated")
   results <- f(iris)
   expect_s3_class(results, "data.frame")
 })
 
 test_that("ggsubset function correctly subsets", {
-  f <- ggsubset(Species == "setosa")
+  suppressWarnings({
+    f <- ggsubset(Species == "setosa")
+  }, classes = "lifecycle_warning_deprecated")
   results <- f(iris)
   species <- as.character(unique(results$Species))
   expect_equal(species, "setosa")
 })
 
 test_that("ggsubset handles compound logic", {
-  f <- ggsubset(Species == "setosa" | Species == "versicolor")
+  suppressWarnings({
+    f <- ggsubset(Species == "setosa" | Species == "versicolor")
+  }, classes = "lifecycle_warning_deprecated")
   results <- f(iris)
   species <- as.character(unique(results$Species))
   expect_equal(species, c("setosa", "versicolor"))
 })
 
 test_that("ggsubset correctly omits columns", {
-  f <- ggsubset(omit = Species)
+  suppressWarnings({
+    f <- ggsubset(omit = Species)
+  }, classes = "lifecycle_warning_deprecated")
   results <- f(iris)
   expect_false("Species" %in% colnames(results))
 })
 
 test_that("ggsubset correctly omits multiple columns", {
-  f <- ggsubset(omit = c(Species, Sepal.Length))
+  suppressWarnings({
+    f <- ggsubset(omit = c(Species, Sepal.Length))
+  }, classes = "lifecycle_warning_deprecated")
   results <- f(iris)
   expect_false(any(c("Species", "Sepal.Length") %in% colnames(results)))
 })
 
 test_that("ggsubset can subset and omit simultaneously", {
-  f <- ggsubset(Species == "setosa", omit = Sepal.Length)
+  suppressWarnings({
+    f <- ggsubset(Species == "setosa", omit = Sepal.Length)
+  }, classes = "lifecycle_warning_deprecated")
   results <- f(iris)
   species <- as.character(unique(results$Species))
   expect_equal(species, "setosa")
@@ -44,7 +58,9 @@ test_that("ggsubset can subset and omit simultaneously", {
 })
 
 test_that("ggsubset can subset and omit on same column", {
-  f <- ggsubset(Species == "setosa", omit = Species)
+  suppressWarnings({
+    f <- ggsubset(Species == "setosa", omit = Species)
+  }, classes = "lifecycle_warning_deprecated")
   results <- f(iris)
   expect_false("Species" %in% colnames(results))
   expect_equal(nrow(results), 50)
@@ -55,10 +71,12 @@ test_that("ggsubset can be used in a ggplot", {
 
   ctrl <- plot + geom_point(aes(colour = Species))
 
-  test <- plot +
-    geom_point(data = ggsubset(Species == "setosa"), colour = "red") +
-    geom_point(data = ggsubset(Species == "versicolor"), colour = "blue") +
-    geom_point(data = ggsubset(Species == "virginica"), colour = "green")
+  suppressWarnings({
+    test <- plot +
+      geom_point(data = ggsubset(Species == "setosa"),     colour = "red") +
+      geom_point(data = ggsubset(Species == "versicolor"), colour = "blue") +
+      geom_point(data = ggsubset(Species == "virginica"),  colour = "green")
+  }, classes = "lifecycle_warning_deprecated")
 
   expect_equal(length(ctrl$layers), 1)
   expect_equal(length(test$layers), 3)
