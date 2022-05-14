@@ -73,9 +73,14 @@ stat_funxy <-
     }
 
     layer(
-      data = data, mapping = mapping, stat = StatFunxy, geom = geom,
-      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-      params = list(
+      data        = data,
+      mapping     = mapping,
+      stat        = StatFunxy,
+      geom        = geom,
+      position    = position,
+      show.legend = show.legend,
+      inherit.aes = inherit.aes,
+      params      = list2(
         funx = funx, funy = funy,
         argx = argx, argy = argy,
         crop_other = crop_other,

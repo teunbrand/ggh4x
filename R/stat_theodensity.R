@@ -109,19 +109,21 @@ stat_theodensity <- function(
          call. = FALSE)
   }
   layer(
-    data = data,
-    mapping = mapping,
-    stat = StatTheoDensity,
-    geom = geom,
-    position = position,
+    data        = data,
+    mapping     = mapping,
+    stat        = StatTheoDensity,
+    geom        = geom,
+    position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(distri = distri,
-                  n = n,
-                  fix.arg = fix.arg,
-                  start.arg = start.arg,
-                  na.rm = na.rm,
-                  ...)
+    params      = list2(
+      distri    = distri,
+      n         = n,
+      fix.arg   = fix.arg,
+      start.arg = start.arg,
+      na.rm     = na.rm,
+      ...
+    )
   )
 }
 

@@ -40,9 +40,18 @@ geom_pointpath <- function(
   inherit.aes = TRUE
 ) {
   layer(
-    data = data, mapping = mapping, stat = stat, geom = GeomPointPath,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, arrow = arrow, ...)
+    data        = data,
+    mapping     = mapping,
+    stat        = stat,
+    geom        = GeomPointPath,
+    position    = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list2(
+      na.rm = na.rm,
+      arrow = arrow,
+      ...
+    )
   )
 }
 

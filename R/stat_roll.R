@@ -82,19 +82,19 @@ stat_rollingkernel <-
     inherit.aes = TRUE
   ) {
     layer(
-      data = data,
-      mapping = mapping,
-      stat = "rollingkernel",
-      geom = geom,
-      position = position,
+      data        = data,
+      mapping     = mapping,
+      stat        = "rollingkernel",
+      geom        = geom,
+      position    = position,
       show.legend = show.legend,
       inherit.aes = inherit.aes,
-      params = list(
-        bw = bw,
-        kernel = kernel,
-        n = n,
-        expand = expand,
-        na.rm = na.rm,
+      params = list2(
+        bw          = bw,
+        kernel      = kernel,
+        n           = n,
+        expand      = expand,
+        na.rm       = na.rm,
         orientation = orientation,
         ...
       )

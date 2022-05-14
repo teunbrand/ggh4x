@@ -61,17 +61,17 @@ geom_text_aimed <- function(
   }
 
   layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomTextAimed,
-    position = position,
+    data        = data,
+    mapping     = mapping,
+    stat        = stat,
+    geom        = GeomTextAimed,
+    position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
-      parse = parse,
-      check_overlap = check_overlap,
-      na.rm = na.rm,
+    params      = list2(
+      parse           = parse,
+      check_overlap   = check_overlap,
+      na.rm           = na.rm,
       flip_upsidedown = flip_upsidedown,
       ...
     )

@@ -128,15 +128,22 @@ geom_rectmargin <- function(
   show.legend = NA,
   inherit.aes = TRUE
 ) {
-  layer(data = data, mapping = mapping,
-        stat = stat, geom = GeomRectMargin,
-        position = position, show.legend = show.legend,
-        inherit.aes = inherit.aes,
-        params = list(outside = outside,
-                      sides = sides,
-                      length = length,
-                      na.rm = na.rm,
-                      ...))
+  layer(
+    data        = data,
+    mapping     = mapping,
+    stat        = stat,
+    geom        = GeomRectMargin,
+    position    = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params      = list2(
+      outside = outside,
+      sides   = sides,
+      length  = length,
+      na.rm   = na.rm,
+      ...
+    )
+  )
 }
 
 #' @rdname geom_rectmargin
@@ -155,15 +162,22 @@ geom_tilemargin <- function(
   show.legend = NA,
   inherit.aes = TRUE
 ) {
-  layer(data = data, mapping = mapping,
-        stat = stat, geom = GeomTileMargin,
-        position = position, show.legend = show.legend,
-        inherit.aes = inherit.aes,
-        params = list(outside = outside,
-                      sides = sides,
-                      length = length,
-                      na.rm = na.rm,
-                      ...))
+  layer(
+    data        = data,
+    mapping     = mapping,
+    stat        = stat,
+    geom        = GeomTileMargin,
+    position    = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params      = list2(
+      outside = outside,
+      sides   = sides,
+      length  = length,
+      na.rm   = na.rm,
+      ...
+    )
+  )
 }
 
 # ggproto -----------------------------------------------------------------

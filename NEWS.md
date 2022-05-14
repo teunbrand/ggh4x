@@ -7,6 +7,7 @@
 * Documented `?theme_extensions` to collect information about extra theme 
   elements in a single place.
 * Deprecated `ggsubset()`. Use `data = ~ subset(.x, ...)` instead.
+* `geom_*()` and `stat_*()` functions now allow dynamic dots.
 
 # ggh4x 0.2.1
 

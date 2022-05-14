@@ -51,17 +51,17 @@ stat_difference <- function(
   inherit.aes = TRUE
 ) {
   layer(
-    data = data,
-    mapping = mapping,
-    stat = StatDifference,
-    geom = geom,
-    position = position,
+    data        = data,
+    mapping     = mapping,
+    stat        = StatDifference,
+    geom        = geom,
+    position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
-      na.rm = na.rm,
+    params = list2(
+      na.rm       = na.rm,
       orientation = orientation,
-      levels = levels,
+      levels      = levels,
       ...
     )
   )

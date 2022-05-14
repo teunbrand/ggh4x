@@ -83,18 +83,21 @@ stat_rle <- function(
   if (align == "center") {
     align <- "centre"
   }
-  layer(data = data,
-        mapping = mapping,
-        stat = StatRle,
-        geom = geom,
-        position = position,
-        show.legend = show.legend,
-        inherit.aes = inherit.aes,
-        params = list(
-          na.rm = na.rm,
-          orientation = orientation,
-          align = align
-        ))
+  layer(
+    data        = data,
+    mapping     = mapping,
+    stat        = StatRle,
+    geom        = geom,
+    position    = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params      = list2(
+      na.rm       = na.rm,
+      orientation = orientation,
+      align       = align,
+      ...
+    )
+  )
 }
 
 # ggproto class -----------------------------------------------------------

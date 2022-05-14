@@ -56,11 +56,21 @@ geom_polygonraster <- function(
 ) {
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
-  layer(data = data, mapping = mapping, stat = stat, geom = GeomPolygonRaster,
-        position = position, show.legend = show.legend,
-        inherit.aes = inherit.aes,
-        params = list(hjust = hjust, vjust = vjust,
-                      na.rm = na.rm, ...))
+  layer(
+    data        = data,
+    mapping     = mapping,
+    stat        = stat,
+    geom        = GeomPolygonRaster,
+    position    = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      hjust = hjust,
+      vjust = vjust,
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
 # ggproto -----------------------------------------------------------------
