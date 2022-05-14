@@ -55,6 +55,7 @@ Collate:
     'facet_nested_wrap.R'
     'facetted_pos_scales.R'
     'force_panelsize.R'
+    'geom_outline_point.R'
     'geom_pointpath.R'
     'geom_polygonraster.R'
     'geom_rectrug.R'

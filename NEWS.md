@@ -8,6 +8,7 @@
   elements in a single place.
 * Deprecated `ggsubset()`. Use `data = ~ subset(.x, ...)` instead.
 * `geom_*()` and `stat_*()` functions now allow dynamic dots.
+* New `geom_outline_points()` to draw overlapping points with outlines.
 
 # ggh4x 0.2.1
 
