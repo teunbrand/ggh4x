@@ -380,7 +380,8 @@ purge_guide_labels <- function(guide) {
   axis <- guide$children[[is_axis]]
 
   dim <- dim(axis)
-  is_label <- vapply(axis$grobs, inherits, logical(1), "titleGrob")
+  is_label <- vapply(axis$grobs, inherits, logical(1),
+                     what = c("titleGrob", "richtext_grob"))
 
   axis$layout <- axis$layout[!is_label, , drop = FALSE]
   axis$grobs <- axis$grobs[!is_label]
