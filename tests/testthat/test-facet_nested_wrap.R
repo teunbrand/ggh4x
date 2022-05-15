@@ -62,7 +62,16 @@ test_that("facet_nested_wrap bleed argument works", {
 })
 
 test_that("facet_nested_wrap nest_line parameter works", {
-  test <- basic + facet_nested_wrap(vars(cyl, drv), nest_line = TRUE)
+  f <- quote(facet_nested_wrap(vars(cyl, drv), nest_line = element_rect()))
+  expect_error(eval(f))
+
+  f <- facet_nested_wrap(vars(cyl, drv), nest_line = FALSE)
+  expect_s3_class(f$params$nest_line, "element_blank")
+
+  f <- facet_nested_wrap(vars(cyl, drv), nest_line = TRUE)
+  expect_s3_class(f$params$nest_line, "element_line")
+
+  test <- basic + f
 
   test <- ggplotGrob(test)
   ctrl <- default_gtable
@@ -94,3 +103,10 @@ test_that("facet_nested_wrap all strip positions are OK", {
 
   expect_equal(nstrips, c(13, 13, 13, 13))
 })
+
+test_that("facet_nested_wrap constructors throws appropriate warnings", {
+
+  x <- quote(facet_nested_wrap(vars(dummy), bleed = "dummy"))
+  expect_warning(eval(x))
+})
+

@@ -73,6 +73,11 @@ test_that("facet_nested returns helpful error messages", {
 
 # Strip nesting tests -----------------------------------------------------
 
+test_that("facet_nested rejects invalid strips", {
+  f <- quote(facet_nested(~ Species, strip = "dummy"))
+  expect_error(eval(f), "valid facet strip")
+})
+
 test_that("facet_nested can draw multiple panel and strips", {
   # Build plots
   test <- basic + facet_nested(~ Species)
@@ -118,6 +123,15 @@ test_that("facet_nested can nest strips", {
 })
 
 # Nesting line tests ------------------------------------------------------
+
+test_that("facet_nested constructor handles nesting lines", {
+  f <- facet_nested(~ nester + Species, nest_line = TRUE)
+  expect_s3_class(f$params$nest_line, 'element_line')
+  f <- facet_nested(~ nester + Species, nest_line = FALSE)
+  expect_s3_class(f$params$nest_line, "element_blank")
+  f <- quote(facet_nested(~ nester + Species, nest_line = element_rect()))
+  expect_error(eval(f))
+})
 
 test_that("facet_nested can draw nesting lines horizontally", {
   # Build gtable
@@ -189,6 +203,11 @@ bleed <- ggplot(df, aes(x, y)) +
 
 
 # Bleed tests -------------------------------------------------------------
+
+test_that("setting argument directly begets warnings", {
+  f <- quote(facet_nested(~ outer + inner, bleed = "dummy"))
+  expect_warning(eval(f))
+})
 
 test_that("facet_nested can bleed horizontally", {
   # Setup gtable layouts

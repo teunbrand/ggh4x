@@ -16,17 +16,22 @@ test_that("geom_outline_point draws outlines", {
 
   expect_snapshot(pnl[[1]]$col)
   expect_snapshot(pnl[[2]]$col)
+})
 
-  # Check Key Drawing
-  keys <- gt$grobs[gt$layout$name == "guide-box"][[1]]
-  keys <- keys$grobs[keys$layout$name == "guides"][[1]]
-  keys <- gtable::gtable_filter(keys, "key")
-  keys <- gtable::gtable_filter(keys, "bg", invert = TRUE)
+test_that("geom_outline_point draws keys", {
 
-  keys <- lapply(keys$grobs, `[[`, "children")
-  keys <- unlist(keys, recursive = FALSE)
-  keys <- vapply(keys, inherits, logical(1), what = "points")
-  expect_true(all(keys))
-  expect_length(keys, 4)
+  data <- data.frame(colour = "#F8766D",
+                     stroke_colour = "#CB4D42",
+                     shape = 16,
+                     size = 1.5,
+                     fill = NA, alpha = NA, stroke = 0.5)
 
+  key <- draw_key_outline_point(data, list(na.rm = FALSE), size = c(6, 6))
+  key <- key$children
+
+  expect_length(key, 2)
+  expect_s3_class(key[[1]], "points")
+  expect_s3_class(key[[2]], "points")
+  expect_equal(key[[2]]$gp$col, '#F8766DFF')
+  expect_equal(key[[1]]$gp$col, "#CB4D42FF")
 })

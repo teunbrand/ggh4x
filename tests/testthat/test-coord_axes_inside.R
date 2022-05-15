@@ -7,15 +7,33 @@ test_that("coord_axis_inside can place axes inside", {
     theme(panel.border = element_blank(),
           axis.line = element_line())
 
-  vdiffr::expect_doppelganger(
-    "axes inside, labels outside",
-    p + coord_axes_inside(labels_inside = FALSE)
-  )
+  test <- p + coord_axes_inside(labels_inside = FALSE)
+  test <- ggplotGrob(test)
 
-  vdiffr::expect_doppelganger(
-    "axes inside, labels inside",
-    p + coord_axes_inside(labels_inside = TRUE)
-  )
+  axis <- test$grobs[test$layout$name == "axis-b"][[1]]$children
+  axis <- axis[names(axis) == "axis"][[1]]
 
+  expect_s3_class(axis$grobs[[1]], "zeroGrob")
+  expect_s3_class(axis$grobs[[2]], "titleGrob")
 
+  axis <- test$grobs[test$layout$name == "axis-l"][[1]]$children
+  axis <- axis[names(axis) == "axis"][[1]]
+
+  expect_s3_class(axis$grobs[[2]], "zeroGrob")
+  expect_s3_class(axis$grobs[[1]], "titleGrob")
+
+  test <- p + coord_axes_inside(labels_inside = TRUE)
+  test <- ggplotGrob(test)
+
+  axis <- test$grobs[test$layout$name == "axis-b"][[1]]$children
+  axis <- axis[names(axis) == "axis"][[1]]
+
+  expect_s3_class(axis$grobs[[1]], "zeroGrob")
+  expect_s3_class(axis$grobs[[2]], "zeroGrob")
+
+  axis <- test$grobs[test$layout$name == "axis-l"][[1]]$children
+  axis <- axis[names(axis) == "axis"][[1]]
+
+  expect_s3_class(axis$grobs[[2]], "zeroGrob")
+  expect_s3_class(axis$grobs[[1]], "zeroGrob")
 })
