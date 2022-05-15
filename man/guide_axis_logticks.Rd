@@ -130,6 +130,7 @@ Other axis-guides:
 \code{\link{guide_axis_manual}()},
 \code{\link{guide_axis_minor}()},
 \code{\link{guide_axis_nested}()},
+\code{\link{guide_axis_scalebar}()},
 \code{\link{guide_axis_truncated}()}
 }
 \concept{axis-guides}

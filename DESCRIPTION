@@ -65,6 +65,7 @@ Collate:
     'guide_axis_manual.R'
     'guide_axis_minor.R'
     'guide_axis_nested.R'
+    'guide_axis_scalebar.R'
     'guide_axis_truncated.R'
     'guide_axis_utils.R'
     'guide_dendrogram.R'

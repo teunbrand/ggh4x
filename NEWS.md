@@ -9,6 +9,9 @@
 * Deprecated `ggsubset()`. Use `data = ~ subset(.x, ...)` instead.
 * `geom_*()` and `stat_*()` functions now allow dynamic dots.
 * New `geom_outline_points()` to draw overlapping points with outlines.
+* Fixed bug wherein facet label purging didn't recognise rich text grobs as
+  the axis text part of an axis.
+* New `guide_axis_scalebar()` for drawing scale bars (#63).
 
 # ggh4x 0.2.1
 
