@@ -55,7 +55,7 @@ stat_funxy <-
       "The `funy` argument must be a function." =
         is.function(funy),
       "The `argx` and `argy` arguments must be lists." =
-        is.list(argsx) & is.list(argy),
+        is.list(argx) & is.list(argy),
       "The `argx` list must have named elements" =
         length(argx) == sum(nzchar(names(argx))),
       "The `argy` list must have named elements" =
