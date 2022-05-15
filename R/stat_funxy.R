@@ -49,28 +49,18 @@ stat_funxy <-
            position = "identity", ..., funx = force, funy = force,
            argx = list(), argy = list(), crop_other = TRUE,
            show.legend = NA, inherit.aes = TRUE) {
-    if (!is.function(funx)) {
-      stop("The `funx` argument must be a function.", call. = FALSE)
-    }
-    funx <- force(funx)
-    if (!is.function(funy)) {
-      stop("The `funy` argument must be a function.", call. = FALSE)
-    }
-    funy <- force(funy)
-    if (!is.list(argx) | !is.list(argy)) {
-      stop("The `argx` and `argy` arguments must be lists.", call. = FALSE)
-    } else {
-      if (length(argx) > 0) {
-        if (is.null(names(argx))) {
-          stop("The `argx` list must have named elements.", call. = FALSE)
-        }
-      }
-      if (length(argy) > 0) {
-        if (is.null(names(argy))) {
-          stop("The `argy` list must have named elements.", call. = FALSE)
-        }
-      }
-    }
+    stopifnot(
+      "The `funx` argument must be a function." =
+        is.function(funx),
+      "The `funy` argument must be a function." =
+        is.function(funy),
+      "The `argx` and `argy` arguments must be lists." =
+        is.list(argsx) & is.list(argy),
+      "The `argx` list must have named elements" =
+        length(argx) == sum(nzchar(names(argx))),
+      "The `argy` list must have named elements" =
+        length(argy) == sum(nzchar(names(argy)))
+    )
 
     layer(
       data        = data,
