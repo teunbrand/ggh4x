@@ -129,8 +129,8 @@ assemble_axis_grobs <- function(ticks, labels, lines, elements, params) {
   )
 
   gTree(children = gList(lines, gt),
-        width = gtable::gtable_width(gt),
-        height = gtable::gtable_height(gt),
+        width  = max(gtable::gtable_width(gt),  unit(0, "pt")),
+        height = max(gtable::gtable_height(gt), unit(0, "pt")),
         xmin = NULL, ymin = NULL, vp = justvp,
         cl = "absoluteGrob")
 }
