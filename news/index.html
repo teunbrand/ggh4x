@@ -62,6 +62,11 @@
 <li>New <code><a href="../reference/coord_axes_inside.html">coord_axes_inside()</a></code> function that moves axes from outside the panel to inside the panel.</li>
 <li>Documented <code><a href="../reference/theme_extensions.html">?theme_extensions</a></code> to collect information about extra theme elements in a single place.</li>
 <li>Deprecated <code><a href="../reference/ggsubset.html">ggsubset()</a></code>. Use <code>data = ~ subset(.x, ...)</code> instead.</li>
+<li>
+<code>geom_*()</code> and <code>stat_*()</code> functions now allow dynamic dots.</li>
+<li>New <code>geom_outline_points()</code> to draw overlapping points with outlines.</li>
+<li>Fixed bug wherein facet label purging didn’t recognise rich text grobs as the axis text part of an axis.</li>
+<li>New <code><a href="../reference/guide_axis_scalebar.html">guide_axis_scalebar()</a></code> for drawing scale bars (<a href="https://github.com/teunbrand/ggh4x/issues/63" class="external-link">#63</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="ggh4x-021">ggh4x 0.2.1<a class="anchor" aria-label="anchor" href="#ggh4x-021"></a></h2><p class="text-muted">CRAN release: 2021-11-24</p>
@@ -166,7 +171,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

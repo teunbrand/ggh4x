@@ -73,6 +73,9 @@
     <loc>https://teunbrand.github.io/ggh4x/reference/force_panelsizes.html</loc>
   </url>
   <url>
+    <loc>https://teunbrand.github.io/ggh4x/reference/geom_outline_point.html</loc>
+  </url>
+  <url>
     <loc>https://teunbrand.github.io/ggh4x/reference/geom_pointpath.html</loc>
   </url>
   <url>
@@ -104,6 +107,9 @@
   </url>
   <url>
     <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_nested.html</loc>
+  </url>
+  <url>
+    <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_scalebar.html</loc>
   </url>
   <url>
     <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_truncated.html</loc>
