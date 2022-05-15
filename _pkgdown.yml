@@ -36,6 +36,7 @@ reference:
   - guide_axis_logticks
   - guide_axis_nested
   - guide_axis_manual
+  - guide_axis_scalebar
   - coord_axes_inside
 - title: "Colour scales and guide"
   desc: >
@@ -59,6 +60,7 @@ reference:
     A small collection of geometry layers.
 - contents:
   - geom_pointpath
+  - geom_outline_point
   - geom_polygonraster
   - geom_rectmargin
   - geom_tilemargin
