@@ -350,6 +350,10 @@ crop_segment_ends <- function(x0, x1, y0, y1, r) {
   nudge_y <- (dy / hyp) * r
   nudge_x <- (dx / hyp) * r
 
+  # Replace non-finite values with zero #73
+  nudge_y[!is.finite(nudge_y)] <- 0
+  nudge_x[!is.finite(nudge_x)] <- 0
+
   # Calculate new positions
   x0 <- x0 + nudge_x
   x1 <- x1 - nudge_x
