@@ -362,6 +362,7 @@ crop_segment_ends <- function(x0, x1, y0, y1, r) {
 
   # Decide to keep
   keep <- (sign(dx) == sign(x1 - x0)) & (sign(dy) == sign(y1 - y0))
+  keep <- keep & is.finite(nudge_x) & is.finite(nudge_y)
   list(x0 = x0, x1 = x1, y0 = y0, y1 = y1, keep = keep)
 }
 
