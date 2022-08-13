@@ -26,11 +26,7 @@ specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 \item{label}{A \code{character(1)} to use as scale bar label. If \code{NULL} (default),
 the \code{size} distance is fed to the scale's labeller.}
 
-\item{colour}{A \code{character(1)} with a valid colour for colouring the
-axis text, axis ticks and axis line. Overrules the colour assigned by the
-theme.}
-
-\item{color}{A \code{character(1)} with a valid colour for colouring the
+\item{colour, color}{A \code{character(1)} with a valid colour for colouring the
 axis text, axis ticks and axis line. Overrules the colour assigned by the
 theme.}
 

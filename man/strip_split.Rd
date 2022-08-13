@@ -38,28 +38,15 @@ the details of \code{\link{strip_nested}} for more info. Note that currently,
 \code{strip_split()} cannot recognise collisions between strips, so changing
 to \code{bleed = TRUE} can have unexpected results.}
 
-\item{text_x}{A \code{list()} with
+\item{text_x, text_y}{A \code{list()} with
 \code{\link[ggplot2:element]{element_text()}} elements. See the details
 section in \code{\link[=strip_themed]{strip_themed()}}.}
 
-\item{text_y}{A \code{list()} with
-\code{\link[ggplot2:element]{element_text()}} elements. See the details
-section in \code{\link[=strip_themed]{strip_themed()}}.}
-
-\item{background_x}{A \code{list()} with
+\item{background_x, background_y}{A \code{list()} with
 \code{\link[ggplot2:element]{element_rect()}} elements. See the details
 section in \code{\link[=strip_themed]{strip_themed()}}.}
 
-\item{background_y}{A \code{list()} with
-\code{\link[ggplot2:element]{element_rect()}} elements. See the details
-section in \code{\link[=strip_themed]{strip_themed()}}.}
-
-\item{by_layer_x}{A \code{logical(1)} that when \code{TRUE}, maps the
-different elements to different layers of the strip. When \code{FALSE}, maps the
-different elements to individual strips, possibly repeating the elements to
-match the number of strips through \code{rep_len()}.}
-
-\item{by_layer_y}{A \code{logical(1)} that when \code{TRUE}, maps the
+\item{by_layer_x, by_layer_y}{A \code{logical(1)} that when \code{TRUE}, maps the
 different elements to different layers of the strip. When \code{FALSE}, maps the
 different elements to individual strips, possibly repeating the elements to
 match the number of strips through \code{rep_len()}.}

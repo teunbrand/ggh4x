@@ -38,9 +38,6 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{geom}{Use to override the default connection between
-\code{geom_density()} and \code{stat_density()}.}
-
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
@@ -131,7 +128,7 @@ ggplot(df, aes(x = x)) +
   geom_line(aes(y = z, colour = "max"))
 }
 \seealso{
-See \code{\link[ggplot2:geom_histogram]{geom_histogram()}}, \code{\link[ggplot2:geom_histogram]{geom_freqpoly()}} for
+See \code{\link[ggplot2:geom_histogram]{geom_histogram()}}, \code{\link[ggplot2:geom_freqpoly]{geom_freqpoly()}} for
 other methods of displaying continuous distribution.
 See \code{\link[ggplot2:geom_violin]{geom_violin()}} for a compact density display.
 }

@@ -26,7 +26,7 @@ specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 \item{check.overlap}{silently remove overlapping labels,
 (recursively) prioritizing the first, last, and middle labels.}
 
-\item{angle}{Compared to setting the angle in \code{\link[ggplot2:theme]{theme()}} / \code{\link[ggplot2:element]{element_text()}},
+\item{angle}{Compared to setting the angle in \code{\link[ggplot2:theme]{theme()}} / \code{\link[ggplot2:element_text]{element_text()}},
 this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that
 you probably want.}
 
@@ -37,26 +37,11 @@ useful for displaying labels that would otherwise overlap.}
 \item{order}{Used to determine the order of the guides (left-to-right,
 top-to-bottom), if more than one  guide must be drawn at the same location.}
 
-\item{colour}{A \code{character(1)} with a valid colour for colouring the
+\item{colour, color}{A \code{character(1)} with a valid colour for colouring the
 axis text, axis ticks and axis line. Overrules the colour assigned by the
 theme.}
 
-\item{color}{A \code{character(1)} with a valid colour for colouring the
-axis text, axis ticks and axis line. Overrules the colour assigned by the
-theme.}
-
-\item{trunc_lower}{The lower and upper range of the truncated
-axis:
-\itemize{
-\item \code{NULL} to not perform any truncation.
-\item A \code{function} that takes the break positions as input and returns the lower
-or upper boundary. Note that also for discrete scales, positions are the
-mapped positions as \code{numeric}.
-\item A \code{numeric} value in data units for the lower and upper boundaries.
-\item A \code{unit} object.
-}}
-
-\item{trunc_upper}{The lower and upper range of the truncated
+\item{trunc_lower, trunc_upper}{The lower and upper range of the truncated
 axis:
 \itemize{
 \item \code{NULL} to not perform any truncation.

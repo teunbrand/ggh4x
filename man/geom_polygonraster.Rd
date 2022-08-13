@@ -49,11 +49,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{hjust}{horizontal and vertical justification of the grob.  Each
-justification value should be a number between 0 and 1.  Defaults to 0.5
-for both, centering each pixel over its data location.}
-
-\item{vjust}{horizontal and vertical justification of the grob.  Each
+\item{hjust, vjust}{horizontal and vertical justification of the grob.  Each
 justification value should be a number between 0 and 1.  Defaults to 0.5
 for both, centering each pixel over its data location.}
 

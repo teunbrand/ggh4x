@@ -6,7 +6,7 @@
 \alias{ggh4x-package}
 \title{ggh4x: Hacks for 'ggplot2'}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 A 'ggplot2' extension that does a variety of little helpful things. The package extends 'ggplot2' facets through customisation, by setting individual scales per panel, resizing panels and providing nested facets. Also allows multiple colour and fill scales per plot. Also hosts a smaller collection of stats, geoms and axis guides.
 }

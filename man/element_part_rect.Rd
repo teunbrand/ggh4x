@@ -23,7 +23,7 @@ respectively. Including all or none of these letters will default to normal
 
 \item{fill}{Fill colour.}
 
-\item{colour}{Line/border colour. Color is an alias for colour.}
+\item{colour, color}{Line/border colour. Color is an alias for colour.}
 
 \item{size}{Line/border size in mm; text size in pts.}
 
@@ -31,8 +31,6 @@ respectively. Including all or none of these letters will default to normal
 dashed, dotted, dotdash, longdash, twodash), or a string with
 an even number (up to eight) of hexadecimal digits which give the
 lengths in consecutive positions in the string.}
-
-\item{color}{Line/border colour. Color is an alias for colour.}
 
 \item{inherit.blank}{Should this element inherit the existence of an
 \code{element_blank} among its parents? If \code{TRUE} the existence of

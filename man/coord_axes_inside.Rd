@@ -17,9 +17,7 @@ coord_axes_inside(
 )
 }
 \arguments{
-\item{xlim}{Limits for the x and y axes.}
-
-\item{ylim}{Limits for the x and y axes.}
+\item{xlim, ylim}{Limits for the x and y axes.}
 
 \item{xintercept, yintercept}{A \code{numeric(1)} for the positions where the
 orthogonal axes should be placed. If these are outside the bounds of the

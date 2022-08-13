@@ -22,18 +22,7 @@ facet_grid2(
 )
 }
 \arguments{
-\item{rows}{A set of variables or expressions quoted by
-\code{\link[ggplot2:vars]{vars()}} and defining faceting groups on the rows or columns
-dimension. The variables can be named (the names are passed to
-\code{labeller}).
-
-For compatibility with the classic interface, \code{rows} can also be
-a formula with the rows (of the tabular display) on the LHS and
-the columns (of the tabular display) on the RHS; the dot in the
-formula is used to indicate there should be no faceting on this
-dimension (either row or column).}
-
-\item{cols}{A set of variables or expressions quoted by
+\item{rows, cols}{A set of variables or expressions quoted by
 \code{\link[ggplot2:vars]{vars()}} and defining faceting groups on the rows or columns
 dimension. The variables can be named (the names are passed to
 \code{labeller}).
@@ -111,8 +100,8 @@ one with \code{vars(cyl, am)}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
 for compatibility with \code{\link[ggplot2:labeller]{labeller()}}. You can use different labeling
-functions for different kind of labels, for example use \code{\link[ggplot2:labellers]{label_parsed()}} for
-formatting facet labels. \code{\link[ggplot2:labellers]{label_value()}} is used by default,
+functions for different kind of labels, for example use \code{\link[ggplot2:label_parsed]{label_parsed()}} for
+formatting facet labels. \code{\link[ggplot2:label_value]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
