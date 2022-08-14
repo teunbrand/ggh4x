@@ -137,8 +137,10 @@ guide_train.axis_logticks <- function(guide, scale, aesthetic = NULL) {
                   c(length(major_breaks), length(logbreaks)))
 
 
-  empty_ticks <- .int$new_data_frame(
-    list(aesthetic = numeric(), .value = numeric(0), .label = character())
+  empty_ticks <- data_frame0(
+    aesthetic = numeric(0),
+    .value    = numeric(0),
+    .label    = character(0)
   )
 
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
@@ -153,8 +155,7 @@ guide_train.axis_logticks <- function(guide, scale, aesthetic = NULL) {
     } else {
       breaks
     }
-    ticks <- .int$new_data_frame(setNames(list(mapped_breaks),
-                                          aesthetic))
+    ticks <- new_data_frame(setNames(list(mapped_breaks), aesthetic))
     ticks$.value <- breaks
     ticks$.label <- ""
     ticks$.label[is_major] <- scale$get_labels(breaks[is_major])
@@ -202,8 +203,8 @@ make_logbreaks <- function(base = 10, ticks_per_base = base - 1,
   mediumticks <- floor(ticks_per_base/2)
   minority[ cycleIdx == mediumticks ] <- 1
 
-  tickdf <- .int$new_data_frame(list(value = ticks, minority = minority),
-                           n = length(ticks))
+  tickdf <- data_frame0(value = ticks, minority = minority,
+                        .size = length(ticks))
 
   return(tickdf)
 }

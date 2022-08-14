@@ -107,7 +107,7 @@ Strip <- ggproto(
     if (type == "wrap") {
       # Format labels and render strips
       if (length(params$facets) == 0) {
-        labels <- .int$new_data_frame(list("(all)" = "(all)"), n = 1)
+        labels <- data_frame0("(all)" = "(all)", .size = 1)
       } else {
         labels <- layout[names(params$facets)]
       }
@@ -232,11 +232,11 @@ Strip <- ggproto(
       })
     }
     panel <- as.integer(layout$PANEL)
-    .int$new_data_frame(list(
+    data_frame0(
       t = panel, l = panel,
       b = panel, r = panel,
       grobs = strip
-    ))
+    )
   },
 
   init_strip = function(elements, position, layer_index) {

@@ -218,11 +218,11 @@ makeContext.gapsegmentschain <- function(x) {
   dim(idx) <- NULL
 
   # Use index to format as polyline
-  xy <- .int$new_data_frame(list(
-    x = c(x0, x1)[idx],
-    y = c(y0, y1)[idx],
+  xy <- data_frame0(
+    x  = c(x0,   x1)[idx],
+    y  = c(y0,   y1)[idx],
     id = c(x$id, x$id)[idx]
-  ))
+  )
 
   # Deduplicate points
   n <- nrow(xy)

@@ -198,8 +198,12 @@ FacetGrid2 <- ggproto(
     base <- .int$df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
-      out <- .int$new_data_frame(
-        list(PANEL = factor(1L), ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)
+      out <- data_frame0(
+        PANEL   = factor(1L),
+        ROW     = 1L,
+        COL     = 1L,
+        SCALE_X = 1L,
+        SCALE_Y = 1L
       )
       return(out)
     }
@@ -207,7 +211,7 @@ FacetGrid2 <- ggproto(
     # Adding margins
     base <- .int$reshape_add_margins(base, list(names(rows), names(cols)),
                                      params$margins)
-    base <- unique(base)
+    base <- unique0(base)
 
     # Create panel info
     panel <- .int$id(base, drop = TRUE)
@@ -224,8 +228,7 @@ FacetGrid2 <- ggproto(
       .int$id(base[names(cols)], drop = TRUE)
     }
 
-    panels <- .int$new_data_frame(c(list(PANEL = panel, ROW = rows, COL = cols),
-                                  base))
+    panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 

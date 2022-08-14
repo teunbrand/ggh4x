@@ -50,7 +50,6 @@ seq_ncol <- function(dat) {
     "df.grid",
     "draw_axis_labels",
     "reshape_add_margins",
-    "new_data_frame",
     "defaults", "id",
     "empty",
     "eval_facets",
@@ -60,13 +59,10 @@ seq_ncol <- function(dat) {
     "make_labels",
     "grid_as_facets_list",
     "is.zero",
-    "rbind_dfs",
-    "sanitise_dim",
     "set_draw_key",
     "snake_class",
     "ulevels",
     "unique_combs",
-    "var_list",
     "validate_mapping",
     "warn_for_guide_position",
     "weave_tables_col",
@@ -84,6 +80,10 @@ seq_ncol <- function(dat) {
     getFromNamespace(i, "ggplot2")
   })
 }
+
+data_frame0 <- function(...) {data_frame(..., .name_repair = "minimal")}
+
+unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 
 # Store the needed ggplot internals here
 .int <- .grab_ggplot_internals()

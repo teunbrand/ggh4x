@@ -16,5 +16,6 @@ NULL
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom lifecycle deprecated
+#' @importFrom stats median
 ## usethis namespace: end
 NULL

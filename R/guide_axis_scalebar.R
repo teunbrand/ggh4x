@@ -97,8 +97,10 @@ guide_train.axis_scalebar <- function(guide, scale, aesthetic = NULL) {
   aesthetic <- aesthetic %||% scale$aesthetics[1]
   breaks    <- scale$get_breaks()
 
-  empty_ticks <- .int$new_data_frame(
-    list(aesthetic = numeric(0), .value = numeric(0), .label = character(0))
+  empty_ticks <- data_frame0(
+    aesthetic = numeric(0),
+    .value    = numeric(0),
+    .label    = character(0)
   )
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
 
@@ -115,7 +117,7 @@ guide_train.axis_scalebar <- function(guide, scale, aesthetic = NULL) {
     mapped_breaks <- breaks[1] + limits[1]
 
 
-    ticks <- .int$new_data_frame(setNames(list(mapped_breaks), aesthetic))
+    ticks <- new_data_frame(setNames(list(mapped_breaks), aesthetic))
     ticks$.value <- breaks[1]
     ticks$.label <- guide$label[1] %||% scale$get_labels(breaks)
     ticks <- ticks[is.finite(ticks[[aesthetic]]), ]

@@ -108,13 +108,9 @@ new_wrap_facets <- function(
 
   # Setup dimensions
   if (identical(dir, "v")) {
-    nrow_swap <- ncol
-    ncol_swap <- nrow
-    nrow <- .int$sanitise_dim(nrow_swap)
-    ncol <- .int$sanitise_dim(ncol_swap)
-  } else {
-    nrow <- .int$sanitise_dim(nrow)
-    ncol <- .int$sanitise_dim(ncol)
+    tmp  <- ncol
+    ncol <- nrow
+    nrow <- tmp
   }
   dim <- if (trim_blank) NULL else c(nrow %||% NA, ncol %||% NA)
 

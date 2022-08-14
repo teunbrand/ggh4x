@@ -159,15 +159,15 @@ StatRle <- ggproto(
       values <- factor(values, levels = lvls)
     }
 
-    .int$new_data_frame(list(
-      start = start,
-      end = end,
-      start_id = start_id,
-      end_id = end_id,
-      run_id = seq_along(run$values),
+    data_frame0(
+      start     = start,
+      end       = end,
+      start_id  = start_id,
+      end_id    = end_id,
+      run_id    = seq_along(run$values),
       runlength = run$lengths,
-      runvalue = run$values
-    ))
+      runvalue  = run$values
+    )
   }
 )
 

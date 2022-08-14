@@ -112,7 +112,7 @@ StripSplit <- ggproto(
 
     if (type == "wrap") {
       if (length(params$facets) == 0) {
-        labels <- .int$new_data_frame(list("(all)" = "(all)"), n = 1)
+        labels <- data_frame0("(all)" = "(all)", .size = 1)
       } else {
         labels <- layout[names(params$facets)]
       }
@@ -166,7 +166,7 @@ StripSplit <- ggproto(
     # strips can be drawn.
     ids <- lapply(seq_len(ncol(vars)), seq_len)
     ids <- lapply(ids, function(i) .int$id(vars[, i, drop = FALSE]))
-    ids <- .int$new_data_frame(setNames(ids, colnames(vars)))
+    ids <- new_data_frame(setNames(ids, colnames(vars)))
 
     # For every side of the panel, make a strip
     strips <- lapply(

@@ -161,11 +161,11 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
     }
   }
 
-  empty_ticks <- .int$new_data_frame(list(
+  empty_ticks <- data_frame0(
     aesthetic = numeric(0),
-    .value = numeric(0),
-    .label = character(0)
-  ))
+    .value    = numeric(0),
+    .label    = character(0)
+  )
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
     warn("axis guide needs appropriate scales.")
@@ -182,7 +182,7 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
         mapped_breaks <- breaks
       }
     }
-    ticks <- .int$new_data_frame(setNames(list(mapped_breaks), aesthetic))
+    ticks <- new_data_frame(setNames(list(mapped_breaks), aesthetic))
     ticks$.value <- breaks
 
     if (inherits(guide$labels, "waiver")) {

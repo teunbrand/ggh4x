@@ -143,13 +143,13 @@ guide_gengrob.stringlegend <- function(guide, theme) {
                                        legend.dim, nbreak)
   # Setup layout
   if (guide$byrow) {
-    vps <- .int$new_data_frame(list(
+    vps <- data_frame0(
       R = ceiling(seq(nbreak) / legend.ncol),
       C = (seq(nbreak) - 1) %% legend.ncol + 1
-    ))
+    )
   } else {
     vps <- arrayInd(seq(nbreak), legend.dim)
-    vps <- .int$new_data_frame(list(R = vps[, 1], C = vps[, 2]))
+    vps <- data_frame0(R = vps[, 1], C = vps[, 2])
   }
   vps <- transform(vps, label.row = R * 2 - 1, label.col = C * 2 - 1)
 

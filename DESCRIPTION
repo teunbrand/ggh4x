@@ -25,7 +25,9 @@ Imports:
     scales,
     vctrs,
     rlang,
-    lifecycle
+    lifecycle,
+    stats,
+    cli
 Suggests: 
     covr,
     digest,
@@ -35,7 +37,6 @@ Suggests:
     knitr,
     MASS,
     rmarkdown,
-    stats,
     testthat (>= 3.0.0),
     utils
 VignetteBuilder: 

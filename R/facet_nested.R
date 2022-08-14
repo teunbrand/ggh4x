@@ -177,24 +177,28 @@ FacetNested <- ggproto(
     data, env = emptyenv(), vars = NULL, drop = TRUE
   ) {
     if (length(vars) == 0) {
-      return(.int$new_data_frame())
+      return(new_data_frame())
     }
 
-    possible_columns <- unique(unlist(lapply(data, names)))
+    possible_columns <- unique0(unlist(lapply(data, names)))
 
     values <- .int$compact(lapply(data, .int$eval_facets, facets = vars,
                                   possible_columns = possible_columns))
     has_all <- unlist(lapply(values, length)) == length(vars)
     if (!any(has_all)) {
       missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
-      missing_txt <- vapply(missing, .int$var_list, character(1))
-      name <- c("Plot", paste0("Layer ", seq_len(length(data) - 1)))
-      stop("At least one layer must contain all faceting variables: ",
-           .int$var_list(names(vars)), ".\n", paste0("* ", name, " is missing ",
-                                                     missing_txt, collapse = "\n"),
-           call. = FALSE)
+      missing_vars <- paste0(
+        c("Plot", paste0("Layer ", seq_len(length(data) - 1))),
+        " is missing {.var ", missing[seq_along(data)], "}"
+      )
+      names(missing_vars) <- rep("x", length(data))
+
+      cli::cli_abort(c(paste0(
+        "At least one layer must contain all faceting variables: ",
+        "{.var {names(vars)}}"
+      ), missing_vars))
     }
-    base <- unique(.int$rbind_dfs(values[has_all]))
+    base <- unique0(vec_rbind(!!!values[has_all]))
     if (!drop) {
       base <- .int$unique_combs(base)
     }

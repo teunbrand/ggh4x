@@ -241,10 +241,10 @@ truncate_guide <- function(guide, scale, aesthetic) {
     abort(paste0("Axis truncation must have an equal number of upper and lower",
                  " truncation points."))
   }
-  trunc <- .int$new_data_frame(list(
+  trunc <- data_frame0(
     "start" = trunc_lower,
     "end"   = trunc_upper
-  ))
+  )
   trunc <- trunc[!is.na(trunc$start),]
   trunc <- trunc[!is.na(trunc$end),]
   trunc <- setNames(trunc, paste0(aesthetic, c("", "end")))

@@ -92,9 +92,7 @@ coord_axes_inside <- function(
     default = default,
     clip    = clip,
     ratio   = ratio,
-    origin  = .int$new_data_frame(
-      list(x = xintercept[1], y = yintercept[1])
-    ),
+    origin  = data_frame0(x = xintercept[1], y = yintercept[1]),
     outer_axes = outer_axes,
     inner_axes = inner_axes
   )

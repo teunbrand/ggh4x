@@ -130,6 +130,6 @@ StatFunxy <- ggproto(
     # Combine data
     data <- c(other, list(x = x, y = y))
     data <- do.call(vec_recycle_common, data)
-    .int$new_data_frame(data)
+    new_data_frame(data)
   }
 )

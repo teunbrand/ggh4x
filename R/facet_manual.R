@@ -142,10 +142,10 @@ FacetManual <- ggproto(
 
     vars <- params$facets
     if (length(vars) == 0) {
-      df <- .int$new_data_frame(list(
+      df <- data_frame0(
         .TOP = 1, .RIGHT = 1, .BOTTOM = 1, .LEFT = 1,
         PANEL = factor(1), SCALE_X = 1, SCALE_Y = 1
-      ))
+      )
       return(df)
     }
 
@@ -154,13 +154,13 @@ FacetManual <- ggproto(
     rows <- vapply(split(row(design), design), range, integer(2))
     cols <- vapply(split(col(design), design), range, integer(2))
     id   <- vapply(split(design, design), unique, integer(1))
-    layout <- .int$new_data_frame(list(
-      .TOP = rows[1,],
-      .RIGHT = cols[2,],
+    layout <- data_frame0(
+      .TOP    = rows[1,],
+      .RIGHT  = cols[2,],
       .BOTTOM = rows[2,],
-      .LEFT = cols[1,],
-      PANEL = factor(id, levels = unique(id))
-    ))
+      .LEFT   = cols[1,],
+      PANEL   = factor(id, levels = unique(id))
+    )
 
     base <- combine_vars(data, params$plot_env, vars, drop = params$drop)
     rownames(base) <- NULL
@@ -282,13 +282,13 @@ FacetManual <- ggproto(
                              max, purger)
     }
 
-    .int$new_data_frame(list(
+    data_frame0(
       t = panel, b = panel, l = panel, r = panel,
       axes_top    = top,
       axes_bottom = bottom,
       axes_left   = left,
       axes_right  = right
-    ))
+    )
   },
 
   attach_axes = function(panels, axes, sizes ) {
