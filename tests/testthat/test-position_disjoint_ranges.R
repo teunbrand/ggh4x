@@ -39,7 +39,7 @@ test_that("position_disjoint_ranges can be used with geom_tile", {
 
   isect <- intersect(names(ctrl), names(test))
   # default fills and sizes differ between geom_rect and geom_tile
-  isect <- isect[!(isect %in% c("fill", "size"))]
+  isect <- isect[!(isect %in% c("fill", "size", "linewidth"))]
 
   expect_equal(ctrl[,isect], test[,isect])
   expect_equal(test$ymin, c(1,2,1,1,1))

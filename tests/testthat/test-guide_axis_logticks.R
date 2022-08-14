@@ -94,7 +94,8 @@ test_that("guide_axis_logticks errors upon misuse", {
   g <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
     geom_point(aes(colour = Species)) +
     scale_colour_discrete(guide = "axis_logticks")
-  expect_error(ggplotGrob(g), "Guide 'axis' cannot be used for 'colour'.")
+
+  expect_snapshot_error(ggplotGrob(g))
 
   gui <- guide_axis_logticks()
   gui$available_aes <- "z"

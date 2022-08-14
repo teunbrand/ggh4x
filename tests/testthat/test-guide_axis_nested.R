@@ -82,13 +82,13 @@ test_that("guide_axis_nested errors upon misuse", {
   base <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
     geom_boxplot(aes(fill = class))
   g <- base + scale_fill_discrete(guide = "axis_nested")
-  expect_error(ggplotGrob(g), "Guide 'axis' cannot be used for 'fill'.")
+  expect_snapshot_error(ggplotGrob(g))
 
   gui <- guide_axis_nested()
   gui$available_aes <- "z"
 
   g <- base + scale_x_discrete(guide = gui)
-  expect_warning(ggplotGrob(g), "axis guide needs appropriate scales: z")
+  expect_snapshot_warning(ggplotGrob(g))
 })
 
 test_that("NULL breaks return zeroGrob as labels", {

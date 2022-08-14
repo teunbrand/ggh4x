@@ -128,6 +128,7 @@ scale_y_dendrogram <- function(...,
 ScaleDendrogram <- ggproto(
   "ScaleDendrogram", ScaleDiscretePosition,
   hclust = waiver(),
+  trans = list(), # To not trigger transformation skipping
   transform = function(self, x) {
     hclust <- self$hclust
     if (!inherits(hclust, "waiver") && inherits(hclust, "hclust")) {

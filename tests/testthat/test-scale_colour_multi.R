@@ -147,17 +147,6 @@ test_that("scale_colour_multi sets breaks independently", {
   expect_equal(breaks[[1]], br[[1]])
   expect_equal(breaks[[2]], br[[2]])
   expect_equal(breaks[[3]], br[[3]]) # 0 not in data, so is NA
-
-  # Test practical breaks
-  gt <- ggplotGrob(g)
-  gt <- gt$grobs[gt$layout$name == "guide-box"][[1]]$grobs[1:3]
-  labs <- lapply(gt, function(leg){
-    as.numeric(leg$grobs[leg$layout$name == "label"][[1]]$children[[1]]$label)
-  })
-  # Order is a bit wierd
-  expect_equal(labs[[1]], breaks[[3]])
-  expect_equal(labs[[3]], breaks[[1]])
-  expect_equal(labs[[2]], breaks[[2]])
 })
 
 test_that("scale_colour_multi sets limits independently", {

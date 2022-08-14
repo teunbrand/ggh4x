@@ -167,6 +167,7 @@ FacetNested <- ggproto(
     } else {
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
+      layout[]     <- lapply(layout[], as.factor)
       keys <- .int$join_keys(facet_vals, layout,
                              by = vars[vars %in% names(facet_vals)])
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]

@@ -44,15 +44,15 @@ test_that("guide_axis_truncated training gives correct output", {
   g$trunc_upper <- unit(0.9, "npc")
 
   test <- truncate_guide(g, scale, "x")
-  expect_equal(test$trunc, .int$new_data_frame(list(x = unit(0.1, "npc"),
-                                                    xend = unit(0.9, "npc"))))
+  expect_equal(test$trunc, data_frame0(x = unit(0.1, "npc"),
+                                       xend = unit(0.9, "npc")))
 
   g$trunc_lower <- NULL
   g$trunc_upper <- NULL
 
   test <- truncate_guide(g, scale, "x")
-  expect_equal(test$trunc, .int$new_data_frame(list(x = unit(0, "npc"),
-                                                    xend = unit(1, "npc"))))
+  expect_equal(test$trunc, data_frame0(x = unit(0, "npc"),
+                                       xend = unit(1, "npc")))
 
   g$trunc_lower <- 2.5
   g$trunc_upper <- c(4, 5)

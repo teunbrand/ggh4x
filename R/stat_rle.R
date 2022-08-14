@@ -116,6 +116,7 @@ StatRle <- ggproto(
                     xmax = after_stat(end),
                     ymin = after_stat(-Inf), ymax = after_stat(Inf),
                     fill = after_stat(runvalue)),
+  dropped_aes = c("x", "label"),
   setup_params = function(data, params) {
     params$flipped_aes <- isTRUE(params$orientation == "y")
     params

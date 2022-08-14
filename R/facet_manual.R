@@ -203,7 +203,7 @@ FacetManual <- ggproto(
   map_data = function(data, layout, params) {
 
     if (.int$empty(data)) {
-      return(cbind(data, PANEL = integer(0)))
+      return(vec_cbind(data, PANEL = integer(0)))
     }
     vars <- params$facets
 
@@ -214,22 +214,24 @@ FacetManual <- ggproto(
 
     facet_vals <- .int$eval_facets(vars, data, params$.possible_columns)
     facet_vals[] <- lapply(facet_vals[], as.factor)
+    layout[] <- lapply(layout[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))
     if (length(missing_facets) > 0) {
-      to_add <- unique(layout[missing_facets])
+      to_add <- unique0(layout[missing_facets])
       data_rep  <- rep.int(seq_nrow(data), nrow(to_add))
       facet_rep <- rep(seq_nrow(to_add), each = nrow(data))
 
       data <- data[data_rep, , drop = FALSE]
       rownames(data) <- NULL
 
-      facet_vals <- cbind(
+      facet_vals <- vec_cbind(
         facet_vals[data_rep, , drop = FALSE],
         to_add[facet_rep, , drop = FALSE]
       )
       rownames(facet_vals) <- NULL
     }
+
 
     keys <- .int$join_keys(facet_vals, layout, by = names(vars))
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]

@@ -84,8 +84,7 @@ test_that("guide_axis_manual training is correct in continuous axes", {
   guide <- guide_axis_manual()
   key <- guide_train(guide, scale)$key
 
-  expect_equal(key$x, structure(c(1, 2, 3),
-                                class = c("mapped_discrete", "numeric")))
+  expect_equal(unclass(key$x), c(1, 2, 3))
   expect_equal(key$.label, c("setosa", "versicolor", "virginica"))
 
   # Test manual breaks and labels
@@ -93,16 +92,14 @@ test_that("guide_axis_manual training is correct in continuous axes", {
                              labels = LETTERS[1:4])
   key <- guide_train(guide, scale)$key
 
-  expect_equal(key$x, structure(c(0.5, 1.5, 2.5, 3.5),
-                                class = c("mapped_discrete", "numeric")))
+  expect_equal(unclass(key$x), c(0.5, 1.5, 2.5, 3.5))
   expect_equal(key$.label, LETTERS[1:4])
 
   # Test function breaks and labels
   guide <- guide_axis_manual(breaks = rev, labels = toupper)
   key <- guide_train(guide, scale)$key
 
-  expect_equal(key$x, structure(c(3, 2, 1),
-                                class = c("mapped_discrete", "numeric")))
+  expect_equal(unclass(key$x), c(3, 2, 1))
   expect_equal(key$.label, c("VIRGINICA", "VERSICOLOR", "SETOSA"))
 
   # Test unit breaks
