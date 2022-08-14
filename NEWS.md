@@ -1,18 +1,26 @@
-# ggh4x (development version)
+# ggh4x 0.2.2
+
+This is a small release updating the documentation to be compatible with HTML5, 
+compatability for upcoming ggplot2 3.4.0, along with four small features.
+
+## New features
 
 * New experimental `strip_split()` strip style for facets. This function might
   still give unexpected results. Feel free to leave feedback!
+* New `guide_axis_scalebar()` for drawing scale bars (#63).
+* New `geom_outline_points()` to draw overlapping points with outlines.
 * New `coord_axes_inside()` function that moves axes from outside the panel to
   inside the panel.
+
+## Tweaks and bugfixes
+
 * Documented `?theme_extensions` to collect information about extra theme 
   elements in a single place.
 * Deprecated `ggsubset()`. Use `data = ~ subset(.x, ...)` instead.
 * `geom_*()` and `stat_*()` functions now allow dynamic dots.
-* New `geom_outline_points()` to draw overlapping points with outlines.
 * Fixed bug wherein facet label purging didn't recognise rich text grobs as
   the axis text part of an axis (#67).
-* New `guide_axis_scalebar()` for drawing scale bars (#63).
-* To be more compatible with future ggplot2, the `linesize` aesethetic in 
+* To be more compatible with future ggplot2, the `linesize` aesthetic in 
   `geom_pointpath()` has been renamed to `linewidth`.
 
 # ggh4x 0.2.1
