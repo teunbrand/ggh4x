@@ -74,8 +74,7 @@ connected with lines in some order. This geom intends to mimic the
 \code{type = 'b'} style of base R line plots.
 }
 \details{
-The \code{linesize} aesthetic can be interpreted as the \code{size}
-aesthetic for \code{geom_line()}. The \code{mult} is a numeric value to
+The \code{mult} is a numeric value to
 scale the proportion of gaps in the line around points.
 
 While the need for this geom is not very apparent, since it can be
@@ -89,7 +88,7 @@ aesthetics (required aesthetics are in bold):
 \itemize{\item{\strong{\code{x}}} \item{\strong{\code{y}}}
 \item{\code{alpha}} \item{\code{colour}} \item{\code{group}}
 \item{\code{shape}} \item{\code{size}} \item{\code{stroke}}
-\item{\code{linesize}} \item{\code{linetype}} \item{\code{mult}}}
+\item{\code{linewidth}} \item{\code{linetype}} \item{\code{mult}}}
 }
 
 \examples{

@@ -17,10 +17,9 @@
 #'   \itemize{\item{**`x`**} \item{**`y`**}
 #'   \item{`alpha`} \item{`colour`} \item{`group`}
 #'   \item{`shape`} \item{`size`} \item{`stroke`}
-#'   \item{`linesize`} \item{`linetype`} \item{`mult`}}
+#'   \item{`linewidth`} \item{`linetype`} \item{`mult`}}
 #'
-#' @details The `linesize` aesthetic can be interpreted as the `size`
-#'   aesthetic for `geom_line()`. The `mult` is a numeric value to
+#' @details The `mult` is a numeric value to
 #'   scale the proportion of gaps in the line around points.
 #'
 #'   While the need for this geom is not very apparent, since it can be
@@ -101,7 +100,7 @@ GeomPointPath <- ggplot2::ggproto(
       gp    = gpar(
         col  = alpha(data$colour, data$alpha),
         fill = alpha(data$colour, data$alpha),
-        lwd  = (data$linesize * .pt),
+        lwd  = (data$linewidth * .pt),
         lty  = data$linetype,
         lineend = "butt",
         linejoin = "round", linemitre = 10
@@ -120,7 +119,7 @@ GeomPointPath <- ggplot2::ggproto(
   # Adding some defaults for lines and mult
   default_aes = ggplot2::aes(
     shape = 19, colour = "black", size = 1.5, fill = NA, alpha = NA,
-    stroke = 0.5, linesize = 0.5, linetype = 1, mult = 0.5
+    stroke = 0.5, linewidth = 0.5, linetype = 1, mult = 0.5
   ),
   non_missing_aes = c("size", "colour")
 )

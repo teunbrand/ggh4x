@@ -12,6 +12,8 @@
 * Fixed bug wherein facet label purging didn't recognise rich text grobs as
   the axis text part of an axis (#67).
 * New `guide_axis_scalebar()` for drawing scale bars (#63).
+* To be more compatible with future ggplot2, the `linesize` aesethetic in 
+  `geom_pointpath()` has been renamed to `linewidth`.
 
 # ggh4x 0.2.1
 
