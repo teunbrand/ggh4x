@@ -6,7 +6,9 @@
 #' higher than `min`. This can be useful for displaying differences
 #' between two series.
 #'
-#' @inherit ggplot2::stat_density
+#' @inheritParams ggplot2::stat_density
+#' @param geom Use to override the default connection between
+#'   `geom_ribbon()` and `stat_difference()`.
 #' @param levels A `character(3)` indicating factor levels for the `fill`
 #'   aesthetic for the following cases (1) `max > min` (2) `max < min`
 #'   (3) `max == min`. Will be padded with `NA`s when necessary.

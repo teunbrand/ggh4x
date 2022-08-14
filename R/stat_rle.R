@@ -6,6 +6,8 @@
 #' lengths of consecutive repeated values.
 #'
 #' @inheritParams ggplot2::stat_density
+#' @param geom Use to override the default connection between
+#'   `geom_rect()` and `stat_rle()`.
 #' @param align A `character` of length one that effect the computed
 #' `start` and `end` variables. One of the following:
 #' \describe{
