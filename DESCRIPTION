@@ -1,6 +1,6 @@
 Package: ggh4x
 Title: Hacks for 'ggplot2'
-Version: 0.2.1.9000
+Version: 0.2.2
 Authors@R: 
     person(given = "Teun",
            family = "van den Brand",
@@ -15,7 +15,7 @@ Description: A 'ggplot2' extension that does a variety of little
     guides.
 License: MIT + file LICENSE
 URL: https://github.com/teunbrand/ggh4x,
-    https://teunbrand.github.io/ggh4x
+    https://teunbrand.github.io/ggh4x/
 BugReports: https://github.com/teunbrand/ggh4x/issues
 Depends: 
     ggplot2 (>= 3.3.0)
