@@ -88,6 +88,17 @@ unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 # Store the needed ggplot internals here
 .int <- .grab_ggplot_internals()
 
+find_global <- function(name, env, mode = "any") {
+  if (exists(name, envir = env, mode = mode)) {
+    return(get(name, envir = env, mode = mode))
+  }
+  nsenv <- asNamespace("ggplot2")
+  if (exists(name, envir = nsenv, mode = mode)) {
+    return(get(name, envir = nsenv, mode = mode))
+  }
+  NULL
+}
+
 .onLoad <- function(...) {
   ggh4x_theme_elements()
 }
