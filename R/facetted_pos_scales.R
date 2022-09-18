@@ -205,11 +205,17 @@ ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
   oldfacet <- plot$facet
 
   free <- plot$facet$params$free
-  if (!is.null(free$x) && sum(!empty_x) > 1 && !free$x) {
-    warn("Attempting to add facetted x scales, while x scales are not free.")
+  if (!is.null(free$x) && sum(!empty_x) > 0 && !free$x) {
+    cli::cli_warn(c(
+      "Attempting to add facetted x scales, while x scales are not free.",
+      "i" = 'Try adding {.code scales = "free_x"} to the facet.'
+    ))
   }
-  if (!is.null(free$y) && sum(!empty_y) > 1 && !free$y) {
-    warn("Attempting to add facetted y scales, while y scales are not free.")
+  if (!is.null(free$y) && sum(!empty_y) > 0 && !free$y) {
+    cli::cli_warn(c(
+      "Attempting to add facetted y scales, while y scales are not free.",
+      "i" = 'Try adding {.code scales = "free_y"} to the facet.'
+    ))
   }
 
   # Reconstitute new facet
