@@ -75,6 +75,7 @@ Collate:
     'position_disjoint_ranges.R'
     'position_lineartrans.R'
     'scale_dendrogram.R'
+    'scale_facet.R'
     'scale_listed.R'
     'scale_multi.R'
     'stat_difference.R'
