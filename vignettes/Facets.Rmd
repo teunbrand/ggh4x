@@ -367,6 +367,26 @@ p +
 
 In the example above, we removed the label from every even column by using `COL %% 2 == 0`, wherein `COL` is a column in the aforementioned layout structure. We also made the axes of the `"midsize"` and `"suv"` classes red. The reason we don't see red axis ticks in the `"subcompact"` panel is that applying scales is prioritised based on the order of formulas. Because the `"subcompact"` panel is also on an even column, and the 'even columns have no labels'-formula was first, it gets excluded from the second formula.
 
+## Convenience notation
+
+If you prefer the regular syntax of 'adding' components to a plot, you can also get the results above by using `scale_x_facet()`. Instead of providing a two sided formula, the first argument (`expr`) takes an expression that is evaluated in the context of the layout structure. To get the equivalents of, for example, `scale_x_log10()`, `scale_x_reverse()` or `scale_x_date()`, you can provide `type = "log10"`, `type = "reverse"` and `type = "date"` respectively.
+
+```{r, eval=FALSE}
+p +
+  facet_wrap(vars(class), nrow = 1, scales = "free_x") +
+  xlim(range(mpg$displ)) +
+  scale_x_facet(
+    COL %% 2 == 0, 
+    labels = NULL, limits = xlim
+  ) +
+  scale_x_facet(
+    class %in% c("midsize", "suv", "subcompact"),
+    limits = xlim,
+    guide = guide_axis_colour(colour = "red")
+  )
+```
+
+
 ## Interaction with stats
 
 The `facetted_pos_scales()` works because it makes an edit to the facet, which comes with an important limitation. Due to the way plots are build and *when* facets are involved, scale transformations are applied *after* calculations in the stat part of the layer. This differs from normal behaviour, where scale transformations are applied *before* stat calculations. Therefore, it is recommended to pre-transform the data in layers with non-identity statistics in the `aes()` mapping. An example of what could go wrong is shown below.

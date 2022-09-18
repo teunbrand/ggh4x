@@ -1,9 +1,12 @@
 # ggh4x (development version)
 
+* New `scale_{x/y}_facet()` to provide a more convenient syntax for 
+  `facetted_pos_scales()` (#76).
+
 # ggh4x 0.2.2
 
 This is a small release updating the documentation to be compatible with HTML5, 
-compatability for upcoming ggplot2 3.4.0, along with four small features.
+compatibility for upcoming ggplot2 3.4.0, along with four small features.
 
 ## New features
 
