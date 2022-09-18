@@ -24,6 +24,7 @@ reference:
   - strip_split
   - force_panelsizes
   - facetted_pos_scales
+  - scale_x_facet
 - title: Position guides and scales
   desc: >
     Additional ways to organise and display the x- and y-axes.
