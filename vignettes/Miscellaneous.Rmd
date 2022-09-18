@@ -191,3 +191,30 @@ ggplot(diamonds, aes(cut, fill = clarity)) +
   coord_polar()
 ```
 
+# Axes inside panel
+
+For some plots, we might be interested to have the plot's axes intersect some other value than the lowest limit. To place the axes inside the plot panel, we can use `coord_axes_inside()`. By default, `coord_axes_inside()` will try to place the axes at the origin at (0, 0) or the point nearest to the origin, if the origin is not within the limits.
+
+```{r}
+p <- ggplot(mpg, aes(displ - mean(displ), hwy - mean(hwy))) +
+  geom_point() +
+  theme(axis.line = element_line())
+
+p + coord_axes_inside()
+```
+
+While for readability purposes, it makes sense to still place the text labels outside the panel, you can also place the labels inside by setting `labels_inside = TRUE`. In many cases, this can cause some readability issues because the `"0"` label at the origin will intersect with the orthogonal axes. You can circumvent this issue by purposefully excluding that particular label.
+
+An additional nicety is that `coord_axis_inside()` will actually use the guide system, so it can be combined with custom axis guides.
+
+```{r}
+p + coord_axes_inside(labels_inside = TRUE) +
+  scale_x_continuous(
+    labels = ~ ifelse(.x == 0, "", .x),
+    guide  = "axis_minor"
+  ) +
+  scale_y_continuous(
+    labels = ~ ifelse(.x == 0, "", .x),
+    guide  = "axis_truncated"
+  )
+```
