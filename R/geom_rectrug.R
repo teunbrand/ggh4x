@@ -212,7 +212,7 @@ GeomRectMargin <- ggplot2::ggproto(
       col = alpha(coords$colour, coords$alpha),
       fill = alpha(coords$fill, coords$alpha),
       linejoin = linejoin,
-      lty = coords$linetype, lwd = coords$size * .int$.pt,
+      lty = coords$linetype, lwd = coords$linewidth * .int$.pt,
       lineend = if (identical(linejoin, "round")) "round" else "square"
     )
 
@@ -268,7 +268,7 @@ GeomRectMargin <- ggplot2::ggproto(
   },
   optional_aes = c("x", "y", "xmin", "xmax", "ymin", "ymax"),
   default_aes = ggplot2::aes(colour = NA, fill = "grey35",
-                             size = 0.5, linetype = 1, alpha = NA),
+                             linewidth = 0.5, linetype = 1, alpha = NA),
   draw_key = ggplot2::draw_key_polygon
 )
 
@@ -290,7 +290,7 @@ GeomTileMargin <- ggplot2::ggproto(
     )
   },
   default_aes = ggplot2::aes(fill = "grey20", colour = NA,
-                             size = 0.1, linetype = 1,
+                             linewidth = 0.1, linetype = 1,
                              alpha = NA, width = NA, height = NA),
   draw_key = ggplot2::draw_key_polygon
 )

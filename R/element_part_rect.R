@@ -25,7 +25,7 @@ element_part_rect <- function(
   side = "tlbr",
   fill = NULL,
   colour = NULL,
-  size = NULL,
+  linewidth = NULL,
   linetype = NULL,
   color = NULL,
   inherit.blank = FALSE
@@ -33,21 +33,29 @@ element_part_rect <- function(
   if (!is.null(color)) {
     colour <- color
   }
+
   all_sides <- grepl("(?=.*t)(?=.*l)(?=.*r)(?=.*b)", side, perl = TRUE)
   if (all_sides) {
     # Simplifies to regular rectangle
     return(
-      element_rect(fill = fill, colour = colour, size = size,
-                   linetype = linetype,
-                   inherit.blank = inherit.blank)
+      element_rect(
+        fill = fill, colour = colour,
+        linewidth = linewidth,
+        linetype = linetype,
+        inherit.blank = inherit.blank
+      )
     )
   }
   no_sides <- !grepl("t|l|r|b", side, perl = TRUE)
   if (no_sides) {
     # Also simplifies to regular rectangle, but with no colour
     return(
-      element_rect(fill = fill, colour = NA, size = size, linetype = linetype,
-                   inherit.blank = inherit.blank)
+      element_rect(
+        fill = fill, colour = NA,
+        linewidth = linewidth,
+        linetype = linetype,
+        inherit.blank = inherit.blank
+      )
     )
   }
 
@@ -55,7 +63,7 @@ element_part_rect <- function(
     list(
       fill = fill,
       colour = colour,
-      size = size,
+      linewidth = linewidth,
       linetype = linetype,
       inherit.blank = inherit.blank,
       side = side
@@ -74,16 +82,16 @@ element_grob.element_part_rect <- function(
   height = 1,
   fill = NULL,
   colour = NULL,
-  size = NULL,
+  linewidth = NULL,
   linetype = NULL,
   ...
 ) {
   gp <- gpar(
-    lwd = if (length(size) == 0) NULL else size * .pt,
+    lwd = if (length(linewidth) == 0) NULL else linewidth * .pt,
     col = colour, fill = fill, lty = linetype
   )
   element_gp <- element_gp <- gpar(
-    lwd = if (length(element$size) == 0) NULL else element$size * .pt,
+    lwd = if (length(element$linewidth) == 0) NULL else element$linewidth * .pt,
     col = element$colour, fill = element$fill, lty = element$linetype
   )
 
