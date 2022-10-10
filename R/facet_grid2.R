@@ -175,7 +175,9 @@ new_grid_facets <- function(
 #' @rdname ggh4x_extensions
 FacetGrid2 <- ggproto(
   "FacetGrid2", FacetGrid,
-  vars_combine = combine_vars,
+  vars_combine = function(...) {
+    combine_vars(...)
+  },
   compute_layout = function(data, params, self) {
     rows <- params$rows
     cols <- params$cols
