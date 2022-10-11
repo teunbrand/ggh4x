@@ -115,13 +115,16 @@ GeomPolygonRaster <- ggproto(
 
     first <- coords[!duplicated(data$id), ]
 
-    ggplot2:::ggname(
+    ggname(
       "geom_polygon",
-      polygonGrob(coords$x, coords$y, default.units = "native", id = coords$id,
-                  gp = gpar(col = 0,
-                            fill = alpha(first$fill, first$alpha),
-                            lwd = 0,
-                            lty = 0))
+      polygonGrob(
+        coords$x, coords$y, default.units = "native", id = coords$id,
+        gp = gpar(
+          col = 0,
+          fill = alpha(first$fill, first$alpha),
+          lwd = 0,
+          lty = 0)
+      )
     )
   }
 )

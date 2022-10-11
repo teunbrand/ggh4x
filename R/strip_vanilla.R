@@ -150,7 +150,7 @@ Strip <- ggproto(
     labels <- mapply(function(label, elem) {
       grob <- element_grob(elem, label, margin_x = TRUE, margin_y = TRUE)
       if (!inherits(grob, c("titleGrob", "zeroGrob"))) {
-        grob <- .int$add_margins(
+        grob <- add_margins(
           gList(grob), grobHeight(grob), grobWidth(grob),
           margin_x = TRUE, margin_y = TRUE
         )
@@ -159,7 +159,7 @@ Strip <- ggproto(
       grob
     }, label = labels, elem = element$el, SIMPLIFY = FALSE)
 
-    zeros <- vapply(labels, .int$is.zero, logical(1))
+    zeros <- vapply(labels, is.zero, logical(1))
     if (length(labels) == 0 || all(zeros)) {
       return(labels)
     }
@@ -213,7 +213,7 @@ Strip <- ggproto(
   finish_strip = function(strip, width, height, position, layout, dim,
                           clip = "inherit") {
     empty_strips <- length(strip) == 0 ||
-      all(vapply(strip, .int$is.zero, logical(1)))
+      all(vapply(strip, is.zero, logical(1)))
     if (!empty_strips) {
       strip <- matrix(strip, ncol = dim[2], nrow = dim[1])
       horizontal <- position %in% c("top", "bottom")
@@ -281,7 +281,7 @@ Strip <- ggproto(
   build_strip = function(self, data, labeller, theme, horizontal,
                          params, layout) {
 
-    if (.int$empty(data)) {
+    if (empty(data)) {
       ans <- list(NULL, NULL)
       names(ans) <- if (horizontal) c("top", "bottom") else c("left", "right")
       return(ans)

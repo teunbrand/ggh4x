@@ -164,7 +164,7 @@ FacetManual <- ggproto(
 
     base <- combine_vars(data, params$plot_env, vars, drop = params$drop)
     rownames(base) <- NULL
-    id <- .int$id(base, drop = TRUE)
+    id <- id(base, drop = TRUE)
     n <- attr(id, "n")
 
     if (n > nrow(layout)) {
@@ -202,7 +202,7 @@ FacetManual <- ggproto(
 
   map_data = function(data, layout, params) {
 
-    if (.int$empty(data)) {
+    if (empty(data)) {
       return(vec_cbind(data, PANEL = integer(0)))
     }
     vars <- params$facets
@@ -212,7 +212,7 @@ FacetManual <- ggproto(
       return(data)
     }
 
-    facet_vals <- .int$eval_facets(vars, data, params$.possible_columns)
+    facet_vals <- eval_facets(vars, data, params$.possible_columns)
     facet_vals[] <- lapply(facet_vals[], as.factor)
     layout[] <- lapply(layout[], as.factor)
 
@@ -233,7 +233,7 @@ FacetManual <- ggproto(
     }
 
 
-    keys <- .int$join_keys(facet_vals, layout, by = names(vars))
+    keys <- join_keys(facet_vals, layout, by = names(vars))
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data <- data[!is.na(data$PANEL),] # Drop data
     data
@@ -313,7 +313,7 @@ FacetManual <- ggproto(
                          x_scales, y_scales,
                          ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(.int$snake_class(coord), " doesn't support free scales",
+      stop(snake_class(coord), " doesn't support free scales",
            call. = FALSE)
     }
     strip <- self$strip

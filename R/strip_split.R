@@ -139,7 +139,7 @@ StripSplit <- ggproto(
     labeller, theme, params, layout
   ) {
     # Early exit if we have no facetting variables
-    if (.int$empty(vars)) {
+    if (empty(vars)) {
       ans <- list(x = list(top = NULL, bottom = NULL),
                   y = list(left = NULL, right = NULL))
       self$strips <- ans
@@ -165,7 +165,7 @@ StripSplit <- ggproto(
     # Construct a data.frame of IDs, it controls the hierarchy in which
     # strips can be drawn.
     ids <- lapply(seq_len(ncol(vars)), seq_len)
-    ids <- lapply(ids, function(i) .int$id(vars[, i, drop = FALSE]))
+    ids <- lapply(ids, function(i) id(vars[, i, drop = FALSE]))
     ids <- new_data_frame(setNames(ids, colnames(vars)))
 
     # For every side of the panel, make a strip

@@ -153,8 +153,8 @@ guide_gengrob.stringlegend <- function(guide, theme) {
   }
   vps <- transform(vps, label.row = R * 2 - 1, label.col = C * 2 - 1)
 
-  widths  <- head(.int$interleave(labels$width,  xgap), -1)
-  heights <- head(.int$interleave(labels$height, ygap), -1)
+  widths  <- head(interleave(labels$width,  xgap), -1)
+  heights <- head(interleave(labels$height, ygap), -1)
 
   # Place title in layout
   switch(
@@ -196,7 +196,7 @@ guide_gengrob.stringlegend <- function(guide, theme) {
                         t = 1, r = -1, b = -1, l = 1)
   gt <- gtable_add_grob(
     gt,
-    .int$justify_grobs(
+    justify_grobs(
       title$grob, hjust = title$hjust, vjust = title$vjust,
       int_angle = title$theme$angle, debug = title$theme$debug
     ),
@@ -206,7 +206,7 @@ guide_gengrob.stringlegend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    .int$justify_grobs(
+    justify_grobs(
       labels$grob, hjust = labels$hjust, vjust = labels$vjust,
       int_angle = labels$theme$angle, debug = labels$theme$debug
     ),

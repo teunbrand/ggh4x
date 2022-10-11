@@ -124,7 +124,7 @@ new_grid_facets <- function(
   # Check arguments
   switch <- switch %||% "none"
   switch <- arg_match0(switch, c("none", "both", "x", "y"))
-  labeller <- .int$check_labeller(labeller)
+  labeller <- check_labeller(labeller)
   axes  <- .match_facet_arg(axes,   c("margins", "x", "y", "all"))
   free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
   space <- .match_facet_arg(space,  c("fixed", "free_x", "free_y", "free"))
@@ -191,13 +191,13 @@ FacetGrid2 <- ggproto(
     base_rows <- self$vars_combine(data, params$plot_env, rows,
                                    drop = params$drop)
     if (!params$as.table) {
-      rev_order <- function(x) {factor(x, levels = rev(.int$ulevels(x)))}
+      rev_order <- function(x) {factor(x, levels = rev(ulevels(x)))}
       base_rows[] <- lapply(base_rows, rev_order)
     }
     # Use `self$vars_combine` instead of `combine_vars`
     base_cols <- self$vars_combine(data, params$plot_env, cols,
                                    drop = params$drop)
-    base <- .int$df.grid(base_rows, base_cols)
+    base <- df.grid(base_rows, base_cols)
 
     if (nrow(base) == 0) {
       out <- data_frame0(
@@ -211,23 +211,23 @@ FacetGrid2 <- ggproto(
     }
 
     # Adding margins
-    base <- .int$reshape_add_margins(base, list(names(rows), names(cols)),
-                                     params$margins)
+    base <- reshape_add_margins(base, list(names(rows), names(cols)),
+                                params$margins)
     base <- unique0(base)
 
     # Create panel info
-    panel <- .int$id(base, drop = TRUE)
+    panel <- id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
     rows <- if (!length(names(rows))) {
       rep(1L, length(panel))
     } else {
-      .int$id(base[names(rows)], drop = TRUE)
+      id(base[names(rows)], drop = TRUE)
     }
     cols <- if (!length(names(cols))) {
       rep(1L, length(panel))
     } else {
-      .int$id(base[names(cols)], drop = TRUE)
+      id(base[names(cols)], drop = TRUE)
     }
 
     panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
@@ -314,16 +314,16 @@ FacetGrid2 <- ggproto(
   },
   attach_axes = function(panel_table, axes) {
     sizes <- .measure_axes(axes)
-    panel_table <- .int$weave_tables_row(
+    panel_table <- weave_tables_row(
       panel_table, axes$top, -1, sizes$top, "axis-t", 3
     )
-    panel_table <- .int$weave_tables_row(
+    panel_table <- weave_tables_row(
       panel_table, axes$bottom, 0, sizes$bottom, "axis-b", 3
     )
-    panel_table <- .int$weave_tables_col(
+    panel_table <- weave_tables_col(
       panel_table, axes$left, -1, sizes$left, "axis-l", 3
     )
-    panel_table <- .int$weave_tables_col(
+    panel_table <- weave_tables_col(
       panel_table, axes$right, 0, sizes$right, "axis-r", 3
     )
     panel_table
@@ -375,7 +375,7 @@ FacetGrid2 <- ggproto(
     ranges, coord, data, theme, params, self
   ) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      abort(paste0(.int$snake_class(coord), "doesn't support free scales."))
+      abort(paste0(snake_class(coord), "doesn't support free scales."))
     }
     strip <- self$strip
     cols <- which(layout$ROW == 1)

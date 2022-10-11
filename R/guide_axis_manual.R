@@ -241,7 +241,7 @@ guide_transform.axis_manual <- function(guide, coord, panel_params) {
     } else {
       guide$key <- coord$transform(guide$key, panel_params)
     }
-    .int$warn_for_guide_position(guide)
+    warn_for_guide_position(guide)
   }
   guide$trunc <- transform_truncated(guide$trunc, coord, panel_params)
   guide

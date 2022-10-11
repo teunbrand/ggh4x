@@ -82,7 +82,7 @@ GeomPointPath <- ggplot2::ggproto(
     data <- data[data$keep, ]
 
     if (nrow(data) < 1) {
-      out <- .int$ggname(
+      out <- ggname(
         "geom_pointpath",
         grobTree(pointgrob)
       )
@@ -111,7 +111,7 @@ GeomPointPath <- ggplot2::ggproto(
     )
 
     ## Combine grobs
-    .int$ggname(
+    ggname(
       "geom_pointpath",
       grobTree(my_path, pointgrob)
     )

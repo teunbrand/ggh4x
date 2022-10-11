@@ -118,7 +118,7 @@ FacetNested <- ggproto(
   "FacetNested", FacetGrid2,
   map_data = function(data, layout, params) {
     # Handle empty data
-    if (.int$empty(data)) {
+    if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
     # Setup variables
@@ -135,8 +135,8 @@ FacetNested <- ggproto(
                         intersect(names(cols), names(data)))
 
     # Add variables
-    data <- .int$reshape_add_margins(data, margin_vars, params$margins)
-    facet_vals <- .int$eval_facets(c(rows, cols), data, params$.possible_columns)
+    data <- reshape_add_margins(data, margin_vars, params$margins)
+    facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
 
     # Only set as missing if it has no variable in that direction
     missing_facets <- character(0)
@@ -168,8 +168,8 @@ FacetNested <- ggproto(
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
       layout[]     <- lapply(layout[], as.factor)
-      keys <- .int$join_keys(facet_vals, layout,
-                             by = vars[vars %in% names(facet_vals)])
+      keys <- join_keys(facet_vals, layout,
+                        by = vars[vars %in% names(facet_vals)])
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
     data
@@ -183,8 +183,9 @@ FacetNested <- ggproto(
 
     possible_columns <- unique0(unlist(lapply(data, names)))
 
-    values <- .int$compact(lapply(data, .int$eval_facets, facets = vars,
-                                  possible_columns = possible_columns))
+    values <- lapply(data, eval_facets, facets = vars,
+                     possible_columns = possible_columns)
+    values <- values[lengths(values) > 0]
     has_all <- unlist(lapply(values, length)) == length(vars)
     if (!any(has_all)) {
       missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
@@ -201,21 +202,21 @@ FacetNested <- ggproto(
     }
     base <- unique0(vec_rbind(!!!values[has_all]))
     if (!drop) {
-      base <- .int$unique_combs(base)
+      base <- unique_combs(base)
     }
     for (value in values[!has_all]) {
-      if (.int$empty(value))
+      if (empty(value))
         next
       old <- base[setdiff(names(base), names(value))]
       new <- unique(value[intersect(names(base), names(value))])
       if (drop) {
-        new <- .int$unique_combs(new)
+        new <- unique_combs(new)
       }
       # This is different than vanilla ggplot2
       old[setdiff(names(base), names(value))] <- rep("", nrow(old))
-      base <- rbind(base, .int$df.grid(old, new))
+      base <- rbind(base, df.grid(old, new))
     }
-    if (.int$empty(base)) {
+    if (empty(base)) {
       stop("Facetting variables must have at least one value",
            call. = FALSE)
     }

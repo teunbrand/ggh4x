@@ -110,10 +110,10 @@ GeomTextAimed <- ggproto(
     aim  <- coord$transform(aim, panel_params)
 
     if (is.character(data$vjust)) {
-      data$vjust <- .int$compute_just(data$vjust, data$y)
+      data$vjust <- compute_just(data$vjust, data$y)
     }
     if (is.character(data$hjust)) {
-      data$hjust <- .int$compute_just(data$hjust, data$x)
+      data$hjust <- compute_just(data$hjust, data$x)
     }
 
     aimed_textGrob(

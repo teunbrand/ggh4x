@@ -18,7 +18,7 @@ test_that("try_require loads package namespace", {
 test_that("function grabber grabs functions", {
   x <- .grab_ggplot_internals()
   classes <- table(sapply(x, class))
-  expect_gt(classes["function"], 10)
+  expect_gt(classes["function"], 0)
 })
 
 test_that("center_limits centers limits", {

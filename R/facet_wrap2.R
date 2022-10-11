@@ -93,7 +93,7 @@ new_wrap_facets <- function(
   params = list(), super = FacetWrap2
 ) {
   # Check arguments
-  labeller <- .int$check_labeller(labeller)
+  labeller <- check_labeller(labeller)
   strip.position <- arg_match0(
     strip.position, c("top", "bottom", "left",  "right")
   )
@@ -262,10 +262,8 @@ FacetWrap2 <- ggproto(
       row_panels <- which(layout$ROW == first_row & layout$COL > first_col)
       col_panels <- which(layout$COL == first_col & layout$ROW > first_row)
 
-      row_pos <- .int$convertInd(layout$ROW[row_panels], layout$COL[row_panels],
-                                 nrow)
-      col_pos <- .int$convertInd(layout$ROW[col_panels], layout$COL[col_panels],
-                                 nrow)
+      row_pos <- (layout$COL[row_panels] - 1) * nrow + layout$ROW[row_panels]
+      col_pos <- (layout$COL[col_panels] - 1) * nrow + layout$ROW[col_panels]
 
       # Find corresponding axes
       row_axes <- axes$x$bottom[layout$SCALE_X[first_row]]
@@ -275,7 +273,7 @@ FacetWrap2 <- ggproto(
 
       # Throw warnings when misalignment is bound to happen
       if (params$strip.position == "bottom" && !inside && !params$free$x &&
-          any(!vapply(row_axes, .int$is.zero, logical(1))) && !repeat_x) {
+          any(!vapply(row_axes, is.zero, logical(1))) && !repeat_x) {
         warning("Supressing axis rendering when strip.position = 'bottom' and ",
                 "strip.placement == 'outside'", call. = FALSE)
       } else {
@@ -285,7 +283,7 @@ FacetWrap2 <- ggproto(
 
       # Throw warnings when misalignment is bound to happen
       if (params$strip.position == "right" && !inside && !params$free$y &&
-          any(!vapply(col_axes, .int$is.zero, logical(1))) && !repeat_y) {
+          any(!vapply(col_axes, is.zero, logical(1))) && !repeat_y) {
         warning("Supressing axis rendering when strip.position = 'right' and ",
                 "strip.placement == 'outside'", call. = FALSE)
       } else {
@@ -303,16 +301,16 @@ FacetWrap2 <- ggproto(
     )
   },
   attach_axes = function(panel_table, axes, sizes) {
-    panel_table <- .int$weave_tables_row(
+    panel_table <- weave_tables_row(
       panel_table, axes$top,   -1, sizes$top,    "axis-t", 3
     )
-    panel_table <- .int$weave_tables_row(
+    panel_table <- weave_tables_row(
       panel_table, axes$bottom, 0, sizes$bottom, "axis-b", 3
     )
-    panel_table <- .int$weave_tables_col(
+    panel_table <- weave_tables_col(
       panel_table, axes$left,  -1, sizes$left,   "axis-l", 3
     )
-    panel_table <- .int$weave_tables_col(
+    panel_table <- weave_tables_col(
       panel_table, axes$right,  0, sizes$right,  "axis-r", 3
     )
     panel_table
@@ -324,7 +322,7 @@ FacetWrap2 <- ggproto(
                          x_scales, y_scales,
                          ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(.int$snake_class(coord), " doesn't support free scales",
+      stop(snake_class(coord), " doesn't support free scales",
            call. = FALSE)
     }
     strip  <- self$strip
@@ -368,7 +366,7 @@ FacetWrap2 <- ggproto(
 # Helpers -----------------------------------------------------------------
 
 purge_guide_labels <- function(guide) {
-  if (.int$is.zero(guide)) {
+  if (is.zero(guide)) {
     return(guide)
   }
 

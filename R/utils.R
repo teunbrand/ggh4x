@@ -29,51 +29,14 @@ seq_ncol <- function(dat) {
 # ggplot internals --------------------------------------------------------
 
 # Function for grabbing internal function of ggplot2 that are also used here.
-# I'm sorry Thomasp85 for using these undocumented internal functions!
-# I know it is discouraged, but blatantly copy-pasting the code for these
-# functions feels wrong too (and is more work than checking that my code still
-# works with the ggplot2 dev version every once in a while).
-# Please forgive me!
+# While most of these are now covered in the borrowed_ggplot2.R file, there
+# are some functions that weren't so easy to copy, which remain below.
 .grab_ggplot_internals <- function() {
   objects <- c(
-    ".all_aesthetics",
-    "as_facets_list",
-    "as_gg_data_frame",
-    "add_margins",
-    "axis_label_element_overrides",
-    "check_aesthetics",
-    "check_labeller",
-    "check_subclass",
-    "compact",
     "continuous_range",
-    "convertInd",
-    "df.grid",
-    "draw_axis_labels",
-    "reshape_add_margins",
-    "defaults", "id",
-    "empty",
-    "eval_facets",
-    "ggname",
-    "rename_aes",
-    "mapped_aesthetics",
-    "make_labels",
+    # too rabbithole-complex to manually copy
     "grid_as_facets_list",
-    "is.zero",
-    "set_draw_key",
-    "snake_class",
-    "ulevels",
-    "unique_combs",
-    "validate_mapping",
-    "warn_for_guide_position",
-    "weave_tables_col",
-    "weave_tables_row",
-    "wrap_as_facets_list",
-    "join_keys",
-    ".pt",
-    "interleave",
-    "justify_grobs",
-    "compute_just",
-    "axis_label_priority"
+    "wrap_as_facets_list"
   )
   objects <- setNames(objects, objects)
   out <- lapply(objects, function(i) {
@@ -81,12 +44,12 @@ seq_ncol <- function(dat) {
   })
 }
 
+# Store the needed ggplot internals here
+.int <- .grab_ggplot_internals()
+
 data_frame0 <- function(...) {data_frame(..., .name_repair = "minimal")}
 
 unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
-
-# Store the needed ggplot internals here
-.int <- .grab_ggplot_internals()
 
 find_global <- function(name, env, mode = "any") {
   if (exists(name, envir = env, mode = mode)) {

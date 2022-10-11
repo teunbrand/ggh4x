@@ -61,7 +61,7 @@ scale_listed <- function(scalelist, replaces = NULL) {
          call. = FALSE)
   }
   replaces <- standardise_aes_names(replaces)
-  if (!(all(replaces %in% .int$.all_aesthetics))) {
+  if (!(all(replaces %in% .all_aesthetics))) {
     stop("The aesthetics in 'replaces' were not
          recognised as valid aesthetics.",
          call. = FALSE)
@@ -191,3 +191,11 @@ ggplot_add.MultiScale <- function(object, plot, object_name){
   })
   return(plot)
 }
+
+.all_aesthetics <- c(
+  "adj", "alpha", "angle", "bg", "cex", "col", "color", "colour", "fg", "fill",
+  "group", "hjust", "label", "linetype", "lower", "lty", "lwd", "max", "middle",
+  "min", "pch", "radius", "sample", "shape", "size", "srt", "upper", "vjust",
+  "weight", "width", "x", "xend", "xmax", "xmin", "xintercept", "y", "yend",
+  "ymax", "ymin", "yintercept", "z"
+)

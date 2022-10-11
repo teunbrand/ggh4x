@@ -175,7 +175,7 @@ StripNested <- ggproto(
       return(out)
     }
     empty_strips <- length(strip) == 0 ||
-      all(vapply(strip, .int$is.zero, logical(1)))
+      all(vapply(strip, is.zero, logical(1)))
     if (!empty_strips) {
       index <- layout$layer
       if (position %in% c("bottom", "right")) {

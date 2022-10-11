@@ -212,7 +212,7 @@ GeomRectMargin <- ggplot2::ggproto(
       col = alpha(coords$colour, coords$alpha),
       fill = alpha(coords$fill, coords$alpha),
       linejoin = linejoin,
-      lty = coords$linetype, lwd = coords$linewidth * .int$.pt,
+      lty = coords$linetype, lwd = coords$linewidth * .pt,
       lineend = if (identical(linejoin, "round")) "round" else "square"
     )
 

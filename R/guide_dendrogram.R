@@ -111,7 +111,7 @@ guide_transform.dendroguide <- function(guide, coord, panel_params) {
     guide$key[[other_aesthetic]] <- override_value
     guide$key <- coord$transform(guide$key, panel_params)
 
-    .int$warn_for_guide_position(guide)
+    warn_for_guide_position(guide)
   }
 
   denseg <- guide$dendro$segments

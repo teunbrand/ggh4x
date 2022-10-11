@@ -12,7 +12,7 @@ build_axis_elements <- function(
   elements <- lapply(element_names, calc_element, theme)
 
   if (inherits(elements$label, "element_text")) {
-    lab_overrides <- .int$axis_label_element_overrides(axis_position, angle)
+    lab_overrides <- axis_label_element_overrides(axis_position, angle)
     elements$label$angle <- lab_overrides$angle %||% elements$label$angle
     elements$label$hjust <- lab_overrides$hjust %||% elements$label$hjust
     elements$label$vjust <- lab_overrides$vjust %||% elements$label$vjust
@@ -64,7 +64,7 @@ build_axis_labels <- function(
   lapply(dodge_idxs, function(idx) {
     subkey <- key[idx, , drop = FALSE]
     if (check.overlap) {
-      priority <- .int$axis_label_priority(n)
+      priority <- axis_label_priority(n)
       subkey   <- subkey[priority, , drop = FALSE]
     }
     breaks <- subkey[[params$aes]]

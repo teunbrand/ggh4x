@@ -227,12 +227,12 @@ build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
   splitlabels <- do.call(rbind, splitlabels)
 
   first_labels <- lapply(dodge_idxs, function(idx) {
-    .int$draw_axis_labels(
+    draw_axis_labels(
       break_positions = position[idx],
-      break_labels = splitlabels[,1][idx],
-      label_element = elements$label,
-      is_vertical = params$vertical,
-      check.overlap = check.overlap
+      break_labels    = splitlabels[,1][idx],
+      label_element   = elements$label,
+      is_vertical     = params$vertical,
+      check.overlap   = check.overlap
     )
   })
 
@@ -240,18 +240,18 @@ build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
     return(first_labels)
   }
 
-  later_labels <- lapply(tail(seq_len(ncol(splitlabels)), -1), function(i) {
+  later_labels <- lapply(tail(seq_ncol(splitlabels), -1), function(i) {
     labs <- splitlabels[,i]
     id <- rle(labs)
     ends <- cumsum(id$lengths)
     starts <- ends - id$lengths + 1
     mid <- (position[starts] + position[ends])/2
-    newlabs <- .int$draw_axis_labels(
+    newlabs <- draw_axis_labels(
       break_positions = mid,
-      break_labels = id$values,
-      label_element = elements$nest_text,
-      is_vertical = params$vertical,
-      check.overlap = check.overlap
+      break_labels    = id$values,
+      label_element   = elements$nest_text,
+      is_vertical     = params$vertical,
+      check.overlap   = check.overlap
     )
     nz <- nzchar(id$values)
     xtend <- min(diff(position)) * 0.5 * extend
