@@ -54,7 +54,8 @@ object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By def
 specified by \code{legend.text} in \code{\link[ggplot2:theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
-label text.}
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
 
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}

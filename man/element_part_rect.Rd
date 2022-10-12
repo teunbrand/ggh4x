@@ -8,7 +8,7 @@ element_part_rect(
   side = "tlbr",
   fill = NULL,
   colour = NULL,
-  size = NULL,
+  linewidth = NULL,
   linetype = NULL,
   color = NULL,
   inherit.blank = FALSE
@@ -25,7 +25,7 @@ respectively. Including all or none of these letters will default to normal
 
 \item{colour, color}{Line/border colour. Color is an alias for colour.}
 
-\item{size}{Line/border size in mm; text size in pts.}
+\item{linewidth}{Line/border size in mm.}
 
 \item{linetype}{Line type. An integer (0:8), a name (blank, solid,
 dashed, dotted, dotdash, longdash, twodash), or a string with
