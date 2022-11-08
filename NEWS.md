@@ -2,6 +2,9 @@
 
 * New `scale_{x/y}_facet()` to provide a more convenient syntax for 
   `facetted_pos_scales()` (#76).
+* New `geom_box()`, as a more flexible variant of `geom_rect()`/`geom_tile()`
+  that can take any two of x/y, width/height, xmin/ymin or xmax/ymax, and
+  supports rounded corners.
 
 # ggh4x 0.2.2
 
