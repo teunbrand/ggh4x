@@ -19,7 +19,7 @@
 #'   These angles are calculated in absolute coordinates, meaning that resizing
 #'   the plot will retain the same appearance.
 #'
-#' @return A ggplot2 `Layer`
+#' @return A ggplot2 `Layer` that can be added to a plot.
 #' @export
 #'
 #' @note When using this geom to aim text at the centre of a polar plot, make
@@ -80,6 +80,10 @@ geom_text_aimed <- function(
 
 # ggproto -----------------------------------------------------------------
 
+#' @usage NULL
+#' @format NULL
+#' @export
+#' @rdname ggh4x_extensions
 GeomTextAimed <- ggproto(
   "GeomTextAimed", GeomText,
   default_aes = aes(

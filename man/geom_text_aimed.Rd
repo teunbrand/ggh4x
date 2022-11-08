@@ -88,7 +88,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \value{
-A ggplot2 \code{Layer}
+A ggplot2 \code{Layer} that can be added to a plot.
 }
 \description{
 Similar to \code{geom_text()}, this geom also generates text but places the
