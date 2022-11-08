@@ -42,59 +42,59 @@ devtools::install_github("teunbrand/ggh4x")
 There are a few topics explored in the package’s vignettes with
 examples. Links to these topics are below.
 
--   Options to tailor
-    [facets](https://teunbrand.github.io/ggh4x/articles/Facets.html),
-    including:
-    -   Additional options for axis labelling and placement in [extended
-        facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#extended-facets-1).
-    -   [Nested
-        facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#nested-facets)
-        that have strips that can span multiple panels.
-    -   Custom layouts in [manual
-        facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#manual-facets-1).
-    -   More types of
-        [strips](https://teunbrand.github.io/ggh4x/articles/Facets.html#strips-1)
-        to use in facets.
-    -   Adjusting the [position
-        scales](https://teunbrand.github.io/ggh4x/articles/Facets.html#position-scales)
-        on a per-panel basis.
-    -   Varying the [size of
-        panels](https://teunbrand.github.io/ggh4x/articles/Facets.html#sizes)
-        without being limited to the global `aspect.ratio` or fixed
-        coordinates.
--   ggh4x has some [position
-    guides](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html)
-    that change the way x- and y-axes look. You can:
-    -   [recolour](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#coloured-axis-1)
-        the axis or cut the axis line with [truncated
-        axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#truncated-axes-1).
-    -   include the [minor breaks as minor tick
-        marks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks).
-    -   detail log<sub>10</sub> axes with [logarithmic
-        tickmarks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#logarithmic-ticks).
-    -   fine-tune the placement of labels and breaks with [manual
-        axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#manual-axes-1).
-    -   indicate [nested
-        relations](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#nested-relations)
-        in discrete axes.
-    -   mirror the results of hierarchical clustering with [dendrogram
-        axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#dendrograms)
-        with help from the **ggdendro** package.
--   There are some [stat
-    layers](https://teunbrand.github.io/ggh4x/articles/Statistics.html)
-    that can make it easier to plot. These stat layers can:
-    -   overlaying the [theoretical
-        density](https://teunbrand.github.io/ggh4x/articles/Statistics.html#theoretical-densities)
-        of several distributions, which are computed with the
-        **fitdistrplus** package.
-    -   draw a trend line of your data with a [rolling
-        kernel](https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels).
-    -   plainly [transform x and
-        y](https://teunbrand.github.io/ggh4x/articles/Statistics.html#function-x-y)
-        position in a group-wise manner.
-    -   calculate [run-length
-        encodings](https://teunbrand.github.io/ggh4x/articles/Statistics.html#run-length-encoding)
-        of your data.
+- Options to tailor
+  [facets](https://teunbrand.github.io/ggh4x/articles/Facets.html),
+  including:
+  - Additional options for axis labelling and placement in [extended
+    facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#extended-facets-1).
+  - [Nested
+    facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#nested-facets)
+    that have strips that can span multiple panels.
+  - Custom layouts in [manual
+    facets](https://teunbrand.github.io/ggh4x/articles/Facets.html#manual-facets-1).
+  - More types of
+    [strips](https://teunbrand.github.io/ggh4x/articles/Facets.html#strips-1)
+    to use in facets.
+  - Adjusting the [position
+    scales](https://teunbrand.github.io/ggh4x/articles/Facets.html#position-scales)
+    on a per-panel basis.
+  - Varying the [size of
+    panels](https://teunbrand.github.io/ggh4x/articles/Facets.html#sizes)
+    without being limited to the global `aspect.ratio` or fixed
+    coordinates.
+- ggh4x has some [position
+  guides](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html)
+  that change the way x- and y-axes look. You can:
+  - [recolour](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#coloured-axis-1)
+    the axis or cut the axis line with [truncated
+    axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#truncated-axes-1).
+  - include the [minor breaks as minor tick
+    marks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks).
+  - detail log<sub>10</sub> axes with [logarithmic
+    tickmarks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#logarithmic-ticks).
+  - fine-tune the placement of labels and breaks with [manual
+    axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#manual-axes-1).
+  - indicate [nested
+    relations](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#nested-relations)
+    in discrete axes.
+  - mirror the results of hierarchical clustering with [dendrogram
+    axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#dendrograms)
+    with help from the **ggdendro** package.
+- There are some [stat
+  layers](https://teunbrand.github.io/ggh4x/articles/Statistics.html)
+  that can make it easier to plot. These stat layers can:
+  - overlaying the [theoretical
+    density](https://teunbrand.github.io/ggh4x/articles/Statistics.html#theoretical-densities)
+    of several distributions, which are computed with the
+    **fitdistrplus** package.
+  - draw a trend line of your data with a [rolling
+    kernel](https://teunbrand.github.io/ggh4x/articles/Statistics.html#rolling-kernels).
+  - plainly [transform x and
+    y](https://teunbrand.github.io/ggh4x/articles/Statistics.html#function-x-y)
+    position in a group-wise manner.
+  - calculate [run-length
+    encodings](https://teunbrand.github.io/ggh4x/articles/Statistics.html#run-length-encoding)
+    of your data.
 
 ## Example
 
@@ -127,9 +127,12 @@ g <- g +
              data = ~ subset(., Species == "versicolor")) +
   geom_point(aes(PW = Petal.Width),
              data = ~ subset(., Species == "virginica"))
-#> Warning: Ignoring unknown aesthetics: SW
-#> Warning: Ignoring unknown aesthetics: PL
-#> Warning: Ignoring unknown aesthetics: PW
+#> Warning in geom_point(aes(SW = Sepal.Width), data = ~subset(., Species == :
+#> Ignoring unknown aesthetics: SW
+#> Warning in geom_point(aes(PL = Petal.Length), data = ~subset(., Species == :
+#> Ignoring unknown aesthetics: PL
+#> Warning in geom_point(aes(PW = Petal.Width), data = ~subset(., Species == :
+#> Ignoring unknown aesthetics: PW
 
 # These alternative aesthetics don't mean a lot until we add a multi-colour
 # scale to the plot. We need to specify our alternative aesthetics and colours
