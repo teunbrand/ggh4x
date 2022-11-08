@@ -1,5 +1,10 @@
 # ggh4x (development version)
 
+This is a small release updating some of the internals to better use the public
+interface to ggplot2 and play well with the latest release of ggplot2 (3.4.0).
+
+## New features
+
 * New `scale_{x/y}_facet()` to provide a more convenient syntax for 
   `facetted_pos_scales()` (#76).
 * New `geom_box()`, as a more flexible variant of `geom_rect()`/`geom_tile()`
