@@ -341,7 +341,7 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
     }
     dat
   })
-  data <- vec_unchop(panels, idx)
+  data <- list_unchop(panels, indices = idx)
   data
 }
 

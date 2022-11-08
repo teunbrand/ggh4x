@@ -23,7 +23,7 @@ Imports:
     grid,
     gtable,
     scales,
-    vctrs,
+    vctrs (>= 0.5.0),
     rlang,
     lifecycle,
     stats,
