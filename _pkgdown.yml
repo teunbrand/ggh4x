@@ -66,6 +66,7 @@ reference:
   - geom_rectmargin
   - geom_tilemargin
   - geom_text_aimed
+  - geom_box
 - title: "Positions"
   desc: >
     Two position adjustments that can be added to layers.
