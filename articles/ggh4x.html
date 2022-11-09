@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,8 @@
 
 
 
-<script src="ggh4x_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Introduction to ggh4x</h1>
             
@@ -92,11 +93,23 @@
 
     
     
-<p>The name ‘ggh4x’, pronounced G-G-hacks (ʤiː-ʤiː-hæks) is leetspeak —or <em>1ee75p34k</em>, if you will— for grammar of graphics hacks. The ggh4x packages uses the extension capabilities of ggplot2 to provide a variety of utility functions to use in conjunction with ggplot2. A few among these functions do not “fit” within the layered approach of the grammar, as these make small but useful edits to preceding components of a plot. It is for this reason these functions can be a bit hacky and from which the package’s name derives. However, most functions that were added since use the conventional extension system and as such can be used with ggplot2 as you would use the native functions.</p>
+<p>The name ‘ggh4x’, pronounced G-G-hacks (ʤiː-ʤiː-hæks) is leetspeak
+—or <em>1ee75p34k</em>, if you will— for grammar of graphics hacks. The
+ggh4x packages uses the extension capabilities of ggplot2 to provide a
+variety of utility functions to use in conjunction with ggplot2. A few
+among these functions do not “fit” within the layered approach of the
+grammar, as these make small but useful edits to preceding components of
+a plot. It is for this reason these functions can be a bit hacky and
+from which the package’s name derives. However, most functions that were
+added since use the conventional extension system and as such can be
+used with ggplot2 as you would use the native functions.</p>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>Using ggh4x is not that different from using ggplot2, as most of the function following their API conventions. Below is an example of the types of things you could do, with as much ggh4x functions as could be reasonably fit into a single plot.</p>
+<p>Using ggh4x is not that different from using ggplot2, as most of the
+function following their API conventions. Below is an example of the
+types of things you could do, with as much ggh4x functions as could be
+reasonably fit into a single plot.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x" class="external-link">ggh4x</a></span><span class="op">)</span></span>
@@ -138,13 +151,15 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: `ggsubset()` was deprecated in ggh4x 0.2.0.</span></span>
-<span><span class="co">#&gt; This is best replaced by using `data = ~ subset(.x, ...)` instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This is best replaced by using `data = ~ subset(.x, ...)` instead.</span></span></code></pre></div>
 <p><img src="ggh4x_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="further-reading">Further reading<a class="anchor" aria-label="anchor" href="#further-reading"></a>
 </h2>
-<p>Since ggh4x touches several aspects of ggplot2 plots, a few topics are discussed in more detail in vignettes. Please see the vignettes on <a href="Facets.html">facet_* functions</a>, <a href="Statistics.html">stat_* functions</a> or <a href="PositionGuides.html">position guides</a>.</p>
+<p>Since ggh4x touches several aspects of ggplot2 plots, a few topics
+are discussed in more detail in vignettes. Please see the vignettes on
+<a href="Facets.html">facet_* functions</a>, <a href="Statistics.html">stat_* functions</a> or <a href="PositionGuides.html">position guides</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

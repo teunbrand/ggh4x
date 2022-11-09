@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,17 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggh4x-development-version">ggh4x (development version)<a class="anchor" aria-label="anchor" href="#ggh4x-development-version"></a></h2>
-<ul><li>New <code>scale_{x/y}_facet()</code> to provide a more convenient syntax for <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code> (<a href="https://github.com/teunbrand/ggh4x/issues/76" class="external-link">#76</a>).</li></ul></div>
+<ul><li>Fixed bug in <code><a href="../reference/geom_box.html">geom_box()</a></code> where <code>radius</code> is now properly handed off to the grob.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.3" id="ggh4x-023">ggh4x 0.2.3<a class="anchor" aria-label="anchor" href="#ggh4x-023"></a></h2><p class="text-muted">CRAN release: 2022-11-09</p>
+<p>This is a small release updating some of the internals to better use the public interface to ggplot2 and play well with the latest release of ggplot2 (3.4.0).</p>
+<div class="section level3">
+<h3 id="new-features-0-2-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-3"></a></h3>
+<ul><li>New <code>scale_{x/y}_facet()</code> to provide a more convenient syntax for <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code> (<a href="https://github.com/teunbrand/ggh4x/issues/76" class="external-link">#76</a>).</li>
+<li>New <code><a href="../reference/geom_box.html">geom_box()</a></code>, as a more flexible variant of <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_rect()</a></code>/<code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile()</a></code> that can take any two of x/y, width/height, xmin/ymin or xmax/ymax, and supports rounded corners.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.2" id="ggh4x-022">ggh4x 0.2.2<a class="anchor" aria-label="anchor" href="#ggh4x-022"></a></h2><p class="text-muted">CRAN release: 2022-08-14</p>
 <p>This is a small release updating the documentation to be compatible with HTML5, compatibility for upcoming ggplot2 3.4.0, along with four small features.</p>

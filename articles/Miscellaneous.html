@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,8 @@
 
 
 
-<script src="Miscellaneous_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Miscellaneous</h1>
             
@@ -95,11 +96,21 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x" class="external-link">ggh4x</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span></code></pre></div>
-<p>There are some other, smaller additions in ggh4x that aren’t really covered in the other vignettes.</p>
+<p>There are some other, smaller additions in ggh4x that aren’t really
+covered in the other vignettes.</p>
 <div class="section level2">
 <h2 id="multiple-colour-scales">Multiple colour scales<a class="anchor" aria-label="anchor" href="#multiple-colour-scales"></a>
 </h2>
-<p>One colour scale is sometimes not enough to describe your data. You can map several variables to colours with <code><a href="../reference/scale_fill_multi.html">scale_colour_multi()</a></code> if data are in separate layers. It works like <code><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_colour_gradientn()</a></code>, but you can declare the aesthetics to and provide other arguments in a vectorised way, parallel to the <code>aesthetics</code> argument. In the example below, a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> of colours is given, where the 1 list elements becomes the argument of the first scale, the 2nd list element goes to the second scale and so on. Other arguments that expect input of length one can be given as a vector.</p>
+<p>One colour scale is sometimes not enough to describe your data. You
+can map several variables to colours with
+<code><a href="../reference/scale_fill_multi.html">scale_colour_multi()</a></code> if data are in separate layers. It
+works like <code><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_colour_gradientn()</a></code>, but you can declare
+the aesthetics to and provide other arguments in a vectorised way,
+parallel to the <code>aesthetics</code> argument. In the example below,
+a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> of colours is given, where the 1 list elements
+becomes the argument of the first scale, the 2nd list element goes to
+the second scale and so on. Other arguments that expect input of length
+one can be given as a vector.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Separating layers by species and declaring (yet) unknown aesthetics</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">Sepal.Width</span>, <span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -110,9 +121,12 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>pwidth <span class="op">=</span> <span class="va">Petal.Width</span><span class="op">)</span>,</span>
 <span>             data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Species</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: swidth</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: pleng</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: pwidth</span></span>
+<span><span class="co">#&gt; Warning in geom_point(aes(swidth = Sepal.Width), data = ~subset(., Species == :</span></span>
+<span><span class="co">#&gt; Ignoring unknown aesthetics: <span style="color: #00BB00;">swidth</span></span></span>
+<span><span class="co">#&gt; Warning in geom_point(aes(pleng = Petal.Length), data = ~subset(., Species == :</span></span>
+<span><span class="co">#&gt; Ignoring unknown aesthetics: <span style="color: #00BB00;">pleng</span></span></span>
+<span><span class="co">#&gt; Warning in geom_point(aes(pwidth = Petal.Width), data = ~subset(., Species == :</span></span>
+<span><span class="co">#&gt; Ignoring unknown aesthetics: <span style="color: #00BB00;">pwidth</span></span></span>
 <span></span>
 <span><span class="co"># This generated quite some warnings, but this is no reason to worry!</span></span>
 <span></span>
@@ -125,8 +139,15 @@
 <span>  guide <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_colourbar.html" class="external-link">guide_colourbar</a></span><span class="op">(</span>barheight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">35</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-2-1.png" width="384"></p>
-<p>You can combine continuous and discrete colour scales with the slightly more verbose <code><a href="../reference/scale_listed.html">scale_listed()</a></code>. We can illustrate this with a heatmap, wherein we maybe want to use a discrete fill for some annotation, but a continuous fill for the heatmap values. The example below also includes <code><a href="../reference/geom_rectmargin.html">geom_tilemargin()</a></code>, which conveniently can annotate heatmaps in the margin of a plot.</p>
-<p>We can provide the correct fill scales as a list, as long as we match up the new aesthetics in the scales themselves and declare which old aesthetic they are to replace.</p>
+<p>You can combine continuous and discrete colour scales with the
+slightly more verbose <code><a href="../reference/scale_listed.html">scale_listed()</a></code>. We can illustrate
+this with a heatmap, wherein we maybe want to use a discrete fill for
+some annotation, but a continuous fill for the heatmap values. The
+example below also includes <code><a href="../reference/geom_rectmargin.html">geom_tilemargin()</a></code>, which
+conveniently can annotate heatmaps in the margin of a plot.</p>
+<p>We can provide the correct fill scales as a list, as long as we match
+up the new aesthetics in the scales themselves and declare which old
+aesthetic they are to replace.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Reshaping the iris dataset for heatmap purposes</span></span>
 <span><span class="va">iriscor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
@@ -143,8 +164,10 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, cor <span class="op">=</span> <span class="va">correlation</span><span class="op">)</span>,</span>
 <span>              data <span class="op">=</span> <span class="va">iriscor</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: species</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: cor</span></span>
+<span><span class="co">#&gt; Warning in geom_tilemargin(aes(species = Species)): Ignoring unknown</span></span>
+<span><span class="co">#&gt; aesthetics: <span style="color: #00BB00;">species</span></span></span>
+<span><span class="co">#&gt; Warning in geom_raster(aes(x, y, cor = correlation), data = iriscor):</span></span>
+<span><span class="co">#&gt; Ignoring unknown aesthetics: <span style="color: #00BB00;">cor</span></span></span>
 <span></span>
 <span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_listed.html">scale_listed</a></span><span class="op">(</span>scalelist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"RdBu"</span>, aesthetics <span class="op">=</span> <span class="st">"cor"</span><span class="op">)</span>,</span>
@@ -155,13 +178,22 @@
 <div class="section level2">
 <h2 id="string-legends">String legends<a class="anchor" aria-label="anchor" href="#string-legends"></a>
 </h2>
-<p>A simple but effective way to illustrate a straightforward mapping of <code>colour</code> or <code>fill</code> aesthetics, is to use coloured text. In ggh4x, you can do this by setting <code>guide = "stringlegend"</code> as argument to colour and fill scales, or set <code>guides(colour = "stringlegend")</code>.</p>
+<p>A simple but effective way to illustrate a straightforward mapping of
+<code>colour</code> or <code>fill</code> aesthetics, is to use coloured
+text. In ggh4x, you can do this by setting
+<code>guide = "stringlegend"</code> as argument to colour and fill
+scales, or set <code>guides(colour = "stringlegend")</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">price</span>, <span class="va">carat</span>, colour <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"."</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span>, guide <span class="op">=</span> <span class="st">"stringlegend"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-4-1.png" width="384"></p>
-<p>These legends do not have any keys, so key-related options are absent when you use <code><a href="../reference/guide_stringlegend.html">guide_stringlegend()</a></code>. However, a few label related options like <code>family</code>, <code>face</code>, <code>size</code> have been added, as well as options to control the spacing between the labels through <code>spacing</code>/<code>spacing.x</code>/<code>spacing.y</code>.</p>
+<p>These legends do not have any keys, so key-related options are absent
+when you use <code><a href="../reference/guide_stringlegend.html">guide_stringlegend()</a></code>. However, a few label
+related options like <code>family</code>, <code>face</code>,
+<code>size</code> have been added, as well as options to control the
+spacing between the labels through
+<code>spacing</code>/<code>spacing.x</code>/<code>spacing.y</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span></span>
@@ -175,7 +207,11 @@
 <div class="section level2">
 <h2 id="point-paths">Point paths<a class="anchor" aria-label="anchor" href="#point-paths"></a>
 </h2>
-<p>The return of the good old <code>type = 'b'</code> plot from base R! This geom makes point connected through a line that starts and ends a small distance from the points themselves. Calculating these small offsets in absolute coordinates instead of data coordinates means they are stable at different aspect ratios.</p>
+<p>The return of the good old <code>type = 'b'</code> plot from base R!
+This geom makes point connected through a line that starts and ends a
+small distance from the points themselves. Calculating these small
+offsets in absolute coordinates instead of data coordinates means they
+are stable at different aspect ratios.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -189,13 +225,19 @@
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>aspect.ratio <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>aspect.ratio <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-6-1.png" width="288"><img src="Miscellaneous_files/figure-html/unnamed-chunk-6-2.png" width="288"></p>
-<p>The size of the small offset can be controlled with the <code>mult</code> multiplier argument, but is otherwise dependant on the average of on the <code>linesize</code> aesthetic for stroke size and <code>size</code> aesthetic for point size. Also note that the connecting lines disappear when points are spaced closely together.</p>
+<p>The size of the small offset can be controlled with the
+<code>mult</code> multiplier argument, but is otherwise dependant on the
+average of on the <code>linesize</code> aesthetic for stroke size and
+<code>size</code> aesthetic for point size. Also note that the
+connecting lines disappear when points are spaced closely together.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pressure</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">temperature</span>, <span class="va">pressure</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_pointpath.html">geom_pointpath</a></span><span class="op">(</span>linesize <span class="op">=</span> <span class="fl">2</span>, size <span class="op">=</span> <span class="fl">2</span>, mult <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown parameters: linesize</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning in geom_pointpath(linesize = 2, size = 2, mult = 1): Ignoring</span></span>
+<span><span class="co">#&gt; unknown parameters: `linesize`</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-7-1.png" width="384"></p>
-<p>An added bonus is that we can also use this point path in cartesian coordinates to get consistent curves.</p>
+<p>An added bonus is that we can also use this point path in cartesian
+coordinates to get consistent curves.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html" class="external-link">coord_polar</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-8-1.png" width="384"></p>
@@ -203,7 +245,14 @@
 <div class="section level2">
 <h2 id="polygon-rasters">Polygon rasters<a class="anchor" aria-label="anchor" href="#polygon-rasters"></a>
 </h2>
-<p>When you want to do more with rasters than just displaying them, the <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster()</a></code> and related tile- and rect geoms can be a bit inflexible. To allow transformations of rasters, there is <code><a href="../reference/geom_polygonraster.html">geom_polygonraster()</a></code>, which reparametrises the raster into <code>x</code> and <code>y</code> parametrised polygons. This is less efficient than the regular raster, but more flexible. With <code><a href="../reference/position_lineartrans.html">position_lineartrans()</a></code> you can perform linear transformations on the coordinates.</p>
+<p>When you want to do more with rasters than just displaying them, the
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster()</a></code> and related tile- and rect geoms can be a bit
+inflexible. To allow transformations of rasters, there is
+<code><a href="../reference/geom_polygonraster.html">geom_polygonraster()</a></code>, which reparametrises the raster into
+<code>x</code> and <code>y</code> parametrised polygons. This is less
+efficient than the regular raster, but more flexible. With
+<code><a href="../reference/position_lineartrans.html">position_lineartrans()</a></code> you can perform linear
+transformations on the coordinates.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="va">volcano</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -227,7 +276,14 @@
 <div class="section level2">
 <h2 id="aiming-text">Aiming text<a class="anchor" aria-label="anchor" href="#aiming-text"></a>
 </h2>
-<p>You might sometimes want to put text in a plot at a particular angle. You might want to annotate something ‘away’ from something else, in which case it can sometimes be a bit of a pain to calculate the correct angle, only to conclude that after resizing the plot that the angle was not correct. With <code><a href="../reference/geom_text_aimed.html">geom_text_aimed()</a></code> the text is rotated by an angle parallel to a line going from the text’s <code>[x,y]</code> coordinate through some point in <code>[xend,yend]</code>. In the example below, we ‘aim’ the text at the middle of the plot.</p>
+<p>You might sometimes want to put text in a plot at a particular angle.
+You might want to annotate something ‘away’ from something else, in
+which case it can sometimes be a bit of a pain to calculate the correct
+angle, only to conclude that after resizing the plot that the angle was
+not correct. With <code><a href="../reference/geom_text_aimed.html">geom_text_aimed()</a></code> the text is rotated by
+an angle parallel to a line going from the text’s <code>[x,y]</code>
+coordinate through some point in <code>[xend,yend]</code>. In the
+example below, we ‘aim’ the text at the middle of the plot.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">mtcars</span>, car <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -238,7 +294,10 @@
 <span>                  yend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-10-1.png" width="384"></p>
-<p>While the example above might be a bit silly, it might be easier to show the usefulness when trying to annotate pieces of a polar coordinates chart. Specifically for these kinds of charts, the default <code>[xend,yend]</code> position is at <code>[-Inf, Inf]</code>.</p>
+<p>While the example above might be a bit silly, it might be easier to
+show the usefulness when trying to annotate pieces of a polar
+coordinates chart. Specifically for these kinds of charts, the default
+<code>[xend,yend]</code> position is at <code>[-Inf, Inf]</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -248,7 +307,9 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html" class="external-link">coord_polar</a></span><span class="op">(</span><span class="st">"y"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-11-1.png" width="384"></p>
-<p>When specifying an angle in the geom, the calculated angle is added, such that <code>angle = 90</code> means that the text will become perpendicular to the point defined in <code>[xend, yend]</code>.</p>
+<p>When specifying an angle in the geom, the calculated angle is added,
+such that <code>angle = 90</code> means that the text will become
+perpendicular to the point defined in <code>[xend, yend]</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">cut</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -256,13 +317,23 @@
 <span>                  angle <span class="op">=</span> <span class="fl">90</span>,</span>
 <span>                  stat <span class="op">=</span> <span class="st">"count"</span>, nudge_y <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html" class="external-link">coord_polar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html" class="external-link">coord_polar</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">fill</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
+<span><span class="co">#&gt;   the data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
+<span><span class="co">#&gt;   variable into a factor?</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-12-1.png" width="384"></p>
 </div>
 <div class="section level2">
 <h2 id="axes-inside-panel">Axes inside panel<a class="anchor" aria-label="anchor" href="#axes-inside-panel"></a>
 </h2>
-<p>For some plots, we might be interested to have the plot’s axes intersect some other value than the lowest limit. To place the axes inside the plot panel, we can use <code><a href="../reference/coord_axes_inside.html">coord_axes_inside()</a></code>. By default, <code><a href="../reference/coord_axes_inside.html">coord_axes_inside()</a></code> will try to place the axes at the origin at (0, 0) or the point nearest to the origin, if the origin is not within the limits.</p>
+<p>For some plots, we might be interested to have the plot’s axes
+intersect some other value than the lowest limit. To place the axes
+inside the plot panel, we can use <code><a href="../reference/coord_axes_inside.html">coord_axes_inside()</a></code>. By
+default, <code><a href="../reference/coord_axes_inside.html">coord_axes_inside()</a></code> will try to place the axes at
+the origin at (0, 0) or the point nearest to the origin, if the origin
+is not within the limits.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span>, <span class="va">hwy</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -270,8 +341,15 @@
 <span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/coord_axes_inside.html">coord_axes_inside</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Miscellaneous_files/figure-html/unnamed-chunk-13-1.png" width="384"></p>
-<p>While for readability purposes, it makes sense to still place the text labels outside the panel, you can also place the labels inside by setting <code>labels_inside = TRUE</code>. In many cases, this can cause some readability issues because the <code>"0"</code> label at the origin will intersect with the orthogonal axes. You can circumvent this issue by purposefully excluding that particular label.</p>
-<p>An additional nicety is that <code>coord_axis_inside()</code> will actually use the guide system, so it can be combined with custom axis guides.</p>
+<p>While for readability purposes, it makes sense to still place the
+text labels outside the panel, you can also place the labels inside by
+setting <code>labels_inside = TRUE</code>. In many cases, this can cause
+some readability issues because the <code>"0"</code> label at the origin
+will intersect with the orthogonal axes. You can circumvent this issue
+by purposefully excluding that particular label.</p>
+<p>An additional nicety is that <code>coord_axis_inside()</code> will
+actually use the guide system, so it can be combined with custom axis
+guides.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/coord_axes_inside.html">coord_axes_inside</a></span><span class="op">(</span>labels_inside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span></span>
