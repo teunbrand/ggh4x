@@ -1,5 +1,8 @@
 # ggh4x (development version)
 
+* Fixed bug in `geom_box()` where `radius` is now properly handed off to the
+  grob.
+
 # ggh4x 0.2.3
 
 This is a small release updating some of the internals to better use the public

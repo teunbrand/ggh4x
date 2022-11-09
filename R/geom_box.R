@@ -202,6 +202,7 @@ GeomBox <- ggproto(
           coords$xmin[i], coords$ymax[i],
           width  = coords$width[i],
           height = coords$height[i],
+          r      = radius,
           default.units = "native",
           just   = c("left", "top"),
           gp = gpar(
