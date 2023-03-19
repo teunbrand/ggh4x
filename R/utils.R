@@ -33,7 +33,6 @@ seq_ncol <- function(dat) {
 # are some functions that weren't so easy to copy, which remain below.
 .grab_ggplot_internals <- function() {
   objects <- c(
-    "continuous_range",
     # too rabbithole-complex to manually copy
     "grid_as_facets_list",
     "wrap_as_facets_list"
