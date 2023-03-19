@@ -346,16 +346,14 @@ test_that("facetted_pos_scales can handle date scales", {
 test_that("facetted_pos_scales warns about invalid scales", {
 
   # Nonsensical input
-  test <- substitute(facetted_pos_scales(y = list(
-    NULL, scale_y_continuous(), "nonsense")
-  ))
-  expect_error(eval(test), "Invalid facetted scale")
+  expect_snapshot_error(
+    facetted_pos_scales(x = list(NULL, scale_x_continuous(), "nonsense"))
+  )
 
   # Incompatible aesthetics (x-scale to y-argument)
-  test <- substitute(facetted_pos_scales(y = list(
-    NULL, scale_x_continuous()
-  )))
-  expect_error(eval(test), "Invalid facetted scale")
+  expect_snapshot_error(
+    facetted_pos_scales(y = list(NULL, scale_x_continuous()))
+  )
 })
 
 test_that("facetted_pos_scales warns about invalid scales in formulas", {

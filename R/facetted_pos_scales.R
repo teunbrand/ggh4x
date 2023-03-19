@@ -89,7 +89,20 @@ facetted_pos_scales <- function(x = NULL, y = NULL) {
   x_test <- check_facetted_scale(x, "x")
   y_test <- check_facetted_scale(y, "y")
   if (!(x_test & y_test)) {
-    stop("Invalid facetted scale specifications.")
+    if (!x_test & !y_test) {
+      arg  <- "The {.arg x} and {.arg y} arguments "
+      type <- "appropriate"
+    } else if (!x_test) {
+      arg  <- "The {.arg x} argument "
+      type <- "{.field x}"
+    } else {
+      arg  <- "The {.arg y} argument "
+      type <- "{.field y}"
+    }
+    cli::cli_abort(paste0(
+      arg, "should be {.val NULL}, or a list of formulas and/or ",
+      "position scales with the ", type, " aesthetic."
+    ))
   }
 
   x <- validate_facetted_scale(x, "x")
