@@ -60,7 +60,7 @@ scale_x_dendrogram <- function(...,
   }
   if (inherits(guide, "guide") && inherits(guide, "dendroguide")) {
     if (inherits(guide$dendro, "waiver")) {
-      try_require("ggdendro", "scale_x_dendrogram")
+      check_installed("ggdendro", "for `scale_x_dendrogram()`.")
       guide$dendro <- ggdendro::dendro_data(hclust)
     }
   }
@@ -100,7 +100,7 @@ scale_y_dendrogram <- function(...,
   }
   if (inherits(guide, "guide") && inherits(guide, "dendroguide")) {
     if (inherits(guide$dendro, "waiver")) {
-      try_require("ggdendro", "scale_y_dendrogram")
+      check_installed("ggdendro", "for `scale_y_dendrogram()`.")
       guide$dendro <- ggdendro::dendro_data(hclust)
     }
   }

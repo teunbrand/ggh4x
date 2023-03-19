@@ -140,7 +140,7 @@ StatTheoDensity <- ggproto(
     data, scales, distri = "norm", n = 512, distri_type = "continuous",
     fix.arg = NULL, start.arg = NULL
   ) {
-    try_require("fitdistrplus", "stat_theodensity")
+    check_installed("fitdistrplus", "for `stat_theodensity()`.")
     # Data to return upon failure
     nulldata <- data.frame(
       x = NA_real_,
