@@ -247,10 +247,15 @@ test_that("scale_fill_multi handles discrete guides", {
 # Warnings ----------------------------------------------------------------
 
 test_that("scale_fill_multi throws error when guide inappropriate", {
-  g <- expect_error(base + scale_fill_multi(aesthetics = c("fill1", "fill2", "fill3"),
-                               colours = list(c("white", "red"),
-                                              c("black", "blue"),
-                                              c("grey50", "green")),
-                               guide = "nonsense"), regexp = "I haven't programmed this path yet")
+  expect_snapshot_error(
+    base + scale_fill_multi(
+      aesthetics = c("fill1", "fill2", "fill3"),
+      colours = list(
+        c("white", "red"),
+        c("black", "blue"),
+        c("grey50", "green")
+      ),
+      guide = "nonsense"
+    )
+  )
 })
-

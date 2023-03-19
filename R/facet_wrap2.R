@@ -274,8 +274,10 @@ FacetWrap2 <- ggproto(
       # Throw warnings when misalignment is bound to happen
       if (params$strip.position == "bottom" && !inside && !params$free$x &&
           any(!vapply(row_axes, is.zero, logical(1))) && !repeat_x) {
-        warning("Supressing axis rendering when strip.position = 'bottom' and ",
-                "strip.placement == 'outside'", call. = FALSE)
+        cli::cli_warn(paste0(
+          "Suppressing axis rendering when {.code strip.position = \"bottom\"}",
+          " and {.code strip.placement = \"outside\"}"
+        ))
       } else {
         # Replace empty/purged axes by full axes
         bottom[row_pos] <- row_axes
@@ -284,8 +286,10 @@ FacetWrap2 <- ggproto(
       # Throw warnings when misalignment is bound to happen
       if (params$strip.position == "right" && !inside && !params$free$y &&
           any(!vapply(col_axes, is.zero, logical(1))) && !repeat_y) {
-        warning("Supressing axis rendering when strip.position = 'right' and ",
-                "strip.placement == 'outside'", call. = FALSE)
+        cli::cli_warn(paste0(
+          "Suppressing axis rendering when {.code strip.position = \"right\"}",
+          " and {.code strip.placement = \"outside\"}"
+        ))
       } else {
         # Replace empty/purged axes by full axes
         right[col_pos] <- col_axes
@@ -322,8 +326,7 @@ FacetWrap2 <- ggproto(
                          x_scales, y_scales,
                          ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(snake_class(coord), " doesn't support free scales",
-           call. = FALSE)
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
     strip  <- self$strip
     layout <- self$setup_layout(layout, coord, params)

@@ -105,8 +105,10 @@ guide_train.axis_scalebar <- function(guide, scale, aesthetic = NULL) {
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
 
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning("axis_minor guide needs appropriate scales: ",
-            guide$available_aes)
+    cli::cli_warn(c(
+      "{.fn guide_axis_scalebar} needs appropriate scales:",
+      i = "Use one of {.or {.field {guide$available_aes}}}."
+    ))
     guide$key <- empty_ticks
   } else if (length(breaks) == 0) {
     guide$key <- empty_ticks

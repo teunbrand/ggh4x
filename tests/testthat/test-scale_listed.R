@@ -196,28 +196,27 @@ test_that("scale_listed can mix discrete and continuous fills", {
 # Error tests -------------------------------------------------------------
 
 test_that("scale_listed throws error if scalelist and replaces unequal length", {
-  expect_error(scale_listed(scalelist[1:3], replaces),
-               "argument parallel and")
+  expect_snapshot_error(scale_listed(scalelist[1:3], replaces))
 })
 
 test_that("scale_listed throws error when replaces has invalid aes", {
-  expect_error(scale_listed(scalelist, c(replaces[1:3], "nonsense")),
-               "recognised as valid aesthetics")
+  expect_snapshot_error(scale_listed(scalelist, c(replaces[1:3], "nonsense")))
 })
 
 test_that("scale_listed throws error when non-scales are supplied as scalelist", {
-  expect_error(scale_listed(c(scalelist[1:3], "nonsense"), replaces),
-               "accepts only valid scale objects as list-elements")
+  expect_snapshot_error(scale_listed(c(scalelist[1:3], "nonsense"), replaces))
 })
 
 test_that("scale_listed throws error when multiple aesthetics are supplied in a scale", {
-  expect_error(scale_listed(c(scalelist[1:3], scale_fill_brewer(aesthetics = c("a", "b"))),
-                            replaces),
-               "only 1 aesthetic per scale")
+  expect_snapshot_error(
+    scale_listed(c(scalelist[1:3], scale_fill_brewer(aesthetics = c("a", "b"))),
+                 replaces)
+  )
 })
 
 test_that("scale_lsited throws error when empty aesthetics are supplied in a scale", {
-  expect_error(scale_listed(c(scalelist[1:3], scale_fill_brewer(aesthetics = character(0))),
-                            replaces),
-               "make sure that the aesthetics of the scalelist are set")
+  expect_snapshot_error(
+    scale_listed(c(scalelist[1:3], scale_fill_brewer(aesthetics = character(0))),
+                 replaces)
+  )
 })

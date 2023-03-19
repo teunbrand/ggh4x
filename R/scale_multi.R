@@ -134,8 +134,10 @@ distribute_scale_multi <- function(
     if (any(class(this_guide) == "guide")) {
       this_guide$available_aes <- aesthetics[[i]]
     } else {
-      stop("I haven't programmed this path yet.\n
-           Choose a legend or colourbar guide", call. = FALSE)
+      cli::cli_abort(c(
+        "{.pkg ggh4x}'s author hasn't programmed this path yet.",
+        i = "Choose a legend or colourbar guide."
+      ))
     }
     return(this_guide)
   })

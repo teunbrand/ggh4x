@@ -357,13 +357,9 @@ test_that("facetted_pos_scales warns about invalid scales", {
 })
 
 test_that("facetted_pos_scales warns about invalid scales in formulas", {
-  g <- base + facet_grid(~ Species, scales = "free_y")
-
-  test <- substitute(facetted_pos_scales(y = list(
+  expect_snapshot_error(facetted_pos_scales(y = list(
     Species == "versicolor" ~ "Nonsense"
   )))
-  expect_error(eval(test),
-               "RHS of formula does not result in appropriate scale.")
 })
 
 test_that("facetted_pos_scales warns about unusual facets", {
@@ -379,10 +375,8 @@ test_that("facetted_pos_scales warns about unusual facets", {
   )
   g$facet <- altfacet
 
-  test <- substitute(g + facetted_pos_scales(y = list(
-    NULL, scale_y_reverse()
-  )))
-
-  expect_warning(eval(test), "Unknown facet")
+  expect_snapshot_warning(
+    p <- g + facetted_pos_scales(y = list(NULL, scale_y_reverse()))
+  )
 })
 

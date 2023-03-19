@@ -194,7 +194,9 @@ GeomRectMargin <- ggplot2::ggproto(
   ) {
 
     if (!inherits(length, "unit")) {
-      stop("'length' must be a 'unit' object.", call. = FALSE)
+      cli::cli_abort(paste0(
+        "The {.arg length} argument must be a {.cls unit} object."
+      ))
     }
     rugs <- list()
     coords <- coord$transform(data, panel_params)

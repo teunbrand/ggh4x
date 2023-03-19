@@ -132,7 +132,9 @@ help_sec_max <- function(from, to) {
 
 help_sec_fit <- function(from, to) {
   if (length(from) != length(to)) {
-    abort("The primary and secondary values must have an equal length.")
+    cli::cli_abort(
+      "The primary and secondary values must have the same length."
+    )
   }
   fit <- coef(lm(from ~ to))
   forward <- function(x) {
@@ -146,7 +148,9 @@ help_sec_fit <- function(from, to) {
 
 help_sec_ccf <- function(from, to) {
   if ({len <- length(from)} != length(to)) {
-    abort("The primary and secondary values must have an equal length.")
+    cli::cli_abort(
+      "The primary and secondary values must have the same length."
+    )
   }
   lag <- ccf(from, to, lag.max = len - 1, plot = FALSE)
   lag <- lag$lag[which.max(lag$acf)]

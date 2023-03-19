@@ -313,8 +313,7 @@ FacetManual <- ggproto(
                          x_scales, y_scales,
                          ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(snake_class(coord), " doesn't support free scales",
-           call. = FALSE)
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
     strip <- self$strip
 
@@ -361,7 +360,9 @@ FacetManual <- ggproto(
 
 validate_design <- function(design = NULL, trim = TRUE) {
   if (is.null(design)) {
-    stop("Cannot interpret design.", call. = FALSE)
+    cli::cli_abort(
+      "The {.arg design} argument cannot be {.obj_type_friendly {design}}."
+    )
   }
   # Inspired by patchwork:::as_areas()
   if (is.character(design)) {
@@ -371,7 +372,9 @@ validate_design <- function(design = NULL, trim = TRUE) {
     x <- strsplit(x, "")
     ncols <- lengths(x)
     if (length(unique(ncols)) != 1) {
-      stop("Design must be rectangular.", call. = FALSE)
+      cli::cli_abort(
+        "The {.arg design} argument must be rectangular."
+      )
     }
     nrow <- length(x)
     x <- unlist(x)
@@ -384,7 +387,9 @@ validate_design <- function(design = NULL, trim = TRUE) {
   if (is.matrix(design)) {
     dim <- dim(design)
     if (length(dim) != 2 || any(dim < 1) || any(is.na(dim))) {
-      stop("The `design` argument has invalid dimensions.")
+      cli::cli_abort(
+        "The {.arg design} argument has invalid dimensions."
+      )
     }
     if (typeof(design) == "character") {
       design[design == "#"] <- NA
@@ -405,7 +410,9 @@ validate_design <- function(design = NULL, trim = TRUE) {
     }
     return(design)
   } else {
-    stop("The `design` argument should be interpretable as a matrix.")
+    cli::cli_abort(
+      "The {.arg design} argument should be interpretable as a {.cls matrix}."
+    )
   }
 }
 

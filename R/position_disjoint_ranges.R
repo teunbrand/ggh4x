@@ -63,9 +63,10 @@ PositionDisjointRanges <- ggplot2::ggproto(
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
   setup_params = function(self, data) {
     if (is.null(data$xmin) || is.null(data$xmax)) {
-      warning("Undefined ranges in the x-direction.
-              Please supply 'xmin' and 'xmax'",
-              call. = FALSE)
+      cli::cli_warn(c(
+        "Undefined ranges in the x-direction.",
+        i = "Please supply {.field xmin} and {.field xmax}."
+      ))
     }
     list(extend = self$extend,
          stepsize = self$stepsize)

@@ -196,10 +196,10 @@ validate_element_list <- function(elem, prototype = "element_text") {
   is_proto <- vapply(elem, inherits, logical(1), c(prototype, "element_blank"))
   is_null  <- vapply(elem, is.null,  logical(1))
   if (any(!(is_proto | is_null))) {
-    rlang::abort(
-      paste0("The `", argname, "` argument should be a list of `", prototype,
-             "` objects.")
-    )
+    cli::cli_abort(paste0(
+      "The {.arg {argname}} argument should be a list of {.cls {prototype}} ",
+      "objects."
+    ))
   }
   return(elem)
 }

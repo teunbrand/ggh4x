@@ -112,7 +112,9 @@ guide_gengrob.stringlegend <- function(guide, theme) {
   nbreak <- nrow(guide$key)
   if (!is.null(guide$nrow) && !is.null(guide$ncol) &&
       guide$nrow * guide$ncol < nbreak) {
-    stop("`nrow` * `ncol` need to be larger than the number of breaks.")
+    cli::cli_abort(paste0(
+      "{.arg nrow} * {.arg ncol} needs to be larger than the number of breaks."
+    ))
   }
 
   if (is.null(guide$nrow) && is.null(guide$ncol)) {
@@ -337,7 +339,7 @@ height_cm <- function(x) {
   } else if (is.list(x)) {
     vapply(x, height_cm, numeric(1))
   } else {
-    rlang::abort("Unknown input")
+    cli::cli_abort("Unknown input: {.obj_type_friendly {x}}.")
   }
 }
 
@@ -350,6 +352,6 @@ width_cm <- function(x) {
   } else if (is.list(x)) {
     vapply(x, width_cm, numeric(1))
   } else {
-    rlang::abort("Unknown input")
+    cli::cli_abort("Unknown input: {.obj_type_friendly {x}}.")
   }
 }

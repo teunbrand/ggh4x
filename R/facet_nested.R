@@ -89,8 +89,10 @@ facet_nested <- function(
     nest_line <- element_blank()
   }
   if (!inherits(nest_line, c("element_line", "element_blank"))) {
-    abort(paste0("The `nest_line` argument must be an 'element_blank' or ",
-                 "inherit from an 'element_line'."))
+    cli::cli_abort(paste0(
+      "The {.arg nest_line} argument must be {.cls element_blank} or inherit ",
+      "from {.cls element_line}."
+    ))
   }
 
   params <- list(
@@ -217,8 +219,7 @@ FacetNested <- ggproto(
       base <- rbind(base, df.grid(old, new))
     }
     if (empty(base)) {
-      stop("Facetting variables must have at least one value",
-           call. = FALSE)
+      cli::cli_abort("Facetting variables must have at least one value.")
     }
     base
   },

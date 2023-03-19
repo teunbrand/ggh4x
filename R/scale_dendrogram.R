@@ -47,7 +47,6 @@ scale_x_dendrogram <- function(...,
                                position = "bottom") {
   # Do regular discrete axis if no hclust is provided
   if (!inherits(hclust, "hclust")) {
-    message("`hclust` argument was not recognised. Switching to regular discrete scale")
     return(scale_x_discrete(...,
                             expand = expand,
                             guide = "axis",

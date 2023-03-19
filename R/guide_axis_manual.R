@@ -156,8 +156,10 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
   # Warn when a transformation tries to auto-label grid units
   if (is.unit(breaks) && inherits(guide$labels, "waiver")) {
     if (!scale$is_discrete() && scale$scale$trans$name != "identity") {
-      warning("Setting units for breaks might not work with default ",
-              "scale labelling.", call. = FALSE)
+      cli::cli_warn(c(paste0(
+        "Setting {.cls unit} objects for breaks might not work elegantly with ",
+        "the default scale labelling."
+      ), i = "You can set the {.arg labels} argument."))
     }
   }
 

@@ -22,14 +22,11 @@ test_that("facet_manual matches widths/heights to design", {
 # Correctness -------------------------------------------------------------
 
 test_that("facet_manual rejects some designs", {
-  test <- substitute(validate_design(list(1, "A")))
-  expect_error(eval(test), "should be interpretable as a matrix.")
+  expect_snapshot_error(validate_design(list(1, "A")))
 
-  test <- substitute(validate_design("AA\nB"))
-  expect_error(eval(test), "must be rectangular")
+  expect_snapshot_error(validate_design("AA\nB"))
 
-  test <- substitute(validate_design(NULL))
-  expect_error(eval(test), "Cannot interpret")
+  expect_snapshot_error(validate_design(NULL))
 })
 
 test_that("facet_manual can build correct plots", {

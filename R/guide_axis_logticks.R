@@ -144,8 +144,10 @@ guide_train.axis_logticks <- function(guide, scale, aesthetic = NULL) {
   )
 
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning("axis_logticks guide needs appropriate scales: ",
-            guide$available_aes)
+    cli::cli_warn(c(
+      "{.fn guide_axis_logticks} needs appropriate scales.",
+      i = "Use one of {.or {.field {guide$available_aes}}}."
+    ))
     guide$key <- empty_ticks
   } else if (length(breaks) == 0) {
     guide$key <- empty_ticks

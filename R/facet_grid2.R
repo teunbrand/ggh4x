@@ -183,8 +183,11 @@ FacetGrid2 <- ggproto(
     cols <- params$cols
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
-      abort("Facetting variables can only appear in row or cols, not both.\n",
-            "Problems: ", paste0(dups, collapse = "'"), call. = FALSE)
+      cli::cli_abort(c(
+        paste0("Facetting variables can only appear in {.arg rows} or
+               {.arg cols}, not both."),
+        i = "Duplicated variables: {.val dups}"
+      ))
     }
 
     # Use `self$vars_combine` instead of `combine_vars`
@@ -375,7 +378,7 @@ FacetGrid2 <- ggproto(
     ranges, coord, data, theme, params, self
   ) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      abort(paste0(snake_class(coord), "doesn't support free scales."))
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
     strip <- self$strip
     cols <- which(layout$ROW == 1)
@@ -412,27 +415,43 @@ FacetGrid2 <- ggproto(
 .validate_independent <- function(independent, free, space_free, rmlab) {
   if (independent$x) {
     if (!free$x) {
-      abort("Rows cannot be independent if the scales are not free.")
+      cli::cli_abort(
+        "{.field x} cannot be independent if scales are not free."
+      )
     }
     if (space_free$x) {
-      warn("Rows cannot have free space if axes are independent.")
+      cli::cli_warn(c(
+        "{.field x} cannot have free space if axes are independent.",
+        i = "Overriding {.arg space} for {.field x} to {.val FALSE}."
+      ))
       space_free$x <- FALSE
     }
     if (rmlab$x) {
-      warn("x-axes must be labelled if they are independent.")
+      cli::cli_warn(c(
+        "x-axes must be labelled if they are independent.",
+        i = "Overriding {.arg remove_labels} for {.field x} to {.val FALSE}."
+      ))
       rmlab$x <- FALSE
     }
   }
   if (independent$y) {
     if (!free$y) {
-      abort("Columns cannot be independent if the scales are not free.")
+      cli::cli_abort(
+        "{.field y} cannot be independent if scales are not free."
+      )
     }
     if (space_free$y) {
-      warn("Columns cannot have free space if axes are independent.")
+      cli::cli_warn(c(
+        "{.field y} cannot have free space if axes are independent.",
+        i = "Overriding {.arg space} for {.field y} to {.val FALSE}."
+      ))
       space_free$y <- FALSE
     }
     if (rmlab$y) {
-      warn("y-axes must be labelled if they are independent.")
+      cli::cli_warn(c(
+        "y-axes must be labelled if they are independent.",
+        i = "Overriding {.arg remove_labels} for {.field y} to {.val FALSE}."
+      ))
       rmlab$y <- FALSE
     }
   }

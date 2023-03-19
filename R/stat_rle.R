@@ -183,7 +183,7 @@ StatRle <- ggproto(
 vec_math.finite_type <- function(.fn, .x, ...) {
   switch(.fn,
          is.finite = !is.na(.x),
-         stop("not implemented")
+         cli::cli_abort("not implemented")
   )
 }
 
