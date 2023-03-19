@@ -126,8 +126,7 @@ guide_train.axis_scalebar <- function(guide, scale, aesthetic = NULL) {
   }
 
   guide$name <- paste0(guide$name, "_", aesthetic)
-  guide$hash <- digest::digest(list(guide$title, guide$key$.value,
-                                    guide$key$.label, guide$name))
+  guide$hash <- with(guide, hash(list(title, key$.value, key$.label, name)))
   guide
 }
 

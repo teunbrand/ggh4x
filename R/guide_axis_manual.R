@@ -210,8 +210,7 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
     guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
   }
   guide$name <- paste0(guide$name, "_", aesthetic)
-  guide$hash <- digest::digest(list(guide$title, guide$key$.value,
-                                    guide$key$.label, guide$name))
+  guide$hash <- with(guide, hash(list(title, key$.value, key$.label, name)))
   guide <- truncate_guide(guide, scale, aesthetic)
   guide
 

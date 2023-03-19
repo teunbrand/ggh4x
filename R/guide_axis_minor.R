@@ -74,7 +74,6 @@ guide_axis_minor <- function(
 guide_train.axis_minor <- function(
   guide, scale, aesthetic = NULL
 ) {
-  try_require("digest", "guide_axis_minor")
   aesthetic <- aesthetic %||% scale$aesthetics[1]
   # Get major and minor breaks
   breaks_major <- scale$get_breaks()
@@ -110,8 +109,7 @@ guide_train.axis_minor <- function(
     guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
   }
   guide$name <- paste0(guide$name, "_", aesthetic)
-  guide$hash <- digest::digest(list(guide$title, guide$key$.value,
-                                    guide$key$.label, guide$name))
+  guide$hash <- with(guide, hash(list(title, key$.value, key$.label, name)))
   guide <- truncate_guide(guide, scale, aesthetic)
   guide
 }
