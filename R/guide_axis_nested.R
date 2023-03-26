@@ -261,7 +261,11 @@ build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
       check.overlap   = check.overlap
     )
     nz <- nzchar(id$values)
-    xtend <- min(diff(position)) * 0.5 * extend
+    if (length(position) > 1) {
+      xtend <- min(diff(position)) * 0.5 * extend
+    } else {
+      xtend <- 0.5 * extend
+    }
     pos <- rbind(position[starts[nz]] - xtend, position[ends[nz]] + xtend)
     pos_len <- length(pos)
     if (params$vertical) {
