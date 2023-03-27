@@ -265,8 +265,8 @@ FacetManual <- ggproto(
     purge_y <- !params$free$y && (params$rmlab$y || !params$axes$y)
 
     # Should we purge in practise?
-    purge_x <- purge_x && all(layout$.LEFT == layout$.RIGHT)
-    purge_y <- purge_y && all(layout$.TOP  == layout$.BOTTOM)
+    purge_x <- purge_x && do_purge(layout$.LEFT, layout$.RIGHT)
+    purge_y <- purge_y && do_purge(layout$.TOP,  layout$.BOTTOM)
 
     if (purge_x) {
       purger <- if (params$rmlab$x) purge_guide_labels else zeroGrob()
@@ -432,3 +432,9 @@ restrict_axes <- function(axes, position, by, which_fun = min,
   axes
 }
 
+do_purge <- function(a, b) {
+  ab <- data_frame0(a = a, b = b)
+  n  <- vec_unique_count(ab)
+  a  <- vec_unique_count(a)
+  b  <- vec_unique_count(b)
+  n == a && n == b
