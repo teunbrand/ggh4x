@@ -293,7 +293,23 @@ FacetManual <- ggproto(
     )
   },
 
-  attach_axes = function(panels, axes, sizes ) {
+  attach_axes = function(panels, axes, sizes, params, inside = TRUE) {
+    if (!params$free$y && do_purge(panels$layout$t, panels$layout$b)) {
+      if (inside || params$strip.position != "left") {
+        sizes$left[-1] <- unit(0, "cm")
+      }
+      if (inside || params$strip.position != "right") {
+        sizes$right[-length(sizes$right)] <- unit(0, "cm")
+      }
+    }
+    if (!params$free$x && do_purge(panels$layout$l, panels$layout$r)) {
+      if (inside || params$strip.position != "bottom")
+      sizes$bottom[-length(sizes$bottom)] <- unit(0, "cm")
+      if (inside || params$strip.position != "top") {
+        sizes$top[-1] <- unit(0, "cm")
+      }
+    }
+
     # Top axis
     panels <- weave_panel_rows(panels, axes, -1, sizes$top,
                                "axis-t", 3, "off", "t", "axes_top")
@@ -333,7 +349,10 @@ FacetManual <- ggproto(
       left   = split_widths_cm(axes$axes_left,    split = dims$l),
       right  = split_widths_cm(axes$axes_right,   split = dims$r)
     )
-    panels <- self$attach_axes(panels, axes, sizes)
+    panels <- self$attach_axes(
+      panels, axes, sizes, params,
+      inside = calc_element("strip.placement", theme) == "inside"
+    )
 
     # Deal with strips
     simplify <- switch(
@@ -438,3 +457,4 @@ do_purge <- function(a, b) {
   a  <- vec_unique_count(a)
   b  <- vec_unique_count(b)
   n == a && n == b
+}
