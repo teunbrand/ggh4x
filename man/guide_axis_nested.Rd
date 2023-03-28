@@ -12,6 +12,7 @@ guide_axis_nested(
   order = 0,
   position = waiver(),
   delim = waiver(),
+  inv = FALSE,
   trunc_lower = NULL,
   trunc_upper = NULL,
   colour = NULL,
