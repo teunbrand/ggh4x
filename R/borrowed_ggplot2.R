@@ -548,4 +548,8 @@ just_dir <- function(x, tol = 0.001) {
   out[x > 0.5 + tol] <- 3L
   out
 }
+
+`%|W|%` <- function(a, b) {
+  if (!inherits(a, "waiver")) a else b
+}
 # nocov end
