@@ -1,4 +1,4 @@
-# ggh4x (development version)
+# ggh4x 0.2.4
 
 This is a small release for compatibility with ggplot2 3.4.2, along with some
 minor improvements and bug fixes.

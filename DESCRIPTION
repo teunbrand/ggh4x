@@ -1,6 +1,6 @@
 Package: ggh4x
 Title: Hacks for 'ggplot2'
-Version: 0.2.3.9000
+Version: 0.2.4
 Authors@R: 
     person(given = "Teun",
            family = "van den Brand",

@@ -99,7 +99,7 @@ aesthetics (required aesthetics are in bold):
 ggplot(pressure, aes(temperature, pressure)) +
   geom_pointpath()
 
-Using geom_pointpath as annotation
+# Using geom_pointpath as annotation
 ggplot() +
   annotate(
     "pointpath",

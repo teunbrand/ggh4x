@@ -47,6 +47,9 @@ left, or right.}
 hierarchies should be broken up. Internally defaults to \code{"."} to match
 \code{interaction}'s default delimiter.}
 
+\item{inv}{A \code{logical(1)} which if \code{TRUE}, flips the grouping order. If
+\code{FALSE} (default), the grouping order is as-is.}
+
 \item{trunc_lower, trunc_upper}{The lower and upper range of the truncated
 axis:
 \itemize{

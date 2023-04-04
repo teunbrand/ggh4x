@@ -13,6 +13,8 @@
 #'   `interaction`'s default delimiter.
 #' @param extend A `numeric` of length 1 indicating how much to extend
 #'   nesting lines relative to the smallest difference in break positions.
+#' @param inv A `logical(1)` which if `TRUE`, flips the grouping order. If
+#'   `FALSE` (default), the grouping order is as-is.
 #'
 #' @details The guide itself makes no effort to group and order labels. To get
 #'   nice groupings, consider re-ordering the levels of factor variables, or try

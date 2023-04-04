@@ -30,6 +30,7 @@ reference:
     Additional ways to organise and display the x- and y-axes.
 - contents:
   - scale_x_dendrogram
+  - scale_x_manual
   - guide_dendro
   - guide_axis_truncated
   - guide_axis_colour
@@ -86,3 +87,4 @@ reference:
   - ggsubset
   - elem_list_rect
   - weave_factors
+  - sep_discrete

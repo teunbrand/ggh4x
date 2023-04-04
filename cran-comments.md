@@ -1,14 +1,11 @@
-## Test environments
-- R-hub windows-x86_64-devel (r-devel)
-- R-hub ubuntu-gcc-release (r-release)
-- R-hub fedora-clang-devel (r-devel)
+## Test notes
 
-## R CMD check results
-0 errors √ | 0 warnings √ | 0 notes √
+Whilst checking the dev version on the win builder against R-devel, an error occurred that reads "Package required and available but unsuitable version: 'ggplot2'". At this point, I'm assuming the relevant binary of ggplot2 has not been build yet on R-devel which causes the error. I would expect this issue to resolve itself automatically.
 
 ## revdepcheck results
 
-We checked 5 reverse dependencies (4 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+I checked 9 reverse dependencies (8 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 0 new problems
  * We failed to check 0 packages
+
