@@ -83,6 +83,8 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 A \verb{<ScaleManualPosition>} object that can be added to a plot.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 \code{scale_x_manual()} and \code{scale_y_manual()} are hybrid discrete and continuous
 position scales for the \code{x} and \code{y} aesthetics. These accept input like
 \link[ggplot2:scale_discrete]{discrete scales}, but may map these discrete
@@ -91,6 +93,10 @@ values to continuous values that needn't be equally spaced.
 \details{
 Many thanks to Constantin Ahlmann-Eltze for discussion and suggesting
 the adoption of this functionality in ggh4x.
+}
+\note{
+There currently is a known bug wherein a \code{c_limits} cannot be applied
+correctly when that range is within the range of the discrete limits.
 }
 \examples{
 # A boxplot with interactions

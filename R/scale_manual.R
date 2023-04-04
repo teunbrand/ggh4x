@@ -2,6 +2,9 @@
 
 #' Manual position scales
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' `scale_x_manual()` and `scale_y_manual()` are hybrid discrete and continuous
 #' position scales for the `x` and `y` aesthetics. These accept input like
 #' [discrete scales][ggplot2::scale_x_discrete], but may map these discrete
@@ -19,6 +22,10 @@
 #' @details
 #' Many thanks to Constantin Ahlmann-Eltze for discussion and suggesting
 #' the adoption of this functionality in ggh4x.
+#'
+#' @note
+#' There currently is a known bug wherein a `c_limits` cannot be applied
+#' correctly when that range is within the range of the discrete limits.
 #'
 #' @return A `<ScaleManualPosition>` object that can be added to a plot.
 #' @export

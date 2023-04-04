@@ -21,7 +21,7 @@ This is a function factory that provides a function to split grouped discrete
 labels into numerical positions.
 }
 \examples{
-Here, 'bar.qux' belongs to the second group, so has +1 value
+# Here, 'bar.qux' belongs to the second group, so has +1 value
 sep_discrete()(c("foo.bar", "bar.bar", "bar.qux"))
 
 # Now, the values are grouped by the groups before the separator
