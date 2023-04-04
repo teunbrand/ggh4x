@@ -443,9 +443,9 @@ Strip <- ggproto(
 assert_strip <- function(strip, arg = deparse(substitute(strip))) {
   is_strip <- inherits(strip, "Strip") && inherits(strip, "ggproto")
   if (!is_strip) {
-    rlang::abort(paste0(
-      "The `", arg, "` argument is not a valid facet strip specificiation."
-    ))
+    cli::cli_abort(
+      "The {.arg {arg}} argument is not a valid facet strip specification."
+    )
   }
   strip
 }

@@ -18,6 +18,7 @@
 \alias{FacetNestedWrap}
 \alias{GeomBox}
 \alias{GeomPointPath}
+\alias{GeomPointpath}
 \alias{GeomPolygonRaster}
 \alias{GeomRectMargin}
 \alias{GeomTileMargin}

@@ -1,6 +1,6 @@
 Package: ggh4x
 Title: Hacks for 'ggplot2'
-Version: 0.2.3.9000
+Version: 0.2.4
 Authors@R: 
     person(given = "Teun",
            family = "van den Brand",
@@ -18,19 +18,18 @@ URL: https://github.com/teunbrand/ggh4x,
     https://teunbrand.github.io/ggh4x/
 BugReports: https://github.com/teunbrand/ggh4x/issues
 Depends: 
-    ggplot2 (>= 3.4.0)
+    ggplot2 (>= 3.4.2)
 Imports: 
     grid,
     gtable,
     scales,
     vctrs (>= 0.5.0),
-    rlang,
+    rlang (>= 1.1.0),
     lifecycle,
     stats,
     cli
 Suggests: 
     covr,
-    digest,
     fitdistrplus,
     ggdendro,
     vdiffr,
@@ -42,7 +41,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 Collate:
     'borrowed_ggplot2.R'
@@ -79,6 +78,7 @@ Collate:
     'scale_dendrogram.R'
     'scale_facet.R'
     'scale_listed.R'
+    'scale_manual.R'
     'scale_multi.R'
     'stat_difference.R'
     'stat_funxy.R'

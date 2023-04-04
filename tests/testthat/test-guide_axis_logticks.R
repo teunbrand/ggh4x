@@ -101,5 +101,5 @@ test_that("guide_axis_logticks errors upon misuse", {
   gui$available_aes <- "z"
 
   g <- base + scale_x_continuous(guide = gui)
-  expect_warning(ggplotGrob(g), "axis_logticks guide needs appropriate scales: z")
+  expect_snapshot_warning(ggplotGrob(g))
 })

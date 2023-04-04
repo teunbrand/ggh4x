@@ -102,11 +102,15 @@ stat_theodensity <- function(
   inherit.aes = TRUE
 ) {
   if (!exists(paste0("d", distri), mode = "function")) {
-    stop(paste0("A valid ", paste0("d", distri), "() function must be defined"))
+    cli::cli_abort(paste0(
+      "The {.arg distri} argument must have a valid density function called",
+      "{.fn d{distri}}."
+    ))
   }
   if (distri %in% c("multinom", "hyper", "wilcox", "signrank")) {
-    stop("This function does not support that distribution.",
-         call. = FALSE)
+    cli::cli_abort(
+      "{.fn stat_theodensity} does not support the '{distri}' distribution."
+    )
   }
   layer(
     data        = data,
@@ -140,7 +144,7 @@ StatTheoDensity <- ggproto(
     data, scales, distri = "norm", n = 512, distri_type = "continuous",
     fix.arg = NULL, start.arg = NULL
   ) {
-    try_require("fitdistrplus", "stat_theodensity")
+    check_installed("fitdistrplus", "for `stat_theodensity()`.")
     # Data to return upon failure
     nulldata <- data.frame(
       x = NA_real_,
@@ -156,8 +160,7 @@ StatTheoDensity <- ggproto(
     nx <- length(data$x)
 
     if (nx < 2) {
-      warning("Groups with fewer than two data points have been dropped.",
-              call. = FALSE)
+      cli::cli_warn("Groups with fewer than two data points have been dropped.")
       return(nulldata)
     }
 
@@ -175,7 +178,7 @@ StatTheoDensity <- ggproto(
 
     if (any(is.na(par_est) | is.nan(par_est) |
             !is.finite(par_est) | is.null(par_est))) {
-      warning("Failed to estimate parameters.", call. = FALSE)
+      cli::cli_warn("Failed to estimate parameters of '{distri}' distribution.")
       return(nulldata)
     }
 
@@ -193,8 +196,10 @@ StatTheoDensity <- ggproto(
     dtype <- class_distri(params$distri)
     if (dtype == "discrete") {
       if (sum(abs(data$x %% 1)) > 0) {
-        stop("A discrete distribution can not be fitted to continuous data",
-             call. = FALSE)
+        cli::cli_abort(paste0(
+          "A discrete '{params$distri}' distribution cannot be fitted ",
+          "to continuous data."
+        ))
       }
     }
     params <- c(params, distri_type = dtype)
@@ -212,7 +217,9 @@ StatTheoDensity <- ggproto(
     if (params$distri == "binom") {
       if (is.null(params$fix.arg)) {
         params$fix.arg <- list(size = max(data$x))
-        message("Estimating binomial pmf with 'size' set to maximum data value")
+        cli::cli_inform(
+          "Estimating binomial PMF with {.field size} set to maximum data value."
+        )
       }
       params$start.arg <- list(prob = mean(data$x) / max(data$x))
     }
@@ -254,7 +261,9 @@ class_distri <- function(distri) {
   } else if (is.numeric(routput)) {
     return("continuous")
   } else {
-    stop("Cannot determine wether distribution is discrete or continuous",
-         call. = FALSE)
+    cli::cli_abort(paste0(
+      "{.fn stat_theodensity} failed to determine if the '{distri}' ",
+      "distribution is discrete or continuous."
+    ))
   }
 }

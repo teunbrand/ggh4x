@@ -156,8 +156,10 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
   # Warn when a transformation tries to auto-label grid units
   if (is.unit(breaks) && inherits(guide$labels, "waiver")) {
     if (!scale$is_discrete() && scale$scale$trans$name != "identity") {
-      warning("Setting units for breaks might not work with default ",
-              "scale labelling.", call. = FALSE)
+      cli::cli_warn(c(paste0(
+        "Setting {.cls unit} objects for breaks might not work elegantly with ",
+        "the default scale labelling."
+      ), i = "You can set the {.arg labels} argument."))
     }
   }
 
@@ -210,8 +212,7 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
     guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
   }
   guide$name <- paste0(guide$name, "_", aesthetic)
-  guide$hash <- digest::digest(list(guide$title, guide$key$.value,
-                                    guide$key$.label, guide$name))
+  guide$hash <- with(guide, hash(list(title, key$.value, key$.label, name)))
   guide <- truncate_guide(guide, scale, aesthetic)
   guide
 

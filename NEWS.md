@@ -1,5 +1,29 @@
-# ggh4x (development version)
+# ggh4x 0.2.4
 
+This is a small release for compatibility with ggplot2 3.4.2, along with some
+minor improvements and bug fixes.
+
+## New features
+
+* `scale_{x/y}_manual()` is a semi-discrete scale that accepts categorical 
+  input and maps this a continuous output (#94).
+
+## Improvements
+
+* `facet_manual()` can now not only omit axes when panels occupy 1 cell in
+  the axes' direction, but also when all panels in the same rows/columns occupy
+  the same range of cells, when scales are not free.
+* `facet_manual()` now tries to omit white space introduced by axis placement 
+  when scales are not free (#86)
+* Added `inv` option to invert the label order from outer to inner in 
+  `guide_axis_nested()`.
+  
+## Bug fixes
+
+* Avoid spurious warning in `guide_axis_nested()` (#97).
+* Compatibility with ggplot2 3.4.2 (#95).
+* Improved error messages (#91).
+* Fixed `annotate(geom = "pointpath")` (#83).
 * Fixed bug in `geom_box()` where `radius` is now properly handed off to the
   grob.
 

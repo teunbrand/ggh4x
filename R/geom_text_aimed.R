@@ -55,7 +55,10 @@ geom_text_aimed <- function(
 ) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      rlang::abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
+      cli::cli_abort(paste0(
+        "Specify either {.arg position} or {.arg nudge_x}/{.arg nudge_y}, ",
+        "not both."
+      ))
     }
     position <- position_nudge(nudge_x, nudge_y)
   }
@@ -94,11 +97,10 @@ GeomTextAimed <- ggproto(
   draw_panel = function(data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE, check_overlap = FALSE,
                         flip_upsidedown = TRUE) {
-    # browser()
     lab <- data$label
     if (parse) {
       if (!is.character(lab)) {
-        rlang::abort("`text` must be a character vector")
+        cli::cli_abort("{.field label} must be a {.cls character} vector.")
       }
       out <- vector("expression", length(lab))
       for (i in seq_along(lab)) {

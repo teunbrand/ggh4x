@@ -265,8 +265,8 @@ FacetManual <- ggproto(
     purge_y <- !params$free$y && (params$rmlab$y || !params$axes$y)
 
     # Should we purge in practise?
-    purge_x <- purge_x && all(layout$.LEFT == layout$.RIGHT)
-    purge_y <- purge_y && all(layout$.TOP  == layout$.BOTTOM)
+    purge_x <- purge_x && do_purge(layout$.LEFT, layout$.RIGHT)
+    purge_y <- purge_y && do_purge(layout$.TOP,  layout$.BOTTOM)
 
     if (purge_x) {
       purger <- if (params$rmlab$x) purge_guide_labels else zeroGrob()
@@ -293,7 +293,23 @@ FacetManual <- ggproto(
     )
   },
 
-  attach_axes = function(panels, axes, sizes ) {
+  attach_axes = function(panels, axes, sizes, params, inside = TRUE) {
+    if (!params$free$y && do_purge(panels$layout$t, panels$layout$b)) {
+      if (inside || params$strip.position != "left") {
+        sizes$left[-1] <- unit(0, "cm")
+      }
+      if (inside || params$strip.position != "right") {
+        sizes$right[-length(sizes$right)] <- unit(0, "cm")
+      }
+    }
+    if (!params$free$x && do_purge(panels$layout$l, panels$layout$r)) {
+      if (inside || params$strip.position != "bottom")
+      sizes$bottom[-length(sizes$bottom)] <- unit(0, "cm")
+      if (inside || params$strip.position != "top") {
+        sizes$top[-1] <- unit(0, "cm")
+      }
+    }
+
     # Top axis
     panels <- weave_panel_rows(panels, axes, -1, sizes$top,
                                "axis-t", 3, "off", "t", "axes_top")
@@ -313,8 +329,7 @@ FacetManual <- ggproto(
                          x_scales, y_scales,
                          ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(snake_class(coord), " doesn't support free scales",
-           call. = FALSE)
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
     strip <- self$strip
 
@@ -334,7 +349,10 @@ FacetManual <- ggproto(
       left   = split_widths_cm(axes$axes_left,    split = dims$l),
       right  = split_widths_cm(axes$axes_right,   split = dims$r)
     )
-    panels <- self$attach_axes(panels, axes, sizes)
+    panels <- self$attach_axes(
+      panels, axes, sizes, params,
+      inside = calc_element("strip.placement", theme) == "inside"
+    )
 
     # Deal with strips
     simplify <- switch(
@@ -361,7 +379,9 @@ FacetManual <- ggproto(
 
 validate_design <- function(design = NULL, trim = TRUE) {
   if (is.null(design)) {
-    stop("Cannot interpret design.", call. = FALSE)
+    cli::cli_abort(
+      "The {.arg design} argument cannot be {.obj_type_friendly {design}}."
+    )
   }
   # Inspired by patchwork:::as_areas()
   if (is.character(design)) {
@@ -371,7 +391,9 @@ validate_design <- function(design = NULL, trim = TRUE) {
     x <- strsplit(x, "")
     ncols <- lengths(x)
     if (length(unique(ncols)) != 1) {
-      stop("Design must be rectangular.", call. = FALSE)
+      cli::cli_abort(
+        "The {.arg design} argument must be rectangular."
+      )
     }
     nrow <- length(x)
     x <- unlist(x)
@@ -384,7 +406,9 @@ validate_design <- function(design = NULL, trim = TRUE) {
   if (is.matrix(design)) {
     dim <- dim(design)
     if (length(dim) != 2 || any(dim < 1) || any(is.na(dim))) {
-      stop("The `design` argument has invalid dimensions.")
+      cli::cli_abort(
+        "The {.arg design} argument has invalid dimensions."
+      )
     }
     if (typeof(design) == "character") {
       design[design == "#"] <- NA
@@ -405,7 +429,9 @@ validate_design <- function(design = NULL, trim = TRUE) {
     }
     return(design)
   } else {
-    stop("The `design` argument should be interpretable as a matrix.")
+    cli::cli_abort(
+      "The {.arg design} argument should be interpretable as a {.cls matrix}."
+    )
   }
 }
 
@@ -425,3 +451,10 @@ restrict_axes <- function(axes, position, by, which_fun = min,
   axes
 }
 
+do_purge <- function(a, b) {
+  ab <- data_frame0(a = a, b = b)
+  n  <- vec_unique_count(ab)
+  a  <- vec_unique_count(a)
+  b  <- vec_unique_count(b)
+  n == a && n == b
+}

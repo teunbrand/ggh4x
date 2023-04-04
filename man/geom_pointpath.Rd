@@ -98,4 +98,12 @@ aesthetics (required aesthetics are in bold):
 \examples{
 ggplot(pressure, aes(temperature, pressure)) +
   geom_pointpath()
+
+# Using geom_pointpath as annotation
+ggplot() +
+  annotate(
+    "pointpath",
+    x = c(1, 0.32, 0.31, -0.12, -0.81, -0.4, -0.81, -0.12, 0.31, 0.32, 1),
+    y = c(0, 0.24, 0.95, 0.38, 0.59, 0, -0.59, -0.38, -0.95, -0.24, 0)
+  )
 }

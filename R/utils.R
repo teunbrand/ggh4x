@@ -1,19 +1,5 @@
 # Utilities ---------------------------------------------------------------
 
-# Like the try_require in ggplot2
-try_require <- function(package, fun) {
-  if (requireNamespace(package, quietly = TRUE)) {
-    return(invisible())
-  }
-  # Use friendlier rlang install check message if available
-  if (utils::packageVersion("rlang") >= package_version("0.4.10")) {
-    rlang::check_installed(package, paste0("for `", fun, "`.\n"))
-  } else {
-    stop("Package `", package, "` required for `", fun, "`.\n",
-         "Please install and try again.", call. = FALSE)
-  }
-}
-
 seq_range <- function(dat, ...) {
   seq.int(min(dat, na.rm = TRUE), max(dat, na.rm = TRUE), ...)
 }
@@ -33,7 +19,6 @@ seq_ncol <- function(dat) {
 # are some functions that weren't so easy to copy, which remain below.
 .grab_ggplot_internals <- function() {
   objects <- c(
-    "continuous_range",
     # too rabbithole-complex to manually copy
     "grid_as_facets_list",
     "wrap_as_facets_list"

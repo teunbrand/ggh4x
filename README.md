@@ -179,6 +179,15 @@ g
 
 <img src="man/figures/README-facets-1.png" width="80%" style="display: block; margin: auto;" />
 
+## Dependency statement
+
+The ‘ggh4x’ package largely takes on the same dependencies as ‘ggplot2’
+to keep it on the lightweight side. There are two optional, suggested
+dependencies that are needed for `guide_dendro()` and
+`stat_theodensity()`, resp. ‘ggdendro’ and ‘fitdistrplus’, but these
+functions should send a prompt in interactive sessions to install the
+dependencies.
+
 ## Footnote
 
 I would like to mention that there are also packages that do some

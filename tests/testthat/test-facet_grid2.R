@@ -64,17 +64,20 @@ test_that("facet_grid2 respects aspect ratio", {
 })
 
 test_that("facet_grid2 warns about inappropriate arguments", {
-  expr <- substitute(facet_grid2(vs ~ am, independent = "x"))
-  expect_error(eval(expr), "Rows cannot be independent")
-  expr <- substitute(facet_grid2(vs ~ am, independent = "y"))
-  expect_error(eval(expr), "Columns cannot be independent")
-  expr <- substitute(facet_grid2(vs ~ am, space = "free_x",
-                                 independent = "x", scales = "free_x"))
-  expect_warning(eval(expr), "Rows cannot have free space")
-  expr <- substitute(facet_grid2(vs ~ am, independent = "y", space = "free_y", scales = "free_y"))
-  expect_warning(eval(expr), "Columns cannot have free space")
-  expr <- substitute(facet_grid2(vs ~ am, independent = "x", scales = "free_x", remove_labels = "x"))
-  expect_warning(eval(expr), "x-axes must be labelled")
-  expr <- substitute(facet_grid2(vs ~ am, independent = "y", scales = "free_y", remove_labels = "y"))
-  expect_warning(eval(expr), "y-axes must be labelled")
+  expect_snapshot_error(facet_grid2(vs ~ am, independent = "x"))
+  expect_snapshot_error(facet_grid2(vs ~ am, independent = "y"))
+  expect_snapshot_warning(
+    facet_grid2(vs ~ am, space = "free_x", independent = "x", scales = "free_x")
+  )
+  expect_snapshot_warning(
+    facet_grid2(vs ~ am, independent = "y", space = "free_y", scales = "free_y")
+  )
+  expect_snapshot_warning(
+    facet_grid2(vs ~ am, independent = "x", scales = "free_x",
+                remove_labels = "x")
+  )
+  expect_snapshot_warning(
+    facet_grid2(vs ~ am, independent = "y", scales = "free_y",
+                remove_labels = "y")
+  )
 })

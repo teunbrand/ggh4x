@@ -120,7 +120,7 @@ StatRollingkernel <- ggproto(
         "unif" = .kernel_unif,
         "mean" = .kernel_unif,
         "cauchy" = .kernel_cauchy,
-        stop("unknown kernel specification")
+        cli::cli_abort("Unknown kernel specification: {params$kernel}.")
       )
     }
     params
@@ -144,7 +144,8 @@ StatRollingkernel <- ggproto(
         sj   = ,
         `sj-ste` = bw.SJ(i, method = "ste"),
         `sj-dpi` = bw.SJ(i, method = "dpi"),
-        stop("unknown bandwidth rule"))
+        cli::cli_abort("Unknown bandwidth rule: {bw}.")
+      )
     }
 
     data <- data[is.finite(data$x) & is.finite(data$y),]

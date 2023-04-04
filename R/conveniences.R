@@ -162,8 +162,10 @@ weave_factors <- function(..., drop = TRUE, sep = ".", replaceNA = TRUE) {
   }
   lengths <- lengths(args)
   if (!all(lengths %in% c(1L, max(lengths)))) {
-    stop("All inputs to 'weave_factors' should either be the",
-         "same length or length 1", call. = FALSE)
+    cli::cli_abort(paste0(
+      "All inputs to {.fn weave_factors} should have the same length, ",
+      "or length 1."
+    ))
   }
   if (replaceNA) {
     args <- lapply(args, function(x) {

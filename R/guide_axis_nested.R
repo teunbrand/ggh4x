@@ -13,6 +13,8 @@
 #'   `interaction`'s default delimiter.
 #' @param extend A `numeric` of length 1 indicating how much to extend
 #'   nesting lines relative to the smallest difference in break positions.
+#' @param inv A `logical(1)` which if `TRUE`, flips the grouping order. If
+#'   `FALSE` (default), the grouping order is as-is.
 #'
 #' @details The guide itself makes no effort to group and order labels. To get
 #'   nice groupings, consider re-ordering the levels of factor variables, or try
@@ -71,6 +73,7 @@ guide_axis_nested <- function(
   order = 0,
   position = waiver(),
   delim = waiver(),
+  inv   = FALSE,
   trunc_lower = NULL,
   trunc_upper = NULL,
   colour = NULL,
@@ -93,6 +96,7 @@ guide_axis_nested <- function(
       trunc_upper = trunc_upper,
       colour = colour,
       extend = extend,
+      inv = inv,
       name = "axis"
     ),
     class = c("guide", "axis_nested", "axis_ggh4x", "axis")
@@ -127,7 +131,8 @@ guide_gengrob.axis_nested <- function(guide, theme) {
     delim = guide$delim,
     extend = guide$extend,
     trunc = guide$trunc,
-    colour = guide$colour
+    colour = guide$colour,
+    inv = guide$inv
   )
 }
 
@@ -142,7 +147,8 @@ draw_nested_axis <- function(
   delim = ".",
   extend = 0.5,
   trunc,
-  colour
+  colour,
+  inv = FALSE
 ) {
   axis_position <- match.arg(substr(axis_position, 1, 1),
                              c("t", "b", "r", "l"))
@@ -183,7 +189,7 @@ draw_nested_axis <- function(
   label_grobs <- build_axis_labels_nested(
     elements, labels = break_labels, position = break_positions,
     dodge = n.dodge, check.overlap = check.overlap, params = params,
-    extend = extend, delim = delim
+    extend = extend, delim = delim, inv = inv
   )
 
   # Setup ticks
@@ -199,7 +205,7 @@ draw_nested_axis <- function(
 
 build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
                                      check.overlap = FALSE, params,
-                                     extend = 0.5, delim = ".") {
+                                     extend = 0.5, delim = ".", inv = FALSE) {
   # Validate labels
   if (is.list(labels)) {
     if (any(vapply(labels, is.language, logical(1)))) {
@@ -225,6 +231,9 @@ build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
     })
   }
   splitlabels <- do.call(rbind, splitlabels)
+  if (isTRUE(inv)) {
+    splitlabels <- splitlabels[, rev(seq_len(ncol(splitlabels))), drop = FALSE]
+  }
 
   first_labels <- lapply(dodge_idxs, function(idx) {
     draw_axis_labels(
@@ -254,7 +263,11 @@ build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
       check.overlap   = check.overlap
     )
     nz <- nzchar(id$values)
-    xtend <- min(diff(position)) * 0.5 * extend
+    if (length(position) > 1) {
+      xtend <- min(diff(position)) * 0.5 * extend
+    } else {
+      xtend <- 0.5 * extend
+    }
     pos <- rbind(position[starts[nz]] - xtend, position[ends[nz]] + xtend)
     pos_len <- length(pos)
     if (params$vertical) {

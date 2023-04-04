@@ -89,7 +89,20 @@ facetted_pos_scales <- function(x = NULL, y = NULL) {
   x_test <- check_facetted_scale(x, "x")
   y_test <- check_facetted_scale(y, "y")
   if (!(x_test & y_test)) {
-    stop("Invalid facetted scale specifications.")
+    if (!x_test & !y_test) {
+      arg  <- "The {.arg x} and {.arg y} arguments "
+      type <- "appropriate"
+    } else if (!x_test) {
+      arg  <- "The {.arg x} argument "
+      type <- "{.field x}"
+    } else {
+      arg  <- "The {.arg y} argument "
+      type <- "{.field y}"
+    }
+    cli::cli_abort(paste0(
+      arg, "should be {.val NULL}, or a list of formulas and/or ",
+      "position scales with the ", type, " aesthetic."
+    ))
   }
 
   x <- validate_facetted_scale(x, "x")
@@ -154,7 +167,9 @@ validate_facetted_scale <- function(x, aes = "x") {
   # Double check for appropriate scales
   check <- check_facetted_scale(rhs, aes = aes, allow_null = FALSE)
   if (!check) {
-    stop("RHS of formula does not result in appropriate scale.")
+    cli::cli_abort(paste0(
+      "The right-hand side of formula does not result in an appropriate scale."
+    ))
   }
 
   return(
@@ -197,8 +212,10 @@ ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
                             body(environment(plot$facet$finish_data)$f))
 
   if (!all(c(valid_init, valid_train, valid_finish))) {
-    warning("Unknown facet: overriding facetted scales may be unstable.",
-            call. = FALSE)
+    cli::cli_warn(c(
+      "Unknown facet: {.obj_type_friendly {plot$facet}}.",
+      i = "Overriding facetted scales may be unstable."
+    ))
   }
 
   # Copy facet

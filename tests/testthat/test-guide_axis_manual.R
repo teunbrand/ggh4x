@@ -132,14 +132,13 @@ test_that("guide_axis_manual can be placed at every position", {
 
 test_that("warnings and errors work", {
   guide <- guide_axis_manual(breaks = unit(0.5, "cm"))
-  expr <- substitute(guide_train(guide, scale_y))
 
-  expect_warning(expect_error(eval(expr), "not meaningful for units"),
-                 "Setting units for breaks might not work")
+  expect_snapshot_error(expect_snapshot_warning(
+    guide_train(guide, scale_y)
+  ))
 
   guide <- guide_axis_manual()
   guide$available_aes <- "z"
-  test <- substitute(guide_train(guide, scale_x))
-  expect_warning(eval(test), "needs appropriate scales")
 
+  expect_snapshot_warning(guide_train(guide, scale_x))
 })

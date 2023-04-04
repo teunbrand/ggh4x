@@ -47,7 +47,6 @@ scale_x_dendrogram <- function(...,
                                position = "bottom") {
   # Do regular discrete axis if no hclust is provided
   if (!inherits(hclust, "hclust")) {
-    message("`hclust` argument was not recognised. Switching to regular discrete scale")
     return(scale_x_discrete(...,
                             expand = expand,
                             guide = "axis",
@@ -60,7 +59,7 @@ scale_x_dendrogram <- function(...,
   }
   if (inherits(guide, "guide") && inherits(guide, "dendroguide")) {
     if (inherits(guide$dendro, "waiver")) {
-      try_require("ggdendro", "scale_x_dendrogram")
+      check_installed("ggdendro", "for `scale_x_dendrogram()`.")
       guide$dendro <- ggdendro::dendro_data(hclust)
     }
   }
@@ -74,7 +73,7 @@ scale_x_dendrogram <- function(...,
                        guide = guide,
                        position = position,
                        super = ScaleDendrogram)
-  sc$range_c <- .int$continuous_range()
+  sc$range_c <- ContinuousRange$new()
   sc$hclust <- hclust
   sc
 }
@@ -100,7 +99,7 @@ scale_y_dendrogram <- function(...,
   }
   if (inherits(guide, "guide") && inherits(guide, "dendroguide")) {
     if (inherits(guide$dendro, "waiver")) {
-      try_require("ggdendro", "scale_y_dendrogram")
+      check_installed("ggdendro", "for `scale_y_dendrogram()`.")
       guide$dendro <- ggdendro::dendro_data(hclust)
     }
   }
@@ -114,7 +113,7 @@ scale_y_dendrogram <- function(...,
                        guide = guide,
                        position = position,
                        super = ScaleDendrogram)
-  sc$range_c <- .int$continuous_range()
+  sc$range_c <- ContinuousRange$new()
   sc$hclust <- hclust
   sc
 }

@@ -118,15 +118,11 @@ test_that("strip_themed uses by_layer arguments correctly", {
 # Warnings and errors -----------------------------------------------------
 
 test_that("strip_vanilla rejects faulty arguments", {
-  test <- substitute(strip_vanilla(clip = "nonsense"))
-  expect_error(eval(test), '`clip` must be one of "on", "off"')
-  test <- substitute(strip_vanilla(size = "nonsense"))
-  expect_error(eval(test), '`size` must be one of "constant" or "variable"')
+  expect_snapshot_error(strip_vanilla(clip = "nonsense"))
+  expect_snapshot_error(strip_vanilla(size = "nonsense"))
 })
 
 test_that("strip_themed rejects faulty theme elements", {
-  test <- substitute(strip_themed(background_x = "I'm not a theme element"))
-  expect_error(eval(test), "should be a list of `element_rect` objects.")
-  test <- substitute(strip_themed(text_y = element_line(colour = "blue")))
-  expect_error(eval(test), "should be a list of `element_text` objects.")
+  expect_snapshot_error(strip_themed(background_x = "I'm not a theme element"))
+  expect_snapshot_error(strip_themed(text_y = element_line(colour = "blue")))
 })
