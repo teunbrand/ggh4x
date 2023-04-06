@@ -18,7 +18,6 @@ test_that("facet_manual matches widths/heights to design", {
   expect_equal(test$heights, unit(c(0.5, 2), "null"))
 })
 
-
 # Correctness -------------------------------------------------------------
 
 test_that("facet_manual rejects some designs", {
@@ -84,3 +83,26 @@ test_that("facet_manual can assume layouts", {
   # 1 offset for axis, 1 offset for padding, 1 offset for strip
   expect_equal(unname(panels$r), unname(strips$r) - 3)
 })
+
+# Visual tests ------------------------------------------------------------
+
+test_that("whitespace is removed in appropriate places", {
+
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point()
+
+  design <- matrix(c(1,1,NA,NA,NA,2,2,NA,NA,NA,3,3), 4, 3)
+
+  vdiffr::expect_doppelganger(
+    "No removable whitespace",
+    p + facet_manual(vars(cyl), design = design)
+  )
+
+  design <- matrix(c(1,3,NA,NA,4,6,NA,4,6,2,5,NA), 3, 4)
+
+  vdiffr::expect_doppelganger(
+    "Removable whitespace",
+    p + facet_manual(vars(carb), design = design)
+  )
+})
+
+

@@ -1,6 +1,7 @@
 # ggh4x (development version)
 
-* `scale_{x/y}_facet()` now use quosures instead of expressions (#101)
+* Curb back overzealous whitespace removal in `facet_manual()` (#106).
+* `scale_{x/y}_facet()` now use quosures instead of expressions (#101).
 
 # ggh4x 0.2.4
 

@@ -294,7 +294,8 @@ FacetManual <- ggproto(
   },
 
   attach_axes = function(panels, axes, sizes, params, inside = TRUE) {
-    if (!params$free$y && do_purge(panels$layout$t, panels$layout$b)) {
+
+    if (!params$free$y && do_purge(panels$layout$t, panels$layout$b, TRUE)) {
       if (inside || params$strip.position != "left") {
         sizes$left[-1] <- unit(0, "cm")
       }
@@ -302,7 +303,7 @@ FacetManual <- ggproto(
         sizes$right[-length(sizes$right)] <- unit(0, "cm")
       }
     }
-    if (!params$free$x && do_purge(panels$layout$l, panels$layout$r)) {
+    if (!params$free$x && do_purge(panels$layout$l, panels$layout$r, TRUE)) {
       if (inside || params$strip.position != "bottom")
       sizes$bottom[-length(sizes$bottom)] <- unit(0, "cm")
       if (inside || params$strip.position != "top") {
@@ -451,10 +452,15 @@ restrict_axes <- function(axes, position, by, which_fun = min,
   axes
 }
 
-do_purge <- function(a, b) {
-  ab <- data_frame0(a = a, b = b)
-  n  <- vec_unique_count(ab)
-  a  <- vec_unique_count(a)
-  b  <- vec_unique_count(b)
-  n == a && n == b
+do_purge <- function(a, b, check_disjoint = FALSE) {
+  ab  <- vec_unique(data_frame0(a = a, b = b))
+  a   <- unname(ab$a)
+  b   <- unname(ab$b)
+  n   <- nrow(ab)
+  ans <- n == vec_unique_count(a) && n == vec_unique_count(b)
+  if (!check_disjoint || n == 1) {
+    return(ans)
+  }
+  o <- order(a, b)
+  ans && all(cummax(c(0, b[o][-nrow(ab)])) < a[o])
 }
