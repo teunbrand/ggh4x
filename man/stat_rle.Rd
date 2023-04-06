@@ -88,8 +88,9 @@ Run length encoding takes a vector of values and calculates the
 lengths of consecutive repeated values.
 }
 \details{
-The data is first ordered on the \code{x} aesthetic before run
-lengths are calculated for the \code{label} aesthetic.
+The data is first ordered on the \code{x} aesthetic before run lengths are
+calculated for the \code{label} aesthetic. In contrast to \code{base::rle()}, \code{NA}s
+are considered equivalent values, not different values.
 }
 \section{Aesthetics}{
  \code{stat_rle()} understands the following

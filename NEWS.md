@@ -1,5 +1,6 @@
 # ggh4x (development version)
 
+* `stat_rle()` now considers `NA`s as equivalent values, unlike `base::rle()`.
 * Curb back overzealous whitespace removal in `facet_manual()` (#106).
 * `scale_{x/y}_facet()` now use quosures instead of expressions (#101).
 
