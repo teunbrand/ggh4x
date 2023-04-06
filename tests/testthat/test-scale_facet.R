@@ -44,7 +44,7 @@ test_that("scale_(x/y)_facet can be added to a plot", {
   expect_length(p$facet$new_y_scales, 1L)
   expect_identical(
     attr(p$facet$new_y_scales, "lhs")[[1]],
-    rlang::expr(COL == 2)
+    rlang::quo(COL == 2)
   )
 
   p <- p + scale_y_facet(COL == 1, breaks = 1:40)
@@ -54,7 +54,7 @@ test_that("scale_(x/y)_facet can be added to a plot", {
   expect_length(attr(p$facet$new_y_scales, "lhs"), 2L)
   expect_identical(
     attr(p$facet$new_y_scales, "lhs")[[2]],
-    rlang::expr(COL == 1)
+    rlang::quo(COL == 1)
   )
 
   p <- p + scale_x_facet(PANEL == 3, limits = c(0, 500))

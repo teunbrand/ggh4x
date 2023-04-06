@@ -102,7 +102,7 @@ scale_facet <- function(expr, aes, ..., type = "continuous") {
     ))
   }
 
-  if (!rlang::is_expression(expr)) {
+  if (!rlang::is_quosure(expr) || quo_is_missing(expr)) {
     cli::cli_abort("{.arg expr} must be a valid {.cls expression}.")
   }
 
@@ -118,13 +118,13 @@ scale_facet <- function(expr, aes, ..., type = "continuous") {
 #' @export
 #' @rdname scale_facet
 scale_x_facet <- function(expr, ..., type = "continuous") {
-  scale_facet(expr = enexpr(expr), "x", ..., type = type)
+  scale_facet(expr = enquo(expr), "x", ..., type = type)
 }
 
 #' @export
 #' @rdname scale_facet
 scale_y_facet <- function(expr, ..., type = "continuous") {
-  scale_facet(expr = enexpr(expr), "y", ..., type = type)
+  scale_facet(expr = enquo(expr), "y", ..., type = type)
 }
 
 #' @export
