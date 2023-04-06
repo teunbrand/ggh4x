@@ -2,7 +2,6 @@
 % Please edit documentation in R/stat_rle.R
 \name{stat_rle}
 \alias{stat_rle}
-\alias{vec_math.finite_type}
 \title{Run length encoding}
 \usage{
 stat_rle(

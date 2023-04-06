@@ -122,14 +122,7 @@ StatRle <- ggproto(
     params
   },
   extra_params = c("na.rm", "orientation", "align"),
-  compute_layer = function(self, data, params, layout) {
-    if ("label" %in% names(data)) {
-      data[["label"]] <- protect_finite(data[["label"]])
-    }
-    ggproto_parent(Stat, self)$compute_layer(data, params, layout)
-  },
   compute_group = function(data, flipped_aes = FALSE, align, scales) {
-    data$label <- unprotect_finite(data$label)
     data <- data[order(data$x), ]
     n <- nrow(data)
 
@@ -171,36 +164,3 @@ StatRle <- ggproto(
     )
   }
 )
-
-# Helpers -----------------------------------------------------------------
-
-# This is a bit of an ugly solution to let the label variable not be counted as
-# a non-finite variable.
-
-#' @export
-#' @usage NULL
-#' @rdname stat_rle
-vec_math.finite_type <- function(.fn, .x, ...) {
-  switch(.fn,
-         is.finite = !is.na(.x),
-         cli::cli_abort("not implemented")
-  )
-}
-
-protect_finite <- function(x) {
-  attrs <- attributes(x)
-  oldclass <- class(x)
-  attrs <- attrs[setdiff(names(attrs), "class")]
-  do.call(new_vctr, c(`.data` = list(x),
-                      attrs, oldclass = oldclass,
-                      class = "finite_type"))
-}
-
-unprotect_finite <- function(x) {
-  if (!inherits(x, "finite_type")) {
-    return(x)
-  }
-  class(x) <- attr(x, "oldclass")
-  attr(x, "oldclass") <- NULL
-  x
-}
