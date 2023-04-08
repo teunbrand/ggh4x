@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* `stat_difference()` is now more performant, particularly for larger data.
+* `stat_difference()` no longer outputs a 0-level.
 * `stat_rle()` now considers `NA`s as equivalent values, unlike `base::rle()`.
 * Curb back overzealous whitespace removal in `facet_manual()` (#106).
 * `scale_{x/y}_facet()` now use quosures instead of expressions (#101).

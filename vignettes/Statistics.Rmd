@@ -271,22 +271,14 @@ g + geom_ribbon(aes(ymin = pmin(psavert, uempmed),
                 alpha = 0.8)
 ```
 
-To circumvent this inconvenience, `stat_difference()` uses run-length encoding to re-assign the groups and adds a `sign` variable to keep track which of the two variables is larger. By default, the `fill` is populated with the `sign` variable.
+To circumvent this inconvenience, `stat_difference()` uses run-length encoding to re-assign the groups and adds a `sign` variable to keep track which of the two variables is larger. By default, the `fill` is populated with the `sign` variable. We can control the name of the filled areas by using the `levels` argument.
 
 ```{r}
-g + stat_difference(aes(ymin = psavert, ymax = uempmed),
-                  alpha  = 0.8)
-```
-
-## Controlling the fill
-
-Because there are 4 dates in the dataset where `uempmed == psavert` is true, `stat_difference()` will include a `0` level. The ribbon has no height where this occurs, so you don't typically see this zero-difference level. The `levels` argument is included to assert more control over how the `sign` computed variable will be displayed. In the example below, we remove the `0` level by giving it a `NA` for sign and telling the fill scale to not translate `NA`s.
-
-```{r}
-g + stat_difference(aes(ymin = psavert, ymax = uempmed),
-                    levels = c("More uempmed", "More psavert", NA),
-                    alpha  = 0.8) +
-  scale_fill_discrete(na.translate = FALSE)
+g + stat_difference(
+  aes(ymin = psavert, ymax = uempmed),
+  levels = c("More uempmed", "More psavert"),
+  alpha  = 0.8
+)
 ```
 
 ## Interpolation

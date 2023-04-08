@@ -9,9 +9,8 @@
 #' @inheritParams ggplot2::stat_density
 #' @param geom Use to override the default connection between
 #'   `geom_ribbon()` and `stat_difference()`.
-#' @param levels A `character(3)` indicating factor levels for the `fill`
-#'   aesthetic for the following cases (1) `max > min` (2) `max < min`
-#'   (3) `max == min`. Will be padded with `NA`s when necessary.
+#' @param levels A `character(2)` indicating factor levels for the `fill`
+#'   aesthetic for the cases where (1) `max > min` and where (2) `max < min`.
 #'
 #' @return A `Layer` object that can be added to a plot.
 #' @export
@@ -20,6 +19,10 @@
 #' different fills for the signs of differences. The stat takes care to
 #' interpolate a series whenever a crossover between `max` and `min` series
 #' happens. This makes the ribbon not look stumpy at these crossovers.
+#'
+#' @note
+#' When there is a run of more than two 0-difference values, the inner values
+#' will be ignored.
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "ribbon")
 #' @section Computed variables: \describe{
@@ -46,7 +49,7 @@ stat_difference <- function(
   geom = "ribbon",
   position = "identity",
   ...,
-  levels = c("+", "-", "0"),
+  levels = c("+", "-"),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -83,63 +86,56 @@ StatDifference <- ggproto(
     params$flipped_aes <- has_flipped_aes(
       data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE
     )
-    if ({len <- length(params$levels)} != 3) {
-      if (len < 3) {
-        params$levels <- c(params$levels, paste0("NA", seq_len(3 - len)))
-      } else {
-        params$levels <- params$levels[1:3]
-      }
-    }
     params
   },
   extra_params = c("na.rm", "orientation", "levels"),
-  compute_panel = function(self, data, scales, ...) {
+  compute_panel = function(self, data, scales, flipped_aes = FALSE, ...) {
+    data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, ...
     )
     data$group <- cumsum(data$id)
     data$id <- NULL
-    data
-  },
-  compute_group = function(data, scales, levels = c("+", "-", "0"),
-                           na.rm = FALSE, flipped_aes = FALSE) {
-    data <- flip_data(data, flipped_aes)
-    data$sign <- sign(data$ymax - data$ymin)
-    data <- data[order(data$x),]
-    data$id <- rle_id(data$sign)
-
-    crossover <- which(c(FALSE, diff(data$id) == 1))
-    crossover <- sort(c(crossover, crossover - 1))
-    splitter  <- rep(seq_len(length(crossover) / 2), each = 2)
-    crossover <- lapply(split(data[crossover, ], splitter), find_isect)
-
-    data <- do.call(rbind, c(list(data), crossover))
-    data <- data[order(data$x, data$id), ]
-    data$id <- c(TRUE, diff(data$id) > 0)
-    data$sign <- factor(data$sign, levels = c("1", "-1", "0"),
-                        labels = levels)
     data$flipped_aes <- flipped_aes
     flip_data(data, flipped_aes)
+  },
+  compute_group = function(data, scales, levels = c("+", "-"),
+                           na.rm = FALSE, flipped_aes = FALSE) {
+    data <- data[order(data$x),]
+    y <- data$ymax - data$ymin
+    data$sign <- sign(y)
+    sign_rle <- vec_unrep(data$sign)
+
+    # Find crossing points
+    ends  <- cumsum(sign_rle$times)
+    dups  <- ends[-length(ends)]
+    cross <- -y[dups] * (data$x[dups + 1] - data$x[dups]) /
+      (y[dups + 1] - y[dups]) + data$x[dups]
+
+    # Interpolate at cross points
+    x    <- vec_rep_each(cross, 2)
+    ymin <- approx(data$x, data$ymin, x)$y
+    ymax <- approx(data$x, data$ymax, x)$y
+
+    # Match metadata
+    sign  <- vec_rep_each(sign_rle$key, 2)
+    sign  <- sign[-c(1, length(sign))]
+    id    <- rep(c(0, 1), length(cross))
+    ord   <- cumsum(id) + 1
+    data_ord <- vec_rep_each(seq_along(sign_rle$times), sign_rle$times)
+
+    new <- data_frame0(
+      x    = c(data$x, x),
+      ymin = c(data$ymin, ymin),
+      ymax = c(data$ymax, ymax),
+      ord  = c(data_ord, ord),
+      id   = c(1, rep(0, nrow(data) - 1), id), # Will become group later
+      sign = c(data$sign, sign)
+    )
+    new <- vec_slice(new, order(new$ord, new$x))
+    new <- vec_slice(new, new$sign != 0)
+    new$sign <- factor(new$sign, levels = c("1", "-1"), labels = levels[1:2])
+    new$ord <- NULL
+    new
   }
 )
-
-# Helpers -----------------------------------------------------------------
-
-rle_id <- function(x) {
-  with(rle(x), rep.int(seq_along(values), lengths))
-}
-
-utils::globalVariables(c("x", "ymin", "ymax"))
-
-# Simplified version of
-# https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
-# We can simplify a bit because x[3] == x[1] and x[4] == x[2]
-find_isect <- function(df) {
-  list2env(df, envir = rlang::current_env())
-  dx <- x[1] - x[2]
-  dy <- ymin[1] - ymin[2]
-  t <- (-1 * (ymin[1] - ymax[1]) * dx) / (dx * (ymax[1] - ymax[2]) - dy * dx)
-  df$x <- x[1] + t * -dx
-  df$ymin <- df$ymax <- ymin[1] + t * -dy
-  return(df)
-}
