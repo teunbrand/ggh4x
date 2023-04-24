@@ -204,7 +204,7 @@ ScaleManualPosition <- ggproto(
       }
       x <- pal_match
     }
-    mapped_discrete(x)
+    mapped_discrete(as.double(x))
   }
 )
 
