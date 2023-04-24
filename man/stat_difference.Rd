@@ -10,7 +10,7 @@ stat_difference(
   geom = "ribbon",
   position = "identity",
   ...,
-  levels = c("+", "-", "0"),
+  levels = c("+", "-"),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -51,9 +51,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{levels}{A \code{character(3)} indicating factor levels for the \code{fill}
-aesthetic for the following cases (1) \code{max > min} (2) \code{max < min}
-(3) \code{max == min}. Will be padded with \code{NA}s when necessary.}
+\item{levels}{A \code{character(2)} indicating factor levels for the \code{fill}
+aesthetic for the cases where (1) \code{max > min} and where (2) \code{max < min}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -87,6 +86,10 @@ The stat may reorder the \code{group} aesthetic to accommodate two
 different fills for the signs of differences. The stat takes care to
 interpolate a series whenever a crossover between \code{max} and \code{min} series
 happens. This makes the ribbon not look stumpy at these crossovers.
+}
+\note{
+When there is a run of more than two 0-difference values, the inner values
+will be ignored.
 }
 \section{Aesthetics}{
 
