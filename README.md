@@ -20,6 +20,11 @@ facets, mapping multiple aesthetics to colours and specifying individual
 scales for facets. Besides this, it is also a small collection of geoms,
 facets, positions, guides and stats.
 
+> **Warning** Current ggh4x is currently incompatible with the
+> development version of ggplot2. If, for some reason, you need both;
+> you can use `pak::pkg_install("teunbrand/ggh4x@no_guides")` to install
+> ggh4x without any guides.
+
 ## Installation
 
 You can install the most recent stable version of ggh4x from CRAN as
@@ -103,7 +108,9 @@ ggh4x.
 
 ``` r
 library(ggh4x)
+#> Warning: package 'ggh4x' was built under R version 4.2.3
 #> Loading required package: ggplot2
+#> Warning: package 'ggplot2' was built under R version 4.2.3
 library(scales)
 
 df <- transform(
