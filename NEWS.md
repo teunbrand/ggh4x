@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* `force_panelsizes()` gains a `total_width` and `total_height` argument to
+  set the size of the total panel area.
 * `stat_difference()` is now more performant, particularly for larger data.
 * `stat_difference()` no longer outputs a 0-level.
 * `stat_rle()` now considers `NA`s as equivalent values, unlike `base::rle()`.

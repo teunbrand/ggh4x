@@ -5,11 +5,14 @@
 #' Takes a ggplot and modifies its facet drawing behaviour such that the widths
 #' and heights of panels are set by the user.
 #'
-#' @param rows a `numeric` or `unit` vector for setting panel heights.
-#' @param cols a `numeric` or `unit` vector for setting panel widths.
+#' @param rows,cols a `numeric` or `unit` vector for setting panel heights
+#'   (rows) or panel widths (cols).
 #' @param respect a `logical` value. If `TRUE`, widths and heights
 #'   specified in `"null" unit`s are proportional. If `FALSE`,
 #'   `"null" unit`s in x- and y-direction vary independently.
+#' @param total_width,total_height an absolute `unit` of length 1 setting the
+#'   total width or height of all panels and the decoration between panels.
+#'   If not `NULL`, `rows` and `cols` should be `numeric` and not `unit`s.
 #'
 #' @details Forcing the panel sizes should in theory work regardless of what
 #'   facetting choice was made, as long as this function is called after the
@@ -45,15 +48,39 @@
 #'   facet_grid(vs ~ am) +
 #'   force_panelsizes(rows = c(2, 1),
 #'                    cols = c(2, 1))
-force_panelsizes <- function(rows = NULL, cols = NULL, respect = NULL) {
+force_panelsizes <- function(rows = NULL, cols = NULL, respect = NULL,
+                             total_width = NULL, total_height = NULL) {
   if (!is.null(rows) & !is.unit(rows)) {
     rows <- unit(rows, "null")
   }
   if (!is.null(cols) & !is.unit(cols)) {
     cols <- unit(cols, "null")
   }
+  if (!is.null(total_width)) {
+    if (is.unit(cols) && !is_null_unit(cols)) {
+      cli::cli_abort(
+        "Cannot set {.arg total_width} when {.arg cols} is not relative."
+      )
+    }
+    if (!is.unit(total_width)) {
+      cli::cli_abort("{.arg total_width} must be a {.cls unit} object.")
+    }
+    arg_match0(unitType(total_width), c("cm", "mm", "inches", "points"))
+  }
+  if (!is.null(total_height)) {
+    if (is.unit(rows) && !is_null_unit(rows)) {
+      cli::cli_abort(
+        "Cannot set {.arg total_height} when {.arg rows} is not relative."
+      )
+    }
+    if (!is.unit(total_height)) {
+      cli::cli_abort("{.arg total_height} must be a {.cls unit} object.")
+    }
+    arg_match0(unitType(total_height), c("cm", "mm", "inches", "points"))
+  }
 
-  structure(list(rows = rows, cols = cols, respect = respect),
+  structure(list(rows = rows, cols = cols, respect = respect,
+                 total_width = total_width, total_height = total_height),
             class = "forcedsize")
 }
 
@@ -66,7 +93,7 @@ force_panelsizes <- function(rows = NULL, cols = NULL, respect = NULL) {
 #' @keywords internal
 ggplot_add.forcedsize <- function(object, plot, object_name) {
   # Simply return plot if no changes are needed
-  if (is.null(object$rows) & is.null(object$cols) & is.null(object$respect)){
+  if (sum(lengths(object)) < 1){
     return(plot)
   }
 
@@ -78,6 +105,7 @@ ggplot_add.forcedsize <- function(object, plot, object_name) {
 
   # Make new panel drawing function
   new.fun <- function(params){
+
     # Format old function arguments
     pass_args <- names(formals())
     pass_args <- pass_args[pass_args != "self"]
@@ -89,6 +117,39 @@ ggplot_add.forcedsize <- function(object, plot, object_name) {
     # Grab panel positions
     prows <- panel_rows(panel_table)
     pcols <- panel_cols(panel_table)
+
+    # Set total width
+    if (!is.null(params$force.total_width)) {
+      colwidths <- as.numeric(
+        rep(params$force.cols %||% 1, length.out = nrow(pcols))
+      )
+      extra_width <- setdiff(seq_range(pcols), unique(unlist(pcols)))
+      if (length(extra_width) > 1) {
+        extra_width <- convertUnit(sum(panel_table$widths[extra_width]), "cm")
+      } else {
+        extra_width <- unit(0, "cm")
+      }
+      extra_width <- params$force.total_width - extra_width
+      colwidths <- extra_width * colwidths / sum(colwidths)
+      panel_table$widths[pcols$l] <- colwidths
+      params$force.cols <- NULL
+    }
+
+    if (!is.null(params$force.total_height)) {
+      rowheights <- as.numeric(
+        rep(params$force.rows %||% 1, length.out = nrow(prows))
+      )
+      extra_height <- setdiff(seq_range(prows), unique(unlist(prows)))
+      if (length(extra_height) > 1) {
+        extra_height <- convertUnit(sum(panel_table$heights[extra_height]), "cm")
+      } else {
+        extra_height <- unit(0, "cm")
+      }
+      extra_height <- params$force.total_height - extra_height
+      rowheights <- extra_height * rowheights / sum(rowheights)
+      panel_table$heights[prows$t] <- rowheights
+      params$force.rows <- NULL
+    }
 
     # Override row heights
     if (!is.null(params$force.rows)) {
@@ -122,4 +183,11 @@ ggplot_add.forcedsize <- function(object, plot, object_name) {
   # Pass new facet to plot
   plot$facet <- new_facet
   return(plot)
+}
+
+is_null_unit <- function(x) {
+  if (!is.unit(x)) {
+    return(FALSE)
+  }
+  all(unitType(x) == "null")
 }

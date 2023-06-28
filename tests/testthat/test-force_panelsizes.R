@@ -109,6 +109,42 @@ test_that("force_panelsizes can set rows and columns simultaneously", {
   expect_equal(test_y, c(1,2))
 })
 
+test_that("force_panelsizes can set total widths and heights", {
+
+  # Cannot define rows/cols as units when total_height/total_width is supplied
+  expect_error(force_panelsizes(
+    rows = unit(c(1, 2, 3), "cm"),
+    total_height = unit(4, "cm")
+  ))
+  expect_error(force_panelsizes(
+    cols = unit(c(1, 2, 3), "cm"),
+    total_width = unit(4, "cm")
+  ))
+
+  # total_height/total_width should be units
+  expect_error(force_panelsizes(total_width = 1))
+  expect_error(force_panelsizes(total_height = 1))
+
+  # total_height/total_width cannot be relative units
+  expect_error(force_panelsizes(total_width = unit(1, "npc")))
+  expect_error(force_panelsizes(total_height = unit(1, "npc")))
+
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point()
+
+  gt <- ggplotGrob(
+    p + facet_grid(cyl ~ gear) +
+      force_panelsizes(total_width = unit(6, "cm"), total_height = unit(4, "cm"),
+                       rows = c(1, 2, 3), cols = c(3, 2, 1))
+  )
+  row_height <- as.numeric(gt$heights[panel_rows(gt)$t])
+  col_width  <- as.numeric(gt$widths[panel_cols(gt)$l])
+
+  expect_equal(row_height / min(row_height), c(1, 2, 3))
+  expect_equal(col_width  / min(col_width),  c(3, 2, 1))
+})
+
 
 # Unit tests --------------------------------------------------------------
 
