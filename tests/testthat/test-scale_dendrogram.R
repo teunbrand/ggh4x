@@ -166,4 +166,10 @@ test_that("scale_xy_dendrogram can be draw without labels", {
   expect_s3_class(ctrl, "titleGrob")
   expect_s3_class(test, "zeroGrob")
 
+  # But hclust must contain labels
+  no_labs <- clus
+  no_labs$labels <- NULL
+
+  expect_error(ggplotGrob(base + scale_x_dendrogram(hclust = no_labs)))
+
 })

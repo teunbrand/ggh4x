@@ -131,6 +131,13 @@ ScaleDendrogram <- ggproto(
   transform = function(self, x) {
     hclust <- self$hclust
     if (!inherits(hclust, "waiver") && inherits(hclust, "hclust")) {
+      if (length(hclust$labels) != length(hclust$order)) {
+        cli::cli_abort(c(
+          "{.arg hclust} must have as many labels as there are items.",
+          i = "There are {length(hclust$labels)} labels.",
+          i = "There are {length(hclust$order)} items."
+        ))
+      }
       ref <- hclust$labels[hclust$order]
       if (is.factor(x)) {
         x <- as.character(x)
