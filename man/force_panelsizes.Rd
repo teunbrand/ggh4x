@@ -4,16 +4,25 @@
 \alias{force_panelsizes}
 \title{Force a facetted plot to have specified panel sizes}
 \usage{
-force_panelsizes(rows = NULL, cols = NULL, respect = NULL)
+force_panelsizes(
+  rows = NULL,
+  cols = NULL,
+  respect = NULL,
+  total_width = NULL,
+  total_height = NULL
+)
 }
 \arguments{
-\item{rows}{a \code{numeric} or \code{unit} vector for setting panel heights.}
-
-\item{cols}{a \code{numeric} or \code{unit} vector for setting panel widths.}
+\item{rows, cols}{a \code{numeric} or \code{unit} vector for setting panel heights
+(rows) or panel widths (cols).}
 
 \item{respect}{a \code{logical} value. If \code{TRUE}, widths and heights
 specified in \verb{"null" unit}s are proportional. If \code{FALSE},
 \verb{"null" unit}s in x- and y-direction vary independently.}
+
+\item{total_width, total_height}{an absolute \code{unit} of length 1 setting the
+total width or height of all panels and the decoration between panels.
+If not \code{NULL}, \code{rows} and \code{cols} should be \code{numeric} and not \code{unit}s.}
 }
 \value{
 A \code{forcedsize} S3 object that can be added to a plot.
