@@ -19,8 +19,13 @@ test_that("coord_axis_inside can place axes inside", {
   axis <- test$grobs[test$layout$name == "axis-l"][[1]]$children
   axis <- axis[names(axis) == "axis"][[1]]
 
-  expect_s3_class(axis$grobs[[2]], "zeroGrob")
-  expect_s3_class(axis$grobs[[1]], "titleGrob")
+  if (utils::packageVersion("ggplot2") > "3.4.2") {
+    expect_s3_class(axis$grobs[[1]], "zeroGrob")
+    expect_s3_class(axis$grobs[[2]], "titleGrob")
+  } else {
+    expect_s3_class(axis$grobs[[2]], "zeroGrob")
+    expect_s3_class(axis$grobs[[1]], "titleGrob")
+  }
 
   test <- p + coord_axes_inside(labels_inside = TRUE)
   test <- ggplotGrob(test)

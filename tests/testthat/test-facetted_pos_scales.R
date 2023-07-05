@@ -96,6 +96,27 @@ test_that("facetted_pos_scales add to facet_wrap correctly", {
 
 # Essence tests -----------------------------------------------------------
 
+grab_axis <- function(plot, where = "b", what = "label") {
+  gt <- ggplotGrob(plot)
+  axes <- gt$grobs[grepl(paste0("^axis-", where), gt$layout$name)]
+  if (is.null(what)) {
+    return(axes)
+  }
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    label_index <- 1
+  } else {
+    label_index <- 2
+  }
+  switch(
+    what,
+    label = lapply(
+      axes,
+      function(x) x$children$axis$grobs[[label_index]]$children[[1]]$label
+    ),
+    stop()
+  )
+}
+
 test_that("facetted_pos_scales can make transformations on x", {
   a <- base + facet_wrap(~ Species, scales = "free")
   b <- a + facetted_pos_scales(
@@ -135,18 +156,8 @@ test_that("facetted_pos_scales can set limits", {
   b <- a + facetted_pos_scales(y = list(NULL,
                                         scale_y_continuous(limits = c(0, 100))))
 
-  a <- ggplotGrob(a)
-  b <- ggplotGrob(b)
-
-  a <- a$grobs[grepl("axis-l", a$layout$name)]
-  b <- b$grobs[grepl("axis-l", b$layout$name)]
-
-  a <- lapply(a, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  b <- lapply(b, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
+  a <- grab_axis(a, "l")
+  b <- grab_axis(b, "l")
 
   expect_identical(a[[1]], b[[1]])
   expect_false(identical(a[[2]], b[[2]]))
@@ -162,18 +173,8 @@ test_that("facetted_pos_scales can set breaks", {
              scale_y_continuous(breaks = range))
   )
 
-  a <- ggplotGrob(a)
-  b <- ggplotGrob(b)
-
-  a <- a$grobs[grepl("axis-l", a$layout$name)]
-  b <- b$grobs[grepl("axis-l", b$layout$name)]
-
-  a <- lapply(a, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  b <- lapply(b, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
+  a <- grab_axis(a, "l")
+  b <- grab_axis(b, "l")
 
   expect_identical(a[[1]], b[[1]])
   expect_false(identical(a[[2]], b[[2]]))
@@ -189,18 +190,8 @@ test_that("facetted_pos_scales can set labels", {
   b <- a + facetted_pos_scales(y = list(NULL,
                                         scale_y_continuous(labels = function(x) x*100)))
 
-  a <- ggplotGrob(a)
-  b <- ggplotGrob(b)
-
-  a <- a$grobs[grepl("axis-l", a$layout$name)]
-  b <- b$grobs[grepl("axis-l", b$layout$name)]
-
-  a <- lapply(a, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  b <- lapply(b, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
+  a <- grab_axis(a, "l")
+  b <- grab_axis(b, "l")
 
   expect_identical(a[[1]], b[[1]])
   expect_false(identical(a[[2]], b[[2]]))
@@ -214,18 +205,8 @@ test_that("facetted_pos_scales can set expand arguments", {
   b <- a + facetted_pos_scales(y = list(NULL,
                                         scale_y_continuous(expand = c(10, 0))))
 
-  a <- ggplotGrob(a)
-  b <- ggplotGrob(b)
-
-  a <- a$grobs[grepl("axis-l", a$layout$name)]
-  b <- b$grobs[grepl("axis-l", b$layout$name)]
-
-  a <- lapply(a, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  b <- lapply(b, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
+  a <- grab_axis(a, "l")
+  b <- grab_axis(b, "l")
 
   expect_identical(a[[1]], b[[1]])
   expect_false(identical(a[[2]], b[[2]]))
@@ -246,15 +227,15 @@ test_that("facetted_pos_scales can set position arguments", {
   b <- b$grobs[grepl("axis-l", b$layout$name)]
   c <- c$grobs[grepl("axis-r", c$layout$name)]
 
-  a <- lapply(a, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  b <- lapply(b, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  c <- lapply(c, function(x) {
-    x$children$axis$grobs[[2]]$children[[1]]$label
-  })
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    a <- lapply(a, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
+    b <- lapply(b, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
+    c <- lapply(c, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+  } else {
+    a <- lapply(a, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+    b <- lapply(b, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+    c <- lapply(c, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+  }
 
   expect_identical(a[[1]], b[[1]])
   expect_false(identical(a[[2]], b[[2]]))
@@ -280,15 +261,15 @@ test_that("facetted_pos_scales can set secondary axis", {
   b <- b$grobs[grepl("axis-l", b$layout$name)]
   c <- c$grobs[grepl("axis-r", c$layout$name)]
 
-  a <- lapply(a, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  b <- lapply(b, function(x) {
-    x$children$axis$grobs[[1]]$children[[1]]$label
-  })
-  c <- lapply(c, function(x) {
-    x$children$axis$grobs[[2]]$children[[1]]$label
-  })
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    a <- lapply(a, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
+    b <- lapply(b, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
+    c <- lapply(c, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+  } else {
+    a <- lapply(a, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+    b <- lapply(b, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+    c <- lapply(c, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
+  }
 
   expect_identical(a[[1]], b[[1]])
   expect_identical(a[[2]], b[[2]])

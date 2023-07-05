@@ -149,11 +149,13 @@ Strip <- ggproto(
     aes <- if (position %in% c("top", "bottom")) "x" else "y"
     labels <- mapply(function(label, elem) {
       grob <- element_grob(elem, label, margin_x = TRUE, margin_y = TRUE)
-      if (!inherits(grob, c("titleGrob", "zeroGrob"))) {
-        grob <- add_margins(
-          gList(grob), grobHeight(grob), grobWidth(grob),
-          margin_x = TRUE, margin_y = TRUE
-        )
+      if (utils::packageVersion("ggplot2") <= "3.4.2") {
+        if (!inherits(grob, c("titleGrob", "zeroGrob"))) {
+          grob <- add_margins(
+            gList(grob), grobHeight(grob), grobWidth(grob),
+            margin_x = TRUE, margin_y = TRUE
+          )
+        }
       }
       grob$name <- grobName(grob, paste0("strip.text.", aes))
       grob
@@ -165,37 +167,47 @@ Strip <- ggproto(
     }
 
     if (aes == "x") {
-      height <- lapply(labels[!zeros], function(x) x$heights[2])
-      height <- lapply(split(height, layer_id[!zeros]), max_height)
-      height <- do.call(unit.c, height)
+      if (utils::packageVersion("ggplot2") <= "3.4.2") {
+        height <- lapply(labels[!zeros], function(x) x$heights[2])
+        height <- lapply(split(height, layer_id[!zeros]), max_height)
+        height <- do.call(unit.c, height)
+      } else {
+        height <- max_height(labels)
+      }
       width  <- rep(unit(1, "null"), length(height))
     } else {
-      width  <- lapply(labels[!zeros], function(x) x$widths[2])
-      width  <- lapply(split(width, layer_id[!zeros]), max_width)
-      width  <- do.call(unit.c, width)
+      if (utils::packageVersion("ggplot2") <= "3.4.2") {
+        width <- lapply(labels[!zeros], function(x) x$widths[2])
+        width <- lapply(split(width, layer_id[!zeros]), max_width)
+        width <- do.call(unit.c, width)
+      } else {
+        width <- max_width(labels)
+      }
       height <- rep(unit(1, "null"), length(width))
     }
 
-    # Set all margins equal
-    idx_w <- c("vp", "parent", "layout", "widths")
-    idx_h <- c("vp", "parent", "layout", "heights")
-    labels[!zeros] <- mapply(function(x, i) {
-      w <- width[i]
-      h <- height[i]
-      x$widths   <- unit.c(  x$widths[1], w,   x$widths[c(-1, -2)])
-      x$heights  <- unit.c( x$heights[1], h,  x$heights[c(-1, -2)])
-      x[[idx_w]] <- unit.c(x[[idx_w]][1], w, x[[idx_w]][c(-1, -2)])
-      x[[idx_h]] <- unit.c(x[[idx_h]][1], h, x[[idx_h]][c(-1, -2)])
-      x
-    }, x = labels[!zeros], i = layer_id[!zeros], SIMPLIFY = FALSE)
+    if (utils::packageVersion("ggplot2") <= "3.4.2") {
+      # Set all margins equal
+      idx_w <- c("vp", "parent", "layout", "widths")
+      idx_h <- c("vp", "parent", "layout", "heights")
+      labels[!zeros] <- mapply(function(x, i) {
+        w <- width[i]
+        h <- height[i]
+        x$widths   <- unit.c(  x$widths[1], w,   x$widths[c(-1, -2)])
+        x$heights  <- unit.c( x$heights[1], h,  x$heights[c(-1, -2)])
+        x[[idx_w]] <- unit.c(x[[idx_w]][1], w, x[[idx_w]][c(-1, -2)])
+        x[[idx_h]] <- unit.c(x[[idx_h]][1], h, x[[idx_h]][c(-1, -2)])
+        x
+      }, x = labels[!zeros], i = layer_id[!zeros], SIMPLIFY = FALSE)
 
-    firsts <- lapply(split(labels[!zeros], layer_id[!zeros]), `[[`, 1)
-    if (aes == "x") {
-      height <- lapply(firsts, `[[`, "heights")
-      height <- unname(do.call(unit.c, lapply(height, sum)))
-    } else {
-      width  <- lapply(firsts, `[[`, "widths")
-      width  <- unname(do.call(unit.c, lapply(width, sum)))
+      firsts <- lapply(split(labels[!zeros], layer_id[!zeros]), `[[`, 1)
+      if (aes == "x") {
+        height <- lapply(firsts, `[[`, "heights")
+        height <- unname(do.call(unit.c, lapply(height, sum)))
+      } else {
+        width  <- lapply(firsts, `[[`, "widths")
+        width  <- unname(do.call(unit.c, lapply(width, sum)))
+      }
     }
 
     # Combine with background

@@ -21,8 +21,13 @@ test_that("facet_grid2 can duplicate axes and remove labels", {
   b <- vapply(b, function(x){length(x$children[[2]]$grobs)}, integer(1))
   l <- vapply(l, function(x){length(x$children[[2]]$grobs)}, integer(1))
 
-  expect_equal(b, c(2L, 2L, 2L, 2L))
-  expect_equal(l, c(1L, 1L, 2L, 2L))
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    expect_equal(b, c(2L, 2L, 2L, 2L))
+    expect_equal(l, c(1L, 1L, 2L, 2L))
+  } else {
+    expect_equal(b, c(3L, 3L, 3L, 3L))
+    expect_equal(l, c(2L, 2L, 3L, 3L))
+  }
 })
 
 test_that("facet_grid2 can have free and independent scales", {

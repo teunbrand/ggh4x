@@ -97,14 +97,28 @@ test_that("facet_wrap2() can remove some labels", {
   ctrl2 <- ggplotGrob(ctrl2)
 
   # Compare x-axis
-  expect_equal(nchildren(case1, "b"), rep(2L, 6))
-  expect_equal(nchildren(case2, "b"), c(2L, 2L, 2L, 1L, 1L, 1L))
-  expect_equal(nchildren(ctrl1, "b"), c(2L, 2L, 2L, 0L, 0L, 0L))
-  expect_equal(nchildren(ctrl2, "b"), rep(2L, 6))
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    expect_equal(nchildren(case1, "b"), rep(2L, 6))
+    expect_equal(nchildren(case2, "b"), c(2L, 2L, 2L, 1L, 1L, 1L))
+    expect_equal(nchildren(ctrl1, "b"), c(2L, 2L, 2L, 0L, 0L, 0L))
+    expect_equal(nchildren(ctrl2, "b"), rep(2L, 6))
+  } else {
+    expect_equal(nchildren(case1, "b"), rep(3L, 6))
+    expect_equal(nchildren(case2, "b"), c(3L, 3L, 3L, 2L, 2L, 2L))
+    expect_equal(nchildren(ctrl1, "b"), c(3L, 3L, 3L, 0L, 0L, 0L))
+    expect_equal(nchildren(ctrl2, "b"), rep(3L, 6))
+  }
 
   # Compare y-axis
-  expect_equal(nchildren(case1, "l"), c(1L, 1L, 1L, 1L, 2L, 2L))
-  expect_equal(nchildren(case2, "l"), rep(2L, 6))
-  expect_equal(nchildren(ctrl1, "l"), c(0L, 0L, 0L, 0L, 2L, 2L))
-  expect_equal(nchildren(ctrl2, "l"), rep(2L, 6))
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    expect_equal(nchildren(case1, "l"), c(1L, 1L, 1L, 1L, 2L, 2L))
+    expect_equal(nchildren(case2, "l"), rep(2L, 6))
+    expect_equal(nchildren(ctrl1, "l"), c(0L, 0L, 0L, 0L, 2L, 2L))
+    expect_equal(nchildren(ctrl2, "l"), rep(2L, 6))
+  } else {
+    expect_equal(nchildren(case1, "l"), c(2L, 2L, 2L, 2L, 3L, 3L))
+    expect_equal(nchildren(case2, "l"), rep(3L, 6))
+    expect_equal(nchildren(ctrl1, "l"), c(0L, 0L, 0L, 0L, 3L, 3L))
+    expect_equal(nchildren(ctrl2, "l"), rep(3L, 6))
+  }
 })
