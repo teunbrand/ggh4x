@@ -131,8 +131,11 @@ distribute_scale_multi <- function(
         this_guide <- guide_legend()
       }
     }
-    if (any(class(this_guide) == "guide")) {
-      this_guide$available_aes <- aesthetics[[i]]
+    if (inherits(this_guide, "Guide")) {
+      old <- this_guide
+      this_guide <- ggproto(NULL, old, available_aes = aesthetics[[i]])
+    } else if (inherits(this_guide, "guide")) {
+      this_guide$available_aes = aesthetics[[i]]
     } else {
       cli::cli_abort(c(
         "{.pkg ggh4x}'s author hasn't programmed this path yet.",

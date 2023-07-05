@@ -104,8 +104,12 @@ scale_listed <- function(scalelist, replaces = NULL) {
     if (identical(guide, "none") || identical(guide, FALSE)) {
       return(scale)
     }
-    if (!inherits(guide, "guide")) {
+    if (!inherits(guide, c("guide", "Guide"))) {
       guide <- match.fun(paste0("guide_", guide))()
+    }
+    if (inherits(guide, "Guide")) {
+      old <- guide
+      guide <- ggproto(NULL, old)
     }
     if (!("any" %in% guide$available_aes)) {
       guide$available_aes <- scale$aesthetics

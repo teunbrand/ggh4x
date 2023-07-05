@@ -197,8 +197,9 @@ test_that("scale_colour_multi sets labels independently", {
   guidenames <- vapply(guidebox, function(box) {
     box$grobs[box$layout$name == "title"][[1]]$children[[1]]$children[[1]]$label
   }, character(1))
+  i <- if (utils::packageVersion("ggplot2") <= "3.4.2") "label" else "labels"
   labs <- lapply(guidebox, function(tg){
-    tg$grobs[tg$layout$name == "label"][[1]]$children[[1]]$label
+    tg$grobs[tg$layout$name == i][[1]]$children[[1]]$label
   })[order(guidenames)]
   expect_equal(labs[[1]], paste0(seq(0, 1, by = 0.25)))
   expect_equal(labs[[2]], paste0(seq(0, 100, by = 25), " Nonsense"))
