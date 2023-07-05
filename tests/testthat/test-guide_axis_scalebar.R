@@ -13,6 +13,7 @@ grab_axis <- function(plot, where = "b") {
 }
 
 test_that("guide_axis_scalebar can be placed at every position", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
 
   p <- base +
     guides(
@@ -40,6 +41,7 @@ test_that("guide_axis_scalebar can be placed at every position", {
 })
 
 test_that("NULL breaks return zeroGrob as labels", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   p <- base + scale_x_continuous(guide = "axis_scalebar", breaks = NULL)
   gt <- ggplotGrob(p)
   gt <- gt$grobs[[which(gt$layout$name == "axis-b")]]$children[[1]]

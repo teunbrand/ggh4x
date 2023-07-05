@@ -103,6 +103,28 @@ guide_stringlegend <- function(
   )
 }
 
+#' @export
+#' @method guide_train stringlegend
+#' @noRd
+guide_train.stringlegend <- function(guide, scale, aesthetic) {
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    return(NextMethod())
+  }
+  legend <- guide_legend()
+  legend$train(guide, scale, aesthetic)
+}
+
+#' @export
+#' @method guide_geom stringlegend
+#' @noRd
+guide_geom.stringlegend <- function(guide, layers, ...) {
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    return(NextMethod())
+  }
+  legend <- guide_legend()
+  legend$get_layer_key(guide, layers)
+}
+
 #' @method guide_gengrob stringlegend
 #' @export
 #' @noRd

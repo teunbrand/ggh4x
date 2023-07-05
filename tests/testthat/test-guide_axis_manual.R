@@ -114,6 +114,8 @@ test_that("guide_axis_manual training is correct in continuous axes", {
 
 
 test_that("guide_axis_manual can be placed at every position", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   g <- guides(
     x = guide_axis_manual(label_colour = c("green", "red", "blue")),
     x.sec = guide_axis_manual(breaks = unit(c(0.1, 0.2), "npc"),

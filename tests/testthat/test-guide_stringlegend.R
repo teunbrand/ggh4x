@@ -9,6 +9,8 @@ test_that("guide_stringlegend returns correct object", {
 })
 
 test_that("guide_stringlegend can be placed in different spots", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   p <- ggplot(iris, aes(Sepal.Width, Sepal.Length, colour = Species)) +
     geom_point()
 

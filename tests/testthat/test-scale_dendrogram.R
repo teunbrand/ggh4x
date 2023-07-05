@@ -60,6 +60,8 @@ test_that("scale_xy_dendrogram reorders axis", {
 })
 
 test_that("scale_xy_dendrogram draws dendrogram", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   df <- data.frame(
     x = rownames(USArrests),
     y = rnorm(nrow(USArrests))
@@ -81,6 +83,8 @@ test_that("scale_xy_dendrogram draws dendrogram", {
 })
 
 test_that("scale_xy_dendrogram position is correct", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   df <- data.frame(
     x = rownames(USArrests),
     y = rnorm(nrow(USArrests))
@@ -119,6 +123,8 @@ test_that("scale_xy_dendrogram position is correct", {
 })
 
 test_that("scale_xy_dendrogram can set labels", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   df <- data.frame(
     x = factor(rownames(USArrests)),
     y = rnorm(nrow(USArrests))
@@ -148,6 +154,8 @@ test_that("scale_xy_dendrogram can set labels", {
 })
 
 test_that("scale_xy_dendrogram can be draw without labels", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   df <- data.frame(
     x = factor(rownames(USArrests)),
     y = rnorm(nrow(USArrests))

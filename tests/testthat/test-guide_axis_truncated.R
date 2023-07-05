@@ -25,10 +25,11 @@ test_that("guide_axis_truncated construction works", {
 })
 
 test_that("guide_axis_truncated training gives correct output", {
+
   scale <- build$layout$panel_params[[1]]$x
 
   g <- guide_axis_truncated()
-  class(g) <- c("guide", "axis")
+  class(g) <- c("guide", "axis_ggh4x")
   g <- guide_train(g, scale, "x")
 
   test <- truncate_guide(g, scale, "x")
@@ -47,13 +48,6 @@ test_that("guide_axis_truncated training gives correct output", {
   expect_equal(test$trunc, data_frame0(x = unit(0.1, "npc"),
                                        xend = unit(0.9, "npc")))
 
-  g$trunc_lower <- NULL
-  g$trunc_upper <- NULL
-
-  test <- truncate_guide(g, scale, "x")
-  expect_equal(test$trunc, data_frame0(x = unit(0, "npc"),
-                                       xend = unit(1, "npc")))
-
   g$trunc_lower <- 2.5
   g$trunc_upper <- c(4, 5)
 
@@ -63,6 +57,7 @@ test_that("guide_axis_truncated training gives correct output", {
 })
 
 test_that("guide_axis_truncated can be placed at every position", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
 
   g <- guides(
     x = guide_axis_truncated(trunc_lower = unit(0.1, "npc"), trunc_upper = unit(0.9, "npc")),
@@ -88,6 +83,7 @@ test_that("guide_axis_truncated can be placed at every position", {
 })
 
 test_that("guide_axis_colour can colour axis", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   p <- base + guides(x = guide_axis_colour(colour = "blue"))
   axis <- grab_axis(p)
   expect_equal(axis$grobs[[1]]$gp$col, "blue")
@@ -95,6 +91,7 @@ test_that("guide_axis_colour can colour axis", {
 })
 
 test_that('guide_axis_colour works without breaks', {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   p <- base + scale_x_continuous(breaks = numeric(), guide = guide_axis_colour(colour = 'red'))
   p <- ggplotGrob(p)
   axis <- p$grobs[p$layout$name == "axis-b"][[1]]

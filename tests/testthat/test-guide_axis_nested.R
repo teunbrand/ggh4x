@@ -1,4 +1,6 @@
 test_that("guide_axis_nested work on x-axis", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   g <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
     geom_boxplot() +
     scale_x_discrete(guide = "axis_nested")
@@ -19,6 +21,7 @@ test_that("guide_axis_nested work on x-axis", {
 })
 
 test_that("guide_axis_nested work on y-axis", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   g <- ggplot(mpg, aes(hwy, interaction(cyl, class))) +
     geom_boxplot() +
     scale_y_discrete(guide = "axis_nested")
@@ -39,6 +42,8 @@ test_that("guide_axis_nested work on y-axis", {
 })
 
 test_that("guide_axis_nested work as secundary x-axis", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   g <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
     geom_boxplot() +
     scale_x_discrete(position = "top", guide = "axis_nested")
@@ -59,6 +64,7 @@ test_that("guide_axis_nested work as secundary x-axis", {
 })
 
 test_that("guide_axis_nested works as secundary y-axis", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   g <- ggplot(mpg, aes(hwy, interaction(cyl, class))) +
     geom_boxplot() +
     scale_y_discrete(guide = "axis_nested", position = "right")
@@ -79,10 +85,15 @@ test_that("guide_axis_nested works as secundary y-axis", {
 })
 
 test_that("guide_axis_nested errors upon misuse", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   base <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
     geom_boxplot(aes(fill = class))
   g <- base + scale_fill_discrete(guide = "axis_nested")
-  expect_snapshot_error(ggplotGrob(g))
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    expect_snapshot_error(ggplotGrob(g))
+  } else {
+    expect_snapshot_warning(ggplotGrob(g))
+  }
 
   gui <- guide_axis_nested()
   gui$available_aes <- "z"
@@ -92,6 +103,7 @@ test_that("guide_axis_nested errors upon misuse", {
 })
 
 test_that("NULL breaks return zeroGrob as labels", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   g <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
     geom_boxplot() +
     scale_x_discrete(guide = "axis_nested", breaks = NULL)

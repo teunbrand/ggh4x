@@ -80,7 +80,7 @@ guide_axis_scalebar <- function(
       available_aes = c("x", "y"),
       name     = "axis"
     ),
-    class = c("guide", "axis_scalebar", "axis")
+    class = c("guide", "axis_scalebar", "axis_ggh4x", "axis")
   )
 }
 

@@ -13,6 +13,8 @@ grab_axis <- function(plot, where = "b", what = NULL) {
 }
 
 test_that("guide_axis_logticks works on the bottom", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   test <- base + scale_x_log10(guide = "axis_logticks")
   ctrl <- base + scale_x_log10(guide = "axis")
 
@@ -27,6 +29,8 @@ test_that("guide_axis_logticks works on the bottom", {
 })
 
 test_that("guide_axis_logticks works on the top", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   test <- base + scale_x_log10(guide = "axis_logticks",
                                position = "top")
   ctrl <- base + scale_x_log10(guide = "axis",
@@ -43,6 +47,8 @@ test_that("guide_axis_logticks works on the top", {
 })
 
 test_that("guide_axis_logticks works on the left", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   test <- base + scale_y_log10(guide = "axis_logticks")
   ctrl <- base + scale_y_log10(guide = "axis")
 
@@ -57,6 +63,8 @@ test_that("guide_axis_logticks works on the left", {
 })
 
 test_that("guide_axis_logticks works on the right", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   test <- base + scale_y_log10(guide = "axis_logticks",
                                position = "right")
   ctrl <- base + scale_y_log10(guide = "axis",
@@ -73,6 +81,8 @@ test_that("guide_axis_logticks works on the right", {
 })
 
 test_that("guide_axis_logticks recognises untransformed axis", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   test <- base + scale_y_continuous(guide = "axis_logticks")
   ctrl <- base + scale_y_continuous(guide = "axis")
 
@@ -84,6 +94,8 @@ test_that("guide_axis_logticks recognises untransformed axis", {
 })
 
 test_that("NULL breaks return zeroGrob as labels", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   g <- base + scale_x_continuous(guide = "axis_logticks", breaks = NULL)
   g <- ggplotGrob(g)
   g <- g$grobs[[which(g$layout$name == "axis-b")]]$children[[1]]
@@ -91,11 +103,17 @@ test_that("NULL breaks return zeroGrob as labels", {
 })
 
 test_that("guide_axis_logticks errors upon misuse", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
+
   g <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
     geom_point(aes(colour = Species)) +
     scale_colour_discrete(guide = "axis_logticks")
 
-  expect_snapshot_error(ggplotGrob(g))
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    expect_snapshot_error(ggplotGrob(g))
+  } else {
+    expect_snapshot_warning(ggplotGrob(g))
+  }
 
   gui <- guide_axis_logticks()
   gui$available_aes <- "z"
