@@ -120,9 +120,14 @@ ggplot_add.forcedsize <- function(object, plot, object_name) {
 
     # Set total width
     if (!is.null(params$force.total_width)) {
-      colwidths <- as.numeric(
-        rep(params$force.cols %||% 1, length.out = nrow(pcols))
-      )
+
+      if (is.null(params$force.cols)) {
+        colwidths <- panel_table$widths[pcols$l]
+      } else {
+        colwidths <- rep(params$force.cols, length.out = nrow(pcols))
+      }
+      colwidths <- as.numeric(colwidths)
+
       extra_width <- setdiff(seq_range(pcols), unique(unlist(pcols)))
       if (length(extra_width) > 1) {
         extra_width <- convertUnit(sum(panel_table$widths[extra_width]), "cm")
@@ -136,9 +141,13 @@ ggplot_add.forcedsize <- function(object, plot, object_name) {
     }
 
     if (!is.null(params$force.total_height)) {
-      rowheights <- as.numeric(
-        rep(params$force.rows %||% 1, length.out = nrow(prows))
-      )
+
+      if (is.null(params$force.rows)) {
+        rowheights <- panel_table$heights[prows$t]
+      } else {
+        rowheights <- rep(params$force.rows, length.out = nrow(prows))
+      }
+      rowheights <- as.numeric(rowheights)
       extra_height <- setdiff(seq_range(prows), unique(unlist(prows)))
       if (length(extra_height) > 1) {
         extra_height <- convertUnit(sum(panel_table$heights[extra_height]), "cm")
