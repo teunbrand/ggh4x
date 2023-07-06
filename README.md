@@ -7,9 +7,9 @@
 
 [![Codecov test
 coverage](https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg)](https://app.codecov.io/gh/teunbrand/ggh4x?branch=master)
-[![R-CMD-check](https://github.com/teunbrand/ggh4x/workflows/R-CMD-check/badge.svg)](https://github.com/teunbrand/ggh4x/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggh4x)](https://CRAN.R-project.org/package=ggh4x)
+[![R-CMD-check](https://github.com/teunbrand/ggh4x/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/teunbrand/ggh4x/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The ggh4x package is a ggplot2 extension package. It provides some
@@ -19,11 +19,6 @@ useful in tweaking your ggplots. Examples include adjusting the sizes of
 facets, mapping multiple aesthetics to colours and specifying individual
 scales for facets. Besides this, it is also a small collection of geoms,
 facets, positions, guides and stats.
-
-> **Warning** Current ggh4x is currently incompatible with the
-> development version of ggplot2. If, for some reason, you need both;
-> you can use `pak::pkg_install("teunbrand/ggh4x@no_guides")` to install
-> ggh4x without any guides.
 
 ## Installation
 
@@ -108,9 +103,7 @@ ggh4x.
 
 ``` r
 library(ggh4x)
-#> Warning: package 'ggh4x' was built under R version 4.2.3
 #> Loading required package: ggplot2
-#> Warning: package 'ggplot2' was built under R version 4.2.3
 library(scales)
 
 df <- transform(
@@ -182,6 +175,11 @@ g <- g + facetted_pos_scales(x = position_scales)
 size <- 2 / (1 + sqrt(5))
 g <- g + force_panelsizes(cols = c(1, size, size ^ 2), respect = TRUE)
 g
+#> Warning: The S3 guide system was deprecated in ggplot2 3.5.0.
+#> ℹ It has been replaced by a ggproto system that can be extended.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 <img src="man/figures/README-facets-1.png" width="80%" style="display: block; margin: auto;" />
