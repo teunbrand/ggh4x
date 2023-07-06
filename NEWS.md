@@ -1,5 +1,6 @@
 # ggh4x (development version)
 
+* Anticipated compatability with future ggplot2 > 3.4.2.
 * `force_panelsizes()` gains a `total_width` and `total_height` argument to
   set the size of the total panel area.
 * `stat_difference()` is now more performant, particularly for larger data.

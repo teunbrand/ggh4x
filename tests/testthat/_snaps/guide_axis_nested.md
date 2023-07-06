@@ -4,6 +4,6 @@
 
 ---
 
-    Axis guide lacks appropriate scales
+    Axis guide lacks appropriate scales.
     i Use one of z
 
