@@ -26,7 +26,7 @@
 #'   used in the [`guide_axis_logticks()`] function. Defaults to `rel(1/3)`.
 ggh4x_theme_elements <- function() {
   register_theme_elements(
-    ggh4x.facet.nestline  = element_line(),
+    ggh4x.facet.nestline  = element_blank(),
     ggh4x.axis.nestline   = element_line(),
     ggh4x.axis.nestline.x = element_line(),
     ggh4x.axis.nestline.y = element_line(),

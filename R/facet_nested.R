@@ -66,7 +66,7 @@ facet_nested <- function(
   switch = NULL,
   drop = TRUE,
   margins = FALSE,
-  nest_line = element_blank(),
+  nest_line = element_line(inherit.blank = TRUE),
   resect = unit(0, "mm"),
   strip = strip_nested(),
   bleed = NULL
@@ -234,13 +234,15 @@ FacetNested <- ggproto(
 add_nest_indicator <- function(panels, params, theme) {
   # Convert nest line to proper element
   nest_line <- params$nest_line
-  if (is.null(nest_line) || isFALSE(nest_line) ||
-      inherits(nest_line, "element_blank")) {
+  if (is.null(nest_line) || isFALSE(nest_line)) {
     return(panels)
   }
   nest_line <- inherit_element(
     nest_line, calc_element("ggh4x.facet.nestline", theme)
   )
+  if (inherits(nest_line, "element_blank")) {
+    return(panels)
+  }
 
   # Find strips
   layout <- panels$layout
