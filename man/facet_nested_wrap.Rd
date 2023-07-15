@@ -17,7 +17,8 @@ facet_nested_wrap(
   drop = TRUE,
   dir = "h",
   strip.position = "top",
-  nest_line = element_blank(),
+  nest_line = element_line(inherit.blank = TRUE),
+  solo_line = FALSE,
   resect = unit(0, "mm"),
   trim_blank = TRUE,
   strip = strip_nested(),
@@ -96,8 +97,14 @@ either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
 
 \item{nest_line}{a theme element, either \code{element_blank()} or inheriting
-from \code{\link[ggplot2:element]{ggplot2::element_line()}}. This element inherits from
-the \code{\link[=theme_extensions]{ggh4x.facet.nestline}} element in the theme.}
+from \code{\link[ggplot2:element]{ggplot2::element_line()}}. Lines are drawn between layers of strips
+indicating hierarchy. The element inherits from the
+\code{\link[=theme_extensions]{ggh4x.facet.nestline}} element in the theme.}
+
+\item{solo_line}{A \code{logical(1)} indicating whether parent strips with a
+single child should be drawn with a \code{nest_line} (\code{TRUE}) or the line only
+applies to parents with multiple children (\code{FALSE}, default). Only relevant
+when \code{nest_line} is drawn.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}

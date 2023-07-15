@@ -7,8 +7,13 @@
 #'
 #' @inheritParams facet_grid2
 #' @param nest_line a theme element, either `element_blank()` or inheriting
-#'   from [ggplot2::element_line()]. This element inherits from
-#'   the [`ggh4x.facet.nestline`][theme_extensions] element in the theme.
+#'   from [ggplot2::element_line()]. Lines are drawn between layers of strips
+#'   indicating hierarchy. The element inherits from the
+#'   [`ggh4x.facet.nestline`][theme_extensions] element in the theme.
+#' @param solo_line A `logical(1)` indicating whether parent strips with a
+#'  single child should be drawn with a `nest_line` (`TRUE`) or the line only
+#'  applies to parents with multiple children (`FALSE`, default). Only relevant
+#'  when `nest_line` is drawn.
 #' @param resect  a `unit` vector of length 1, indicating how much the
 #'   nesting line should be shortened.
 #' @param strip An object created by a call to a strip function, such as
@@ -67,6 +72,7 @@ facet_nested <- function(
   drop = TRUE,
   margins = FALSE,
   nest_line = element_line(inherit.blank = TRUE),
+  solo_line = FALSE,
   resect = unit(0, "mm"),
   strip = strip_nested(),
   bleed = NULL
@@ -97,6 +103,7 @@ facet_nested <- function(
 
   params <- list(
     nest_line = nest_line,
+    solo_line = isTRUE(solo_line),
     resect = resect
   )
 
@@ -243,6 +250,7 @@ add_nest_indicator <- function(panels, params, theme) {
   if (inherits(nest_line, "element_blank")) {
     return(panels)
   }
+  solo <- isTRUE(params$solo_line)
 
   # Find strips
   layout <- panels$layout
@@ -252,18 +260,34 @@ add_nest_indicator <- function(panels, params, theme) {
 
   active <- unit(c(0, 1), "npc") + c(1, -1) * params$resect
 
-  h_strip <- layout[layout$l != layout$r,]
+  # browser()
+
+  h_strip <- layout
+  if (!solo) {
+    h_strip <- h_strip[h_strip$l != h_strip$r,]
+  } else {
+    h_strip  <- h_strip[grepl("^strip-b|^strip-t", h_strip$name), ]
+  }
   if (nrow(h_strip) > 0) {
     index <- h_strip$index
     is_secondary <- any(grepl("^strip-b", h_strip$name))
     passive <- rep(as.numeric(is_secondary), 2)
     # Draw the line
     indicator <- element_grob(nest_line, x = active, y = passive)
+
+    if (solo) {
+      pos <- if (is_secondary) function(x) 1L else nrow
+      is_inner <- vapply(panels$grobs[index], function(gt) {
+        gt$layout$t == pos(gt)
+      }, logical(1))
+      index <- index[!is_inner]
+    }
+
     # Add the line to the strip-grob
     panels$grobs[index] <- lapply(
       panels$grobs[index],
       function(gt) {
-        with(gt$layout, gtable_add_grob(
+        with(vec_slice(gt$layout, 1), gtable_add_grob(
           gt, indicator, t = t, l = l, r = r, b = b, z = z,
           name = "nester", clip = "off"
         ))
@@ -281,18 +305,32 @@ add_nest_indicator <- function(panels, params, theme) {
     panels$layout$z[index] <- panels$layout$z[index] + offset
   }
 
-  v_strip <- layout[layout$t != layout$b,]
+  v_strip <- layout
+  if (!solo) {
+    v_strip <- v_strip[v_strip$t != v_strip$b,]
+  } else {
+    v_strip <- v_strip[grepl("^strip-r|^strip-l", v_strip$name), ]
+  }
   if (nrow(v_strip) > 0) {
     index <- v_strip$index
     is_secondary <- any(grepl("^strip-r", v_strip$name))
     passive <- rep(as.numeric(!is_secondary), 2)
     # Draw the line
     indicator <- element_grob(nest_line, x = passive, y = active)
+
+    if (solo) {
+      pos <- if (is_secondary) function(x) 1L else ncol
+      is_inner <- vapply(panels$grobs[index], function(gt) {
+        gt$layout$l == pos(gt)
+      }, logical(1))
+      index <- index[!is_inner]
+    }
+
     # Add the line to the strip grob
     panels$grobs[index] <- lapply(
       panels$grobs[index],
       function(gt) {
-        with(gt$layout, gtable_add_grob(
+        with(vec_slice(gt$layout, 1), gtable_add_grob(
           gt, indicator, t = t, l = l, r = r, b = b, z = z,
           name = "nester", clip = "off"
         ))

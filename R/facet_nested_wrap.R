@@ -53,7 +53,8 @@ facet_nested_wrap <- function(
   shrink = TRUE, labeller = "label_value",
   as.table = TRUE, drop = TRUE,
   dir = "h", strip.position = "top",
-  nest_line = element_blank(),
+  nest_line = element_line(inherit.blank = TRUE),
+  solo_line = FALSE,
   resect = unit(0, "mm"),
   trim_blank = TRUE,
   strip = strip_nested(),
@@ -84,6 +85,7 @@ facet_nested_wrap <- function(
   }
   params <- list(
     nest_line = nest_line,
+    solo_line = isTRUE(solo_line),
     resect = resect
   )
   new_wrap_facets(

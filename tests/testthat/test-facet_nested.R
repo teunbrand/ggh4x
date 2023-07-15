@@ -8,8 +8,7 @@ df <- cbind.data.frame(
 )
 
 # Setup a basic plot
-basic <- ggplot(df, aes(Sepal.Length, Petal.Length)) +
-  geom_point()
+basic <- ggplot(df)
 
 
 # Basic tests -------------------------------------------------------------
@@ -161,6 +160,74 @@ test_that("facet_nested can draw nesting lines vertically", {
 
   # Test
   expect_equal(sum(is_indicator), 1)
+})
+
+test_that("facet_nested `solo` arguments works as intended", {
+
+  theme <- theme_get()
+  params <- list(nest_line = element_line(), solo_line = TRUE,
+                 resect = unit(0, "pt"))
+
+  df <- data_frame(
+    outer_x = c("A", "A", "B"),
+    inner_x = c("X", "Y", 'Z'),
+    outer_y = c("a", "b", "b"),
+    inner_y = c("x", "y", "z")
+  )
+
+  topright <- facet_grid2(
+    vars(outer_y, inner_y),
+    vars(outer_x, inner_x),
+    strip = strip_nested()
+  )
+  bottomleft <- facet_grid2(
+    vars(outer_y, inner_y),
+    vars(outer_x, inner_x),
+    strip = strip_nested(),
+    switch = "both"
+  )
+
+  topright   <- ggplotGrob(ggplot(df) + topright)
+  bottomleft <- ggplotGrob(ggplot(df) + bottomleft)
+
+  has_nestline <- function(gt, pattern) {
+    vapply(
+      gt$grobs[grepl(pattern, gt$layout$name)],
+      function(x) any(grepl("nester", x$layout$name)),
+      logical(1)
+    )
+  }
+
+  # Test top/right strips with solo nest lines
+  g <- add_nest_indicator(topright, params, theme)
+  has_nester <- has_nestline(g, "^strip-r")
+  expect_equal(has_nester, c(TRUE, TRUE, FALSE, FALSE, FALSE))
+  has_nester <- has_nestline(g, "^strip-t")
+  expect_equal(has_nester, c(TRUE, TRUE, FALSE, FALSE, FALSE))
+
+  # Test top/right strips without solo nest lines
+  params$solo_line <- FALSE
+  g <- add_nest_indicator(topright, params, theme)
+  has_nester <- has_nestline(g, "^strip-r")
+  expect_equal(has_nester, c(FALSE, TRUE, FALSE, FALSE, FALSE))
+  has_nester <- has_nestline(g, "^strip-t")
+  expect_equal(has_nester, c(TRUE, FALSE, FALSE, FALSE, FALSE))
+
+  # Test bottom/left strips with solo nest lines
+  params$solo_line <- TRUE
+  g <- add_nest_indicator(bottomleft, params, theme)
+  has_nester <- has_nestline(g, "^strip-l")
+  expect_equal(has_nester, c(TRUE, TRUE, FALSE, FALSE, FALSE))
+  has_nester <- has_nestline(g, "^strip-b")
+  expect_equal(has_nester, c(TRUE, TRUE, FALSE, FALSE, FALSE))
+
+  # Test bottom/left strips without solo nest lines
+  params$solo_line <- FALSE
+  g <- add_nest_indicator(bottomleft, params, theme)
+  has_nester <- has_nestline(g, "^strip-l")
+  expect_equal(has_nester, c(FALSE, TRUE, FALSE, FALSE, FALSE))
+  has_nester <- has_nestline(g, "^strip-b")
+  expect_equal(has_nester, c(TRUE, FALSE, FALSE, FALSE, FALSE))
 })
 
 test_that("facet_nested line resection works", {

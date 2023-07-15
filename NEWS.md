@@ -1,8 +1,9 @@
 # ggh4x (development version)
 
-* Swapped inheritance of `facet_nested(nest_line)`: it is now a line element
-  that inherits from blank elements, and the theme default is a blank element.
-  This makes it more responsive to the theme setting (#89).
+* Added the `solo_line` argument to nested facets (#90).
+* Swapped inheritance of the `nest_line` in nested facets: it is now a line 
+  element that inherits from blank elements, and the theme default is a blank 
+  element. This makes it more responsive to the theme setting (#89).
 * Anticipated compatability with future ggplot2 > 3.4.2.
 * `force_panelsizes()` gains a `total_width` and `total_height` argument to
   set the size of the total panel area.
