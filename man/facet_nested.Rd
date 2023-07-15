@@ -21,6 +21,7 @@ facet_nested(
   nest_line = element_line(inherit.blank = TRUE),
   solo_line = FALSE,
   resect = unit(0, "mm"),
+  render_empty = TRUE,
   strip = strip_nested(),
   bleed = NULL
 )
@@ -142,6 +143,9 @@ when \code{nest_line} is drawn.}
 
 \item{resect}{a \code{unit} vector of length 1, indicating how much the
 nesting line should be shortened.}
+
+\item{render_empty}{A \code{logical(1)}: whether to draw panels without any data
+(\code{TRUE}, default) or display these as blanks (\code{FALSE}).}
 
 \item{strip}{An object created by a call to a strip function, such as
 \code{\link[=strip_nested]{strip_nested()}}.}

@@ -68,6 +68,27 @@ test_that("facet_grid2 respects aspect ratio", {
   expect_true(case_asp$respect)
 })
 
+test_that("facet_grid2 can use `render_empty` to omit panels", {
+
+  case_null <- p + facet_grid2(vars(cyl), vars(gear), render_empty = TRUE)
+  case_test <- p + facet_grid2(vars(cyl), vars(gear), render_empty = FALSE)
+
+  case_null <- ggplotGrob(case_null)
+  case_test <- ggplotGrob(case_test)
+
+  is_panel_null <- grepl("^panel", case_null$layout$name)
+  is_panel_test <- grepl("^panel", case_test$layout$name)
+
+  expect_equal(is_panel_null, is_panel_test)
+
+  null_zero <- vapply(case_null$grobs[is_panel_null], inherits, what = "zeroGrob", logical(1))
+  expect_true(!any(null_zero))
+
+  test_zero <- vapply(case_test$grobs[is_panel_test], inherits, what = "zeroGrob", logical(1))
+  expect_equal(test_zero, c(rep(FALSE, 7), TRUE, FALSE))
+
+})
+
 test_that("facet_grid2 warns about inappropriate arguments", {
   expect_snapshot_error(facet_grid2(vs ~ am, independent = "x"))
   expect_snapshot_error(facet_grid2(vs ~ am, independent = "y"))

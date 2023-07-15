@@ -74,6 +74,7 @@ facet_nested <- function(
   nest_line = element_line(inherit.blank = TRUE),
   solo_line = FALSE,
   resect = unit(0, "mm"),
+  render_empty = TRUE,
   strip = strip_nested(),
   bleed = NULL
 ) {
@@ -111,7 +112,7 @@ facet_nested <- function(
     rows, cols,
     scales, space, axes, remove_labels, independent,
     shrink, labeller, as.table, switch,
-    drop, margins, strip,
+    drop, margins, render_empty, strip,
     params = params,
     super = FacetNested
   )

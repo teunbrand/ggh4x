@@ -60,6 +60,9 @@
 #'     \item{`"all"` or `TRUE`}{Both x- and y-scales are allowed to vary within
 #'     a column or row respectively.}
 #'   }
+#' @param render_empty A `logical(1)`: whether to draw panels without any data
+#'   (`TRUE`, default) or display these as blanks (`FALSE`).
+#'
 #' @param strip An object created by a call to a strip function, such as
 #'   [`strip_vanilla`][strip_vanilla()].
 #'
@@ -101,13 +104,14 @@ facet_grid2 <- function(
   switch  = NULL,
   drop    = TRUE,
   margins = FALSE,
+  render_empty = TRUE,
   strip = strip_vanilla()
 ) {
   new_grid_facets(
     rows, cols,
     scales, space, axes, remove_labels, independent,
     shrink, labeller, as.table, switch,
-    drop, margins, strip,
+    drop, margins, render_empty, strip,
     super = FacetGrid2
   )
 }
@@ -118,7 +122,7 @@ new_grid_facets <- function(
   rows, cols,
   scales, space, axes, rmlab, indy,
   shrink, labeller, as.table, switch,
-  drop, margins, strip,
+  drop, margins, render_empty, strip,
   params = list(), super = FacetGrid2
 ) {
   # Check arguments
@@ -147,7 +151,8 @@ new_grid_facets <- function(
     as.table = as.table,
     switch = switch,
     drop = drop,
-    axes = axes
+    axes = axes,
+    render_empty = !isFALSE(render_empty)
   ))
 
   ggproto(
@@ -179,6 +184,7 @@ FacetGrid2 <- ggproto(
     combine_vars(...)
   },
   compute_layout = function(data, params, self) {
+
     rows <- params$rows
     cols <- params$cols
     dups <- intersect(names(rows), names(cols))
@@ -218,6 +224,14 @@ FacetGrid2 <- ggproto(
                                 params$margins)
     base <- unique0(base)
 
+    if (!params$render_empty) {
+      universe <- self$vars_combine(data, params$plot_env, c(rows, cols),
+                              drop = params$drop)
+      render <- vec_in(base, universe)
+    } else {
+      render <- rep(TRUE, nrow(base))
+    }
+
     # Create panel info
     panel <- id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
@@ -233,7 +247,8 @@ FacetGrid2 <- ggproto(
       id(base[names(cols)], drop = TRUE)
     }
 
-    panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
+    panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base,
+                          .render = render)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -274,6 +289,7 @@ FacetGrid2 <- ggproto(
   },
   setup_panel_table = function(panels, layout, space, ranges,
                                aspect, clip, theme) {
+    panels[!layout$.render] <- list(zeroGrob())
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
     panel_table <- matrix(panels, nrow = nrow, ncol = ncol, byrow = TRUE)

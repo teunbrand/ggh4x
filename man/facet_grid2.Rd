@@ -18,6 +18,7 @@ facet_grid2(
   switch = NULL,
   drop = TRUE,
   margins = FALSE,
+  render_empty = TRUE,
   strip = strip_vanilla()
 )
 }
@@ -125,6 +126,9 @@ for each of the possible values of the faceting variables. If
 default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
+
+\item{render_empty}{A \code{logical(1)}: whether to draw panels without any data
+(\code{TRUE}, default) or display these as blanks (\code{FALSE}).}
 
 \item{strip}{An object created by a call to a strip function, such as
 \code{\link[=strip_vanilla]{strip_vanilla}}.}

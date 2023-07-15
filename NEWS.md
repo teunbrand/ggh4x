@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* `facet_grid2()`, and by extension `facet_nested()` too, gains a `render_empty` 
+  argument that can leave panels without data blank (#69).
 * Added the `solo_line` argument to nested facets (#90).
 * Swapped inheritance of the `nest_line` in nested facets: it is now a line 
   element that inherits from blank elements, and the theme default is a blank 
