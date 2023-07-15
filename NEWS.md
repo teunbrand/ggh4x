@@ -1,19 +1,30 @@
-# ggh4x (development version)
+# ggh4x 0.2.5
+
+This is a small release for future compatibility with ggplot2, along with some
+minor improvements. Moreover, the life cycle of guides has been set to 
+'questioning' because they might be migrated to a new package using an upcoming
+overhaul of the guide system. The guides won't be deprecated until alternatives
+are available.
+
+## New features
 
 * `facet_grid2()`, and by extension `facet_nested()` too, gains a `render_empty` 
   argument that can leave panels without data blank (#69).
 * Added the `solo_line` argument to nested facets (#90).
+* `force_panelsizes()` gains a `total_width` and `total_height` argument to
+  set the size of the total panel area.
+
+## Improvements
+
 * Swapped inheritance of the `nest_line` in nested facets: it is now a line 
   element that inherits from blank elements, and the theme default is a blank 
   element. This makes it more responsive to the theme setting (#89).
-* Anticipated compatability with future ggplot2 > 3.4.2.
-* `force_panelsizes()` gains a `total_width` and `total_height` argument to
-  set the size of the total panel area.
+* Anticipated compatibility with future ggplot2 > 3.4.2.
 * `stat_difference()` is now more performant, particularly for larger data.
 * `stat_difference()` no longer outputs a 0-level.
 * `stat_rle()` now considers `NA`s as equivalent values, unlike `base::rle()`.
 * Curb back overzealous whitespace removal in `facet_manual()` (#106).
-* `scale_{x/y}_facet()` now use quosures instead of expressions (#101).
+* `scale_{x/y}_facet()` now uses quosures instead of expressions (#101).
 
 # ggh4x 0.2.4
 

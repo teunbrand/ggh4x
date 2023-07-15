@@ -71,6 +71,12 @@ p + facet_grid2(vars(year), vars(drv),
                 scales = "free", independent = "y", space = "free_x")
 ```
 
+Lastly, the `render_empty` argument can be used to *not* display empty panels in cases where the `rows` and `cols` describe an intersection that may be empty.
+
+```{r grid_render_empty}
+p + facet_grid2(vars(drv), vars(cyl), render_empty = FALSE)
+```
+
 # Nested facets {#nested_facets}
 
 Perhaps this package might be best known for generating nested facets; wherein outer strips can span inner strips if they belong the the same category. This can be especially useful if there is some hierarchical relations to the facets. 
@@ -100,6 +106,8 @@ iris_plot +
   theme(strip.background = element_blank(),
         ggh4x.facet.nestline = element_line(colour = "blue"))
 ```
+
+Please note that the 'Short Leaves'/'setosa' strips are not separated by a nesting line. You can turn on the nesting line between such strips by using the `facet_nested(..., solo_line = TRUE)` argument.
 
 ## Relation to `facet_grid()`
 
@@ -214,8 +222,8 @@ The `clip` argument controls whether the content of the strip is clipped to the 
 
 ```{r strip_clip, fig.show='hold', fig.width = 3}
 p2 <- p +
-  theme(strip.background = element_rect(colour = "black", size = 2),
-        axis.line.y = element_line(colour = "black", size = 2))
+  theme(strip.background = element_rect(colour = "black", linewidth = 2),
+        axis.line.y = element_line(colour = "black", linewidth = 2))
 
 p2 + facet_wrap2(vars(year), strip = strip_vanilla(clip = "on")) +
   ggtitle('clip = "on"')
@@ -430,22 +438,32 @@ p + force_panelsizes(rows = unit(2, "cm"), cols = unit(2, "in"))
 The settings overrule the coordinates' or theme's aspect ratio and `space = "free"` facet arguments. By default, rows and columns are set relative within themselves only. When `respect = TRUE`, the rows and columns relative units become also relative between rows and columns, as you can see in the plot below. Alternatively, you can set them as absolute units with the `grid::unit()` function. Again, these need to be added *after* any facets.
 
 ```{r panel_sizes}
-lvls <- c("Points", "Density")
+lvls <- factor(c("Points", "Density"), c("Points", "Density"))
 g <- ggplot(faithful) +
   geom_point(aes(waiting, eruptions),
-             data = ~ cbind(.x, facet = factor(lvls[1], lvls))) +
+             data = ~ cbind(.x, facet = lvls[1])) +
   geom_density(aes(y = eruptions),
-               data = ~ cbind(faithful, facet = factor(lvls[2], lvls))) +
-  facet_grid(~ facet, scales = "free_x") +
-  force_panelsizes(cols = c(1, 0.2), 
-                   rows = c(0.5),
-                   respect = TRUE)
+               data = ~ cbind(faithful, facet = lvls[2])) +
+  facet_grid(~ facet, scales = "free_x")
+
+g + force_panelsizes(cols = c(1, 0.3), rows = c(0.5), respect = TRUE)
+```
+
+Another option is that we can set relative units and use the `total_width` and `total_height` to set the dimensions of the whole panel area in absolute units. This 'whole panel area' does not include axes or strips on the outside of the plot, but does include panel spacing and axes in between panels.
+
+```{r panel_sizes_total}
+g <- g + force_panelsizes(
+  cols = c(1, 0.3), total_width = unit(6, "cm"), 
+  total_height = unit(4, "cm")
+)
 g
 ```
 
-If you think the breaks of the density plot above are too packed, why not tweak these with `facetted_pos_scales()`? Note that `NULL` signals here that the default scale should be used.
+If you think the breaks of the density plot above are too packed, why not tweak these with `scale_{x/y}_facet()`? 
 
 ```{r panel_sizes_2}
-g + facetted_pos_scales(x = list(NULL, scale_x_continuous(breaks = c(0, 0.2, 0.4))))
+g + scale_x_facet(facet == "Density", breaks = c(0, 0.2, 0.4))
 ```
+
+
 

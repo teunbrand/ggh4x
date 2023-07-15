@@ -19,6 +19,9 @@ knitr::opts_chunk$set(
 library(ggh4x)
 ```
 
+> **Warning**
+> The lifecycle of position guides is 'questioning'. This is the case because guide extensions might get a new home after ggplot2 starts using a new guide system.
+
 # A primer on position guides
 
 Position guides are ticks, labels and lines drawn at the x- and y-axes. Vanilla ggplot2 comes with two position guides: `guide_axis()`, which draws axes, and `guide_none()`, which skips drawing anything. The ggh4x package has a few additional axes described further on. A convenient way to specify what guides should be drawn where is the `guides()` function, that let's you draw `x`, `x.sec`, `y` and `y.sec` axes. You can either specify a guide by name omitting the `guide_*` prefix, e.g. `"axis"`, or by calling the guide constructor, `guide_axis()`,  that allows you to give additional arguments. Unless you specify the `position` argument to guides yourself, `x` and `x.sec` are the bottom and top axes respectively and likewise `y` and `y.sec` are the left and right axes.
