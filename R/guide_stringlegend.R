@@ -1,7 +1,11 @@
 #' String legend
 #'
+#' `r lifecycle::badge("questioning")`
 #' This type of legend shows colour and fill mappings as coloured text. It does
 #' not draw keys as `guide_legend()` does.
+#' The function is questioned due to
+#' a possible migration of guide functions after ggplot2 releases a new guide
+#' system.
 #'
 #' @inheritParams ggplot2::guide_legend
 #' @param family A `character(1)` setting a font family for labels.

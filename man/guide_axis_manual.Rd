@@ -102,12 +102,16 @@ left, or right.}
 An \emph{axis_manual} guide class object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
 This axis allows a greater degree of control than the default axes guides. In
 particular, this axis allows setting break positions and labels independently
 from the scale and is not bound by the same constraints as secondary axes.
 Additionally, label attributes may be set in parallel to the labels
 themselves, circumventing the unsupported vectorised input to
 \code{element_text()}.
+The function is questioned due to
+a possible migration of guide functions after ggplot2 releases a new guide
+system.
 }
 \examples{
 ggplot(iris, aes(Species, Sepal.Width)) +

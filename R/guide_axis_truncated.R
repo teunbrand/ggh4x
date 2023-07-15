@@ -2,11 +2,15 @@
 
 #' Axis guide with truncated line
 #'
+#' `r lifecycle::badge("questioning")`
 #' This axis guide is similar to the normal axis guides for position scales, but
 #' can shorten the axis line that is being drawn. The `guide_axis_colour()`
 #' function is the same but with different defaults for the truncation that do
 #' not truncate the axis. Axis truncation and recolouring is supported
 #' throughout axes in ggh4x.
+#' The function is questioned due to
+#' a possible migration of guide functions after ggplot2 releases a new guide
+#' system.
 #'
 #' @inheritParams ggplot2::guide_axis
 #' @param trunc_lower,trunc_upper The lower and upper range of the truncated

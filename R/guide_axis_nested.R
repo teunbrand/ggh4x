@@ -2,10 +2,14 @@
 
 #' Nested axis guide
 #'
+#' `r lifecycle::badge("questioning")`
 #' Discrete position scales containing interacting factors can be visualised
 #' more clearly with a nested axis guide. Nested axis guides separate labels
 #' based on a delimiter and groups identical later labels, indicating the
 #' grouping with a line spanning the earlier labels.
+#' The function is questioned due to
+#' a possible migration of guide functions after ggplot2 releases a new guide
+#' system.
 #'
 #' @inheritParams guide_axis_truncated
 #' @param delim A `character` of length 1 to tell `strsplit` how

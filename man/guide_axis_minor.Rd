@@ -59,8 +59,12 @@ left, or right.}
 An \emph{axis_minor} guide class object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
 These are similar the the normal axis guides for position scales, but also
 place tickmarks at minor break positions.
+The function is questioned due to
+a possible migration of guide functions after ggplot2 releases a new guide
+system.
 }
 \section{Theme elements}{
 

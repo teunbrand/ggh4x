@@ -98,8 +98,12 @@ If 0 (default), the order is determined by a secret algorithm.}
 A \code{guide}, \code{stringlegend} S3 object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
 This type of legend shows colour and fill mappings as coloured text. It does
 not draw keys as \code{guide_legend()} does.
+The function is questioned due to
+a possible migration of guide functions after ggplot2 releases a new guide
+system.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, hwy)) +

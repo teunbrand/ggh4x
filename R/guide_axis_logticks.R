@@ -2,9 +2,13 @@
 
 #' Axis guide with ticks for logarithmic breaks
 #'
+#' `r lifecycle::badge("questioning")`
 #' This axis guide is probably best described as
 #' [ggplot2::annotation_logticks()] but implemented as a guide instead
 #' of a geom. The tick marks probably best suit log10 transformations.
+#' The function is questioned due to
+#' a possible migration of guide functions after ggplot2 releases a new guide
+#' system.
 #'
 #' @inheritParams guide_axis_minor
 #' @param prescaled A `logical` of length one, indicating whether the data

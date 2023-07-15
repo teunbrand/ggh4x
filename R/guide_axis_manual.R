@@ -2,12 +2,16 @@
 
 #' Manual axis
 #'
+#' `r lifecycle::badge("questioning")`
 #' This axis allows a greater degree of control than the default axes guides. In
 #' particular, this axis allows setting break positions and labels independently
 #' from the scale and is not bound by the same constraints as secondary axes.
 #' Additionally, label attributes may be set in parallel to the labels
 #' themselves, circumventing the unsupported vectorised input to
 #' `element_text()`.
+#' The function is questioned due to
+#' a possible migration of guide functions after ggplot2 releases a new guide
+#' system.
 #'
 #' @inheritParams guide_axis_truncated
 #' @param breaks One of the following ways to parametrise the tick and label

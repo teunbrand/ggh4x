@@ -2,8 +2,12 @@
 
 #' Axis guide with ticks for minor breaks
 #'
+#' `r lifecycle::badge("questioning")`
 #' These are similar the the normal axis guides for position scales, but also
 #' place tickmarks at minor break positions.
+#' The function is questioned due to
+#' a possible migration of guide functions after ggplot2 releases a new guide
+#' system.
 #'
 #' @inheritParams guide_axis_truncated
 #'

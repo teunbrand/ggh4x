@@ -87,11 +87,15 @@ left, or right.}
 An \emph{axis_ggh4x} guide class object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
 This axis guide is similar to the normal axis guides for position scales, but
 can shorten the axis line that is being drawn. The \code{guide_axis_colour()}
 function is the same but with different defaults for the truncation that do
 not truncate the axis. Axis truncation and recolouring is supported
 throughout axes in ggh4x.
+The function is questioned due to
+a possible migration of guide functions after ggplot2 releases a new guide
+system.
 }
 \examples{
 # Make a plot

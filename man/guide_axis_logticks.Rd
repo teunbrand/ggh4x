@@ -69,9 +69,13 @@ to use this argument if the base is not \code{10}.}
 An \emph{axis_logticks} guide class object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
 This axis guide is probably best described as
 \code{\link[ggplot2:annotation_logticks]{ggplot2::annotation_logticks()}} but implemented as a guide instead
 of a geom. The tick marks probably best suit log10 transformations.
+The function is questioned due to
+a possible migration of guide functions after ggplot2 releases a new guide
+system.
 }
 \section{Theme elements}{
 
