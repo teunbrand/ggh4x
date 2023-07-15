@@ -12,7 +12,7 @@ and heights of panels are set by the user."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,23 +66,32 @@ and heights of panels are set by the user.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">force_panelsizes</span><span class="op">(</span>rows <span class="op">=</span> <span class="cn">NULL</span>, cols <span class="op">=</span> <span class="cn">NULL</span>, respect <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">force_panelsizes</span><span class="op">(</span></span>
+<span>  rows <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  respect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  total_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  total_height <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>rows</dt>
-<dd><p>a <code>numeric</code> or <code>unit</code> vector for setting panel heights.</p></dd>
-
-
-<dt>cols</dt>
-<dd><p>a <code>numeric</code> or <code>unit</code> vector for setting panel widths.</p></dd>
+    <dl><dt>rows, cols</dt>
+<dd><p>a <code>numeric</code> or <code>unit</code> vector for setting panel heights
+(rows) or panel widths (cols).</p></dd>
 
 
 <dt>respect</dt>
 <dd><p>a <code>logical</code> value. If <code>TRUE</code>, widths and heights
 specified in <code>"null" unit</code>s are proportional. If <code>FALSE</code>,
 <code>"null" unit</code>s in x- and y-direction vary independently.</p></dd>
+
+
+<dt>total_width, total_height</dt>
+<dd><p>an absolute <code>unit</code> of length 1 setting the
+total width or height of all panels and the decoration between panels.
+If not <code>NULL</code>, <code>rows</code> and <code>cols</code> should be <code>numeric</code> and not <code>unit</code>s.</p></dd>
 
 </dl></div>
     <div class="section level2">

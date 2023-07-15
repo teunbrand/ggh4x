@@ -43,7 +43,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -219,7 +219,12 @@
 <span><span class="co"># Setting the sizes of panels individually</span></span>
 <span><span class="va">size</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">size</span>, <span class="va">size</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">g</span></span></code></pre></div>
+<span><span class="va">g</span></span>
+<span><span class="co">#&gt; Warning: The S3 guide system was deprecated in ggplot2 3.5.0.</span></span>
+<span><span class="co">#&gt; ℹ It has been replaced by a ggproto system that can be extended.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span><span class="co">#&gt; generated.</span></span></code></pre></div>
 <p><img src="reference/figures/README-facets-1.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -276,8 +281,8 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://app.codecov.io/gh/teunbrand/ggh4x?branch=master" class="external-link"><img src="https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/teunbrand/ggh4x/actions" class="external-link"><img src="https://github.com/teunbrand/ggh4x/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://CRAN.R-project.org/package=ggh4x" class="external-link"><img src="https://www.r-pkg.org/badges/version/ggh4x" alt="CRAN status"></a></li>
+<li><a href="https://github.com/teunbrand/ggh4x/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/teunbrand/ggh4x/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 

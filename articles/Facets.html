@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,6 +159,12 @@ however combine these in <em>different</em> dimensions.</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, </span>
 <span>                scales <span class="op">=</span> <span class="st">"free"</span>, independent <span class="op">=</span> <span class="st">"y"</span>, space <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Facets_files/figure-html/grid_independent_space-1.png" width="480"></p>
+<p>Lastly, the <code>render_empty</code> argument can be used to
+<em>not</em> display empty panels in cases where the <code>rows</code>
+and <code>cols</code> describe an intersection that may be empty.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, render_empty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Facets_files/figure-html/grid_render_empty-1.png" width="480"></p>
 </div>
 </div>
 <div class="section level2">
@@ -170,7 +176,7 @@ the same category. This can be especially useful if there is some
 hierarchical relations to the facets.</p>
 <p>In the example below, we’ll categorise the Iris species for having
 long or short leaves.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span></span>
 <span>  <span class="va">iris</span>, </span>
 <span>  Nester <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span>, <span class="st">"Short Leaves"</span>, <span class="st">"Long Leaves"</span><span class="op">)</span></span>
@@ -192,12 +198,16 @@ inherited from the theme element <code>ggh4x.facet.nestline</code>. In
 the example below, the nesting line is dotted because the given element
 has <code>linetype = 2</code>, but is also blue because it inherits from
 the theme element.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_plot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span>, nest_line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>        ggh4x.facet.nestline <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Facets_files/figure-html/nested_nesting_lines-1.png" width="480"></p>
+<p>Please note that the ‘Short Leaves’/‘setosa’ strips are not separated
+by a nesting line. You can turn on the nesting line between such strips
+by using the <code>facet_nested(..., solo_line = TRUE)</code>
+argument.</p>
 </div>
 <div class="section level3">
 <h3 id="relation-to-facet_grid">Relation to <code>facet_grid()</code><a class="anchor" aria-label="anchor" href="#relation-to-facet_grid"></a>
@@ -215,7 +225,7 @@ put the second set of points in all panels, just like
 <p>Furthermore, when strips are placed at the bottom, it rearranges the
 strips so that the inner strips are closest to the panels and spanning
 strips are furthest from the panel.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_plot</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">.x</span>, Species <span class="op">=</span> <span class="cn">NULL</span>, Nester <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_nested.html">facet_nested</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Nester</span> <span class="op">+</span> <span class="va">Species</span>, switch <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></code></pre></div>
@@ -227,7 +237,7 @@ strips are furthest from the panel.</p>
 <p>A similar variant exists for wrapping in facets. It can span the
 strips for every <code>strip.position</code> argument, and has a few
 nifty tricks for duplicating the axes or just the axis ticks.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/facet_nested_wrap.html">facet_nested_wrap</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span><span class="op">)</span>, dir <span class="op">=</span> <span class="st">"v"</span>, strip.position <span class="op">=</span> <span class="st">"left"</span>,</span>
@@ -257,7 +267,7 @@ we lose some control over where data is drawn. A base R graphics
 equivalent to set-up multi-panel figures is the <code><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout()</a></code>
 function. A neat property of this function is that a single plot can
 occupy more than one cell in a grid.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Setting up a design for a layout</span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
@@ -288,7 +298,7 @@ on the available data, like the grid and wrap facets do. The matrix that
 we had given to the <code><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout()</a></code> function in the plots above,
 can now be used as the <code>design</code> argument for the manual
 facets.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use design from previous chunk</span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_manual.html">facet_manual</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span>, design <span class="op">=</span> <span class="va">design</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Facets_files/figure-html/facet_manual-1.png" width="480"></p>
@@ -298,7 +308,7 @@ argument in the <code>patchwork::plot_layout()</code> function that lets
 you set columns by using subsequent characters, and set rows by using
 new lines. Empty cells can be indicated with the
 <code>#</code>-sign.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">design</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  A##</span></span>
 <span><span class="st">  AB#</span></span>
@@ -324,7 +334,7 @@ the height of the 4 wheel drive (4) panel is not exactly 3 + 2 = 5
 relative units, due to the room that had to be made to fit the x-axis of
 the front-wheel drive (f) panel and the strip of the rear-wheel drive
 (r) panel.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_manual.html">facet_manual</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span>, design <span class="op">=</span> <span class="va">design</span>,</span>
 <span>  heights <span class="op">=</span> <span class="fl">4</span><span class="op">:</span><span class="fl">1</span>, widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="st">"cm"</span><span class="op">)</span></span>
@@ -351,7 +361,7 @@ against ‘illegal’ layouts. If you specify non-rectangular areas in the
 and columns a panel will occupy, which can lead to (partially)
 overlapping panels. It is up to the user to decide what is right in
 these cases and the facets are not prohibitive.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">design</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  AA#</span></span>
 <span><span class="st">  ACB</span></span>
@@ -389,20 +399,10 @@ background is effectively halved in size and near impossible to get
 nicely aligned with, for example, axis lines. When clipping is off, the
 strip backgrounds have their full line-widths, and strip text is allowed
 to exceed the confines of the background.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>        axis.line.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use the `linewidth` argument instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
-<span><span class="co">#&gt; Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use the `linewidth` argument instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>        axis.line.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_wrap2.html">facet_wrap2</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>, strip <span class="op">=</span> <span class="fu"><a href="../reference/strip_vanilla.html">strip_vanilla</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"on"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">'clip = "on"'</span><span class="op">)</span></span>
@@ -415,7 +415,7 @@ strips are calculated in the context of multi-layered strips. The
 default, <code>"constant"</code>, calculates a single size for every
 layer. Normally, this makes everything looks tidy, but can become
 awkward when longer labels are combined with shorter labels.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  long <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"A long title that is going to make the\n"</span>,</span>
 <span>               <span class="st">"smaller title take up too much space"</span><span class="op">)</span>,</span>
@@ -434,7 +434,7 @@ awkward when longer labels are combined with shorter labels.</p>
 <p><img src="Facets_files/figure-html/strip_size_constant-1.png" width="480"></p>
 <p>Setting <code>size = "variable"</code> instead shrinks excessive
 spacing from strips on a per-layer basis.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span><span class="va">long</span> <span class="op">+</span> <span class="va">short</span> <span class="op">~</span> <span class="va">.</span>, switch <span class="op">=</span> <span class="st">"y"</span>,</span>
 <span>                strip <span class="op">=</span> <span class="fu"><a href="../reference/strip_vanilla.html">strip_vanilla</a></span><span class="op">(</span>size <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">'size = "variable"'</span><span class="op">)</span></span></code></pre></div>
@@ -461,7 +461,7 @@ results by using
 which is slightly less verbose. There is also a
 <code><a href="../reference/distribute_args.html">elem_list_rect()</a></code> function to do the same for
 <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect()</a></code>.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ridiculous_strips</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/strip_themed.html">strip_themed</a></span><span class="op">(</span></span>
 <span>     <span class="co"># Horizontal strips</span></span>
 <span>     background_x <span class="op">=</span> <span class="fu"><a href="../reference/distribute_args.html">elem_list_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"limegreen"</span>, <span class="st">"dodgerblue"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -489,7 +489,7 @@ resulting graphical objects communicate their size appropriately. The
 constraints are similar to the constraints in <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code>: text
 elements should inherit from <code>element_text</code> and background
 elements should inherit from <code>element_rect</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span></span>
 <span>   <span class="va">.</span> <span class="op">~</span> <span class="va">drv</span> <span class="op">+</span> <span class="va">year</span>,</span>
 <span>   strip <span class="op">=</span> <span class="fu"><a href="../reference/strip_themed.html">strip_themed</a></span><span class="op">(</span></span>
@@ -517,7 +517,7 @@ lower layer nested strips are allowed to merge when higher layer nested
 strips are different. In the example below, you can see in the 2nd and
 3rd panels that the two “f” labels aren’t merged because higher strips
 are different (“4”and “5”).</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_wrap2.html">facet_wrap2</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  strip <span class="op">=</span> <span class="fu"><a href="../reference/strip_nested.html">strip_nested</a></span><span class="op">(</span>bleed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -529,7 +529,7 @@ allowed to ‘bleed’ into one another even though the higher level strips
 are different. In the example below, you can see that the “f” strips of
 the 2nd and 3rd panel have merged, even though they have different
 labels (“4” and “5”) in higher layer strips.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_wrap2.html">facet_wrap2</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">cyl</span>, <span class="va">drv</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  strip <span class="op">=</span> <span class="fu"><a href="../reference/strip_nested.html">strip_nested</a></span><span class="op">(</span>bleed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -542,7 +542,7 @@ layers are closer to the panels than the outer layers. It felt like the
 right decision because if we’re trying to distinguish hierarchies, it
 sense to place the more fine-grained hierarchy closer to the data that
 is a member of that hierarchy.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/facet_grid2.html">facet_grid2</a></span><span class="op">(</span></span>
 <span>  cols <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="st">"Outer label"</span>, <span class="st">"Inner label"</span><span class="op">)</span>,</span>
 <span>  switch <span class="op">=</span> <span class="st">"x"</span>, strip <span class="op">=</span> <span class="fu"><a href="../reference/strip_vanilla.html">strip_vanilla</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -577,7 +577,7 @@ free, you can use the <code><a href="https://ggplot2.tidyverse.org/reference/lim
 functions to fix the limits, but the <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code>
 function requires the <code>scales</code> argument in a facet to be
 <code>"free"</code> in order to apply the different scales.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_reverse</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/dollar_format.html" class="external-link">dollar</a></span>,</span>
@@ -608,7 +608,7 @@ facets, the plot layout is a <code>data.frame</code> that contains the
 keep track of what panel goes where in the grid of cells. In addition,
 it contains the faceting variables, such as <code>class</code> in the
 example below.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">displ</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -641,7 +641,7 @@ of, for example, <code><a href="https://ggplot2.tidyverse.org/reference/scale_co
 <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_reverse()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/scale_date.html" class="external-link">scale_x_date()</a></code>, you can
 provide <code>type = "log10"</code>, <code>type = "reverse"</code> and
 <code>type = "date"</code> respectively.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">displ</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -667,7 +667,7 @@ transformations are applied <em>before</em> stat calculations.
 Therefore, it is recommended to pre-transform the data in layers with
 non-identity statistics in the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> mapping. An example of
 what could go wrong is shown below.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -708,7 +708,7 @@ in the ‘ggforce’ package, those in ‘ggh4x’ and possibly others (it’s
 redundant for <code><a href="../reference/facet_manual.html">facet_manual()</a></code> though). Notably, it also
 applies to <code><a href="https://ggplot2.tidyverse.org/reference/facet_null.html" class="external-link">facet_null()</a></code>, the default facet in every
 plot.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"cm"</span><span class="op">)</span>, cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Facets_files/figure-html/panel_size_null-1.png" width="480"></p>
 <p>The settings overrule the coordinates’ or theme’s aspect ratio and
@@ -719,25 +719,33 @@ also relative between rows and columns, as you can see in the plot
 below. Alternatively, you can set them as absolute units with the
 <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> function. Again, these need to be added
 <em>after</em> any facets.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lvls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Points"</span>, <span class="st">"Density"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lvls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Points"</span>, <span class="st">"Density"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Points"</span>, <span class="st">"Density"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">faithful</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">waiting</span>, <span class="va">eruptions</span><span class="op">)</span>,</span>
-<span>             data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">.x</span>, facet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">lvls</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">lvls</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>             data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">.x</span>, facet <span class="op">=</span> <span class="va">lvls</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">eruptions</span><span class="op">)</span>,</span>
-<span>               data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">faithful</span>, facet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">lvls</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">lvls</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="op">~</span> <span class="va">facet</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span>, </span>
-<span>                   rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,</span>
-<span>                   respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">g</span></span></code></pre></div>
+<span>               data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">faithful</span>, facet <span class="op">=</span> <span class="va">lvls</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="op">~</span> <span class="va">facet</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.3</span><span class="op">)</span>, rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>, respect <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Facets_files/figure-html/panel_sizes-1.png" width="480"></p>
+<p>Another option is that we can set relative units and use the
+<code>total_width</code> and <code>total_height</code> to set the
+dimensions of the whole panel area in absolute units. This ‘whole panel
+area’ does not include axes or strips on the outside of the plot, but
+does include panel spacing and axes in between panels.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/force_panelsizes.html">force_panelsizes</a></span><span class="op">(</span></span>
+<span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.3</span><span class="op">)</span>, total_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">6</span>, <span class="st">"cm"</span><span class="op">)</span>, </span>
+<span>  total_height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">"cm"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">g</span></span></code></pre></div>
+<p><img src="Facets_files/figure-html/panel_sizes_total-1.png" width="480"></p>
 <p>If you think the breaks of the density plot above are too packed, why
-not tweak these with <code><a href="../reference/facetted_pos_scales.html">facetted_pos_scales()</a></code>? Note that
-<code>NULL</code> signals here that the default scale should be
-used.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/facetted_pos_scales.html">facetted_pos_scales</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+not tweak these with <code>scale_{x/y}_facet()</code>?</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_facet.html">scale_x_facet</a></span><span class="op">(</span><span class="va">facet</span> <span class="op">==</span> <span class="st">"Density"</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Facets_files/figure-html/panel_sizes_2-1.png" width="480"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

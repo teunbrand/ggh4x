@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,10 +57,33 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="ggh4x-development-version">ggh4x (development version)<a class="anchor" aria-label="anchor" href="#ggh4x-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.5" id="ggh4x-025">ggh4x 0.2.5<a class="anchor" aria-label="anchor" href="#ggh4x-025"></a></h2>
+<p>This is a small release for future compatibility with ggplot2, along with some minor improvements. Moreover, the life cycle of guides has been set to ‘questioning’ because they might be migrated to a new package using an upcoming overhaul of the guide system. The guides won’t be deprecated until alternatives are available.</p>
+<div class="section level3">
+<h3 id="new-features-0-2-5">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-5"></a></h3>
+<ul><li>
+<code><a href="../reference/facet_grid2.html">facet_grid2()</a></code>, and by extension <code><a href="../reference/facet_nested.html">facet_nested()</a></code> too, gains a <code>render_empty</code> argument that can leave panels without data blank (<a href="https://github.com/teunbrand/ggh4x/issues/69" class="external-link">#69</a>).</li>
+<li>Added the <code>solo_line</code> argument to nested facets (<a href="https://github.com/teunbrand/ggh4x/issues/90" class="external-link">#90</a>).</li>
+<li>
+<code><a href="../reference/force_panelsizes.html">force_panelsizes()</a></code> gains a <code>total_width</code> and <code>total_height</code> argument to set the size of the total panel area.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="improvements-0-2-5">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-2-5"></a></h3>
+<ul><li>Swapped inheritance of the <code>nest_line</code> in nested facets: it is now a line element that inherits from blank elements, and the theme default is a blank element. This makes it more responsive to the theme setting (<a href="https://github.com/teunbrand/ggh4x/issues/89" class="external-link">#89</a>).</li>
+<li>Anticipated compatibility with future ggplot2 &gt; 3.4.2.</li>
+<li>
+<code><a href="../reference/stat_difference.html">stat_difference()</a></code> is now more performant, particularly for larger data.</li>
+<li>
+<code><a href="../reference/stat_difference.html">stat_difference()</a></code> no longer outputs a 0-level.</li>
+<li>
+<code><a href="../reference/stat_rle.html">stat_rle()</a></code> now considers <code>NA</code>s as equivalent values, unlike <code><a href="https://rdrr.io/r/base/rle.html" class="external-link">base::rle()</a></code>.</li>
+<li>Curb back overzealous whitespace removal in <code><a href="../reference/facet_manual.html">facet_manual()</a></code> (<a href="https://github.com/teunbrand/ggh4x/issues/106" class="external-link">#106</a>).</li>
+<li>
+<code>scale_{x/y}_facet()</code> now uses quosures instead of expressions (<a href="https://github.com/teunbrand/ggh4x/issues/101" class="external-link">#101</a>).</li>
+</ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.4" id="ggh4x-024">ggh4x 0.2.4<a class="anchor" aria-label="anchor" href="#ggh4x-024"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.4" id="ggh4x-024">ggh4x 0.2.4<a class="anchor" aria-label="anchor" href="#ggh4x-024"></a></h2><p class="text-muted">CRAN release: 2023-04-04</p>
 <p>This is a small release for compatibility with ggplot2 3.4.2, along with some minor improvements and bug fixes.</p>
 <div class="section level3">
 <h3 id="new-features-0-2-4">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-4"></a></h3>

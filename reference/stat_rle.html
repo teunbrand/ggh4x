@@ -12,7 +12,7 @@ lengths of consecutive repeated values."><meta property="og:image" content="http
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,8 +176,9 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The data is first ordered on the <code>x</code> aesthetic before run
-lengths are calculated for the <code>label</code> aesthetic.</p>
+    <p>The data is first ordered on the <code>x</code> aesthetic before run lengths are
+calculated for the <code>label</code> aesthetic. In contrast to <code><a href="https://rdrr.io/r/base/rle.html" class="external-link">base::rle()</a></code>, <code>NA</code>s
+are considered equivalent values, not different values.</p>
     </div>
     <div class="section level2">
     <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>

@@ -14,7 +14,7 @@ between two series."><meta property="og:image" content="https://teunbrand.github
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@ between two series.</p>
 <span>  geom <span class="op">=</span> <span class="st">"ribbon"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"0"</span><span class="op">)</span>,</span>
+<span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="st">"-"</span><span class="op">)</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -126,9 +126,8 @@ to the paired geom/stat.</p></dd>
 
 
 <dt>levels</dt>
-<dd><p>A <code>character(3)</code> indicating factor levels for the <code>fill</code>
-aesthetic for the following cases (1) <code>max &gt; min</code> (2) <code>max &lt; min</code>
-(3) <code>max == min</code>. Will be padded with <code>NA</code>s when necessary.</p></dd>
+<dd><p>A <code>character(2)</code> indicating factor levels for the <code>fill</code>
+aesthetic for the cases where (1) <code>max &gt; min</code> and where (2) <code>max &lt; min</code>.</p></dd>
 
 
 <dt>na.rm</dt>
@@ -170,6 +169,11 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 different fills for the signs of differences. The stat takes care to
 interpolate a series whenever a crossover between <code>max</code> and <code>min</code> series
 happens. This makes the ribbon not look stumpy at these crossovers.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>When there is a run of more than two 0-difference values, the inner values
+will be ignored.</p>
     </div>
     <div class="section level2">
     <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>

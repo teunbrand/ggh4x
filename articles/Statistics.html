@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -365,31 +365,16 @@ the difference.</p>
 <p>To circumvent this inconvenience, <code><a href="../reference/stat_difference.html">stat_difference()</a></code> uses
 run-length encoding to re-assign the groups and adds a <code>sign</code>
 variable to keep track which of the two variables is larger. By default,
-the <code>fill</code> is populated with the <code>sign</code>
-variable.</p>
+the <code>fill</code> is populated with the <code>sign</code> variable.
+We can control the name of the filled areas by using the
+<code>levels</code> argument.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/stat_difference.html">stat_difference</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">psavert</span>, ymax <span class="op">=</span> <span class="va">uempmed</span><span class="op">)</span>,</span>
-<span>                  alpha  <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/stat_difference.html">stat_difference</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">psavert</span>, ymax <span class="op">=</span> <span class="va">uempmed</span><span class="op">)</span>,</span>
+<span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"More uempmed"</span>, <span class="st">"More psavert"</span><span class="op">)</span>,</span>
+<span>  alpha  <span class="op">=</span> <span class="fl">0.8</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="Statistics_files/figure-html/unnamed-chunk-18-1.png" width="384"></p>
-</div>
-<div class="section level3">
-<h3 id="controlling-the-fill">Controlling the fill<a class="anchor" aria-label="anchor" href="#controlling-the-fill"></a>
-</h3>
-<p>Because there are 4 dates in the dataset where
-<code>uempmed == psavert</code> is true, <code><a href="../reference/stat_difference.html">stat_difference()</a></code>
-will include a <code>0</code> level. The ribbon has no height where this
-occurs, so you don’t typically see this zero-difference level. The
-<code>levels</code> argument is included to assert more control over how
-the <code>sign</code> computed variable will be displayed. In the
-example below, we remove the <code>0</code> level by giving it a
-<code>NA</code> for sign and telling the fill scale to not translate
-<code>NA</code>s.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/stat_difference.html">stat_difference</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">psavert</span>, ymax <span class="op">=</span> <span class="va">uempmed</span><span class="op">)</span>,</span>
-<span>                    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"More uempmed"</span>, <span class="st">"More psavert"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>                    alpha  <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html" class="external-link">scale_fill_discrete</a></span><span class="op">(</span>na.translate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-19-1.png" width="384"></p>
 </div>
 <div class="section level3">
 <h3 id="interpolation">Interpolation<a class="anchor" aria-label="anchor" href="#interpolation"></a>
@@ -398,7 +383,7 @@ example below, we remove the <code>0</code> level by giving it a
 interpolates the cross-over points of lines. It’s not very visible in
 the densely populated graph above, but we can generate some dummy data
 to show what we mean.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>, ymin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2.5</span><span class="op">)</span>, ymax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -413,7 +398,7 @@ to show what we mean.</p>
 <span></span>
 <span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="../reference/stat_difference.html">stat_difference</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"stat_difference()"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-20-1.png" width="288"><img src="Statistics_files/figure-html/unnamed-chunk-20-2.png" width="288"></p>
+<p><img src="Statistics_files/figure-html/unnamed-chunk-19-1.png" width="288"><img src="Statistics_files/figure-html/unnamed-chunk-19-2.png" width="288"></p>
 </div>
 </div>
 <div class="section level2">
@@ -428,7 +413,7 @@ use functions that are supposed to work on the x- and y-positions
 simultaneously.</p>
 <p>For example, it is pretty easy to combine <code>range</code> and
 <code>mean</code> to construct range indicators.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">faithful</span></span>
 <span><span class="va">df</span><span class="op">$</span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">eruptions</span> <span class="op">&gt;</span> <span class="fl">3</span>, <span class="st">"High"</span>, <span class="st">"Low"</span><span class="op">)</span></span>
 <span></span>
@@ -437,7 +422,7 @@ simultaneously.</p>
 <span>  <span class="fu"><a href="../reference/stat_funxy.html">stat_funxy</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">group</span><span class="op">)</span>,</span>
 <span>             funx <span class="op">=</span> <span class="va">range</span>, funy <span class="op">=</span> <span class="va">mean</span>, geom <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>             arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>ends <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-21-1.png" width="384"></p>
+<p><img src="Statistics_files/figure-html/unnamed-chunk-20-1.png" width="384"></p>
 <div class="section level3">
 <h3 id="centroids-and-midpoints">Centroids and midpoints<a class="anchor" aria-label="anchor" href="#centroids-and-midpoints"></a>
 </h3>
@@ -449,14 +434,14 @@ and y-positions and <code><a href="../reference/stat_funxy.html">stat_midpoint()
 range. Under the hood, these are still <code><a href="../reference/stat_funxy.html">stat_funxy()</a></code>, but
 have default functions. The centroid and midpoint stats are convenient
 to label groups, for example.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">waiting</span>, <span class="va">eruptions</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_funxy.html">stat_centroid</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Centroid"</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"dodgerblue"</span>,</span>
 <span>                geom <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_funxy.html">stat_midpoint</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Midpoint"</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"limegreen"</span>,</span>
 <span>                geom <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-22-1.png" width="384"></p>
+<p><img src="Statistics_files/figure-html/unnamed-chunk-21-1.png" width="384"></p>
 </div>
 <div class="section level3">
 <h3 id="cropping-data">Cropping data<a class="anchor" aria-label="anchor" href="#cropping-data"></a>
@@ -467,12 +452,12 @@ of the function outputs, you can change this behaviour by setting
 have other aesthetics that you care about, in the same group. Not
 cropping other data probably only makes sense if the functions you
 provide return a single summary statistic though.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">waiting</span>, <span class="va">eruptions</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_funxy.html">stat_centroid</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>xend <span class="op">=</span> <span class="va">waiting</span>, yend <span class="op">=</span> <span class="va">eruptions</span>, colour <span class="op">=</span> <span class="va">group</span><span class="op">)</span>,</span>
 <span>                geom <span class="op">=</span> <span class="st">"segment"</span>, crop_other <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-23-1.png" width="384"></p>
+<p><img src="Statistics_files/figure-html/unnamed-chunk-22-1.png" width="384"></p>
 </div>
 </div>
 <div class="section level2">
@@ -533,7 +518,7 @@ useful to extract the following properties:</p>
 <p>In the example below, we’ll use the <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut()</a></code> function to
 divide the y-values into three bins, and use the <code><a href="../reference/stat_rle.html">stat_rle()</a></code>
 to draw rectangles where datapoints fall into these bins.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -547,10 +532,10 @@ to draw rectangles where datapoints fall into these bins.</p>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
 <span><span class="co">#&gt;   variable into a factor?</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-25-1.png" width="384"></p>
+<p><img src="Statistics_files/figure-html/unnamed-chunk-24-1.png" width="384"></p>
 <p>This can be made slightly more pleasing by closing gaps between
 rectangles.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_rle.html">stat_rle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">y</span>, breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>           align <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -560,7 +545,7 @@ rectangles.</p>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
 <span><span class="co">#&gt;   variable into a factor?</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-26-1.png" width="384"></p>
+<p><img src="Statistics_files/figure-html/unnamed-chunk-25-1.png" width="384"></p>
 </div>
 <div class="section level3">
 <h3 id="using-computed-variables">Using computed variables<a class="anchor" aria-label="anchor" href="#using-computed-variables"></a>
@@ -571,14 +556,14 @@ like to summarise the above graph in just it’s runs, we might be
 interested in what order the runs are and how long the runs are. If we
 make use of ggplot2’s <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">stage()</a></code>
 functions, we can grab this information from the stat.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_rle.html">stat_rle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">stage</a></span><span class="op">(</span><span class="va">x</span>, after_stat <span class="op">=</span> <span class="va">run_id</span><span class="op">)</span>,</span>
 <span>               <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">runlength</span><span class="op">)</span>,</span>
 <span>               label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">y</span>, breaks <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
 <span>               fill <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">runvalue</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>           geom <span class="op">=</span> <span class="st">"col"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Statistics_files/figure-html/unnamed-chunk-27-1.png" width="384"></p>
+<p><img src="Statistics_files/figure-html/unnamed-chunk-26-1.png" width="384"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

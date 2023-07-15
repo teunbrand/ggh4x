@@ -12,7 +12,7 @@ and column faceting variables and nests grouped facets."><meta property="og:imag
     
     <a class="navbar-brand me-2" href="../index.html">ggh4x</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,8 +80,10 @@ and column faceting variables and nests grouped facets.</p>
 <span>  switch <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  margins <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  nest_line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  nest_line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>inherit.blank <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  solo_line <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  resect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0</span>, <span class="st">"mm"</span><span class="op">)</span>,</span>
+<span>  render_empty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  strip <span class="op">=</span> <span class="fu"><a href="strip_nested.html">strip_nested</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  bleed <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -253,13 +255,26 @@ variables for which margins are to be created.</p></dd>
 
 <dt>nest_line</dt>
 <dd><p>a theme element, either <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank()</a></code> or inheriting
-from <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">ggplot2::element_line()</a></code>. This element inherits from
-the <code><a href="theme_extensions.html">ggh4x.facet.nestline</a></code> element in the theme.</p></dd>
+from <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">ggplot2::element_line()</a></code>. Lines are drawn between layers of strips
+indicating hierarchy. The element inherits from the
+<code><a href="theme_extensions.html">ggh4x.facet.nestline</a></code> element in the theme.</p></dd>
+
+
+<dt>solo_line</dt>
+<dd><p>A <code>logical(1)</code> indicating whether parent strips with a
+single child should be drawn with a <code>nest_line</code> (<code>TRUE</code>) or the line only
+applies to parents with multiple children (<code>FALSE</code>, default). Only relevant
+when <code>nest_line</code> is drawn.</p></dd>
 
 
 <dt>resect</dt>
 <dd><p>a <code>unit</code> vector of length 1, indicating how much the
 nesting line should be shortened.</p></dd>
+
+
+<dt>render_empty</dt>
+<dd><p>A <code>logical(1)</code>: whether to draw panels without any data
+(<code>TRUE</code>, default) or display these as blanks (<code>FALSE</code>).</p></dd>
 
 
 <dt>strip</dt>
