@@ -21,7 +21,7 @@ test_that("facet_grid2 can duplicate axes and remove labels", {
   b <- vapply(b, function(x){length(x$children[[2]]$grobs)}, integer(1))
   l <- vapply(l, function(x){length(x$children[[2]]$grobs)}, integer(1))
 
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     expect_equal(b, c(2L, 2L, 2L, 2L))
     expect_equal(l, c(1L, 1L, 2L, 2L))
   } else {

@@ -149,7 +149,7 @@ Strip <- ggproto(
     aes <- if (position %in% c("top", "bottom")) "x" else "y"
     labels <- mapply(function(label, elem) {
       grob <- element_grob(elem, label, margin_x = TRUE, margin_y = TRUE)
-      if (utils::packageVersion("ggplot2") <= "3.4.2") {
+      if (!new_guide_system) {
         if (!inherits(grob, c("titleGrob", "zeroGrob"))) {
           grob <- add_margins(
             gList(grob), grobHeight(grob), grobWidth(grob),
@@ -167,7 +167,7 @@ Strip <- ggproto(
     }
 
     if (aes == "x") {
-      if (utils::packageVersion("ggplot2") <= "3.4.2") {
+      if (!new_guide_system) {
         height <- lapply(labels[!zeros], function(x) x$heights[2])
         height <- lapply(split(height, layer_id[!zeros]), max_height)
         height <- do.call(unit.c, height)
@@ -176,7 +176,7 @@ Strip <- ggproto(
       }
       width  <- rep(unit(1, "null"), length(height))
     } else {
-      if (utils::packageVersion("ggplot2") <= "3.4.2") {
+      if (!new_guide_system) {
         width <- lapply(labels[!zeros], function(x) x$widths[2])
         width <- lapply(split(width, layer_id[!zeros]), max_width)
         width <- do.call(unit.c, width)
@@ -186,7 +186,7 @@ Strip <- ggproto(
       height <- rep(unit(1, "null"), length(width))
     }
 
-    if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    if (!new_guide_system) {
       # Set all margins equal
       idx_w <- c("vp", "parent", "layout", "widths")
       idx_h <- c("vp", "parent", "layout", "heights")

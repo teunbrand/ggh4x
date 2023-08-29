@@ -89,7 +89,7 @@ test_that("guide_axis_nested errors upon misuse", {
   base <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
     geom_boxplot(aes(fill = class))
   g <- base + scale_fill_discrete(guide = "axis_nested")
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     expect_snapshot_error(ggplotGrob(g))
   } else {
     expect_snapshot_warning(ggplotGrob(g))

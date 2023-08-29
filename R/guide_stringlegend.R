@@ -111,7 +111,7 @@ guide_stringlegend <- function(
 #' @method guide_train stringlegend
 #' @noRd
 guide_train.stringlegend <- function(guide, scale, aesthetic) {
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     return(NextMethod())
   }
   legend <- guide_legend()
@@ -122,7 +122,7 @@ guide_train.stringlegend <- function(guide, scale, aesthetic) {
 #' @method guide_geom stringlegend
 #' @noRd
 guide_geom.stringlegend <- function(guide, layers, ...) {
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     return(NextMethod())
   }
   legend <- guide_legend()

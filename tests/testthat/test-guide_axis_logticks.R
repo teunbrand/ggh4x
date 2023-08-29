@@ -109,7 +109,7 @@ test_that("guide_axis_logticks errors upon misuse", {
     geom_point(aes(colour = Species)) +
     scale_colour_discrete(guide = "axis_logticks")
 
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     expect_snapshot_error(ggplotGrob(g))
   } else {
     expect_snapshot_warning(ggplotGrob(g))

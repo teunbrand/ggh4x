@@ -97,7 +97,7 @@ test_that("facet_wrap2() can remove some labels", {
   ctrl2 <- ggplotGrob(ctrl2)
 
   # Compare x-axis
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     expect_equal(nchildren(case1, "b"), rep(2L, 6))
     expect_equal(nchildren(case2, "b"), c(2L, 2L, 2L, 1L, 1L, 1L))
     expect_equal(nchildren(ctrl1, "b"), c(2L, 2L, 2L, 0L, 0L, 0L))
@@ -110,7 +110,7 @@ test_that("facet_wrap2() can remove some labels", {
   }
 
   # Compare y-axis
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     expect_equal(nchildren(case1, "l"), c(1L, 1L, 1L, 1L, 2L, 2L))
     expect_equal(nchildren(case2, "l"), rep(2L, 6))
     expect_equal(nchildren(ctrl1, "l"), c(0L, 0L, 0L, 0L, 2L, 2L))

@@ -102,7 +102,7 @@ grab_axis <- function(plot, where = "b", what = "label") {
   if (is.null(what)) {
     return(axes)
   }
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     label_index <- 1
   } else {
     label_index <- 2
@@ -227,7 +227,7 @@ test_that("facetted_pos_scales can set position arguments", {
   b <- b$grobs[grepl("axis-l", b$layout$name)]
   c <- c$grobs[grepl("axis-r", c$layout$name)]
 
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     a <- lapply(a, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
     b <- lapply(b, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
     c <- lapply(c, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)
@@ -261,7 +261,7 @@ test_that("facetted_pos_scales can set secondary axis", {
   b <- b$grobs[grepl("axis-l", b$layout$name)]
   c <- c$grobs[grepl("axis-r", c$layout$name)]
 
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     a <- lapply(a, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
     b <- lapply(b, function(x) x$children$axis$grobs[[1]]$children[[1]]$label)
     c <- lapply(c, function(x) x$children$axis$grobs[[2]]$children[[1]]$label)

@@ -32,7 +32,7 @@ test_that("guide_axis_minor works on y-scales", {
   expect_length(unique(test), 3) # 1 at base, 1 for long ticks, 1 for short
 
   ctrl <- grab_axis(base, "l")
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     ctrl <- grid::convertX(ctrl$grobs[[2]]$x, "cm", valueOnly = TRUE)
   } else {
     ctrl <- grid::convertX(ctrl$grobs[[1]]$x, "cm", valueOnly = TRUE)
@@ -51,7 +51,7 @@ test_that("guide_axis_minor works on top x-scales", {
   expect_length(unique(test), 3) # 1 at base, 1 for long ticks, 1 for short
 
   ctrl <- grab_axis(ctrl, "t")
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     ctrl <- grid::convertX(ctrl$grobs[[2]]$y, "cm", valueOnly = TRUE)
   } else {
     ctrl <- grid::convertX(ctrl$grobs[[1]]$y, "cm", valueOnly = TRUE)
@@ -102,7 +102,7 @@ test_that("guide_axis_minor errors upon misuse", {
     geom_point(aes(colour = Species)) +
     scale_colour_discrete(guide = "axis_minor")
 
-  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+  if (!new_guide_system) {
     expect_snapshot_error(ggplotGrob(g))
   } else {
     expect_snapshot_warning(ggplotGrob(g))

@@ -47,6 +47,10 @@ find_global <- function(name, env, mode = "any") {
   NULL
 }
 
+new_guide_system <- NA
+on_load(new_guide_system <- inherits(guide_none(), "Guide"))
+
 .onLoad <- function(...) {
   ggh4x_theme_elements()
+  run_on_load()
 }
