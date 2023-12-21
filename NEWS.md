@@ -1,4 +1,4 @@
-# ggh4x (development version)
+# ggh4x 0.2.7
 
 This is a small release for future compatibility with ggplot2, along with some
 bugfixes.
@@ -8,6 +8,10 @@ bugfixes.
   arguments (#118)
 * Fixed bug in `facet_nested()` when `margins = TRUE` (#121)
 * Fix bug related to mixing standard scales and facetted scales (#137)
+
+# ggh4x 0.2.6
+
+Hot fix for release of ggplot2 3.4.3. There are no user-visible changes.
 
 # ggh4x 0.2.5
 
