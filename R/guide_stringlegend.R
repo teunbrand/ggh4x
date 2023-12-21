@@ -126,7 +126,10 @@ guide_geom.stringlegend <- function(guide, layers, ...) {
     return(NextMethod())
   }
   legend <- guide_legend()
-  legend$get_layer_key(guide, layers)
+  args <- list(...)
+  args$default_mapping <- NULL
+  args$data <- args$data %||% vector("list", length(layers))
+  rlang::inject(legend$get_layer_key(guide, layers, !!!args))
 }
 
 #' @method guide_gengrob stringlegend

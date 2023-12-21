@@ -42,10 +42,12 @@ test_that("facet_manual can build correct plots", {
 
   gt <- ggplot_gtable(p)$layout
 
+  extra <- if (new_guide_system) 2 else 0
+
   # Test panel positions
   panels <- gt[grepl("^panel-", gt$name), , drop = FALSE]
   expect_equal(unlist(panels[1:4], use.names = FALSE),
-               c(8, 12, 17, 5, 9, 13, 12, 17, 20, 5, 9, 13))
+               c(8, 12, 17, 5, 9, 13, 12, 17, 20, 5, 9, 13) + extra)
   # Test axis positions
   axes_b <- gt[grepl("^axis-b-", gt$name), , drop = FALSE]
   expect_equal(unname(panels$b), unname(axes_b$b - 1))
@@ -70,9 +72,10 @@ test_that("facet_manual can assume layouts", {
   gt <- gtab$layout
 
   # Test panel positions
+  extra <- if (new_guide_system) 2 else 0
   panels <- gt[grepl("^panel-", gt$name), , drop = FALSE]
   expect_equal(unlist(panels[1:4], use.names = FALSE),
-               c(11, 7, 7, 11, 11, 5, 11, 7, 11, 11, 11, 5))
+               c(11, 7, 7, 11, 11, 5, 11, 7, 11, 11, 11, 5) + extra)
   # Test axis positions
   axes_t <- gt[grepl("^axis-t-", gt$name), , drop = FALSE]
   expect_equal(unname(panels$t), unname(axes_t$t) + 1)

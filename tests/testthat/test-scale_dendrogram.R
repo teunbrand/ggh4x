@@ -45,6 +45,7 @@ test_that("scale_xy_dendrogram sets guide correctly", {
 })
 
 test_that("scale_xy_dendrogram reorders axis", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   df <- data.frame(
     x = factor(rownames(USArrests)),
     y = rnorm(nrow(USArrests))

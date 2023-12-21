@@ -64,6 +64,7 @@ test_that("strip_themed uses by_layer arguments correctly", {
     background_y = elem_list_rect(fill = c("green", "blue")),
     by_layer_y = FALSE
   )
+  extra <- if (new_guide_system) 2L else 0L
 
   layered <- strip_themed(
     background_y = elem_list_rect(fill = c("green", "blue")),
@@ -88,7 +89,7 @@ test_that("strip_themed uses by_layer arguments correctly", {
   is_strip <- grepl("^strip-r-", individ$layout$name)
   lay <- individ$layout[is_strip,]
   expect_equal(lay[c("t", "l")],
-               list(t = c(7, 7, 7), l = c(6, 11, 16)),
+               list(t = c(7, 7, 7) + extra, l = c(6, 11, 16) + extra),
                ignore_attr = TRUE)
   individ <- individ$grobs[is_strip]
   individ <- vapply(individ, function(x) {
@@ -103,7 +104,7 @@ test_that("strip_themed uses by_layer arguments correctly", {
   is_strip <- grepl("^strip-r-", layered$layout$name)
   lay <- layered$layout[is_strip,]
   expect_equal(lay[c("t", "l")],
-               list(t = c(7, 7, 7), l = c(6, 11, 16)),
+               list(t = c(7, 7, 7) + extra, l = c(6, 11, 16) + extra),
                ignore_attr = TRUE)
   layered <- layered$grobs[is_strip]
   layered <- vapply(layered, function(x) {
