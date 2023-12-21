@@ -65,7 +65,7 @@ force_panelsizes <- function(rows = NULL, cols = NULL, respect = NULL,
     if (!is.unit(total_width)) {
       cli::cli_abort("{.arg total_width} must be a {.cls unit} object.")
     }
-    arg_match0(unitType(total_width), c("cm", "mm", "inches", "points"))
+    arg_match0(unitType(total_width), c("cm", "mm", "inches", "points", "bigpts"))
   }
   if (!is.null(total_height)) {
     if (is.unit(rows) && !is_null_unit(rows)) {
@@ -76,7 +76,7 @@ force_panelsizes <- function(rows = NULL, cols = NULL, respect = NULL,
     if (!is.unit(total_height)) {
       cli::cli_abort("{.arg total_height} must be a {.cls unit} object.")
     }
-    arg_match0(unitType(total_height), c("cm", "mm", "inches", "points"))
+    arg_match0(unitType(total_height), c("cm", "mm", "inches", "points", "bigpts"))
   }
 
   structure(list(rows = rows, cols = cols, respect = respect,
