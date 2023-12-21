@@ -3,6 +3,7 @@
 * `force_panelsizes()` can now take 'bigpts' units as `total_width` or `total_height` 
   arguments (#118)
 * Fixed bug in `facet_nested()` when `margins = TRUE` (#121)
+* Fix bug related to mixing standard scales and facetted scales (#137)
 
 # ggh4x 0.2.5
 

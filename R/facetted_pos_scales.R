@@ -333,11 +333,15 @@ train_scales_individual <- function(x_scales, y_scales, layout, data, params, se
 }
 
 #' @keywords internal
-finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
+finish_data_individual <- function(data, layout, x_scales, y_scales,
+                                   params, self) {
 
   # Divide data by panel
   idx    <- vec_group_loc(data$PANEL)$loc
   panels <- vec_chop(data, idx)
+  regular_x <- sum(lengths(self$new_x_scales)) == 0
+  regular_y <- sum(lengths(self$new_y_scales)) == 0
+
   panels <- lapply(panels, function(dat) {
 
     # Match panel to their scales
@@ -348,6 +352,8 @@ finish_data_individual <- function(data, layout, x_scales, y_scales, params) {
     # Decide what variables need to be transformed
     y_vars <- should_transform(y_scales[[yidx]], names(dat))
     x_vars <- should_transform(x_scales[[xidx]], names(dat))
+    if (regular_x) x_vars <- character(0)
+    if (regular_y) y_vars <- character(0)
 
     # Transform variables by appropriate scale
     for (j in y_vars) {
