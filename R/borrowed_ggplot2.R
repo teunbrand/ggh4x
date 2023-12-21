@@ -197,7 +197,8 @@ reshape_add_margins = function(df, vars, margins = TRUE, margin_nm = "(all)") {
     factor(x, levels = c(levels(x), margin_nm), exclude = NULL)
   }
   vars <- unique0(unlist(margin_vars))
-  df[vars] <- unrowname(lapply(df[vars], add_all))
+  df[vars] <- lapply(df[vars], add_all)
+  rownames(df) <- NULL
   margin_dfs <- lapply(
     margin_vars,
     function(vars) {
