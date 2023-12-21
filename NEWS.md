@@ -1,5 +1,8 @@
 # ggh4x (development version)
 
+This is a small release for future compatibility with ggplot2, along with some
+bugfixes.
+
 * Anticipatory changes for ggplot2 3.5.0.
 * `force_panelsizes()` can now take 'bigpts' units as `total_width` or `total_height` 
   arguments (#118)
