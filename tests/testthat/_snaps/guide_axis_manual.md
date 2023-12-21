@@ -1,6 +1,6 @@
 # warnings and errors work
 
-    operator '^' not meaningful for units
+    operator '<' not meaningful for units
 
 ---
 

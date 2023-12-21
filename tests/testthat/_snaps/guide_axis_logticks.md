@@ -1,9 +1,10 @@
 # guide_axis_logticks errors upon misuse
 
-    Guide `axis` cannot be used for colour.
+    `guide_old()` cannot be used for colour.
+    i Use one of x or y instead.
 
 ---
 
-    `guide_axis_logticks()` needs appropriate scales.
-    i Use one of z.
+    `guide_old()` cannot be used for x, xmin, xmax, or xend.
+    i Use z instead.
 

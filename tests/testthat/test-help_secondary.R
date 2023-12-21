@@ -4,7 +4,11 @@ test_that("help_secondary does what it is supposed to", {
 
   expect_s3_class(sec, "AxisSecondary")
 
-  formals <- formals(environment(sec$trans)$f)
+  if (new_guide_system) {
+    formals <- formals(environment(sec$transform)$f)
+  } else {
+    formals <- formals(environment(sec$trans)$f)
+  }
   expect_identical(names(formals), "x")
 
   formals <- formals(environment(sec$proj)$f)

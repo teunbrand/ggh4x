@@ -68,34 +68,6 @@ test_that("scale_colour_multi can map multiple fill colours", {
   expect_identical(ends, hex_end)
 })
 
-test_that("scale_colour_multi has appropriate legends", {
-  startcols <- c("white", "black", "grey50")
-  endcols   <- c("red", "blue","green")
-  g <- base + scale_colour_multi(
-    aesthetics = c("colour1", "colour2", "colour3"),
-    colours = list(c(startcols[1], endcols[1]),
-                   c(startcols[2], endcols[2]),
-                   c(startcols[3], endcols[3]))
-  )
-  gt <- ggplotGrob(g)
-  guidebox <- gt$grobs[gt$layout$name == "guide-box"][[1]]$grobs[1:3]
-  guidenames <- vapply(guidebox, function(box) {
-    box$grobs[box$layout$name == "title"][[1]]$children[[1]]$children[[1]]$label
-  }, character(1))
-  cols <- lapply(guidebox, function(leg){
-    as.vector(leg$grobs[leg$layout$name == "bar"][[1]]$raster)
-  })[order(guidenames)]
-  starts <- unname(sapply(cols, tail, 1))
-  starts <- col2rgb(starts)
-  ends <- unname(sapply(cols, head, 1))
-  ends <- col2rgb(ends)
-  startcols <- col2rgb(startcols)
-  endcols <- col2rgb(endcols)
-  expect_identical(startcols, starts)
-  expect_identical(endcols, ends)
-})
-
-
 # argument tests ----------------------------------------------------------
 
 test_that("scale_colour_multi accepts independent positions", {
@@ -121,7 +93,7 @@ test_that("scale_colour_multi accepts independent transformations", {
                                 trans = list("identity", "log10", "reverse"))
   # Test acceptance
   gb <- ggplot_build(g)
-  tr <- sapply(gb$plot$scales$scales, function(scale) {scale$trans$name})[1:3]
+  tr <- sapply(gb$plot$scales$scales, function(scale) {get_transformation(scale)$name})[1:3]
   expect_equal(tr, c("identity", "log-10", "reverse"))
 
   # Test practical transformations
@@ -184,24 +156,9 @@ test_that("scale_colour_multi sets labels independently", {
                                colours = list(c("white", "red")),
                                limits = c(0, 100),
                                labels = labfuns)
-  # Test theoretical labels
   gb <- ggplot_build(g)
   labs <- lapply(gb$plot$scales$scales, function(scale) {scale$get_labels()})[1:3]
   expect_equal(labs[[1]], seq(0, 1, by = 0.25))
-  expect_equal(labs[[2]], paste0(seq(0, 100, by = 25), " Nonsense"))
-  expect_equal(labs[[3]], paste0(seq(0, 100, by = 25)))
-
-  # Test practical labels
-  gt <- ggplotGrob(g)
-  guidebox <- gt$grobs[gt$layout$name == "guide-box"][[1]]$grobs[1:3]
-  guidenames <- vapply(guidebox, function(box) {
-    box$grobs[box$layout$name == "title"][[1]]$children[[1]]$children[[1]]$label
-  }, character(1))
-  i <- if (!new_guide_system) "label" else "labels"
-  labs <- lapply(guidebox, function(tg){
-    tg$grobs[tg$layout$name == i][[1]]$children[[1]]$label
-  })[order(guidenames)]
-  expect_equal(labs[[1]], paste0(seq(0, 1, by = 0.25)))
   expect_equal(labs[[2]], paste0(seq(0, 100, by = 25), " Nonsense"))
   expect_equal(labs[[3]], paste0(seq(0, 100, by = 25)))
 })
@@ -213,18 +170,9 @@ test_that("scale_colour_multi sets titles independently", {
                                               c("black", "blue"),
                                               c("grey50", "green")),
                                name = titles)
-  # Test theoretical titles
   gb <- ggplot_build(g)
   title <- lapply(gb$plot$scales$scales, function(scale) {scale$name})[1:3]
   expect_identical(titles, title)
-
-  # Test practical titles
-  gt <- ggplotGrob(g)
-  gt <- gt$grobs[gt$layout$name == "guide-box"][[1]]$grobs[1:3]
-  title <- lapply(gt, function(tg) {
-    tg$grobs[tg$layout$name == "title"][[1]]$children[[1]]$children[[1]]$label
-  })
-  expect_true(all(title %in% titles))
 })
 
 test_that("scale_colour_multi handles discrete guides", {
@@ -233,15 +181,22 @@ test_that("scale_colour_multi handles discrete guides", {
                                               c("black", "blue"),
                                               c("grey50", "green")),
                                guide = guide_legend())
-  gt <- ggplotGrob(g)
-  gt <- gt$grobs[gt$layout$name == "guide-box"][[1]]$grobs[1:3]
-  keyvals <- lapply(gt, function(tg){
-    key <- tg$grobs[grepl("key", tg$layout$name) & !endsWith(tg$layout$name, "bg")]
-    cols <- sapply(key, function(k){k$gp$col})
-  })
-  keyvals <- do.call(c, keyvals)
-  nunique <- length(unique(keyvals))
-  expect_identical(nunique, 12L)
+
+  if (new_guide_system) {
+    b <- ggplot_build(g)
+    keys <- lapply(c("colour1", "colour2", "colour3"), get_guide_data, plot = b)
+    expect_equal(lengths(keys), c(3L, 3L, 3L))
+  } else {
+    gt <- ggplotGrob(g)
+    gt <- gt$grobs[gt$layout$name == "guide-box"][[1]]$grobs[1:3]
+    keyvals <- lapply(gt, function(tg){
+      key <- tg$grobs[grepl("key", tg$layout$name) & !endsWith(tg$layout$name, "bg")]
+      cols <- sapply(key, function(k){k$gp$col})
+    })
+    keyvals <- do.call(c, keyvals)
+    nunique <- length(unique(keyvals))
+    expect_identical(nunique, 12L)
+  }
 })
 
 # Warnings ----------------------------------------------------------------

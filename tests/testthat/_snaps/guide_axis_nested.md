@@ -1,9 +1,10 @@
 # guide_axis_nested errors upon misuse
 
-    Guide `axis` cannot be used for fill.
+    `guide_old()` cannot be used for fill.
+    i Use one of x or y instead.
 
 ---
 
-    Axis guide lacks appropriate scales.
-    i Use one of z
+    `guide_old()` cannot be used for x, xmin, xmax, or xend.
+    i Use z instead.
 

@@ -89,12 +89,19 @@ help_secondary <- function(
     "sortfit" = help_sec_sortfit(primary, secondary)
   )
 
-  out <- ggproto(
-    NULL,
-    sec_axis(trans = help$reverse, ...),
-    proj = help$forward
-  )
-
+  if (new_guide_system) {
+    out <- ggproto(
+      NULL,
+      sec_axis(transform = help$reverse, ...),
+      proj = help$forward
+    )
+  } else {
+    out <- ggproto(
+      NULL,
+      sec_axis(trans = help$reverse, ...),
+      proj = help$forward
+    )
+  }
   if (inherits(out$name, "waiver")) {
     out$name <- name
   }

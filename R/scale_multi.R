@@ -119,6 +119,12 @@ distribute_scale_multi <- function(
   extra_args <- lapply(seq(aesthetics), function(i){
     lapply(list(...), pickvalue, i)
   })
+  if (new_guide_system) {
+    extra_args <- lapply(extra_args, function(x) {
+      names(x)[names(x) == "trans"] <- "transform"
+      x
+    })
+  }
 
   # Interpret guides
   guide <- lapply(seq(aesthetics), function(i){
@@ -156,6 +162,7 @@ distribute_scale_multi <- function(
       na.value = pickvalue(na.value, i),
       guide    = pickvalue(guide,    i)
     )
+    if (new_guide_system) pass_args$scale_name <- NULL
     pass_args <- append(pass_args, pickvalue(extra_args, i))
     out <- do.call("continuous_scale", pass_args)
     return(out)

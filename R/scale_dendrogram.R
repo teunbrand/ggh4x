@@ -65,8 +65,9 @@ scale_x_dendrogram <- function(...,
   }
 
   # Build scale
+  scale_name <- if (new_guide_system) missing_arg() else "position_d"
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"),
-                       "position_d",
+                       scale_name,
                        identity,
                        ...,
                        expand = expand,
@@ -105,8 +106,9 @@ scale_y_dendrogram <- function(...,
   }
 
   # Build scale
+  scale_name <- if (new_guide_system) missing_arg() else "position_d"
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"),
-                       "position_d",
+                       scale_name,
                        identity,
                        ...,
                        expand = expand,

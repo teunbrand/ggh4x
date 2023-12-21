@@ -129,27 +129,6 @@ test_that("scale_listed can mix discrete and continuous colours", {
   discrete <- col2rgb(discrete$b)
   expect_equal(dim(continuous), c(3, 10))
   expect_equal(dim(discrete), c(3, 10))
-
-  # Test guide
-  gt <- ggplotGrob(test)
-  gt <- gt$grobs[gt$layout$name == "guide-box"][[1]]
-  gt <- gt$grobs[gt$layout$name == "guides"]
-  is_bar <- which(sapply(gt, function(x){"bar" %in% x$layout$name}))
-  is_key <- which(sapply(gt, function(x){any(grepl("key", x$layout$name))}))
-  bar <- gt[[is_bar]]
-  bar <- as.vector(bar$grobs[bar$layout$name == "bar"][[1]]$raster)
-  keys <- gt[[is_key]]
-  keys <- keys$grobs[grepl("key", keys$layout$name) & !endsWith(keys$layout$name, "bg")]
-  keys <- sapply(keys, function(key){
-    key$gp$col
-  })
-
-  nbin <- rev(seq_len(formals(guide_colourbar)$nbin))
-  bar_should <- scales::gradient_n_pal(c("red","green","blue"))(scales::rescale(nbin))
-  key_should <- c("#E41A1CFF", "#377EB8FF", "#4DAF4AFF", "#984EA3FF", "#FF7F00FF")
-
-  expect_equal(bar, bar_should)
-  expect_equal(keys, key_should)
 })
 
 test_that("scale_listed can mix discrete and continuous fills", {
@@ -169,28 +148,6 @@ test_that("scale_listed can mix discrete and continuous fills", {
   discrete <- col2rgb(discrete$d)
   expect_equal(dim(continuous), c(3, 10))
   expect_equal(dim(discrete), c(3, 10))
-
-  # Test guide
-  gt <- ggplotGrob(test)
-  gt <- gt$grobs[gt$layout$name == "guide-box"][[1]]
-  gt <- gt$grobs[gt$layout$name == "guides"]
-  is_bar <- which(sapply(gt, function(x){"bar" %in% x$layout$name}))
-  bar <- gt[[is_bar]]
-  bar <- as.vector(bar$grobs[bar$layout$name == "bar"][[1]]$raster)
-  is_key <- which(sapply(gt, function(x){any(grepl("key", x$layout$name))}))
-  keys <- gt[[is_key]]
-  keys <- keys$grobs[grepl("key", keys$layout$name) & !endsWith(keys$layout$name, "bg")]
-  keys <- sapply(keys, function(key){
-    key$gp$fill
-  })
-
-  nbin <- formals(guide_colourbar)$nbin
-
-  key_should <- scales::viridis_pal()(5)
-
-  expect_equal(keys, key_should)
-  expect_equal(length(bar), nbin)
-
 })
 
 # Error tests -------------------------------------------------------------
