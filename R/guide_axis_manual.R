@@ -138,6 +138,7 @@ guide_axis_manual <- function(
 #' @method guide_train axis_manual
 guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
   aesthetic <- aesthetic %||% scale$aesthetics[1]
+  transformation <- get_transformation(scale)
 
   if (inherits(guide$breaks, "waiver")) {
     breaks <- scale$get_breaks()
@@ -151,7 +152,7 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
     limits <- scale$get_limits()
     if (transform_breaks) {
       # Function is expected to work on untransformed data
-      breaks <- breaks(scale$scale$trans$inverse(limits))
+      breaks <- breaks(transformation$inverse(limits))
     } else {
       breaks <- breaks(limits)
     }
@@ -159,7 +160,7 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
 
   # Warn when a transformation tries to auto-label grid units
   if (is.unit(breaks) && inherits(guide$labels, "waiver")) {
-    if (!scale$is_discrete() && scale$scale$trans$name != "identity") {
+    if (!scale$is_discrete() && transformation$name != "identity") {
       cli::cli_warn(c(paste0(
         "Setting {.cls unit} objects for breaks might not work elegantly with ",
         "the default scale labelling."
@@ -183,7 +184,7 @@ guide_train.axis_manual <- function(guide, scale, aesthetic = NULL) {
       mapped_breaks <- scale$map(breaks)
     } else {
       if (transform_breaks) {
-        mapped_breaks <- scale$scale$trans$transform(breaks)
+        mapped_breaks <- transformation$transform(breaks)
       } else {
         mapped_breaks <- breaks
       }

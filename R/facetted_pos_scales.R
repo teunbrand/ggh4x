@@ -366,7 +366,7 @@ should_transform <- function(scale, columns) {
   if (is.null(scale) || scale$is_discrete()) {
     return(character(0))
   }
-  if (scale$trans$name %in% c("date", "time", "hms")) {
+  if (get_transformation(scale)$name %in% c("date", "time", "hms")) {
     return(character(0))
   }
   vars <- intersect(scale$aesthetics, columns)

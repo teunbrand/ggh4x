@@ -324,6 +324,7 @@ axis_truncate <- function(breaks, trunc, scale, type = "lower") {
   if (rlang::is_formula(trunc)) {
     trunc <- rlang::as_function(trunc)
   }
+  transformation <- get_transformation(scale)
   if (is.null(trunc)) {
     x <- unit(switch(
       type,
@@ -338,14 +339,14 @@ axis_truncate <- function(breaks, trunc, scale, type = "lower") {
       x <- trunc(breaks)
     } else {
       # Function is expected to work on untransformed data
-      x <- scale$scale$trans$transform(trunc(scale$scale$trans$inverse(breaks)))
+      x <- transformation$transform(trunc(transformation$inverse(breaks)))
     }
     return(x)
   } else { # Expecting input in dataspace here
     if (scale$is_discrete()) {
       x <- scale$scale$map(trunc)
     } else {
-      x <- scale$scale$trans$transform(trunc)
+      x <- transformation$transform(trunc)
     }
     return(x)
   }

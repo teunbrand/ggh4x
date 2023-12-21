@@ -99,6 +99,7 @@ guide_train.axis_logticks <- function(guide, scale, aesthetic = NULL) {
   aesthetic <- aesthetic %||% scale$aesthetics[1]
 
   # Determine base
+  transformation <- get_transformation(scale)
   if (inherits(guide$base, "waiver")) {
     if (guide$prescaled) {
       # There is no way to know really, 10 seems reasonable default
@@ -106,7 +107,7 @@ guide_train.axis_logticks <- function(guide, scale, aesthetic = NULL) {
     } else {
       # Guess base
       base <- c(1, 2, exp(1), 10)
-      transbase <- scale$scale$trans$transform(base)
+      transbase <- transformation$transform(base)
       base <- base[head(which(transbase == 1), 1)]
     }
   } else {
@@ -125,7 +126,7 @@ guide_train.axis_logticks <- function(guide, scale, aesthetic = NULL) {
   # Transform breaks
   minority  <- logbreaks$minority
   if (!guide$prescaled) {
-    logbreaks <- scale$scale$trans$transform(logbreaks$value)
+    logbreaks <- transformation$transform(logbreaks$value)
   } else {
     logbreaks <- log(logbreaks$value, base)
   }

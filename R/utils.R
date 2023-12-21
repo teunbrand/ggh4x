@@ -47,6 +47,17 @@ find_global <- function(name, env, mode = "any") {
   NULL
 }
 
+get_transformation <- function(scale) {
+  if (is.ggproto(scale$scale)) {
+    scale <- scale$scale
+  }
+  if (is.function(scale$get_transformation)) {
+    scale$get_transformation()
+  } else {
+    scale$trans %||% scale$transform
+  }
+}
+
 new_guide_system <- NA
 on_load(new_guide_system <- inherits(guide_none(), "Guide"))
 

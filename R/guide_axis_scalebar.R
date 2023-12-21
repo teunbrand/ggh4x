@@ -94,7 +94,8 @@ guide_axis_scalebar <- function(
 #' @export
 guide_train.axis_scalebar <- function(guide, scale, aesthetic = NULL) {
 
-  if (!is.null(scale$scale$trans) && scale$scale$trans$name != "identity") {
+  transformation <- get_transformation(scale)
+  if (!is.null(transformation) && transformation$name != "identity") {
     warn("Cannot draw appropriate scale bar for non-linear transformations.")
   }
 
