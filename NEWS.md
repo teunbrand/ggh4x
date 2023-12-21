@@ -1,5 +1,6 @@
 # ggh4x (development version)
 
+* Anticipatory changes for ggplot2 3.5.0.
 * `force_panelsizes()` can now take 'bigpts' units as `total_width` or `total_height` 
   arguments (#118)
 * Fixed bug in `facet_nested()` when `margins = TRUE` (#121)

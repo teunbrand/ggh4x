@@ -94,24 +94,3 @@ test_that("NULL breaks return zeroGrob as labels", {
   g <- g$grobs[[which(g$layout$name == "axis-b")]]$children[[1]]
   expect_s3_class(g, "zeroGrob")
 })
-
-test_that("guide_axis_minor errors upon misuse", {
-  rlang::local_options(lifecycle_verbosity = "quiet")
-
-  g <- ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
-    geom_point(aes(colour = Species)) +
-    scale_colour_discrete(guide = "axis_minor")
-
-  if (!new_guide_system) {
-    expect_snapshot_error(ggplotGrob(g))
-  } else {
-    expect_snapshot_warning(ggplotGrob(g))
-  }
-
-
-  gui <- guide_axis_minor()
-  gui$available_aes <- "z"
-
-  g <- base + scale_x_continuous(guide = gui)
-  expect_snapshot_warning(ggplotGrob(g))
-})

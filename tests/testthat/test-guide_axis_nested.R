@@ -84,24 +84,6 @@ test_that("guide_axis_nested works as secundary y-axis", {
   expect_true(all(large %in% unique(mpg$class)))
 })
 
-test_that("guide_axis_nested errors upon misuse", {
-  rlang::local_options(lifecycle_verbosity = "quiet")
-  base <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
-    geom_boxplot(aes(fill = class))
-  g <- base + scale_fill_discrete(guide = "axis_nested")
-  if (!new_guide_system) {
-    expect_snapshot_error(ggplotGrob(g))
-  } else {
-    expect_snapshot_warning(ggplotGrob(g))
-  }
-
-  gui <- guide_axis_nested()
-  gui$available_aes <- "z"
-
-  g <- base + scale_x_discrete(guide = gui)
-  expect_snapshot_warning(ggplotGrob(g))
-})
-
 test_that("NULL breaks return zeroGrob as labels", {
   rlang::local_options(lifecycle_verbosity = "quiet")
   g <- ggplot(mpg, aes(interaction(cyl, class), hwy)) +
