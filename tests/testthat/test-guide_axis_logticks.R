@@ -1,3 +1,5 @@
+skip_if(packageVersion("ggplot2") >= "3.5.0")
+
 base <- ggplot(msleep, aes(bodywt, brainwt)) +
   geom_point(na.rm = T)
 

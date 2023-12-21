@@ -34,8 +34,7 @@
 #'   }
 #'
 #' @return An *axis_logticks* guide class object.
-#' @export
-#'
+#' @rawNamespace if (packageVersion("ggplot2") <= "3.5.0") export(guide_axis_logticks)
 #' @family axis-guides
 #'
 #' @examples
