@@ -112,8 +112,8 @@ help_secondary <- function(
 # Methods -----------------------------------------------------------------
 
 help_sec_range <- function(from, to) {
-  from   <- range(from)
-  to <- range(to)
+  from   <- range(from, na.rm = TRUE)
+  to <- range(to, na.rm = TRUE)
 
   forward <- function(x) {
     rescale(x, from = to, to = from)
@@ -125,8 +125,8 @@ help_sec_range <- function(from, to) {
 }
 
 help_sec_max <- function(from, to) {
-  from   <- range(from)
-  to <- range(to)
+  from   <- range(from, na.rm = TRUE)
+  to <- range(to, na.rm = TRUE)
 
   forward <- function(x) {
     rescale_max(x, from = to, to = from)
