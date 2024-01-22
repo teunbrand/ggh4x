@@ -1,6 +1,7 @@
 # ggh4x (development version)
 
 * Fixed a bug in the `strip_vanilla(size)` argument (#143)
+* Fixed a bug in axis layout in `facet_wrap2()` (#140)
 
 # ggh4x 0.2.7
 
