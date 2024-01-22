@@ -142,7 +142,6 @@ df.grid = function(a, b) {
   )
 }
 
-#' @importFrom rlang `:=`
 draw_axis_labels = function(
   break_positions,
   break_labels,
