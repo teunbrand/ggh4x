@@ -169,20 +169,20 @@ Strip <- ggproto(
     if (aes == "x") {
       if (!new_guide_system) {
         height <- lapply(labels[!zeros], function(x) x$heights[2])
-        height <- lapply(split(height, layer_id[!zeros]), max_height)
-        height <- do.call(unit.c, height)
       } else {
-        height <- max_height(labels)
+        height <- lapply(labels[!zeros], function(x) sum(x$heights))
       }
+      height <- lapply(split(height, layer_id[!zeros]), max_height)
+      height <- do.call(unit.c, height)
       width  <- rep(unit(1, "null"), length(height))
     } else {
       if (!new_guide_system) {
         width <- lapply(labels[!zeros], function(x) x$widths[2])
-        width <- lapply(split(width, layer_id[!zeros]), max_width)
-        width <- do.call(unit.c, width)
       } else {
-        width <- max_width(labels)
+        width <- lapply(labels[!zeros], function(x) sum(x$widths))
       }
+      width <- lapply(split(width, layer_id[!zeros]), max_width)
+      width <- do.call(unit.c, width)
       height <- rep(unit(1, "null"), length(width))
     }
 

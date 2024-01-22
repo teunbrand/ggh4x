@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* Fixed a bug in the `strip_vanilla(size)` argument (#143)
+
 # ggh4x 0.2.7
 
 This is a small release for future compatibility with ggplot2, along with some
