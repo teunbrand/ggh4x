@@ -56,10 +56,10 @@
 scale_listed <- function(scalelist, replaces = NULL) {
   # Check replaces validity
   if (length(scalelist) != length(replaces)) {
-    cli::cli_abort(paste0(
-      "The {.arg replaces} argument must be parallel to and of the same ",
-      "length as the {.arg scalelist} argument."
-    ))
+    cli::cli_abort(
+      "The {.arg replaces} argument must be parallel to and of the same \\
+      length as the {.arg scalelist} argument."
+    )
   }
   replaces <- standardise_aes_names(replaces)
   if (!(all(replaces %in% .all_aesthetics))) {
@@ -75,10 +75,10 @@ scale_listed <- function(scalelist, replaces = NULL) {
         inherits(scale, "gg"))
   }, logical(1))
   if (!all(check)) {
-    cli::cli_abort(paste0(
-      "The {.arg scalelist} argument must have valid {.cls Scale} objects as",
-      "list-elements."
-    ))
+    cli::cli_abort(
+      "The {.arg scalelist} argument must have valid {.cls Scale} objects as \\
+      list-elements."
+    )
   }
 
   # Check scale aesthetics
@@ -91,10 +91,10 @@ scale_listed <- function(scalelist, replaces = NULL) {
   aesthetics <- unlist(aesthetics)
 
   if (length(aesthetics) != length(replaces)) {
-    cli::cli_abort(paste0(
-      "Every scale in the {.arg scalelist} argument must have set ",
-      "valid aesthetics."
-    ))
+    cli::cli_abort(
+      "Every scale in the {.arg scalelist} argument must have set \\
+      valid aesthetics."
+    )
   }
 
   # Interpret guides

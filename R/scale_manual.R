@@ -120,10 +120,10 @@ scale_position_manual <- function(
 
     pal <- function(limits) {
       if (length(limits) > length(values)) {
-        cli::cli_abort(paste0(
-          "Insufficient values in manual scale. {length(limits)} needed ",
-          "but {length(values)} provided."
-        ))
+        cli::cli_abort(
+          "Insufficient values in manual scale. {length(limits)} needed \\
+          but {length(values)} provided."
+        )
       }
       values[seq_along(limits)]
     }
@@ -132,10 +132,10 @@ scale_position_manual <- function(
   }
 
   if (!is.null(c_limits) && (!is.numeric(c_limits) || length(c_limits) != 2)) {
-    cli::cli_abort(paste0(
-      "The {.arg c_limits} argument must either be {.code NULL} or a ",
-      "{.cls numeric} vector of length 2."
-    ))
+    cli::cli_abort(
+      "The {.arg c_limits} argument must either be {.code NULL} or a \\
+      {.cls numeric} vector of length 2."
+    )
   }
 
   sc <- discrete_scale(

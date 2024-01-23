@@ -302,10 +302,10 @@ truncate_guide <- function(guide, scale, aesthetic) {
     guide$key[[aesthetic]], guide$trunc_upper, scale, "upper"
   )
   if (!(length(guide$trunc_lower) == length(guide$trunc_upper))) {
-    cli::cli_abort(paste0(
-      "Axis truncation must have an equal number of upper and lower ",
-      "truncation points."
-    ))
+    cli::cli_abort(
+      "Axis truncation must have an equal number of upper and lower \\
+      truncation points."
+    )
   }
   trunc <- data_frame0(
     "start" = trunc_lower,
@@ -356,10 +356,10 @@ check_trunc_arg <- function(lower, upper) {
   if (!is.function(lower) && !is.function(upper)) {
     lens <- c(length(lower), length(upper))
     if (lens[1] != lens[2] & !any(lens == 0)) {
-      cli::cli_abort(paste0(
-        "Axis truncation must have an equal number of upper and lower ",
-        "truncation points."
-      ))
+      cli::cli_abort(
+        "Axis truncation must have an equal number of upper and lower \\
+        truncation points."
+      )
     }
   }
 }

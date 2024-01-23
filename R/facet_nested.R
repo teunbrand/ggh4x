@@ -96,10 +96,10 @@ facet_nested <- function(
     nest_line <- element_blank()
   }
   if (!inherits(nest_line, c("element_line", "element_blank"))) {
-    cli::cli_abort(paste0(
-      "The {.arg nest_line} argument must be {.cls element_blank} or inherit ",
-      "from {.cls element_line}."
-    ))
+    cli::cli_abort(
+      "The {.arg nest_line} argument must be {.cls element_blank} or inherit \\
+      from {.cls element_line}."
+    )
   }
 
   params <- list(
@@ -206,8 +206,8 @@ FacetNested <- ggproto(
       names(missing_vars) <- rep("x", length(data))
 
       cli::cli_abort(c(paste0(
-        "At least one layer must contain all faceting variables: ",
-        "{.var {names(vars)}}"
+        "At least one layer must contain all faceting variables: \\
+        {.var {names(vars)}}"
       ), missing_vars))
     }
     base <- unique0(vec_rbind(!!!values[has_all]))

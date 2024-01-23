@@ -141,9 +141,9 @@ guide_gengrob.stringlegend <- function(guide, theme) {
   nbreak <- nrow(guide$key)
   if (!is.null(guide$nrow) && !is.null(guide$ncol) &&
       guide$nrow * guide$ncol < nbreak) {
-    cli::cli_abort(paste0(
+    cli::cli_abort(
       "{.arg nrow} * {.arg ncol} needs to be larger than the number of breaks."
-    ))
+    )
   }
 
   if (is.null(guide$nrow) && is.null(guide$ncol)) {

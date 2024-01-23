@@ -166,9 +166,9 @@ validate_facetted_scale <- function(x, aes = "x") {
   # Double check for appropriate scales
   check <- check_facetted_scale(rhs, aes = aes, allow_null = FALSE)
   if (!check) {
-    cli::cli_abort(paste0(
+    cli::cli_abort(
       "The right-hand side of formula does not result in an appropriate scale."
-    ))
+    )
   }
 
   return(

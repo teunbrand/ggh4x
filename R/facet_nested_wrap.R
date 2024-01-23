@@ -78,10 +78,10 @@ facet_nested_wrap <- function(
     nest_line <- element_blank()
   }
   if (!inherits(nest_line, c("element_line", "element_blank"))) {
-    cli::cli_abort(paste0(
-      "The {.arg nest_line} argument must be {.cls element_blank} or inherit ",
-      "from {.cls element_line}."
-    ))
+    cli::cli_abort(
+      "The {.arg nest_line} argument must be {.cls element_blank} or inherit \\
+      from {.cls element_line}."
+    )
   }
   params <- list(
     nest_line = nest_line,

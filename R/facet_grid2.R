@@ -190,8 +190,8 @@ FacetGrid2 <- ggproto(
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
       cli::cli_abort(c(
-        paste0("Facetting variables can only appear in {.arg rows} or
-               {.arg cols}, not both."),
+        "Facetting variables can only appear in {.arg rows} or \\
+        {.arg cols}, not both.",
         i = "Duplicated variables: {.val dups}"
       ))
     }
