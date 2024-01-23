@@ -108,7 +108,7 @@ check_labeller <- function(labeller) {
     }
     cli::cli_warn(c(
       "The {.arg labeller} API has been updated. Labellers taking \\
-      {.arg variable} and {.arg value} arguments are now deprecated.",
+      {.arg variable} and {.arg value} arguments are now deprecated."
     ), i = "See labellers documentation.")
   }
   labeller
