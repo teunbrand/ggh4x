@@ -1,5 +1,8 @@
 # ggh4x (development version)
 
+This is a small release fixing a NOTE by request. In addition, there are two
+bugfixes.
+
 * Fixed a bug in the `strip_vanilla(size)` argument (#143)
 * Fixed a bug in axis layout in `facet_wrap2()` (#140)
 
