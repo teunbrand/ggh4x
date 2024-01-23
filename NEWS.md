@@ -1,4 +1,4 @@
-# ggh4x (development version)
+# ggh4x 0.2.8
 
 This is a small release fixing a NOTE by request. In addition, there are two
 bugfixes.
