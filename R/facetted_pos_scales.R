@@ -146,7 +146,6 @@ check_facetted_scale <- function(x, aes = "x", allow_null = TRUE) {
 
 
 #' @keywords internal
-#' @importFrom rlang as_quosure f_env f_lhs f_rhs
 validate_facetted_scale <- function(x, aes = "x") {
   # Checked earlier for formula, so should be the only is.language case
   if (!is.language(x[[1]])) {
@@ -167,9 +166,9 @@ validate_facetted_scale <- function(x, aes = "x") {
   # Double check for appropriate scales
   check <- check_facetted_scale(rhs, aes = aes, allow_null = FALSE)
   if (!check) {
-    cli::cli_abort(paste0(
+    cli::cli_abort(
       "The right-hand side of formula does not result in an appropriate scale."
-    ))
+    )
   }
 
   return(

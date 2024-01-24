@@ -251,49 +251,90 @@ FacetWrap2 <- ggproto(
     measurements <- .measure_axes(list(top = top, bottom = bottom,
                                        left = left, right = right))
 
+    if (!any(empties)) {
+      out <- list(
+        top = top,
+        bottom = bottom,
+        left = left,
+        right = right,
+        measurements = measurements
+      )
+      return(out)
+    }
+
+
     # Place back necessary axes that were removed prior, e.g. when there are
     # missing panels so the marginal axes should not be the most extreme one.
-    if (any(empties)) {
+    # browser()
 
-      # Find first non-empty panel
-      first_row <- which(apply(empties, 1, any))[1] - 1
-      first_col <- which(apply(empties, 2, any))[1] - 1
+    row_ind <- row(empties)
+    col_ind <- col(empties)
+    inside <- (theme$strip.placement %||% "inside") == "inside"
 
-      row_panels <- which(layout$ROW == first_row & layout$COL > first_col)
-      col_panels <- which(layout$COL == first_col & layout$ROW > first_row)
-
-      row_pos <- (layout$COL[row_panels] - 1) * nrow + layout$ROW[row_panels]
-      col_pos <- (layout$COL[col_panels] - 1) * nrow + layout$ROW[col_panels]
-
-      # Find corresponding axes
-      row_axes <- axes$x$bottom[layout$SCALE_X[first_row]]
-      col_axes <- axes$y$right[layout$SCALE_Y[first_col]]
-
-      inside <- (theme$strip.placement %||% "inside") == "inside"
-
-      # Throw warnings when misalignment is bound to happen
-      if (params$strip.position == "bottom" && !inside && !params$free$x &&
-          any(!vapply(row_axes, is.zero, logical(1))) && !repeat_x) {
-        cli::cli_warn(paste0(
-          "Suppressing axis rendering when {.code strip.position = \"bottom\"}",
-          " and {.code strip.placement = \"outside\"}"
-        ))
+    bottom_empty <- apply(empties, 2, function(x) c(diff(x) == 1, FALSE))
+    if (any(bottom_empty)) {
+      pos <- which(bottom_empty, arr.ind = TRUE)
+      loc <- data_frame0(ROW = pos[, 1], COL = pos[, 2])
+      panels <- vec_match(loc, layout[, c("ROW", "COL")])
+      replace <- axes$x$bottom[panels]
+      if (params$strip.position == "bottom" && !inside &&
+          any(!vapply(replace, is.zero, logical(1))) && !params$free$x) {
+        cli::cli_warn(
+          "Suppressing axis rendering when {.code strip.position = \"bottom\"} \\
+          and {.code strip.placement == \"outside\"}"
+        )
       } else {
-        # Replace empty/purged axes by full axes
-        bottom[row_pos] <- row_axes
+        bottom[pos] <- replace
       }
+    }
 
-      # Throw warnings when misalignment is bound to happen
-      if (params$strip.position == "right" && !inside && !params$free$y &&
-          any(!vapply(col_axes, is.zero, logical(1))) && !repeat_y) {
-        cli::cli_warn(paste0(
-          "Suppressing axis rendering when {.code strip.position = \"right\"}",
-          " and {.code strip.placement = \"outside\"}"
-        ))
+    top_empty <- apply(empties, 2, function(x) c(FALSE, diff(x) == -1))
+    if (any(top_empty)) {
+      pos <- which(top_empty, arr.ind = TRUE)
+      loc <- data_frame0(ROW = pos[, 1], COL = pos[, 2])
+      panels <- vec_match(loc, layout[, c("ROW", "COL")])
+      replace <- axes$x$top[panels]
+      if (params$strip.position == "top" && !inside &&
+          any(!vapply(replace, is.zero, logical(1))) && !params$free$x) {
+        cli::cli_warn(
+          "Suppressing axis rendering when {.code strip.position = \"top\"} \\
+          and {.code strip.placement == \"outside\"}"
+        )
       } else {
-        # Replace empty/purged axes by full axes
-        right[col_pos] <- col_axes
+        top[pos] <- replace
       }
+    }
+
+    right_empty <- t(apply(empties, 1, function(x) c(diff(x) == 1, FALSE)))
+    if (any(right_empty)) {
+      pos <- which(right_empty, arr.ind = TRUE)
+      loc <- data_frame0(ROW = pos[, 1], COL = pos[, 2])
+      panels <- vec_match(loc, layout[, c("ROW", "COL")])
+      replace <- axes$y$right[panels]
+      if (params$strip.position == "right" && !inside &&
+          any(!vapply(replace, is.zero, logical(1))) && !params$free$y) {
+        cli::cli_warn(
+          "Suppressing axis rendering when {.code strip.position = \"right\"} \\
+          and {.code strip.placement == \"outside\"}"
+        )
+      }
+      right[pos] <- replace
+    }
+
+    left_empty <- t(apply(empties, 1, function(x) c(FALSE, diff(x) == -1)))
+    if (any(left_empty)) {
+      pos <- which(left_empty, arr.ind = TRUE)
+      loc <- data_frame0(ROW = pos[, 1], COL = pos[, 2])
+      panels <- vec_match(loc, layout[, c("ROW", "COL")])
+      replace <- axes$y$left[panels]
+      if (params$strip.position == "left" && !inside &&
+          any(!vapply(replace, is.zero, logical(1))) && !params$free$y) {
+        cli::cli_warn(
+          "Suppressing axis rendering when {.code strip.position = \"left\"} \\
+          and {.code strip.placement == \"outside\"}"
+        )
+      }
+      left[pos] <- replace
     }
 
     list(
@@ -305,18 +346,14 @@ FacetWrap2 <- ggproto(
     )
   },
   attach_axes = function(panel_table, axes, sizes) {
-    panel_table <- weave_tables_row(
-      panel_table, axes$top,   -1, sizes$top,    "axis-t", 3
-    )
-    panel_table <- weave_tables_row(
-      panel_table, axes$bottom, 0, sizes$bottom, "axis-b", 3
-    )
-    panel_table <- weave_tables_col(
-      panel_table, axes$left,  -1, sizes$left,   "axis-l", 3
-    )
-    panel_table <- weave_tables_col(
-      panel_table, axes$right,  0, sizes$right,  "axis-r", 3
-    )
+    panel_table <-
+      weave_tables_row(panel_table, axes$top,   -1, sizes$top,    "axis-t", 3)
+    panel_table <-
+      weave_tables_row(panel_table, axes$bottom, 0, sizes$bottom, "axis-b", 3)
+    panel_table <-
+      weave_tables_col(panel_table, axes$left,  -1, sizes$left,   "axis-l", 3)
+    panel_table <-
+      weave_tables_col(panel_table, axes$right,  0, sizes$right,  "axis-r", 3)
     panel_table
   },
   finish_panels = function(self, panels, layout, params, theme) {

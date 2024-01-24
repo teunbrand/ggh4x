@@ -55,10 +55,10 @@ geom_text_aimed <- function(
 ) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      cli::cli_abort(paste0(
-        "Specify either {.arg position} or {.arg nudge_x}/{.arg nudge_y}, ",
-        "not both."
-      ))
+      cli::cli_abort(
+        "Specify either {.arg position} or {.arg nudge_x}/{.arg nudge_y}, \\
+        not both."
+      )
     }
     position <- position_nudge(nudge_x, nudge_y)
   }

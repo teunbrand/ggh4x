@@ -79,10 +79,10 @@ scale_facet <- function(expr, aes, ..., type = "continuous") {
   candidates <- paste("scale", aes, type, sep = "_")
 
   if (type == "facet") {
-    cli::cli_abort(paste0(
-      "Cannot circularly define {.fun {candidates[1]}} as template for ",
-      "{.fun {candidates[1]}}."
-    ))
+    cli::cli_abort(
+      "Cannot circularly define {.fun {candidates[1]}} as template for \\
+      {.fun {candidates[1]}}."
+    )
   }
 
   for (candi in candidates) {

@@ -89,24 +89,25 @@ help_secondary <- function(
     "sortfit" = help_sec_sortfit(primary, secondary)
   )
 
-  if (new_guide_system) {
-    out <- ggproto(
-      NULL,
-      sec_axis(transform = help$reverse, ...),
-      proj = help$forward
-    )
-  } else {
-    out <- ggproto(
-      NULL,
-      sec_axis(trans = help$reverse, ...),
-      proj = help$forward
-    )
-  }
+  out <- ggproto(
+    NULL,
+    new_sec_axis(trans = help$reverse, ...),
+    proj = help$forward
+  )
   if (inherits(out$name, "waiver")) {
     out$name <- name
   }
 
   return(out)
+}
+
+# This is a workaround to bridge the gap between ggplot 3.4.4 and 3.5.0
+new_sec_axis <- function(trans = NULL, ...) {
+  args <- list2(trans = trans, ...)
+  if ("transform" %in% fn_fmls_names(ggplot2::sec_axis)) {
+    names(args)[1] <- "transform"
+  }
+  inject(sec_axis(!!!args))
 }
 
 # Methods -----------------------------------------------------------------

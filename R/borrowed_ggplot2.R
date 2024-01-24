@@ -106,10 +106,11 @@ check_labeller <- function(labeller) {
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    cli::cli_warn(c(paste0(
-      "The {.arg labeller} API has been updated. Labellers taking ",
-      "{.arg variable} and {.arg value} arguments are now deprecated.",
-    ), i = "See labellers documentation."))
+    cli::cli_warn(c(
+      "The {.arg labeller} API has been updated. Labellers taking \\
+      {.arg variable} and {.arg value} arguments are now deprecated.",
+      i = "See labellers documentation."
+    ))
   }
   labeller
 }
@@ -120,10 +121,10 @@ unrowname <- function(x) {
   } else if (is.matrix(x)) {
     dimnames(x)[1] <- list(NULL)
   } else {
-    cli::cli_abort(paste0(
-      "Can only remove rownames from {.cls data.frame} and ",
-      "{.cls matrix} objects."
-    ))
+    cli::cli_abort(
+      "Can only remove rownames from {.cls data.frame} and \\
+      {.cls matrix} objects."
+    )
   }
   x
 }
@@ -142,7 +143,6 @@ df.grid = function(a, b) {
   )
 }
 
-#' @importFrom rlang `:=`
 draw_axis_labels = function(
   break_positions,
   break_labels,
@@ -458,10 +458,10 @@ justify_grobs <- function(
         lapply(grobs, justify_grobs, x, y, hjust, vjust, int_angle, debug)
       )
     } else {
-      cli::cli_abort(paste0(
-        "{.arg grobs} must be an individual {.cls grob} or list of {.cls grob}",
-        " objects."
-      ))
+      cli::cli_abort(
+        "{.arg grobs} must be an individual {.cls grob} or list of \\
+        {.cls grob} objects."
+      )
     }
   }
   if (inherits(grobs, "zeroGrob")) {

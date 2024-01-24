@@ -1,6 +1,6 @@
 Package: ggh4x
 Title: Hacks for 'ggplot2'
-Version: 0.2.7.9000
+Version: 0.2.8.9000
 Authors@R: 
     person(given = "Teun",
            family = "van den Brand",
@@ -41,7 +41,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 Config/testthat/edition: 3
 Collate:
     'borrowed_ggplot2.R'

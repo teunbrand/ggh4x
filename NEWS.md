@@ -1,5 +1,13 @@
 # ggh4x (development version)
 
+# ggh4x 0.2.8
+
+This is a small release fixing a NOTE by request. In addition, there are two
+bugfixes.
+
+* Fixed a bug in the `strip_vanilla(size)` argument (#143)
+* Fixed a bug in axis layout in `facet_wrap2()` (#140)
+
 # ggh4x 0.2.7
 
 This is a small release for future compatibility with ggplot2, along with some

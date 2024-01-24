@@ -128,10 +128,9 @@ GeomBox <- ggproto(
           "every row?"
         ))
       }
-      cli::cli_warn(c(paste0(
-        "Could not resolve the position of every {.arg {missing}} ",
-        "aesthetic{?s}."
-      ), tip))
+      cli::cli_warn(c(
+        "Could not resolve the position of every {.arg {missing}} \\
+        aesthetic{?s}.", tip))
     }
 
     data[c("xmin", "xmax", "ymin", "ymax")] <- list(x$min, x$max, y$min, y$max)

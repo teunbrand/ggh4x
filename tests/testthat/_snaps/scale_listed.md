@@ -8,7 +8,7 @@
 
 # scale_listed throws error when non-scales are supplied as scalelist
 
-    The `scalelist` argument must have valid <Scale> objects aslist-elements.
+    The `scalelist` argument must have valid <Scale> objects as list-elements.
 
 # scale_listed throws error when multiple aesthetics are supplied in a scale
 

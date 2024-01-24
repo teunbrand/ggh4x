@@ -102,10 +102,10 @@ stat_theodensity <- function(
   inherit.aes = TRUE
 ) {
   if (!exists(paste0("d", distri), mode = "function")) {
-    cli::cli_abort(paste0(
-      "The {.arg distri} argument must have a valid density function called",
-      "{.fn d{distri}}."
-    ))
+    cli::cli_abort(
+      "The {.arg distri} argument must have a valid density function called \\
+      {.fn d{distri}}."
+    )
   }
   if (distri %in% c("multinom", "hyper", "wilcox", "signrank")) {
     cli::cli_abort(
@@ -196,10 +196,10 @@ StatTheoDensity <- ggproto(
     dtype <- class_distri(params$distri)
     if (dtype == "discrete") {
       if (sum(abs(data$x %% 1)) > 0) {
-        cli::cli_abort(paste0(
-          "A discrete '{params$distri}' distribution cannot be fitted ",
-          "to continuous data."
-        ))
+        cli::cli_abort(
+          "A discrete '{params$distri}' distribution cannot be fitted \\
+          to continuous data."
+        )
       }
     }
     params <- c(params, distri_type = dtype)
@@ -261,9 +261,9 @@ class_distri <- function(distri) {
   } else if (is.numeric(routput)) {
     return("continuous")
   } else {
-    cli::cli_abort(paste0(
-      "{.fn stat_theodensity} failed to determine if the '{distri}' ",
-      "distribution is discrete or continuous."
-    ))
+    cli::cli_abort(
+      "{.fn stat_theodensity} failed to determine if the '{distri}' \\
+      distribution is discrete or continuous."
+    )
   }
 }
