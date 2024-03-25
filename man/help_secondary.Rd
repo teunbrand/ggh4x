@@ -9,6 +9,7 @@ help_secondary(
   primary = c(0, 1),
   secondary = c(0, 1),
   method = c("range", "max", "fit", "ccf", "sortfit"),
+  na.rm = TRUE,
   ...
 )
 }
@@ -33,9 +34,14 @@ then align the data by truncation. The aligned data is then passed to the
 before passing these on to the \code{"fit"} method.}
 }}
 
+\item{na.rm}{A \code{logical(1)}: whether to remove missing values (\code{TRUE}) or
+propagate missing values (\code{FALSE}). Applies to the \code{method = "range"} and
+\code{method = "max"} methods.}
+
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis}}
   \describe{
+    \item{\code{transform}}{A formula or function of transformation}
     \item{\code{name}}{The name of the secondary axis}
     \item{\code{breaks}}{One of:
 \itemize{

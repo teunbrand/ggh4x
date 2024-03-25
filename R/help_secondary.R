@@ -20,6 +20,9 @@
 #'  \item{`"sortfit"`}{Sorts the both `primary` and `secondary` independently
 #'  before passing these on to the `"fit"` method.}
 #' }
+#' @param na.rm A `logical(1)`: whether to remove missing values (`TRUE`) or
+#'   propagate missing values (`FALSE`). Applies to the `method = "range"` and
+#'   `method = "max"` methods.
 #' @inheritDotParams ggplot2::sec_axis -trans
 #'
 #' @details The intent is to run this function before starting a plot. The
@@ -69,6 +72,7 @@ help_secondary <- function(
   primary = c(0, 1),
   secondary = c(0, 1),
   method = c("range", "max", "fit", "ccf", "sortfit"),
+  na.rm = TRUE,
   ...
 ) {
   primary   <- enquo(primary)
@@ -82,8 +86,8 @@ help_secondary <- function(
 
   help <- switch(
     method,
-    "range" = help_sec_range(primary, secondary),
-    "max"   = help_sec_max(primary, secondary),
+    "range" = help_sec_range(primary, secondary, na.rm = na.rm),
+    "max"   = help_sec_max(primary, secondary, na.rm = na.rm),
     "fit"   = help_sec_fit(primary, secondary),
     "ccf"   = help_sec_ccf(primary, secondary),
     "sortfit" = help_sec_sortfit(primary, secondary)
@@ -112,9 +116,9 @@ new_sec_axis <- function(trans = NULL, ...) {
 
 # Methods -----------------------------------------------------------------
 
-help_sec_range <- function(from, to) {
-  from   <- range(from)
-  to <- range(to)
+help_sec_range <- function(from, to, na.rm = TRUE) {
+  from   <- range(from, na.rm = na.rm)
+  to <- range(to, na.rm = na.rm)
 
   forward <- function(x) {
     rescale(x, from = to, to = from)
@@ -125,9 +129,9 @@ help_sec_range <- function(from, to) {
   list(forward = forward, reverse = reverse)
 }
 
-help_sec_max <- function(from, to) {
-  from   <- range(from)
-  to <- range(to)
+help_sec_max <- function(from, to, na.rm = TRUE) {
+  from   <- range(from, na.rm = na.rm)
+  to <- range(to, na.rm = na.rm)
 
   forward <- function(x) {
     rescale_max(x, from = to, to = from)
