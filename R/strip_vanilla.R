@@ -170,7 +170,7 @@ Strip <- ggproto(
       if (!new_guide_system) {
         height <- lapply(labels[!zeros], function(x) x$heights[2])
       } else {
-        height <- lapply(labels[!zeros], function(x) sum(x$heights))
+        height <- lapply(labels[!zeros], grobHeight)
       }
       height <- lapply(split(height, layer_id[!zeros]), max_height)
       height <- do.call(unit.c, height)
@@ -179,7 +179,7 @@ Strip <- ggproto(
       if (!new_guide_system) {
         width <- lapply(labels[!zeros], function(x) x$widths[2])
       } else {
-        width <- lapply(labels[!zeros], function(x) sum(x$widths))
+        width <- lapply(labels[!zeros], grobWidth)
       }
       width <- lapply(split(width, layer_id[!zeros]), max_width)
       width <- do.call(unit.c, width)
