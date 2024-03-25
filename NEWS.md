@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* `help_secondary()` has a new `na.rm` argument (#146, thanks @jrmuirhead!)
+
 # ggh4x 0.2.8
 
 This is a small release fixing a NOTE by request. In addition, there are two
