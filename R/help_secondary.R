@@ -87,7 +87,7 @@ help_secondary <- function(
   help <- switch(
     method,
     "range" = help_sec_range(primary, secondary, na.rm = na.rm),
-    "max"   = help_sec_max(primary, secondary, na.rm = TRUE),
+    "max"   = help_sec_max(primary, secondary, na.rm = na.rm),
     "fit"   = help_sec_fit(primary, secondary),
     "ccf"   = help_sec_ccf(primary, secondary),
     "sortfit" = help_sec_sortfit(primary, secondary)
