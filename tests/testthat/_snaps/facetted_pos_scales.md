@@ -12,6 +12,6 @@
 
 # facetted_pos_scales warns about unusual facets
 
-    Unknown facet: a <TestFacet/FacetGrid/Facet/ggproto/gg> object.
+    Unknown facet: a <TestFacet> object.
     i Overriding facetted scales may be unstable.
 

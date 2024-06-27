@@ -35,6 +35,19 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[ggplot2:waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 
+\item{title.position}{A character string indicating the position of a title.
+One of \code{"top"}, \code{"bottom"}, \code{"left"} or \code{"right"}.}
+
+\item{title.theme}{A theme object for rendering the title text.}
+
+\item{title.hjust, title.vjust}{A number specifying horizontal and vertical
+justification of the title text.}
+
+\item{label.theme}{A theme object for rendering the legend text.}
+
+\item{label.hjust, label.vjust}{A numer specifying horizontal and vertical
+justification of the legend text.}
+
 \item{family}{A \code{character(1)} setting a font family for labels.}
 
 \item{face}{A \code{character(1)} setting a font face for labels. One of the
@@ -55,6 +68,9 @@ One of "horizontal" or "vertical."}
 
 \item{nrow, ncol}{The desired number of rows and column of legends
 respectively.}
+
+\item{byrow}{logical. If \code{FALSE} (default) the legend-matrix is filled by
+columns, otherwise the legend-matrix is filled by rows.}
 
 \item{reverse}{logical. If \code{TRUE} the order of legends is reversed.}
 

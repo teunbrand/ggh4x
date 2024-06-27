@@ -18,6 +18,16 @@
 #'   size of the title.
 #' @param default.units A `character(1)` indicating the default units to
 #'   use if the `spacing.*` arguments are only given as numeric vectors.
+#' @param title.position A character string indicating the position of a title.
+#'   One of `"top"`, `"bottom"`, `"left"` or `"right"`.
+#' @param title.theme A theme object for rendering the title text.
+#' @param title.hjust,title.vjust A number specifying horizontal and vertical
+#'   justification of the title text.
+#' @param label.theme A theme object for rendering the legend text.
+#' @param label.hjust,label.vjust A numer specifying horizontal and vertical
+#'   justification of the legend text.
+#' @param byrow logical. If `FALSE` (default) the legend-matrix is filled by
+#'   columns, otherwise the legend-matrix is filled by rows.
 #'
 #' @return A `guide`, `stringlegend` S3 object.
 #' @export
