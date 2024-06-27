@@ -140,8 +140,8 @@ p + facet_manual(
 \seealso{
 Other facetting functions: 
 \code{\link{facet_grid2}()},
-\code{\link{facet_nested_wrap}()},
 \code{\link{facet_nested}()},
+\code{\link{facet_nested_wrap}()},
 \code{\link{facet_wrap2}()}
 }
 \concept{facetting functions}

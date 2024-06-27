@@ -41,7 +41,7 @@ propagate missing values (\code{FALSE}). Applies to the \code{method = "range"} 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:sec_axis]{ggplot2::sec_axis}}
   \describe{
-    \item{\code{transform}}{A formula or function of transformation}
+    \item{\code{transform}}{A formula or function of a strictly monotonic transformation}
     \item{\code{name}}{The name of the secondary axis}
     \item{\code{breaks}}{One of:
 \itemize{

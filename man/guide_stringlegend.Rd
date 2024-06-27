@@ -35,31 +35,6 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[ggplot2:waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 
-\item{title.position}{A character string indicating the position of a
-title. One of "top" (default for a vertical guide), "bottom", "left"
-(default for a horizontal guide), or "right."}
-
-\item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.title} in \code{\link[ggplot2:theme]{theme()}} or theme.}
-
-\item{title.hjust}{A number specifying horizontal justification of the
-title text.}
-
-\item{title.vjust}{A number specifying vertical justification of the title
-text.}
-
-\item{label.theme}{A theme object for rendering the label text. Usually the
-object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[ggplot2:theme]{theme()}}.}
-
-\item{label.hjust}{A numeric specifying horizontal justification of the
-label text. The default for standard text is 0 (left-aligned) and 1
-(right-aligned) for expressions.}
-
-\item{label.vjust}{A numeric specifying vertical justification of the label
-text.}
-
 \item{family}{A \code{character(1)} setting a font family for labels.}
 
 \item{face}{A \code{character(1)} setting a font face for labels. One of the
@@ -78,12 +53,8 @@ use if the \verb{spacing.*} arguments are only given as numeric vectors.}
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
 
-\item{nrow}{The desired number of rows of legends.}
-
-\item{ncol}{The desired number of column of legends.}
-
-\item{byrow}{logical. If \code{FALSE} (the default) the legend-matrix is
-filled by columns, otherwise the legend-matrix is filled by rows.}
+\item{nrow, ncol}{The desired number of rows and column of legends
+respectively.}
 
 \item{reverse}{logical. If \code{TRUE} the order of legends is reversed.}
 
