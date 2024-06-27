@@ -44,6 +44,7 @@ Encoding: UTF-8
 RoxygenNote: 7.3.0
 Config/testthat/edition: 3
 Collate:
+    'at_panel.R'
     'borrowed_ggplot2.R'
     'conveniences.R'
     'ggh4x_extensions.R'
