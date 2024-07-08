@@ -31,6 +31,7 @@ Imports:
 Suggests: 
     covr,
     fitdistrplus,
+    farver,
     ggdendro,
     vdiffr,
     knitr,
@@ -44,6 +45,7 @@ Encoding: UTF-8
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3
 Collate:
+    'aes_contrast.R'
     'at_panel.R'
     'borrowed_ggplot2.R'
     'conveniences.R'
