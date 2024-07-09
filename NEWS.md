@@ -3,6 +3,7 @@
 * `help_secondary()` has a new `na.rm` argument (#146, thanks @jrmuirhead!).
 * Fixed a bug when using facets with extension elements (#151).
 * Added `at_panel()` for annotating specific panels in facets (#162)
+* Added `aes_contrast()` for auto-contrast of a colour aesthetic against fill.
 
 # ggh4x 0.2.8
 
