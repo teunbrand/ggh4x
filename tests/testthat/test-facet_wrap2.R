@@ -48,8 +48,8 @@ nchildren <- function(gt, where) {
 }
 
 test_that("facet_wrap2() can some repeat axes", {
-  case <- p + facet_wrap2(am ~ cyl, axes = "x", dir = "v")
-  ctrl <- p + facet_wrap2(am ~ cyl, axes = "margins", dir = "v")
+  case <- p + facet_wrap2(am ~ cyl, axes = "x", dir = "v", ncol = 2)
+  ctrl <- p + facet_wrap2(am ~ cyl, axes = "margins", dir = "v", ncol = 2)
 
   case <- ggplotGrob(case)
   ctrl <- ggplotGrob(ctrl)

@@ -92,36 +92,20 @@ new_wrap_facets <- function(
   trim_blank,
   params = list(), super = FacetWrap2
 ) {
-  # Check arguments
-  labeller <- check_labeller(labeller)
-  strip.position <- arg_match0(
-    strip.position, c("top", "bottom", "left",  "right")
-  )
-  dir <- arg_match0(dir, c("h", "v"))
-  free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
+  prototype <- facet_wrap(
+    facets = facets, nrow = nrow, ncol = ncol,
+    scales = scales, shrink = shrink, labeller = labeller,
+    as.table = as.table, drop = drop, dir = dir,
+    strip.position = strip.position
+  )$params
   axes  <- .match_facet_arg(axes,   c("margins", "x", "y", "all"))
   rmlab <- .match_facet_arg(rmlab,  c("none", "x", "y", "all"))
   strip <- assert_strip(strip)
 
-  # Setup facet variables
-  facets   <- .int$wrap_as_facets_list(facets)
-
-  # Setup dimensions
-  if (identical(dir, "v")) {
-    tmp  <- ncol
-    ncol <- nrow
-    nrow <- tmp
-  }
-  dim <- if (trim_blank) NULL else c(nrow %||% NA, ncol %||% NA)
+  dim <- if (trim_blank) NULL else c(prototype$nrow %||% NA, prototype$ncol %||% NA)
 
   # Make list of parameters
-  params <- c(params, list(
-    facets = facets, free = free, as.table = as.table,
-    strip.position = strip.position, drop = drop,
-    ncol = ncol, nrow = nrow, dim = dim,
-    labeller = labeller, dir = dir,
-    axes = axes, rmlab = rmlab
-  ))
+  params <- c(prototype, params, list(dim = dim, axes = axes, rmlab = rmlab))
 
   ggproto(
     NULL, super,
