@@ -1,5 +1,6 @@
 # ggh4x (development version)
 
+* Fixed bug in label remover (#158).
 * Fixed bug in axis `check.overlap` setting (#165).
 * Future-proofing of wrapped facets.
 * `help_secondary()` has a new `na.rm` argument (#146, thanks @jrmuirhead!).

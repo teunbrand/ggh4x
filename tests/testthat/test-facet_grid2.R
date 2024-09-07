@@ -26,7 +26,7 @@ test_that("facet_grid2 can duplicate axes and remove labels", {
     expect_equal(l, c(1L, 1L, 2L, 2L))
   } else {
     expect_equal(b, c(3L, 3L, 3L, 3L))
-    expect_equal(l, c(2L, 2L, 3L, 3L))
+    expect_equal(l, c(1L, 1L, 3L, 3L))
   }
 })
 
