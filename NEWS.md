@@ -1,9 +1,10 @@
 # ggh4x (development version)
 
+* Fixed bug in axis `check.overlap` setting (#165).
 * Future-proofing of wrapped facets.
 * `help_secondary()` has a new `na.rm` argument (#146, thanks @jrmuirhead!).
 * Fixed a bug when using facets with extension elements (#151).
-* Added `at_panel()` for annotating specific panels in facets (#162)
+* Added `at_panel()` for annotating specific panels in facets (#162).
 
 # ggh4x 0.2.8
 

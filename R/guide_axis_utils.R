@@ -64,7 +64,7 @@ build_axis_labels <- function(
   lapply(dodge_idxs, function(idx) {
     subkey <- key[idx, , drop = FALSE]
     if (check.overlap) {
-      priority <- axis_label_priority(n)
+      priority <- axis_label_priority(nrow(subkey))
       subkey   <- subkey[priority, , drop = FALSE]
     }
     breaks <- subkey[[params$aes]]
