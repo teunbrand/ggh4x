@@ -45,7 +45,7 @@
 #'   doubles that can be divided by 1 without remainders.
 #'
 #'   Parameters are estimated using the
-#'   [fitdistrplus::fitdist()]`()` function in the
+#'   [fitdistrplus::fitdist()] function in the
 #'   \pkg{fitdistrplus} package using maximum likelihood estimation.
 #'   Hypergeometric and multinomial distributions from the \pkg{stats} package
 #'   are not supported.
