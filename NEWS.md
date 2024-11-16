@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* `coord_axis_inside(labels_inside)` now supports independent `"x"` and `"y"` 
+  (#167).
 * Fixed bug in label remover (#158).
 * Fixed bug in axis `check.overlap` setting (#165).
 * Future-proofing of wrapped facets.
