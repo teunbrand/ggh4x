@@ -1,5 +1,7 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Axis guide with ticks for minor breaks
 #'
 #' `r lifecycle::badge("deprecated")`
@@ -209,6 +211,7 @@ build_axis_ticks_minor <- function(element, length, position, params,
   do.call(element_grob, args)
 }
 
+# nocov end
 
 
 

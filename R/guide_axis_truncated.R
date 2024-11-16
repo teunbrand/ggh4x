@@ -1,5 +1,7 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Axis guide with truncated line
 #'
 #' `r lifecycle::badge("deprecated")`
@@ -374,3 +376,4 @@ check_trunc_arg <- function(lower, upper) {
   }
 }
 
+# nocov end

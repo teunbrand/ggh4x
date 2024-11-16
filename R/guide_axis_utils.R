@@ -1,3 +1,5 @@
+# nocov start
+
 build_axis_elements <- function(
   axis_position = "b", angle = NULL, theme, colour = NULL
 ) {
@@ -182,3 +184,5 @@ setup_axis_params <- function(axis_position) {
        opposite_axis = axis_opposite,
        vertical = is_vertical)
 }
+
+# nocov end

@@ -1,5 +1,7 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Scale bar axis guide
 #'
 #' `r lifecycle::badge("deprecated")`
@@ -230,4 +232,5 @@ build_scalebar_bar <- function(
   do.call(element_grob, args)
 }
 
+# nocov end
 

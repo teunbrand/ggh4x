@@ -1,5 +1,7 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Nested axis guide
 #'
 #' `r lifecycle::badge("deprecated")`
@@ -296,3 +298,5 @@ build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
 
   c(first_labels, later_labels)
 }
+
+# nocov end

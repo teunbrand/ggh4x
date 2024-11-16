@@ -1,5 +1,7 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Axis guide with ticks for logarithmic breaks
 #'
 #' `r lifecycle::badge("deprecated")`
@@ -218,3 +220,5 @@ make_logbreaks <- function(base = 10, ticks_per_base = base - 1,
 
   return(tickdf)
 }
+
+# nocov end

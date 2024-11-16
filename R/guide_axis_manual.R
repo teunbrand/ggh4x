@@ -1,5 +1,7 @@
 # Constructor -------------------------------------------------------------
 
+# nocov start
+
 #' Manual axis
 #'
 #' `r lifecycle::badge("deprecated")`
@@ -326,3 +328,5 @@ draw_axis_manual <- function(
     params = params
   )
 }
+
+# nocov end
