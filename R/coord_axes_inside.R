@@ -15,9 +15,10 @@ NULL
 #' @param xintercept,yintercept A `numeric(1)` for the positions where the
 #'   orthogonal axes should be placed. If these are outside the bounds of the
 #'   limits, the axes are placed to the nearest extreme.
-#' @param labels_inside A `logical(1)` when labels should be placed inside the
-#'   panel along the axes (`TRUE`) or placed outside the panel
-#'   (`FALSE`, default).
+#' @param labels_inside One of `"x"`, `"y"`, `"both"` or `"none"` specifying
+#'   the axes where labels should be placed inside the panel along the axes.
+#'   `TRUE` is translated as `"both"` and `FALSE` (default) is translated as
+#'   `"none"`.
 #' @param ratio Either `NULL`, or a `numeric(1)` for a fixed aspect ratio,
 #'   expressed as `y / x`.
 #'
