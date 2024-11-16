@@ -23,9 +23,10 @@ coord_axes_inside(
 orthogonal axes should be placed. If these are outside the bounds of the
 limits, the axes are placed to the nearest extreme.}
 
-\item{labels_inside}{A \code{logical(1)} when labels should be placed inside the
-panel along the axes (\code{TRUE}) or placed outside the panel
-(\code{FALSE}, default).}
+\item{labels_inside}{One of \code{"x"}, \code{"y"}, \code{"both"} or \code{"none"} specifying
+the axes where labels should be placed inside the panel along the axes.
+\code{TRUE} is translated as \code{"both"} and \code{FALSE} (default) is translated as
+\code{"none"}.}
 
 \item{ratio}{Either \code{NULL}, or a \code{numeric(1)} for a fixed aspect ratio,
 expressed as \code{y / x}.}
