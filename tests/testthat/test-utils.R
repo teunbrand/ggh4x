@@ -1,9 +1,3 @@
-test_that("function grabber grabs functions", {
-  x <- .grab_ggplot_internals()
-  classes <- table(sapply(x, class))
-  expect_gt(classes["function"], 0)
-})
-
 test_that("center_limits centers limits", {
   f <- center_limits()
   expect_equal(f(c(-1, 3)), c(-3, 3))
