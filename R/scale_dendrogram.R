@@ -1,5 +1,7 @@
 # External facing functions -----------------------------------------------
 
+# nocov start
+
 #' @name scale_dendrogram
 #' @title Dendrogram position scales
 #'
@@ -164,3 +166,5 @@ ScaleDendrogram <- ggproto(
     }
     return(x)
   })
+
+# nocov end

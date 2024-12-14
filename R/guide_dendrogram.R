@@ -1,5 +1,7 @@
 # Constructor -------------------------------------------------------------
 
+# nocov start
+
 #' Dendrogram guide
 #'
 #' `r lifecycle::badge("deprecated")`
@@ -217,3 +219,5 @@ draw_dendroguide <- function(
     params = params
   )
 }
+
+# nocov end

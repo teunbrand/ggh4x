@@ -6,4 +6,7 @@ test_that("old guides throw deprecation messages", {
   lifecycle::expect_deprecated(guide_axis_minor())
   lifecycle::expect_deprecated(guide_axis_nested())
   lifecycle::expect_deprecated(guide_axis_scalebar())
+  lifecycle::expect_deprecated(guide_dendro())
+  lifecycle::expect_deprecated(scale_x_dendrogram())
+  lifecycle::expect_deprecated(scale_y_dendrogram())
 })
