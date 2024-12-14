@@ -79,7 +79,7 @@ facet_manual <- function(
   )
 
   design <- validate_design(design, trim_blank)
-  facets <- .int$wrap_as_facets_list(facets)
+  facets <- facet_wrap(facets = facets)$params$facets
 
   if (length(facets) == 0) {
     return(facet_null())

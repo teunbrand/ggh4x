@@ -15,9 +15,10 @@ NULL
 #' @param xintercept,yintercept A `numeric(1)` for the positions where the
 #'   orthogonal axes should be placed. If these are outside the bounds of the
 #'   limits, the axes are placed to the nearest extreme.
-#' @param labels_inside A `logical(1)` when labels should be placed inside the
-#'   panel along the axes (`TRUE`) or placed outside the panel
-#'   (`FALSE`, default).
+#' @param labels_inside One of `"x"`, `"y"`, `"both"` or `"none"` specifying
+#'   the axes where labels should be placed inside the panel along the axes.
+#'   `TRUE` is translated as `"both"` and `FALSE` (default) is translated as
+#'   `"none"`.
 #' @param ratio Either `NULL`, or a `numeric(1)` for a fixed aspect ratio,
 #'   expressed as `y / x`.
 #'
@@ -54,6 +55,13 @@ coord_axes_inside <- function(
   clip = "on"
 ) {
 
+  if (is.character(labels_inside)) {
+    labels_inside <- arg_match0(labels_inside, c("x", "y", "none", "both"))
+  } else {
+    labels_inside <- if (isTRUE(labels_inside)) "both" else "none"
+  }
+
+  inner_axes <- theme()
   outer_axes <- theme(
     axis.line.x.bottom  = element_blank(),
     axis.line.x.top     = element_blank(),
@@ -64,35 +72,42 @@ coord_axes_inside <- function(
     axis.ticks.y.left   = element_blank(),
     axis.ticks.y.right  = element_blank()
   )
-  if (isTRUE(labels_inside)) {
+
+  if (labels_inside %in% c("x", "both")) {
     outer_axes <- outer_axes + theme(
-      axis.text.x.bottom = element_blank(),
-      axis.text.x.top    = element_blank(),
-      axis.text.y.left   = element_blank(),
-      axis.text.y.right  = element_blank(),
+      axis.text.x.bottom         = element_blank(),
+      axis.text.x.top            = element_blank(),
       axis.ticks.length.x.bottom = unit(0, "pt"),
       axis.ticks.length.x.top    = unit(0, "pt"),
-      axis.ticks.length.y.left   = unit(0, "pt"),
-      axis.ticks.length.y.right  = unit(0, "pt")
     )
-    inner_axes <- theme()
   } else {
-    inner_axes <- theme(
+    inner_axes <- inner_axes + theme(
       axis.text.x.bottom = element_blank(),
-      axis.text.x.top    = element_blank(),
-      axis.text.y.left   = element_blank(),
-      axis.text.y.right  = element_blank()
+      axis.text.x.top    = element_blank()
+    )
+  }
+  if (labels_inside %in% c("y", "both")) {
+    outer_axes <- outer_axes + theme(
+      axis.text.y.left          = element_blank(),
+      axis.text.y.right         = element_blank(),
+      axis.ticks.length.y.left  = unit(0, "pt"),
+      axis.ticks.length.y.right = unit(0, "pt")
+    )
+  } else {
+    inner_axes <- inner_axes + theme(
+      axis.text.y.left  = element_blank(),
+      axis.text.y.right = element_blank()
     )
   }
 
   ggproto(
     NULL, CoordAxesInside,
-    limits  = list(x = xlim, y = ylim),
-    expand  = expand,
-    default = default,
-    clip    = clip,
-    ratio   = ratio,
-    origin  = data_frame0(x = xintercept[1], y = yintercept[1]),
+    limits     = list(x = xlim, y = ylim),
+    expand     = expand,
+    default    = default,
+    clip       = clip,
+    ratio      = ratio,
+    origin     = data_frame0(x = xintercept[1], y = yintercept[1]),
     outer_axes = outer_axes,
     inner_axes = inner_axes
   )

@@ -146,7 +146,7 @@ For discrete distributions, the input data are expected to be integers, or
 doubles that can be divided by 1 without remainders.
 
 Parameters are estimated using the
-\code{\link[fitdistrplus:fitdist]{fitdistrplus::fitdist()}}\verb{()} function in the
+\code{\link[fitdistrplus:fitdist]{fitdistrplus::fitdist()}} function in the
 \pkg{fitdistrplus} package using maximum likelihood estimation.
 Hypergeometric and multinomial distributions from the \pkg{stats} package
 are not supported.
