@@ -64,9 +64,11 @@ by \code{\link[ggdendro:dendro_data]{ggdendro::dendro_data()}}.}
 A \emph{dendroguide} class object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 Visual representation of a discrete variable with hierarchical relationships
 between members, like those detailed in
-\code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)()}}.
+\code{\link[=scale_x_dendrogram]{scale_(x|y)_dendrogram)()}}. This function is
+deprecated in favour of \code{legendry::guide_axis_dendro()}.
 }
 \details{
 The dendrogram guide inherits graphical elements from the
@@ -95,3 +97,4 @@ g + theme(axis.ticks = element_line(colour = "red"))
 # The size of the dendrogram is controlled through tick size * 10
 g + theme(axis.ticks.length = unit(5, "pt"))
 }
+\keyword{internal}

@@ -41,12 +41,11 @@ left, or right.}
 A \code{axis_scalebar} guide class object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 This axis guides draws a scale bar to indicate a distance rather than
 mark absolute values.
-The function is questioned due to
-a possible migration of guide functions after ggplot2 releases a new guide
-system.
+The function is deprecated due to superior alternatives such as
+\code{legendry::primitive_bracket()}.
 }
 \details{
 It is discouraged to use this guide in combination with a scale
@@ -102,3 +101,4 @@ Other axis-guides:
 \code{\link{guide_axis_truncated}()}
 }
 \concept{axis-guides}
+\keyword{internal}

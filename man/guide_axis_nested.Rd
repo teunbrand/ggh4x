@@ -79,14 +79,13 @@ nesting lines relative to the smallest difference in break positions.}
 A \emph{axis_nested} guide class object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 Discrete position scales containing interacting factors can be visualised
 more clearly with a nested axis guide. Nested axis guides separate labels
 based on a delimiter and groups identical later labels, indicating the
 grouping with a line spanning the earlier labels.
-The function is questioned due to
-a possible migration of guide functions after ggplot2 releases a new guide
-system.
+The function is deprecated due to superior alternatives such as
+\code{legendry::guide_axis_nested()}.
 }
 \details{
 The guide itself makes no effort to group and order labels. To get
@@ -145,3 +144,4 @@ Other axis-guides:
 \code{\link{guide_axis_truncated}()}
 }
 \concept{axis-guides}
+\keyword{internal}

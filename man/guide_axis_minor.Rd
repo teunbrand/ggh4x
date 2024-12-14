@@ -66,12 +66,11 @@ left, or right.}
 An \emph{axis_minor} guide class object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 These are similar the the normal axis guides for position scales, but also
 place tickmarks at minor break positions.
-The function is questioned due to
-a possible migration of guide functions after ggplot2 releases a new guide
-system.
+The function is deprecated because it can be replaced with
+\code{ggplot2::guide_axis(minor.ticks = TRUE)}.
 }
 \section{Theme elements}{
 
@@ -108,3 +107,4 @@ Other axis-guides:
 \code{\link{guide_axis_truncated}()}
 }
 \concept{axis-guides}
+\keyword{internal}
