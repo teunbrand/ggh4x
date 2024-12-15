@@ -151,21 +151,21 @@ sure the radius range does not have close to zero width.
 
 \code{geom_text_aimed()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
+\item \strong{\code{\link[ggplot2:aes_position]{x}}}
+\item \strong{\code{\link[ggplot2:aes_position]{y}}}
 \item \strong{\code{label}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{alpha}}
 \item \code{angle}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{colour}}
 \item \code{family}
 \item \code{fontface}
-\item \code{\link[=aes_group_order]{group}}
+\item \code{\link[ggplot2:aes_group_order]{group}}
 \item \code{hjust}
 \item \code{lineheight}
-\item \code{\link[=aes_linetype_size_shape]{size}}
+\item \code{\link[ggplot2:aes_linetype_size_shape]{size}}
 \item \code{vjust}
-\item \code{\link[=aes_position]{xend}}
-\item \code{\link[=aes_position]{yend}}
+\item \code{\link[ggplot2:aes_position]{xend}}
+\item \code{\link[ggplot2:aes_position]{yend}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

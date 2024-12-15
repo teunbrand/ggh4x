@@ -120,14 +120,14 @@ aesthetic pretty ungracefully.
 
 \code{geom_outline_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_colour_fill_alpha]{fill}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{shape}}
-\item \code{\link[=aes_linetype_size_shape]{size}}
+\item \strong{\code{\link[ggplot2:aes_position]{x}}}
+\item \strong{\code{\link[ggplot2:aes_position]{y}}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{alpha}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{colour}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{fill}}
+\item \code{\link[ggplot2:aes_group_order]{group}}
+\item \code{\link[ggplot2:aes_linetype_size_shape]{shape}}
+\item \code{\link[ggplot2:aes_linetype_size_shape]{size}}
 \item \code{stroke}
 \item \code{stroke_colour}
 }

@@ -36,6 +36,10 @@ height_cm <- function(x) {
   }
 }
 
+fixup_docs <- function(x) {
+  gsub("\\[=aes", "\\[ggplot2:aes", x)
+}
+
 # ggplot internals --------------------------------------------------------
 
 data_frame0 <- function(...) {data_frame(..., .name_repair = "minimal")}

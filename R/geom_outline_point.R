@@ -10,7 +10,7 @@
 #'
 #' @return A ggplot `Layer`
 #' @export
-#' @eval ggplot2:::rd_aesthetics("geom", "outline_point")
+#' @eval fixup_docs(ggplot2:::rd_aesthetics("geom", "outline_point"))
 #'
 #' @details Due to the way this geom is implemented, it handles the `alpha`
 #'   aesthetic pretty ungracefully.

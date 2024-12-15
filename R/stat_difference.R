@@ -24,7 +24,7 @@
 #' When there is a run of more than two 0-difference values, the inner values
 #' will be ignored.
 #'
-#' @eval ggplot2:::rd_aesthetics("geom", "ribbon")
+#' @eval fixup_docs(ggplot2:::rd_aesthetics("geom", "ribbon"))
 #' @section Computed variables: \describe{
 #'  \item{`sign`}{A `factor` with the `levels` attribute set to the `levels`
 #'  argument.}

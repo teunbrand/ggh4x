@@ -25,7 +25,7 @@
 #' @note When using this geom to aim text at the centre of a polar plot, make
 #'   sure the radius range does not have close to zero width.
 #'
-#' @eval ggplot2:::rd_aesthetics("geom", "text_aimed")
+#' @eval fixup_docs(ggplot2:::rd_aesthetics("geom", "text_aimed"))
 #' @examples
 #' # Point all labels to upper right corner
 #' ggplot(mtcars, aes(mpg, wt)) +
