@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* `guide_stringlegend()` has been modernised to use the ggplot2 3.5.0 guide
+  system instead of the old S3 system.
 * Facets allow take the `strip` as strings and functions too.
 * New `strip_tag()` strip function (#149).
 * `coord_axis_inside(labels_inside)` now supports independent `"x"` and `"y"` 
