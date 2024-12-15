@@ -62,24 +62,6 @@ examples. Links to these topics are below.
     panels](https://teunbrand.github.io/ggh4x/articles/Facets.html#sizes)
     without being limited to the global `aspect.ratio` or fixed
     coordinates.
-- ggh4x has some [position
-  guides](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html)
-  that change the way x- and y-axes look. You can:
-  - [recolour](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#coloured-axis-1)
-    the axis or cut the axis line with [truncated
-    axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#truncated-axes-1).
-  - include the [minor breaks as minor tick
-    marks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks).
-  - detail log<sub>10</sub> axes with [logarithmic
-    tickmarks](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#logarithmic-ticks).
-  - fine-tune the placement of labels and breaks with [manual
-    axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#manual-axes-1).
-  - indicate [nested
-    relations](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#nested-relations)
-    in discrete axes.
-  - mirror the results of hierarchical clustering with [dendrogram
-    axes](https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#dendrograms)
-    with help from the **ggdendro** package.
 - There are some [stat
   layers](https://teunbrand.github.io/ggh4x/articles/Statistics.html)
   that can make it easier to plot. These stat layers can:
@@ -163,8 +145,8 @@ g <- g +
 # Like we did for colours, we might also want to set position scales for every
 # panel individually. We set these in the same order the facets appear in.
 position_scales <- list(
-  scale_x_reverse(guide = "axis_minor"),
-  scale_x_continuous(labels = dollar, guide = "axis_truncated"),
+  scale_x_reverse(guide = guide_axis(minor.ticks = TRUE)),
+  scale_x_continuous(labels = dollar, guide = guide_axis(cap = "both")),
   scale_x_continuous(breaks = c(3, 4), expand = c(0,0))
 )
 
