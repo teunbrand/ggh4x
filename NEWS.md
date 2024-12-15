@@ -1,4 +1,4 @@
-# ggh4x (development version)
+# ggh4x 0.3.0
 
 This is a new minor release, introducing a few small features, bug fixes and 
 deprecating the position guides in favour of the legendry package.
