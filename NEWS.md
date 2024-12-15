@@ -1,5 +1,19 @@
 # ggh4x (development version)
 
+* The following functions have been deprecated in favour of both base ggplot2 and
+  the legendry package. They are scheduled to be removed in the next non-hotfix
+  update.
+    * `scale_x_dendrogram()` and `scale_y_dendrogram()` in favour of 
+    `legendry::scale_x_dendro()` and `legendry::scale_y_dendro()`.
+    * `guide_dendro()` in favour of `legendry::guide_axis_dendro()`.
+    * `guide_axis_truncated()` in favour of `ggplot2::guide_axis(cap = TRUE)`.
+    * `guide_axis_colour()` in favour of `ggplot2::guide_axis(theme = ...)`.
+    * `guide_axis_minor()` in favour of 
+    `ggplot2::guide_axis(minor.ticks = TRUE)`.
+    * `guide_axis_logticks()` in favour of `ggplot2::guide_axis_logticks()`.
+    * `guide_axis_nested()` in favour of `legendry::guide_axis_nested()`.
+    * `guide_axis_manual()` in favour of `legendry::guide_axis_base(key = ...)`.
+    * `guide_axis_scalebar()` in favour of `legendry::primitive_bracket()`.
 * `guide_stringlegend()` has been modernised to use the ggplot2 3.5.0 guide
   system instead of the old S3 system.
 * Facets allow take the `strip` as strings and functions too.

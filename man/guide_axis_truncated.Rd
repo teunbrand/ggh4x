@@ -94,15 +94,14 @@ left, or right.}
 An \emph{axis_ggh4x} guide class object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#questioning}{\figure{lifecycle-questioning.svg}{options: alt='[Questioning]'}}}{\strong{[Questioning]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 This axis guide is similar to the normal axis guides for position scales, but
 can shorten the axis line that is being drawn. The \code{guide_axis_colour()}
 function is the same but with different defaults for the truncation that do
 not truncate the axis. Axis truncation and recolouring is supported
 throughout axes in ggh4x.
-The function is questioned due to
-a possible migration of guide functions after ggplot2 releases a new guide
-system.
+The function is deprecated as \code{ggplot2::guide_axis(cap = TRUE)} has this
+functionality now.
 }
 \examples{
 # Make a plot
@@ -143,3 +142,4 @@ Other axis-guides:
 \code{\link{guide_axis_scalebar}()}
 }
 \concept{axis-guides}
+\keyword{internal}

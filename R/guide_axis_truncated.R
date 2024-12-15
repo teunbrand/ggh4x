@@ -1,16 +1,17 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Axis guide with truncated line
 #'
-#' `r lifecycle::badge("questioning")`
+#' `r lifecycle::badge("deprecated")`
 #' This axis guide is similar to the normal axis guides for position scales, but
 #' can shorten the axis line that is being drawn. The `guide_axis_colour()`
 #' function is the same but with different defaults for the truncation that do
 #' not truncate the axis. Axis truncation and recolouring is supported
 #' throughout axes in ggh4x.
-#' The function is questioned due to
-#' a possible migration of guide functions after ggplot2 releases a new guide
-#' system.
+#' The function is deprecated as `ggplot2::guide_axis(cap = TRUE)` has this
+#' functionality now.
 #'
 #' @inheritParams ggplot2::guide_axis
 #' @param trunc_lower,trunc_upper The lower and upper range of the truncated
@@ -28,6 +29,7 @@
 #' @return An *axis_ggh4x* guide class object.
 #' @export
 #' @family axis-guides
+#' @keywords internal
 #' @md
 #'
 #' @examples
@@ -71,6 +73,11 @@ guide_axis_truncated <- function(
   trunc_upper = max,
   position = waiver()
 ) {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "guide_axis_truncated()",
+    I("`ggplot2::guide_axis(cap = TRUE)`")
+  )
   colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(
@@ -105,6 +112,11 @@ guide_axis_colour <- function(
   trunc_upper = NULL,
   position = waiver()
 ) {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "guide_axis_truncated()",
+    I("`ggplot2::guide_axis(cap = TRUE)`")
+  )
   colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(
@@ -364,3 +376,4 @@ check_trunc_arg <- function(lower, upper) {
   }
 }
 
+# nocov end

@@ -56,7 +56,7 @@ ggplot(df, aes(x, y = after_stat(count),
   facetted_pos_scales(list(
     scale_x_continuous(labels = scales::number_format(0.1)),
     # Give the 2nd panel minor ticks
-    scale_x_continuous(guide = guide_axis_minor()),
+    scale_x_continuous(guide = guide_axis(minor.ticks = TRUE)),
     scale_x_continuous(limits = c(0, 40), oob = scales::oob_keep),
     scale_x_continuous(expand = c(1, 0))
   ))
@@ -65,4 +65,4 @@ ggplot(df, aes(x, y = after_stat(count),
 # Further reading
 
 Since ggh4x touches several aspects of ggplot2 plots, a few topics are discussed in more detail in vignettes.
-Please see the vignettes on [facet_* functions](Facets.html),  [stat_* functions](Statistics.html) or [position guides](PositionGuides.html).
+Please see the vignettes on [facet_* functions](Facets.html) or  [stat_* functions](Statistics.html).).

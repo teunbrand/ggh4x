@@ -77,6 +77,6 @@ p + coord_axes_inside(xintercept = 1, yintercept = -1)
 p + coord_axes_inside(xintercept = -5, yintercept = Inf, clip = "off")
 
 # Can be combined with other non-default axes
-p + guides(x = "axis_minor") +
+p + guides(x = guide_axis(minor.ticks = TRUE)) +
   coord_axes_inside()
 }

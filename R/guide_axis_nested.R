@@ -1,15 +1,16 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Nested axis guide
 #'
-#' `r lifecycle::badge("questioning")`
+#' `r lifecycle::badge("deprecated")`
 #' Discrete position scales containing interacting factors can be visualised
 #' more clearly with a nested axis guide. Nested axis guides separate labels
 #' based on a delimiter and groups identical later labels, indicating the
 #' grouping with a line spanning the earlier labels.
-#' The function is questioned due to
-#' a possible migration of guide functions after ggplot2 releases a new guide
-#' system.
+#' The function is deprecated due to superior alternatives such as
+#' `legendry::guide_axis_nested()`.
 #'
 #' @inheritParams guide_axis_truncated
 #' @param delim A `character` of length 1 to tell `strsplit` how
@@ -44,6 +45,7 @@
 #'   `interaction()`.
 #'
 #' @export
+#' @keywords internal
 #'
 #' @family axis-guides
 #'
@@ -84,6 +86,11 @@ guide_axis_nested <- function(
   color = NULL,
   extend = 0.5
 ) {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "guide_axis_nested()",
+    "legendry::guide_axis_nested()"
+  )
   colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(
@@ -291,3 +298,5 @@ build_axis_labels_nested <- function(elements, labels, position, dodge = 1,
 
   c(first_labels, later_labels)
 }
+
+# nocov end

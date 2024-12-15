@@ -90,8 +90,11 @@ expand the scale by 5\% on each side for continuous variables, and by
 A \emph{ScaleDendrogram} ggproto object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 When discrete data has some inherent hierarchy to the relationship between
 discrete categories, you can display a dendrogram instead of a tick axis.
+These functions have been deprecated in favour of
+\verb{legendry::scale_\{x/y\}_dendro()}.
 }
 \details{
 The dendrogram type of scale does two things, first it reorders the
@@ -119,3 +122,4 @@ ggplot(df, aes(variable, State, fill = value)) +
   scale_y_dendrogram(hclust = yclus) +
   scale_x_dendrogram(hclust = xclus)
 }
+\keyword{internal}

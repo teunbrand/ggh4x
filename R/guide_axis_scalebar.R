@@ -1,13 +1,14 @@
 # User function -----------------------------------------------------------
 
+# nocov start
+
 #' Scale bar axis guide
 #'
-#' `r lifecycle::badge("questioning")`
+#' `r lifecycle::badge("deprecated")`
 #' This axis guides draws a scale bar to indicate a distance rather than
 #' mark absolute values.
-#' The function is questioned due to
-#' a possible migration of guide functions after ggplot2 releases a new guide
-#' system.
+#' The function is deprecated due to superior alternatives such as
+#' `legendry::primitive_bracket()`.
 #'
 #' @inheritParams guide_axis_truncated
 #' @param size A `numeric(1)` for a distance to indicate, in data units. If
@@ -43,6 +44,7 @@
 #'
 #' @return A `axis_scalebar` guide class object.
 #' @family axis-guides
+#' @keywords internal
 #' @export
 #'
 #' @examples
@@ -72,6 +74,11 @@ guide_axis_scalebar <- function(
   just     = 1,
   position = waiver()
 ) {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "guide_axis_scalebar()",
+    "legendry::primitive_bracket()"
+  )
   colour <- color %||% colour
   structure(
     list(
@@ -225,4 +232,5 @@ build_scalebar_bar <- function(
   do.call(element_grob, args)
 }
 
+# nocov end
 

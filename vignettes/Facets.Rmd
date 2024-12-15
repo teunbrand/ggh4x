@@ -350,7 +350,7 @@ scales <- list(
                      minor_breaks = c(2.5, 4.5)),
   scale_x_continuous(breaks = c(2.945, 6),
                      limits = c(0, 10),
-                     guide = "axis_minor")
+                     guide = guide_axis(minor.ticks = TRUE))
 )
 
 p + facet_wrap(vars(drv), scales = "free_x") +
@@ -362,13 +362,19 @@ p + facet_wrap(vars(drv), scales = "free_x") +
 Because it might be inconvenient to predict in programmatically which data might end up in what position, there is also an option to use two-sided formulas to set scales by panel. The formula notation is inspired by `dplyr::case_when()` and lets you use the left hand side (LHS) to decide *where* to apply scales, and the right hand side (RHS) to decide *what* scales to apply. The LHS of the formula will be evaluated in the context of the plot's layout. This is an internal structure that (for good reasons) isn't normally exposed, so it requires a bit of knowledge to know what can be used. For most facets, the plot layout is a `data.frame` that contains the `COL`, `ROW` and `PANEL` columns that keep track of what panel goes where in the grid of cells. In addition, it contains the faceting variables, such as `class` in the example below.
 
 ```{r position_scales_formula}
+red_axis <- guide_axis(theme = theme(
+  axis.text = element_text(colour = "red"),
+  axis.ticks = element_line(colour = "red")
+))
+
 p +
   facet_wrap(vars(class), nrow = 1, scales = "free_x") +
   xlim(range(mpg$displ)) +
   facetted_pos_scales(x = list(
     COL %% 2 == 0 ~ scale_x_continuous(labels = NULL, limits = xlim),
     class %in% c("midsize", "suv", "subcompact") ~ scale_x_continuous(
-      guide = guide_axis_colour(colour = "red"), limits = xlim
+      guide = red_axis, 
+      limits = xlim
     )
   ))
 ```
@@ -390,7 +396,7 @@ p +
   scale_x_facet(
     class %in% c("midsize", "suv", "subcompact"),
     limits = xlim,
-    guide = guide_axis_colour(colour = "red")
+    guide = red_axis
   )
 ```
 
@@ -424,8 +430,6 @@ ggplot(df, aes(log10(x))) +
   facetted_pos_scales(x = list(scale_x_continuous())) +
   ggtitle("facetted scale +\npre-transformation")
 ```
-
-If you plan on using `facetted_pos_scales()` to tweak the axis of the plots, do take a look at the [position guides](PositionGuides.html)!
 
 # Panel sizes
 

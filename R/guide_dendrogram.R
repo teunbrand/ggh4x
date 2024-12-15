@@ -1,10 +1,14 @@
 # Constructor -------------------------------------------------------------
 
+# nocov start
+
 #' Dendrogram guide
 #'
+#' `r lifecycle::badge("deprecated")`
 #' Visual representation of a discrete variable with hierarchical relationships
 #' between members, like those detailed in
-#' [`scale_(x|y)_dendrogram)()`][scale_x_dendrogram].
+#' [`scale_(x|y)_dendrogram)()`][scale_x_dendrogram]. This function is
+#' deprecated in favour of `legendry::guide_axis_dendro()`.
 #'
 #' @inheritParams guide_axis_truncated
 #' @param label A `logical(1)`. If `TRUE`, labels are drawn at the
@@ -17,6 +21,7 @@
 #'   to 10 times the `axis.ticks.length` theme element.
 #'
 #' @export
+#' @keywords internal
 #'
 #' @return A *dendroguide* class object.
 #'
@@ -54,6 +59,11 @@ guide_dendro <- function(
   color = NULL,
   dendro = waiver()
 ) {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "ggh4x::guide_dendro()",
+    "legendry::guide_axis_dendro()"
+  )
   colour <- color %||% colour
   check_trunc_arg(trunc_lower, trunc_upper)
   structure(
@@ -209,3 +219,5 @@ draw_dendroguide <- function(
     params = params
   )
 }
+
+# nocov end

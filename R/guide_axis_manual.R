@@ -1,17 +1,18 @@
 # Constructor -------------------------------------------------------------
 
+# nocov start
+
 #' Manual axis
 #'
-#' `r lifecycle::badge("questioning")`
+#' `r lifecycle::badge("deprecated")`
 #' This axis allows a greater degree of control than the default axes guides. In
 #' particular, this axis allows setting break positions and labels independently
 #' from the scale and is not bound by the same constraints as secondary axes.
 #' Additionally, label attributes may be set in parallel to the labels
 #' themselves, circumventing the unsupported vectorised input to
 #' `element_text()`.
-#' The function is questioned due to
-#' a possible migration of guide functions after ggplot2 releases a new guide
-#' system.
+#' The function is deprecated due to superior alternatives such as
+#' `legendry::guide_axis_base()`.
 #'
 #' @inheritParams guide_axis_truncated
 #' @param breaks One of the following ways to parametrise the tick and label
@@ -43,6 +44,7 @@
 #'   are taken from the theme.
 #'
 #' @return An *axis_manual* guide class object.
+#' @keywords internal
 #' @export
 #' @family axis-guides
 #' @md
@@ -86,6 +88,12 @@ guide_axis_manual <- function(
   trunc_upper = NULL,
   position = waiver()
 ) {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "guide_axis_manual()",
+    "legendry::guide_axis_base()"
+  )
+
   colour <- color %||% colour
   label_colour <- label_color %||% label_colour
   check_trunc_arg(trunc_lower, trunc_upper)
@@ -320,3 +328,5 @@ draw_axis_manual <- function(
     params = params
   )
 }
+
+# nocov end

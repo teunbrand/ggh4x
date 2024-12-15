@@ -1,11 +1,16 @@
 # External facing functions -----------------------------------------------
 
+# nocov start
+
 #' @name scale_dendrogram
 #' @title Dendrogram position scales
 #'
 #' @description
-#'   When discrete data has some inherent hierarchy to the relationship between
-#'   discrete categories, you can display a dendrogram instead of a tick axis.
+#' `r lifecycle::badge("deprecated")`
+#' When discrete data has some inherent hierarchy to the relationship between
+#' discrete categories, you can display a dendrogram instead of a tick axis.
+#' These functions have been deprecated in favour of
+#' `legendry::scale_{x/y}_dendro()`.
 #'
 #' @inheritParams ggplot2::scale_x_discrete
 #' @inheritDotParams ggplot2::discrete_scale -breaks
@@ -22,6 +27,7 @@
 #' @export
 #'
 #' @return A *ScaleDendrogram* ggproto object.
+#' @keywords internal
 #'
 #' @examples
 #' # Hierarchically cluster USArrests
@@ -45,6 +51,11 @@ scale_x_dendrogram <- function(...,
                                expand = waiver(),
                                guide = waiver(),
                                position = "bottom") {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "ggh4x::scale_x_dendrogram()",
+    "legendry::scale_x_dendro()"
+  )
   # Do regular discrete axis if no hclust is provided
   if (!inherits(hclust, "hclust")) {
     return(scale_x_discrete(...,
@@ -86,6 +97,11 @@ scale_y_dendrogram <- function(...,
                                expand = waiver(),
                                guide = waiver(),
                                position = "left") {
+  lifecycle::deprecate_warn(
+    "0.3.0",
+    "ggh4x::scale_y_dendrogram()",
+    "legendry::scale_y_dendro()"
+  )
   # Do regular discrete axis if no hclust is provided
   if (!inherits(hclust, "hclust")) {
     return(scale_y_discrete(...,
@@ -150,3 +166,5 @@ ScaleDendrogram <- ggproto(
     }
     return(x)
   })
+
+# nocov end
