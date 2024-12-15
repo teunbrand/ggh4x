@@ -65,4 +65,4 @@ ggplot(df, aes(x, y = after_stat(count),
 # Further reading
 
 Since ggh4x touches several aspects of ggplot2 plots, a few topics are discussed in more detail in vignettes.
-Please see the vignettes on [facet_* functions](Facets.html),  [stat_* functions](Statistics.html) or [position guides](PositionGuides.html).
+Please see the vignettes on [facet_* functions](Facets.html) or  [stat_* functions](Statistics.html).).
