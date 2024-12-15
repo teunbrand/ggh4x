@@ -449,15 +449,22 @@ Strip <- ggproto(
   }
 )
 
-
 # Helpers -----------------------------------------------------------------
 
-assert_strip <- function(strip, arg = deparse(substitute(strip))) {
-  is_strip <- inherits(strip, "Strip") && inherits(strip, "ggproto")
-  if (!is_strip) {
-    cli::cli_abort(
-      "The {.arg {arg}} argument is not a valid facet strip specification."
-    )
+resolve_strip <- function(strip, arg = caller_arg(strip), env = caller_env()) {
+  force(arg)
+  orig <- strip
+  if (is.character(strip)) {
+    strip <- find_global(paste0("strip_", strip), env = env, mode = "function")
   }
-  strip
+  if (is.function(strip)) {
+    strip <- strip()
+  }
+  if (inherits(strip, "Strip") && is.ggproto(strip)) {
+    return(strip)
+  }
+  cli::cli_abort(
+    "The {.arg {arg}} argument must be a valid strip specification.",
+    call = env
+  )
 }

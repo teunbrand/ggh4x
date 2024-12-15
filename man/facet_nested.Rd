@@ -22,7 +22,7 @@ facet_nested(
   solo_line = FALSE,
   resect = unit(0, "mm"),
   render_empty = TRUE,
-  strip = strip_nested(),
+  strip = "nested",
   bleed = NULL
 )
 }

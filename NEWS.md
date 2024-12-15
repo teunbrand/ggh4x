@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* Facets allow take the `strip` as strings and functions too.
+* New `strip_tag()` strip function (#149).
 * `coord_axis_inside(labels_inside)` now supports independent `"x"` and `"y"` 
   (#167).
 * Fixed bug in label remover (#158).

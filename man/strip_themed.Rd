@@ -99,6 +99,7 @@ p + facet_wrap2(
 Other strips: 
 \code{\link{strip_nested}()},
 \code{\link{strip_split}()},
+\code{\link{strip_tag}()},
 \code{\link{strip_vanilla}()}
 }
 \concept{strips}

@@ -57,10 +57,10 @@ facet_nested_wrap <- function(
   solo_line = FALSE,
   resect = unit(0, "mm"),
   trim_blank = TRUE,
-  strip = strip_nested(),
+  strip = "nested",
   bleed = NULL
 ) {
-  strip <- assert_strip(strip)
+  strip <- resolve_strip(strip)
   if (!is.null(bleed)) {
     lifecycle::deprecate_warn(
       when = "0.2.0",
