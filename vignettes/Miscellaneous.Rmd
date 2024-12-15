@@ -211,10 +211,10 @@ An additional nicety is that `coord_axis_inside()` will actually use the guide s
 p + coord_axes_inside(labels_inside = TRUE) +
   scale_x_continuous(
     labels = ~ ifelse(.x == 0, "", .x),
-    guide  = "axis_minor"
+    guide  = guide_axis(minor.ticks = TRUE)
   ) +
   scale_y_continuous(
     labels = ~ ifelse(.x == 0, "", .x),
-    guide  = "axis_truncated"
+    guide  = guide_axis(cap = "both")
   )
 ```
