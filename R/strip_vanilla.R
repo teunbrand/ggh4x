@@ -468,3 +468,6 @@ resolve_strip <- function(strip, arg = caller_arg(strip), env = caller_env()) {
     call = env
   )
 }
+
+# fallback for {deeptime}
+assert_strip <- resolve_strip
