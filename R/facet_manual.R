@@ -72,7 +72,7 @@ facet_manual <- function(
   remove_labels = "none",
   labeller = "label_value",
   trim_blank = TRUE,
-  strip = strip_vanilla()
+  strip = "vanilla"
 ) {
   strip.position <- arg_match0(
     strip.position, c("top", "bottom", "left", "right")
@@ -103,7 +103,7 @@ facet_manual <- function(
   free  <- .match_facet_arg(scales, c("fixed", "free_x", "free_y", "free"))
   axes  <- .match_facet_arg(axes, c("margins", "x", "y", "all"))
   rmlab <- .match_facet_arg(remove_labels, c("none", "x", "y", "all"))
-  strip <- assert_strip(strip)
+  strip <- resolve_strip(strip)
 
   params <- list(
     design = design,

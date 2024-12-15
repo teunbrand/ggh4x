@@ -1,5 +1,6 @@
 # ggh4x (development version)
 
+* Facets allow take the `strip` as strings and functions too.
 * New `strip_tag()` strip function (#149).
 * Fixed bug in label remover (#158).
 * Fixed bug in axis `check.overlap` setting (#165).

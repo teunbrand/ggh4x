@@ -41,7 +41,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Config/testthat/edition: 3
 Collate:
     'at_panel.R'
@@ -90,6 +90,7 @@ Collate:
     'strip_themed.R'
     'strip_nested.R'
     'strip_split.R'
+    'strip_tag.R'
     'themes.R'
     'utils.R'
     'utils_grid.R'

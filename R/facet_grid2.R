@@ -63,7 +63,14 @@
 #' @param render_empty A `logical(1)`: whether to draw panels without any data
 #'   (`TRUE`, default) or display these as blanks (`FALSE`).
 #'
-#' @param strip An object created by a call to a strip function, such as
+#' @param strip A strip specification as one of the following:
+#'   * An object inheriting from `<Strip>`, such as an object created with
+#'     `strip_vanilla()`.
+#'   * A strip function, i.e. `strip_vanilla`.
+#'   * A string giving such function without the `strip_`-prefix,
+#'     i.e. `"vanilla"`.
+#'
+#' An object created by a call to a strip function, such as
 #'   [`strip_vanilla`][strip_vanilla()].
 #'
 #' @details Both the `independent` and `space` arguments only have an effect
@@ -105,7 +112,7 @@ facet_grid2 <- function(
   drop    = TRUE,
   margins = FALSE,
   render_empty = TRUE,
-  strip = strip_vanilla()
+  strip = "vanilla"
 ) {
   new_grid_facets(
     rows, cols,
@@ -134,7 +141,7 @@ new_grid_facets <- function(
   space <- .match_facet_arg(space,  c("fixed", "free_x", "free_y", "free"))
   rmlab <- .match_facet_arg(rmlab,  c("none", "x", "y", "all"))
   indy  <- .match_facet_arg(indy,   c("none", "x", "y", "all"))
-  strip <- assert_strip(strip)
+  strip <- resolve_strip(strip)
 
   # Validate axes drawing parameters
   axis_params <- .validate_independent(indy, free, space, rmlab)
