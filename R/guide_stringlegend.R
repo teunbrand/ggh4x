@@ -56,6 +56,12 @@ GuideStringlegend <- ggproto(
     params
   },
 
+  setup_params = function(params) {
+    params <- GuideLegend$setup_params(params)
+    params$sizes <- list(widths = 0, heights = 0)
+    params
+  },
+
   setup_elements = function(params, elements, theme) {
     theme <- theme + params$theme
     params$theme <- NULL
