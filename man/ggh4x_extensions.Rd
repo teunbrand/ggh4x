@@ -3,10 +3,10 @@
 %   R/facet_grid2.R, R/facet_wrap2.R, R/facet_manual.R, R/facet_nested.R,
 %   R/facet_nested_wrap.R, R/geom_box.R, R/geom_pointpath.R,
 %   R/geom_polygonraster.R, R/geom_rectrug.R, R/geom_text_aimed.R,
-%   R/position_disjoint_ranges.R, R/position_lineartrans.R,
-%   R/scale_dendrogram.R, R/stat_difference.R, R/stat_funxy.R, R/stat_rle.R,
-%   R/stat_roll.R, R/stat_theodensity.R, R/strip_vanilla.R, R/strip_themed.R,
-%   R/strip_nested.R, R/strip_split.R
+%   R/guide_stringlegend.R, R/position_disjoint_ranges.R,
+%   R/position_lineartrans.R, R/scale_dendrogram.R, R/stat_difference.R,
+%   R/stat_funxy.R, R/stat_rle.R, R/stat_roll.R, R/stat_theodensity.R,
+%   R/strip_vanilla.R, R/strip_themed.R, R/strip_nested.R, R/strip_split.R
 \docType{data}
 \name{ggh4x_extensions}
 \alias{ggh4x_extensions}
@@ -23,6 +23,7 @@
 \alias{GeomRectMargin}
 \alias{GeomTileMargin}
 \alias{GeomTextAimed}
+\alias{GuideStringlegend}
 \alias{PositionDisjointRanges}
 \alias{PositionLinearTrans}
 \alias{ScaleDendrogram}
