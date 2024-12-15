@@ -359,38 +359,3 @@ render_legend_title <- function(guide, theme) {
        vjust = vjust,
        theme = title.theme)
 }
-
-
-# Helpers -----------------------------------------------------------------
-
-# Guard against R CMD check compaints
-utils::globalVariables(c("C", "R", "label.row", "label.col"))
-
-# `height_cm()` and `width_cm()` are copies of `ggplot2:::height_cm()`
-# and `ggplot2:::width_cm()`.
-
-#' @keywords internal
-height_cm <- function(x) {
-  if (is.grob(x)) {
-    convertHeight(grobHeight(x), "cm", TRUE)
-  } else if (is.unit(x)) {
-    convertHeight(x, "cm", TRUE)
-  } else if (is.list(x)) {
-    vapply(x, height_cm, numeric(1))
-  } else {
-    cli::cli_abort("Unknown input: {.obj_type_friendly {x}}.")
-  }
-}
-
-#' @keywords internal
-width_cm <- function(x) {
-  if (is.grob(x)) {
-    convertWidth(grobWidth(x), "cm", TRUE)
-  } else if (is.unit(x)) {
-    convertWidth(x, "cm", TRUE)
-  } else if (is.list(x)) {
-    vapply(x, width_cm, numeric(1))
-  } else {
-    cli::cli_abort("Unknown input: {.obj_type_friendly {x}}.")
-  }
-}
