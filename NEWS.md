@@ -1,5 +1,29 @@
 # ggh4x (development version)
 
+This is a new minor release, introducing a few small features, bug fixes and 
+deprecating the position guides in favour of the legendry package.
+
+## Improvements
+
+* Added `at_panel()` for annotating specific panels in facets (#162).
+* New `strip_tag()` strip function (#149).
+* `guide_stringlegend()` has been modernised to use the ggplot2 3.5.0 guide
+  system instead of the old S3 system.
+* Facets allow take the `strip` as strings and functions too.
+* `coord_axis_inside(labels_inside)` now supports independent `"x"` and `"y"` 
+  (#167).
+* `help_secondary()` has a new `na.rm` argument (#146, thanks @jrmuirhead!).
+
+## Bug fixes
+
+* Fixed bug in label remover (#158).
+* Fixed bug in axis `check.overlap` setting (#165).
+* Future-proofing of wrapped facets.
+* Fixed a bug when using facets with extension elements (#151).
+* Tweaked test for upcoming release of fitdistrplus (#176)
+
+## Deprecations
+
 * The following functions have been deprecated in favour of both base ggplot2 and
   the legendry package. They are scheduled to be removed in the next non-hotfix
   update.
@@ -14,19 +38,6 @@
     * `guide_axis_nested()` in favour of `legendry::guide_axis_nested()`.
     * `guide_axis_manual()` in favour of `legendry::guide_axis_base(key = ...)`.
     * `guide_axis_scalebar()` in favour of `legendry::primitive_bracket()`.
-* `guide_stringlegend()` has been modernised to use the ggplot2 3.5.0 guide
-  system instead of the old S3 system.
-* Facets allow take the `strip` as strings and functions too.
-* New `strip_tag()` strip function (#149).
-* `coord_axis_inside(labels_inside)` now supports independent `"x"` and `"y"` 
-  (#167).
-* Fixed bug in label remover (#158).
-* Fixed bug in axis `check.overlap` setting (#165).
-* Future-proofing of wrapped facets.
-* `help_secondary()` has a new `na.rm` argument (#146, thanks @jrmuirhead!).
-* Fixed a bug when using facets with extension elements (#151).
-* Added `at_panel()` for annotating specific panels in facets (#162).
-* Tweaked test for upcoming release of fitdistrplus (#176)
 
 # ggh4x 0.2.8
 
