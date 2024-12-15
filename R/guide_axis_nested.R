@@ -30,12 +30,12 @@
 #'
 #'   \describe{
 #'     \item{[`ggh4x.axis.nestline.x/y`][theme_extensions]}{
-#'       An [`element_line()`] object to alter the display of the line
-#'       separating different layers of labels.
+#'       An [`element_line()`][ggplot2::element_line] object to alter the
+#'       display of the line separating different layers of labels.
 #'     }
 #'     \item{[`ggh4x.axis.nesttext.x/y`][theme_extensions]}{
-#'       An [`element_text()`] object to differentiate text higher up in the
-#'       hierarchy, from the text closest to the axis line.
+#'       An [`element_text()`][ggplot2::element_text] object to differentiate
+#'       text higher up in the hierarchy, from the text closest to the axis line.
 #'     }
 #'   }
 #'

@@ -78,8 +78,9 @@ This axis guide uses the following the theme elements:
 
 \describe{
 \item{\code{\link[=theme_extensions]{ggh4x.axis.ticks.length.minor}}}{
-An \code{\link[=rel]{rel()}} object to set the size of minor ticks relative to the
-length of major ticks (\code{axis.ticks.length}). Defaults to \code{rel(2/3)}.
+An \code{\link[ggplot2:element]{rel()}} object to set the size of minor ticks
+relative to the length of major ticks (\code{axis.ticks.length}).
+Defaults to \code{rel(2/3)}.
 }
 }
 }

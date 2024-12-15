@@ -98,12 +98,12 @@ This axis guide uses the following the theme elements:
 
 \describe{
 \item{\code{\link[=theme_extensions]{ggh4x.axis.nestline.x/y}}}{
-An \code{\link[=element_line]{element_line()}} object to alter the display of the line
-separating different layers of labels.
+An \code{\link[ggplot2:element]{element_line()}} object to alter the
+display of the line separating different layers of labels.
 }
 \item{\code{\link[=theme_extensions]{ggh4x.axis.nesttext.x/y}}}{
-An \code{\link[=element_text]{element_text()}} object to differentiate text higher up in the
-hierarchy, from the text closest to the axis line.
+An \code{\link[ggplot2:element]{element_text()}} object to differentiate
+text higher up in the hierarchy, from the text closest to the axis line.
 }
 }
 }
