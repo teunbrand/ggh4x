@@ -90,6 +90,7 @@ Collate:
     'strip_themed.R'
     'strip_nested.R'
     'strip_split.R'
+    'strip_tag.R'
     'themes.R'
     'utils.R'
     'utils_grid.R'

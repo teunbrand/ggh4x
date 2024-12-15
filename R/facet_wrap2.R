@@ -38,8 +38,12 @@
 #'   and columns containing no panels. When `FALSE`, the `nrow` and `ncol`
 #'   arguments are taken literally, even when there are more than needed to
 #'   fit all panels.
-#' @param strip An object created by a call to a strip function, such as
-#'   [`strip_vanilla`][strip_vanilla()].
+#' @param strip A strip specification as one of the following:
+#'   * An object inheriting from `<Strip>`, such as an object created with
+#'     `strip_vanilla()`.
+#'   * A strip function, i.e. `strip_vanilla`.
+#'   * A string giving such function without the `strip_`-prefix,
+#'     i.e. `"vanilla"`.
 #'
 #' @return A `Facet` ggproto object that can be added to a plot.
 #' @export
@@ -68,7 +72,7 @@ facet_wrap2 <- function(
   as.table = TRUE, drop = TRUE,
   dir = "h", strip.position = "top",
   trim_blank = TRUE,
-  strip = strip_vanilla()
+  strip = "vanilla"
 ) {
   new_wrap_facets(
     facets, nrow, ncol,
@@ -100,7 +104,7 @@ new_wrap_facets <- function(
   )$params
   axes  <- .match_facet_arg(axes,   c("margins", "x", "y", "all"))
   rmlab <- .match_facet_arg(rmlab,  c("none", "x", "y", "all"))
-  strip <- assert_strip(strip)
+  strip <- resolve_strip(strip)
 
   dim <- if (trim_blank) NULL else c(prototype$nrow %||% NA, prototype$ncol %||% NA)
 

@@ -96,6 +96,7 @@ p + facet_grid2(vars(cyl, "year", year),
 \seealso{
 Other strips: 
 \code{\link{strip_nested}()},
+\code{\link{strip_tag}()},
 \code{\link{strip_themed}()},
 \code{\link{strip_vanilla}()}
 }

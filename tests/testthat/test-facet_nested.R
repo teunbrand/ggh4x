@@ -74,7 +74,7 @@ test_that("facet_nested returns helpful error messages", {
 
 test_that("facet_nested rejects invalid strips", {
   f <- quote(facet_nested(~ Species, strip = "dummy"))
-  expect_error(eval(f), "valid facet strip")
+  expect_error(eval(f), "valid strip")
 })
 
 test_that("facet_nested can draw multiple panel and strips", {

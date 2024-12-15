@@ -85,18 +85,6 @@ ggplot(diamonds, aes(price, carat, colour = clarity)) +
   scale_colour_brewer(palette = "Dark2", guide = "stringlegend")
 ```
 
-These legends do not have any keys, so key-related options are absent when you use `guide_stringlegend()`. However, a few label related options like `family`, `face`, `size` have been added, as well as options to control the spacing between the labels through `spacing`/`spacing.x`/`spacing.y`. 
-
-```{r, fig.show='hold', fig.width = 3}
-p <- ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(colour = class))
-
-p + guides(colour = guide_stringlegend(face = "bold", spacing = 15))
-
-p + guides(colour = guide_stringlegend(spacing.x = 0, spacing.y = 5,
-                                       family = "mono", ncol = 2))
-```
-
 # Point paths
 
 The return of the good old `type = 'b'` plot from base R! This geom makes point connected through a line that starts and ends a small distance from the points themselves. Calculating these small offsets in absolute coordinates instead of data coordinates means they are stable at different aspect ratios.

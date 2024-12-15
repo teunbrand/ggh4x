@@ -19,7 +19,7 @@ facet_grid2(
   drop = TRUE,
   margins = FALSE,
   render_empty = TRUE,
-  strip = strip_vanilla()
+  strip = "vanilla"
 )
 }
 \arguments{
@@ -130,7 +130,16 @@ variables for which margins are to be created.}
 \item{render_empty}{A \code{logical(1)}: whether to draw panels without any data
 (\code{TRUE}, default) or display these as blanks (\code{FALSE}).}
 
-\item{strip}{An object created by a call to a strip function, such as
+\item{strip}{A strip specification as one of the following:
+\itemize{
+\item An object inheriting from \verb{<Strip>}, such as an object created with
+\code{strip_vanilla()}.
+\item A strip function, i.e. \code{strip_vanilla}.
+\item A string giving such function without the \code{strip_}-prefix,
+i.e. \code{"vanilla"}.
+}
+
+An object created by a call to a strip function, such as
 \code{\link[=strip_vanilla]{strip_vanilla}}.}
 }
 \value{
