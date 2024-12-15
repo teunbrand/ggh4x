@@ -17,7 +17,7 @@ facet_manual(
   remove_labels = "none",
   labeller = "label_value",
   trim_blank = TRUE,
-  strip = strip_vanilla()
+  strip = "vanilla"
 )
 }
 \arguments{
@@ -96,8 +96,14 @@ check it for more details and pointers to other options.}
 \item{trim_blank}{A \code{logical(1)}. When \code{TRUE} (default), the design will
 be trimmed to remove empty rows and columns.}
 
-\item{strip}{An object created by a call to a strip function, such as
-\code{\link[=strip_vanilla]{strip_vanilla}}.}
+\item{strip}{A strip specification as one of the following:
+\itemize{
+\item An object inheriting from \verb{<Strip>}, such as an object created with
+\code{strip_vanilla()}.
+\item A strip function, i.e. \code{strip_vanilla}.
+\item A string giving such function without the \code{strip_}-prefix,
+i.e. \code{"vanilla"}.
+}}
 }
 \value{
 A \code{Facet} ggproto object that can be added to a plot.

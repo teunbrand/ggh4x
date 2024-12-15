@@ -21,7 +21,7 @@ facet_nested_wrap(
   solo_line = FALSE,
   resect = unit(0, "mm"),
   trim_blank = TRUE,
-  strip = strip_nested(),
+  strip = "nested",
   bleed = NULL
 )
 }
