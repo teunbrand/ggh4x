@@ -89,6 +89,7 @@ p + facet_wrap2(vars(cyl, drv), strip = strip_nested(bleed = TRUE))
 \seealso{
 Other strips: 
 \code{\link{strip_split}()},
+\code{\link{strip_tag}()},
 \code{\link{strip_themed}()},
 \code{\link{strip_vanilla}()}
 }

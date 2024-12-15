@@ -1,5 +1,55 @@
 # Constructor -------------------------------------------------------------
 
+#' Strips as tags
+#'
+#' This strip style renders the strips as text with fitted boxes onto the panels
+#' of the plot. This is in contrast to strips that match the panel size and
+#' are located outside the panels.
+#'
+#' @param order Either `c("x", "y")` or `c("y", "x")`, setting the top-to-bottom
+#'   order of horizontal versus "vertical" labels in facets with a grid layout.
+#' @param just A `<numeric[2]>` setting the horizontal and vertical
+#'   justification of placing the textbox.
+#' @inheritParams strip_themed
+#'
+#' @return A `StripTag` ggproto object that can be given as an argument to
+#'   facets in ggh4x.
+#' @export
+#' @family strips
+#' @md
+#'
+#' @examples
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' # Typical use
+#' p + facet_wrap2(
+#'   ~ class,
+#'   strip = strip_tag()
+#' )
+#'
+#' # Adjusting justification
+#' p + facet_wrap2(
+#'   ~ class,
+#'   strip = strip_tag(just = c(1, 0))
+#' )
+#'
+#' p + facet_wrap2(
+#'   ~ drv + year,
+#'   strip = strip_tag()
+#' )
+#'
+#' # With a grid layout, you can control in which order the labels are drawn
+#' p + facet_grid2(
+#'   "vertical" ~ "horizontal",
+#'   strip = strip_tag(order = c("x", "y")) # default
+#' )
+#'
+#' p +facet_grid2(
+#'   "vertical" ~ "horizontal",
+#'   strip = strip_tag(order = c("y", "x")) # invert order
+#' )
 strip_tag <- function(
   clip = "inherit",
   order = c("x", "y"),
