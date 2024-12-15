@@ -147,7 +147,7 @@ new_grid_facets <- function(
   axis_params <- .validate_independent(indy, free, space, rmlab)
 
   # Setup facet variables
-  facets <- .int$grid_as_facets_list(rows, cols)
+  facets <- facet_grid(rows = rows, cols = cols)$params[c("rows", "cols")]
 
   # Make list of parameters
   params <- c(params, axis_params, list(

@@ -227,7 +227,7 @@ test_that("stat_theodensity fits student t", {
   set.seed(1)
   d <- data.frame(x = rt(500, 1.5))
   g <- ggplot(d, aes(x = x)) +
-    stat_theodensity(distri = "t", start.arg = list(df = 20))
+    stat_theodensity(distri = "t", start.arg = list(df = 10))
   ld <- layer_data(g)
   expect_equal(nrow(ld), 512)
   max <- which.max(ld$y)

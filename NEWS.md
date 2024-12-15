@@ -2,12 +2,15 @@
 
 * Facets allow take the `strip` as strings and functions too.
 * New `strip_tag()` strip function (#149).
+* `coord_axis_inside(labels_inside)` now supports independent `"x"` and `"y"` 
+  (#167).
 * Fixed bug in label remover (#158).
 * Fixed bug in axis `check.overlap` setting (#165).
 * Future-proofing of wrapped facets.
 * `help_secondary()` has a new `na.rm` argument (#146, thanks @jrmuirhead!).
 * Fixed a bug when using facets with extension elements (#151).
 * Added `at_panel()` for annotating specific panels in facets (#162).
+* Tweaked test for upcoming release of fitdistrplus (#176)
 
 # ggh4x 0.2.8
 
