@@ -52,7 +52,7 @@ guide_stringlegend <- function(
 GuideStringlegend <- ggproto(
   "GuideStringlegend", GuideLegend,
 
-  get_layer_key = function(params, layers, data = NULL) {
+  get_layer_key = function(params, ...) {
     params
   },
 
