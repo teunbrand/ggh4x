@@ -4,6 +4,7 @@
 #' used to make panel-specific annotations.
 #'
 #' @param layer A `layer` as returned by [`layer()`][ggplot2::layer].
+#'   Alternatively, a bare list of layers.
 #' @param expr An `expression` that, when evaluated in the facet's layout
 #'   data.frame, yields a `logical` vector parallel to the rows.
 #'
@@ -45,12 +46,13 @@ at_panel <- function(layer, expr) {
     cli::cli_abort("{.arg expr} must be an expression, it cannot be missing.")
   }
 
-  extra <- list()
   if (!inherits(layer, "LayerInstance")) {
-    # Accept `geom_sf()` which returns a list with a layer in first spot
-    if (is.list(layer) && inherits(layer[[1]], "LayerSf")) {
-      extra <- layer[-1]
-      layer <- layer[[1]]
+    # Accept `geom_sf()`, which returns a list with a layer in first spot, and
+    # other lists of layers
+    if (is_bare_list(layer)) {
+      is_layer <- vapply(layer, inherits, logical(1), what = "LayerInstance")
+      layer[is_layer] <- lapply(layer[is_layer], at_panel, expr = !!expr)
+      return(layer)
     } else {
       cli::cli_abort(
         "{.arg layer} must be a layer, not {.obj_type_friendly {layer}}."
@@ -76,9 +78,5 @@ at_panel <- function(layer, expr) {
     }
   )
 
-  new_layer <- ggproto(NULL, layer, geom = new_geom)
-  if (length(extra) == 0) {
-    return(new_layer)
-  }
-  list2(new_layer, !!!extra)
+  ggproto(NULL, layer, geom = new_geom)
 }

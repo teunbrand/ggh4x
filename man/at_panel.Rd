@@ -7,7 +7,8 @@
 at_panel(layer, expr)
 }
 \arguments{
-\item{layer}{A \code{layer} as returned by \code{\link[ggplot2:layer]{layer()}}.}
+\item{layer}{A \code{layer} as returned by \code{\link[ggplot2:layer]{layer()}}.
+Alternatively, a bare list of layers.}
 
 \item{expr}{An \code{expression} that, when evaluated in the facet's layout
 data.frame, yields a \code{logical} vector parallel to the rows.}
