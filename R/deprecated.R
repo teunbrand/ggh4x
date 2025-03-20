@@ -1,3 +1,18 @@
+#' Deprecated functions
+#'
+#' The functions listed here are deprecated and no longer work.
+#'
+#' @param ... Not used.
+#'
+#' @returns None, raises deprecation signal
+#' @name deprecated
+#'
+#' @examples
+#' # None
+NULL
+
+#' @rawNamespace if (packageVersion("ggplot2") <= "3.5.0") export(guide_axis_logticks)
+#' @rdname deprecated
 guide_axis_logticks <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -6,6 +21,8 @@ guide_axis_logticks <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 guide_axis_manual <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -14,6 +31,8 @@ guide_axis_manual <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 guide_axis_minor <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -22,6 +41,8 @@ guide_axis_minor <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 guide_axis_nested <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -30,6 +51,8 @@ guide_axis_nested <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 guide_axis_scalebar <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -38,6 +61,8 @@ guide_axis_scalebar <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 guide_axis_truncated <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -46,6 +71,8 @@ guide_axis_truncated <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 guide_axis_colour <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -54,8 +81,12 @@ guide_axis_colour <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 guide_axis_color <- guide_axis_colour
 
+#' @export
+#' @rdname deprecated
 guide_dendro <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -64,6 +95,8 @@ guide_dendro <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 ggsubset <- function(...) {
   lifecycle::deprecate_stop(
     "0.2.0",
@@ -73,6 +106,8 @@ ggsubset <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 scale_x_dendrogram <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
@@ -81,6 +116,8 @@ scale_x_dendrogram <- function(...) {
   )
 }
 
+#' @export
+#' @rdname deprecated
 scale_y_dendrogram <- function(...) {
   lifecycle::deprecate_stop(
     "0.3.0",
