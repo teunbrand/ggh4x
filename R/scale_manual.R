@@ -45,9 +45,6 @@
 #'
 #' # Expanding the continuous limits
 #' p + scale_x_manual(values = sep_discrete(), c_limits = c(NA, 15))
-#'
-#' # Together with grouped axis
-#' p + scale_x_manual(values = sep_discrete(), guide = guide_axis_nested())
 scale_x_manual <- function(
   values,
   c_limits = NULL,

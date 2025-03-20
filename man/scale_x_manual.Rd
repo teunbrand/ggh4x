@@ -113,9 +113,6 @@ p + scale_x_manual(values = sep_discrete())
 
 # Expanding the continuous limits
 p + scale_x_manual(values = sep_discrete(), c_limits = c(NA, 15))
-
-# Together with grouped axis
-p + scale_x_manual(values = sep_discrete(), guide = guide_axis_nested())
 }
 \seealso{
 \code{\link[=sep_discrete]{sep_discrete()}}
