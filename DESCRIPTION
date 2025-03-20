@@ -49,6 +49,7 @@ Collate:
     'conveniences.R'
     'ggh4x_extensions.R'
     'coord_axes_inside.R'
+    'deprecated.R'
     'element_part_rect.R'
     'facet_grid2.R'
     'facet_wrap2.R'
