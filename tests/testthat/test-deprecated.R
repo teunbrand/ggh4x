@@ -1,0 +1,13 @@
+test_that("defunct functions throw deprecation messages", {
+  lifecycle::expect_defunct(guide_axis_manual())
+  lifecycle::expect_defunct(guide_axis_truncated())
+  lifecycle::expect_defunct(guide_axis_color())
+  lifecycle::expect_defunct(guide_axis_colour())
+  lifecycle::expect_defunct(guide_axis_minor())
+  lifecycle::expect_defunct(guide_axis_nested())
+  lifecycle::expect_defunct(guide_axis_scalebar())
+  lifecycle::expect_defunct(guide_dendro())
+  lifecycle::expect_defunct(scale_x_dendrogram())
+  lifecycle::expect_defunct(scale_y_dendrogram())
+  lifecycle::expect_defunct(ggsubset())
+})
