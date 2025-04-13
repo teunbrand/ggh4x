@@ -41,11 +41,11 @@ ggplot(df, aes(x, y = after_stat(count),
   geom_histogram(position = "identity", binwidth = 1, 
                  alpha = 0.3, colour = NA) +
   # One type of theoretical densities for discrete distributions with steps
-  stat_theodensity(data = ggsubset(type == "Discrete"),
+  stat_theodensity(data = ~ subset(.x, type == "Discrete"),
                    distri = "nbinom", geom = "step",
                    position = position_nudge(x = -0.5)) +
   # Another type for the continuous ones with lines
-  stat_theodensity(data = ggsubset(type == "Continuous"),
+  stat_theodensity(data = ~ subset(.x, type == "Continuous"),
                    distri = "gamma") +
   scale_colour_discrete(aesthetics = c("colour", "fill"), guide = "none") +
   # Have the facet strips span categories
