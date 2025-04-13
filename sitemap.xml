@@ -1,192 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/404.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/articles/Facets.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/articles/Miscellaneous.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/articles/PositionGuides.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/articles/Statistics.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/articles/ggh4x.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/at_panel.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/center_limits.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/coord_axes_inside.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/distribute_args.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/element_part_rect.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/facet_grid2.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/facet_manual.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/facet_nested.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/facet_nested_wrap.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/facet_wrap2.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/facetted_pos_scales.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/force_panelsizes.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/geom_box.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/geom_outline_point.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/geom_pointpath.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/geom_polygonraster.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/geom_rectmargin.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/geom_text_aimed.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/ggh4x-package.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/ggh4x_extensions.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/ggsubset.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_logticks.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_manual.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_minor.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_nested.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_scalebar.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_truncated.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_dendro.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/guide_stringlegend.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/help_secondary.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/position_disjoint_ranges.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/position_lineartrans.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/scale_dendrogram.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/scale_facet.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/scale_fill_multi.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/scale_listed.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/scale_x_manual.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/sep_discrete.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/stat_difference.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/stat_funxy.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/stat_rle.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/stat_rollingkernel.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/stat_theodensity.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/strip_nested.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/strip_split.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/strip_themed.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/strip_vanilla.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/theme_extensions.html</loc>
-  </url>
-  <url>
-    <loc>https://teunbrand.github.io/ggh4x/reference/weave_factors.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://teunbrand.github.io/ggh4x/404.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/LICENSE-text.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/LICENSE.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/articles/Facets.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/articles/Miscellaneous.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/articles/Statistics.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/articles/ggh4x.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/articles/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/authors.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/news/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/at_panel.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/center_limits.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/coord_axes_inside.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/distribute_args.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/element_part_rect.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/facet_grid2.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/facet_manual.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/facet_nested.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/facet_nested_wrap.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/facet_wrap2.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/facetted_pos_scales.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/force_panelsizes.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/geom_box.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/geom_outline_point.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/geom_pointpath.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/geom_polygonraster.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/geom_rectmargin.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/geom_text_aimed.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/ggh4x-package.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/ggh4x_extensions.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/ggsubset.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_logticks.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_manual.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_minor.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_nested.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_scalebar.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_axis_truncated.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_dendro.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/guide_stringlegend.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/help_secondary.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/index.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/position_disjoint_ranges.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/position_lineartrans.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/scale_dendrogram.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/scale_facet.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/scale_fill_multi.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/scale_listed.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/scale_x_manual.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/sep_discrete.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/stat_difference.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/stat_funxy.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/stat_rle.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/stat_rollingkernel.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/stat_theodensity.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/strip_nested.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/strip_split.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/strip_tag.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/strip_themed.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/strip_vanilla.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/theme_extensions.html</loc></url>
+<url><loc>https://teunbrand.github.io/ggh4x/reference/weave_factors.html</loc></url>
 </urlset>
+
