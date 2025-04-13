@@ -58,7 +58,7 @@ find_global <- function(name, env, mode = "any") {
 }
 
 get_transformation <- function(scale) {
-  if (is.ggproto(scale$scale)) {
+  if (is_ggproto(scale$scale)) {
     scale <- scale$scale
   }
   if (is.function(scale$get_transformation)) {
