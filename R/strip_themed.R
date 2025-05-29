@@ -230,12 +230,20 @@ inherit_element <- function(child, parent) {
     }
   }
 
-  n <- names(child)[vapply(child, is.null, logical(1))]
-  child[n] <- parent[n]
+  if (inherits(child, "S7_object")) {
+    prps <- S7::props(child)
+    n <- names(prps)[vapply(prps, is.null, logical(1))]
+    prps[n] <- S7::props(parent)[n]
+    S7::props(child) <- prps
+  } else {
+    n <- names(child)[vapply(child, is.null, logical(1))]
+    child[n] <- parent[n]
 
-  if (inherits(child$size, "rel")) {
-    child$size <- parent$size * unclass(child$size)
+    if (inherits(child$size, "rel")) {
+      child$size <- parent$size * unclass(child$size)
+    }
   }
+
   return(child)
 }
 
