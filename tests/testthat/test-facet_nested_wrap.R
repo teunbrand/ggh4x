@@ -17,8 +17,8 @@ test_that("facet_nested_wrap can be added to a plot", {
 test_that("facet_nested_wrap can be build", {
   g <- basic + facet_nested_wrap(vars(cyl, drv), dir = "v")
   g <- ggplot_build(g)
-  expect_s3_class(g, "ggplot_built")
-  expect_s3_class(g$layout, "gg")
+  expect_s3_class(g$layout, "Layout")
+  expect_true(is_ggplot(g$plot))
 })
 
 test_that("facet_nested_wrap can be interpreted as gtable", {
