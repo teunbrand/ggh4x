@@ -57,8 +57,8 @@ test_that("facet_wrap2() can some repeat axes", {
   case <- grab_axis(case, "b")
   ctrl <- grab_axis(ctrl, "b")
 
-  case <- vapply(case, ggplot2:::is.zero, logical(1))
-  ctrl <- vapply(ctrl, ggplot2:::is.zero, logical(1))
+  case <- vapply(case, is.zero, logical(1))
+  ctrl <- vapply(ctrl, is.zero, logical(1))
 
   expect_equal(sum(case), 0L)
   expect_equal(sum(ctrl), 4L)
