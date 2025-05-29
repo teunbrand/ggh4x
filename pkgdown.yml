@@ -1,12 +1,12 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   Facets: Facets.html
   ggh4x: ggh4x.html
   Miscellaneous: Miscellaneous.html
   Statistics: Statistics.html
-last_built: 2025-04-13T18:31Z
+last_built: 2025-05-29T22:11Z
 urls:
   reference: https://teunbrand.github.io/ggh4x/reference
   article: https://teunbrand.github.io/ggh4x/articles
