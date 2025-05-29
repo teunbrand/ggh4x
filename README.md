@@ -5,11 +5,11 @@
 
 <!-- badges: start -->
 
-[![Codecov test
-coverage](https://codecov.io/gh/teunbrand/ggh4x/branch/master/graph/badge.svg)](https://app.codecov.io/gh/teunbrand/ggh4x?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggh4x)](https://CRAN.R-project.org/package=ggh4x)
 [![R-CMD-check](https://github.com/teunbrand/ggh4x/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/teunbrand/ggh4x/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/teunbrand/ggh4x/graph/badge.svg)](https://app.codecov.io/gh/teunbrand/ggh4x)
 <!-- badges: end -->
 
 The ggh4x package is a ggplot2 extension package. It provides some
