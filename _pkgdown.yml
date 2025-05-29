@@ -22,6 +22,7 @@ reference:
   - strip_themed
   - strip_nested
   - strip_split
+  - strip_tag
   - force_panelsizes
   - facetted_pos_scales
   - scale_x_facet

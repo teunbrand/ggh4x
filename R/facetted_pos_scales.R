@@ -183,7 +183,7 @@ validate_facetted_scale <- function(x, aes = "x") {
 #' @noRd
 #' @export
 #' @keywords internal
-ggplot_add.facetted_pos_scales <- function(object, plot, object_name) {
+ggplot_add.facetted_pos_scales <- function(object, plot, ...) {
 
   empty_x <- vapply(object$x, is.null, logical(1))
   empty_y <- vapply(object$y, is.null, logical(1))

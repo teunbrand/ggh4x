@@ -37,7 +37,9 @@ height_cm <- function(x) {
 }
 
 fixup_docs <- function(x) {
-  gsub("\\[=aes", "\\[ggplot2:aes", x)
+  x <- gsub("\\[=aes", "\\[ggplot2:aes", x)
+  x <- gsub("\\[=ggplot2::", "\\[ggplot2:", x)
+  x
 }
 
 # ggplot internals --------------------------------------------------------
@@ -58,7 +60,7 @@ find_global <- function(name, env, mode = "any") {
 }
 
 get_transformation <- function(scale) {
-  if (is.ggproto(scale$scale)) {
+  if (is_ggproto(scale$scale)) {
     scale <- scale$scale
   }
   if (is.function(scale$get_transformation)) {

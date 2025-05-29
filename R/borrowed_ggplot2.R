@@ -553,4 +553,14 @@ just_dir <- function(x, tol = 0.001) {
 `%|W|%` <- function(a, b) {
   if (!inherits(a, "waiver")) a else b
 }
+
+is_ggproto <- function(x) {
+  inherits(x, "ggproto")
+}
+
+on_load(
+  if ("is_ggproto" %in% getNamespaceExports("ggplot2")) {
+    is_ggproto <- getFromNamespace("is_ggproto", asNamespace("ggplot2"))
+  }
+)
 # nocov end

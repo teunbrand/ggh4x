@@ -460,7 +460,7 @@ resolve_strip <- function(strip, arg = caller_arg(strip), env = caller_env()) {
   if (is.function(strip)) {
     strip <- strip()
   }
-  if (inherits(strip, "Strip") && is.ggproto(strip)) {
+  if (inherits(strip, "Strip") && is_ggproto(strip)) {
     return(strip)
   }
   cli::cli_abort(

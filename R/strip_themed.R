@@ -193,9 +193,11 @@ validate_element_list <- function(elem, prototype = "element_text") {
   if (!inherits(elem, "list")) {
     elem <- list(elem)
   }
-  is_proto <- vapply(elem, inherits, logical(1), c(prototype, "element_blank"))
+  is_blank <- vapply(elem, is_theme_element, type = "blank", logical(1))
+  is_proto <- vapply(elem, is_theme_element, type = gsub("^element_", "", prototype), logical(1))
   is_null  <- vapply(elem, is.null,  logical(1))
-  if (any(!(is_proto | is_null))) {
+  invalid <- !(is_blank | is_proto | is_null)
+  if (any(invalid)) {
     cli::cli_abort(
       "The {.arg {argname}} argument should be a list of {.cls {prototype}} \\
       objects."
@@ -208,7 +210,7 @@ validate_element_list <- function(elem, prototype = "element_text") {
 # Based on ggplot2:::combine_elements
 inherit_element <- function(child, parent) {
 
-  if (is.null(parent) || inherits(child, "element_blank")) {
+  if (is.null(parent) || is_theme_element(child, "blank")) {
     return(child)
   }
 
@@ -216,11 +218,11 @@ inherit_element <- function(child, parent) {
     return(parent)
   }
 
-  if (!inherits(child, "element") && !inherits(parent, "element")) {
+  if (!is_theme_element(child) && !is_theme_element(parent)) {
     return(child)
   }
 
-  if (inherits(parent, "element_blank")) {
+  if (is_theme_element(parent, "blank")) {
     if (child$inherit.blank) {
       return(parent)
     } else {
@@ -228,12 +230,20 @@ inherit_element <- function(child, parent) {
     }
   }
 
-  n <- names(child)[vapply(child, is.null, logical(1))]
-  child[n] <- parent[n]
+  if (inherits(child, "S7_object")) {
+    prps <- S7::props(child)
+    n <- names(prps)[vapply(prps, is.null, logical(1))]
+    prps[n] <- S7::props(parent)[n]
+    S7::props(child) <- prps
+  } else {
+    n <- names(child)[vapply(child, is.null, logical(1))]
+    child[n] <- parent[n]
 
-  if (inherits(child$size, "rel")) {
-    child$size <- parent$size * unclass(child$size)
+    if (inherits(child$size, "rel")) {
+      child$size <- parent$size * unclass(child$size)
+    }
   }
+
   return(child)
 }
 

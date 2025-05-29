@@ -8,6 +8,11 @@
 #'   draw an edge at the top (t), left (l), bottom (b) or right (r)
 #'   respectively. Including all or none of these letters will default to normal
 #'   `element_rect()`.
+#' @param linewidth Line/border size in mm.
+#' @param linetype Line type. An integer (0:8), a name (blank, solid,
+#'   dashed, dotted, dotdash, longdash, twodash), or a string with
+#'   an even number (up to eight) of hexadecimal digits which give the
+#'   lengths in consecutive positions in the string.
 #' @inheritParams ggplot2::element_rect
 #'
 #' @return An S3 object of class `element_part_rect`.
