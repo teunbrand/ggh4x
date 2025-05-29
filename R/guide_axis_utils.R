@@ -13,7 +13,7 @@ build_axis_elements <- function(
                             names(element_names))
   elements <- lapply(element_names, calc_element, theme)
 
-  if (inherits(elements$label, "element_text")) {
+  if (is_theme_element(elements$label, "text")) {
     lab_overrides <- axis_label_element_overrides(axis_position, angle)
     elements$label$angle <- lab_overrides$angle %||% elements$label$angle
     elements$label$hjust <- lab_overrides$hjust %||% elements$label$hjust

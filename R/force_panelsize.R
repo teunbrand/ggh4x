@@ -91,7 +91,7 @@ force_panelsizes <- function(rows = NULL, cols = NULL, respect = NULL,
 #' @noRd
 #' @export
 #' @keywords internal
-ggplot_add.forcedsize <- function(object, plot, object_name) {
+ggplot_add.forcedsize <- function(object, plot, ...) {
   # Simply return plot if no changes are needed
   if (sum(lengths(object)) < 1){
     return(plot)
