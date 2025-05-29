@@ -95,7 +95,8 @@ facet_nested <- function(
   if (isFALSE(nest_line)) {
     nest_line <- element_blank()
   }
-  if (!inherits(nest_line, c("element_line", "element_blank"))) {
+  if (!(is_theme_element(nest_line, "line") ||
+        is_theme_element(nest_line, "blank"))) {
     cli::cli_abort(
       "The {.arg nest_line} argument must be {.cls element_blank} or inherit \\
       from {.cls element_line}."
@@ -248,7 +249,7 @@ add_nest_indicator <- function(panels, params, theme) {
   nest_line <- inherit_element(
     nest_line, calc_element("ggh4x.facet.nestline", theme)
   )
-  if (inherits(nest_line, "element_blank")) {
+  if (is_theme_element(nest_line, "blank")) {
     return(panels)
   }
   solo <- isTRUE(params$solo_line)

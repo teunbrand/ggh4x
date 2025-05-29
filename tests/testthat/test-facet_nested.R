@@ -125,9 +125,9 @@ test_that("facet_nested can nest strips", {
 
 test_that("facet_nested constructor handles nesting lines", {
   f <- facet_nested(~ nester + Species, nest_line = TRUE)
-  expect_s3_class(f$params$nest_line, 'element_line')
+  expect_true(is_theme_element(f$params$nest_line, "line"))
   f <- facet_nested(~ nester + Species, nest_line = FALSE)
-  expect_s3_class(f$params$nest_line, "element_blank")
+  expect_true(is_theme_element(f$params$nest_line), "blank")
   f <- quote(facet_nested(~ nester + Species, nest_line = element_rect()))
   expect_error(eval(f))
 })

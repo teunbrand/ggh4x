@@ -66,10 +66,10 @@ test_that("facet_nested_wrap nest_line parameter works", {
   expect_error(eval(f))
 
   f <- facet_nested_wrap(vars(cyl, drv), nest_line = FALSE)
-  expect_s3_class(f$params$nest_line, "element_blank")
+  expect_true(is_theme_element(f$params$nest_line, "blank"))
 
   f <- facet_nested_wrap(vars(cyl, drv), nest_line = TRUE)
-  expect_s3_class(f$params$nest_line, "element_line")
+  expect_true(is_theme_element(f$params$nest_line, "line"))
 
   test <- basic + f
 

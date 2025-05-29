@@ -270,7 +270,7 @@ draw_axis_ggh4x <- function(
 }
 
 build_trunc_axis_line <- function(element, params, trunc) {
-  if (inherits(element, "element_blank")) {
+  if (is_theme_element(element, "blank")) {
     return(zeroGrob())
   }
   if (is.null(trunc)) {
