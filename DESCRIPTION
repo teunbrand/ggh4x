@@ -27,7 +27,8 @@ Imports:
     rlang (>= 1.1.0),
     lifecycle,
     stats,
-    cli
+    cli,
+    S7
 Suggests: 
     covr,
     fitdistrplus,
