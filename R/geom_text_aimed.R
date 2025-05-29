@@ -11,6 +11,9 @@
 #'   angle of text placed at angles between 90 and 270 degrees is flipped so
 #'   that it is more comfortable to read. If `FALSE`, will take calculated
 #'   angles literally.
+#' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
+#'   Useful for offsetting text from points, particularly on discrete scales.
+#'   Cannot be jointly specified with `position`.
 #'
 #' @details The calculated angle is such that the text will be parallel to a
 #'   line passing through the coordinates `[x, y]` and `[xend, yend]`.

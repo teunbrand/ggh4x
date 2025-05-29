@@ -37,7 +37,9 @@ height_cm <- function(x) {
 }
 
 fixup_docs <- function(x) {
-  gsub("\\[=aes", "\\[ggplot2:aes", x)
+  x <- gsub("\\[=aes", "\\[ggplot2:aes", x)
+  x <- gsub("\\[=ggplot2::", "\\[ggplot2:", x)
+  x
 }
 
 # ggplot internals --------------------------------------------------------
