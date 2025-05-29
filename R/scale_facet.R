@@ -130,7 +130,7 @@ scale_y_facet <- function(expr, ..., type = "continuous") {
 #' @export
 #' @keywords internal
 #' @method ggplot_add scale_facet
-ggplot_add.scale_facet <- function(object, plot, object_name) {
+ggplot_add.scale_facet <- function(object, plot, ...) {
 
   aes <- object$rhs$aesthetics[1]
   aes <- rlang::arg_match0(aes, c("x", "y"), arg_nm = "scale$aesthetics[1]")

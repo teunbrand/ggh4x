@@ -139,7 +139,7 @@ scale_listed <- function(scalelist, replaces = NULL) {
 #' @noRd
 #' @export
 #' @keywords internal
-ggplot_add.MultiScale <- function(object, plot, object_name){
+ggplot_add.MultiScale <- function(object, plot, ...){
   for (i in object$scales){
     plot$scales$add(i)
   }
