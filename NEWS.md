@@ -1,6 +1,6 @@
-# ggh4x (development version)
+# ggh4x 0.3.1
 
-This is a minor release with no new features or bug fixes.
+This is a patch release with no new features or bug fixes.
 
 * Maintaining compatibility with ggplot2
 * The functions that were deprecated in 0.3.0 now return 'unflavoured' variants.
