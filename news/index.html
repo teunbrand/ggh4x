@@ -69,23 +69,23 @@
 <h3 id="deprecations-0-3-0">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-3-0"></a></h3>
 <ul><li>The following functions have been deprecated in favour of both base ggplot2 and the legendry package. They are scheduled to be removed in the next non-hotfix update.
 <ul><li>
-<code><a href="../reference/scale_dendrogram.html">scale_x_dendrogram()</a></code> and <code><a href="../reference/scale_dendrogram.html">scale_y_dendrogram()</a></code> in favour of <code>legendry::scale_x_dendro()</code> and <code>legendry::scale_y_dendro()</code>.</li>
+<code><a href="../reference/deprecated.html">scale_x_dendrogram()</a></code> and <code><a href="../reference/deprecated.html">scale_y_dendrogram()</a></code> in favour of <code>legendry::scale_x_dendro()</code> and <code>legendry::scale_y_dendro()</code>.</li>
 <li>
-<code><a href="../reference/guide_dendro.html">guide_dendro()</a></code> in favour of <code>legendry::guide_axis_dendro()</code>.</li>
+<code><a href="../reference/deprecated.html">guide_dendro()</a></code> in favour of <code>legendry::guide_axis_dendro()</code>.</li>
 <li>
-<code><a href="../reference/guide_axis_truncated.html">guide_axis_truncated()</a></code> in favour of <code>ggplot2::guide_axis(cap = TRUE)</code>.</li>
+<code><a href="../reference/deprecated.html">guide_axis_truncated()</a></code> in favour of <code>ggplot2::guide_axis(cap = TRUE)</code>.</li>
 <li>
-<code><a href="../reference/guide_axis_truncated.html">guide_axis_colour()</a></code> in favour of <code>ggplot2::guide_axis(theme = ...)</code>.</li>
+<code><a href="../reference/deprecated.html">guide_axis_colour()</a></code> in favour of <code>ggplot2::guide_axis(theme = ...)</code>.</li>
 <li>
-<code><a href="../reference/guide_axis_minor.html">guide_axis_minor()</a></code> in favour of <code>ggplot2::guide_axis(minor.ticks = TRUE)</code>.</li>
+<code><a href="../reference/deprecated.html">guide_axis_minor()</a></code> in favour of <code>ggplot2::guide_axis(minor.ticks = TRUE)</code>.</li>
 <li>
-<code><a href="../reference/guide_axis_logticks.html">guide_axis_logticks()</a></code> in favour of <code><a href="https://ggplot2.tidyverse.org/reference/guide_axis_logticks.html" class="external-link">ggplot2::guide_axis_logticks()</a></code>.</li>
+<code><a href="../reference/deprecated.html">guide_axis_logticks()</a></code> in favour of <code><a href="https://ggplot2.tidyverse.org/reference/guide_axis_logticks.html" class="external-link">ggplot2::guide_axis_logticks()</a></code>.</li>
 <li>
-<code><a href="../reference/guide_axis_nested.html">guide_axis_nested()</a></code> in favour of <code>legendry::guide_axis_nested()</code>.</li>
+<code><a href="../reference/deprecated.html">guide_axis_nested()</a></code> in favour of <code>legendry::guide_axis_nested()</code>.</li>
 <li>
-<code><a href="../reference/guide_axis_manual.html">guide_axis_manual()</a></code> in favour of <code>legendry::guide_axis_base(key = ...)</code>.</li>
+<code><a href="../reference/deprecated.html">guide_axis_manual()</a></code> in favour of <code>legendry::guide_axis_base(key = ...)</code>.</li>
 <li>
-<code><a href="../reference/guide_axis_scalebar.html">guide_axis_scalebar()</a></code> in favour of <code>legendry::primitive_bracket()</code>.</li>
+<code><a href="../reference/deprecated.html">guide_axis_scalebar()</a></code> in favour of <code>legendry::primitive_bracket()</code>.</li>
 </ul></li>
 </ul></div>
 </div>
@@ -148,11 +148,11 @@
 <code><a href="../reference/facet_manual.html">facet_manual()</a></code> can now not only omit axes when panels occupy 1 cell in the axes’ direction, but also when all panels in the same rows/columns occupy the same range of cells, when scales are not free.</li>
 <li>
 <code><a href="../reference/facet_manual.html">facet_manual()</a></code> now tries to omit white space introduced by axis placement when scales are not free (<a href="https://github.com/teunbrand/ggh4x/issues/86" class="external-link">#86</a>)</li>
-<li>Added <code>inv</code> option to invert the label order from outer to inner in <code><a href="../reference/guide_axis_nested.html">guide_axis_nested()</a></code>.</li>
+<li>Added <code>inv</code> option to invert the label order from outer to inner in <code><a href="../reference/deprecated.html">guide_axis_nested()</a></code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-2-4">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-4"></a></h3>
-<ul><li>Avoid spurious warning in <code><a href="../reference/guide_axis_nested.html">guide_axis_nested()</a></code> (<a href="https://github.com/teunbrand/ggh4x/issues/97" class="external-link">#97</a>).</li>
+<ul><li>Avoid spurious warning in <code><a href="../reference/deprecated.html">guide_axis_nested()</a></code> (<a href="https://github.com/teunbrand/ggh4x/issues/97" class="external-link">#97</a>).</li>
 <li>Compatibility with ggplot2 3.4.2 (<a href="https://github.com/teunbrand/ggh4x/issues/95" class="external-link">#95</a>).</li>
 <li>Improved error messages (<a href="https://github.com/teunbrand/ggh4x/issues/91" class="external-link">#91</a>).</li>
 <li>Fixed <code>annotate(geom = "pointpath")</code> (<a href="https://github.com/teunbrand/ggh4x/issues/83" class="external-link">#83</a>).</li>
@@ -174,14 +174,14 @@
 <div class="section level3">
 <h3 id="new-features-0-2-2">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-2"></a></h3>
 <ul><li>New experimental <code><a href="../reference/strip_split.html">strip_split()</a></code> strip style for facets. This function might still give unexpected results. Feel free to leave feedback!</li>
-<li>New <code><a href="../reference/guide_axis_scalebar.html">guide_axis_scalebar()</a></code> for drawing scale bars (<a href="https://github.com/teunbrand/ggh4x/issues/63" class="external-link">#63</a>).</li>
+<li>New <code><a href="../reference/deprecated.html">guide_axis_scalebar()</a></code> for drawing scale bars (<a href="https://github.com/teunbrand/ggh4x/issues/63" class="external-link">#63</a>).</li>
 <li>New <code>geom_outline_points()</code> to draw overlapping points with outlines.</li>
 <li>New <code><a href="../reference/coord_axes_inside.html">coord_axes_inside()</a></code> function that moves axes from outside the panel to inside the panel.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="tweaks-and-bugfixes-0-2-2">Tweaks and bugfixes<a class="anchor" aria-label="anchor" href="#tweaks-and-bugfixes-0-2-2"></a></h3>
 <ul><li>Documented <code><a href="../reference/theme_extensions.html">?theme_extensions</a></code> to collect information about extra theme elements in a single place.</li>
-<li>Deprecated <code><a href="../reference/ggsubset.html">ggsubset()</a></code>. Use <code>data = ~ subset(.x, ...)</code> instead.</li>
+<li>Deprecated <code><a href="../reference/deprecated.html">ggsubset()</a></code>. Use <code>data = ~ subset(.x, ...)</code> instead.</li>
 <li>
 <code>geom_*()</code> and <code>stat_*()</code> functions now allow dynamic dots.</li>
 <li>Fixed bug wherein facet label purging didn’t recognise rich text grobs as the axis text part of an axis (<a href="https://github.com/teunbrand/ggh4x/issues/67" class="external-link">#67</a>).</li>
@@ -237,7 +237,7 @@
 <li>Changed facet_wrap2()/facet_nested_wrap() ‘free’, ‘axes’ and ‘remove_labels’ arguments to be less ambiguous.</li>
 <li>Fix bug in truncated axes with discrete scales (<a href="https://github.com/teunbrand/ggh4x/issues/39" class="external-link">#39</a>).</li>
 <li>Fix bug in geom_pointpath() with 1-member groups (<a href="https://github.com/teunbrand/ggh4x/issues/43" class="external-link">#43</a>).</li>
-<li>New axis function <code><a href="../reference/guide_axis_manual.html">guide_axis_manual()</a></code>.</li>
+<li>New axis function <code><a href="../reference/deprecated.html">guide_axis_manual()</a></code>.</li>
 </ul></div>
 </div>
     <div class="section level2">
