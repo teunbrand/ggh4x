@@ -82,6 +82,7 @@ reference:
 - contents:
   - ggh4x_extensions
   - theme_extensions
+  - save_plot
   - help_secondary
   - center_limits
   - element_part_rect
