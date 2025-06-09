@@ -38,7 +38,7 @@ save_plot <- function(
   units = c("in", "cm", "mm", "px"),
   dpi = 300
 ) {
-  gt <- as.gtable(plot)
+  gt <- ggplotGrob(plot)
   units <- arg_match0(units, c("in", "cm", "mm", "px"))
 
   if (is.null(width)) {
