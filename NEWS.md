@@ -1,5 +1,9 @@
 # ggh4x (development version)
 
+* New `save_plot()` function that wraps `ggsave()` but automatically defaults
+  its size to innate dimensions set by `force_panelsizes()` or the new 
+  `theme(panel.widths, panel.heights)` settings (#187).
+
 # ggh4x 0.3.1
 
 This is a patch release with no new features or bug fixes.
