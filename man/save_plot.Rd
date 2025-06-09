@@ -26,8 +26,6 @@ save_plot(
 are combined to create the fully qualified file name. Defaults to the
 working directory.}
     \item{\code{scale}}{Multiplicative scaling factor.}
-    \item{\code{width,height}}{Plot size in units expressed by the \code{units} argument.
-If not supplied, uses the size of the current graphics device.}
     \item{\code{limitsize}}{When \code{TRUE} (the default), \code{ggsave()} will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}

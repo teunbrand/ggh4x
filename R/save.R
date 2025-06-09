@@ -6,7 +6,7 @@
 #' `force_panelsizes()` function has been used.
 #'
 #' @inheritParams ggplot2::ggsave
-#' @inheritDotParams ggplot2::ggsave
+#' @inheritDotParams ggplot2::ggsave -width -height
 #' @param width,height Plot size in units expressed by the `units` argument.
 #'   If `NULL` (default), the plot size will be measured. When the plot
 #'   does not have a fixed size, these become `NA`, meaning that the size of
