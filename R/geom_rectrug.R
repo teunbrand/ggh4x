@@ -269,8 +269,13 @@ GeomRectMargin <- ggplot2::ggproto(
     grid::gTree(children = do.call(grid::gList, rugs))
   },
   optional_aes = c("x", "y", "xmin", "xmax", "ymin", "ymax"),
-  default_aes = ggplot2::aes(colour = NA, fill = "grey35",
-                             linewidth = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.35)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA
+  ),
   draw_key = ggplot2::draw_key_polygon
 )
 
@@ -291,8 +296,14 @@ GeomTileMargin <- ggplot2::ggproto(
               ymin = y - height / 2, ymax = y + height / 2, height = NULL
     )
   },
-  default_aes = ggplot2::aes(fill = "grey20", colour = NA,
-                             linewidth = 0.1, linetype = 1,
-                             alpha = NA, width = NA, height = NA),
+  default_aes = aes(
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    colour = from_theme(colour %||% NA),
+    linewidth = from_theme(borderwidth / 5),
+    linetype = from_theme(bordertype),
+    alpha = NA,
+    width = NA,
+    height = NA
+  ),
   draw_key = ggplot2::draw_key_polygon
 )

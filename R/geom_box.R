@@ -84,10 +84,10 @@ GeomBox <- ggproto(
                    "ymin", "ymax", "y", "height"),
 
   default_aes = aes(
-    colour    = NA,
-    fill      = "grey35",
-    linewidth = 0.5,
-    linetype  = 1,
+    colour    = from_theme(colour %||% NA),
+    fill      = from_theme(fill %||% col_mix(ink, paper, 0.35)),
+    linewidth = from_theme(borderwidth),
+    linetype  = from_theme(bordertype),
     alpha     = NA
   ),
 

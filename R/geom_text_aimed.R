@@ -93,8 +93,16 @@ geom_text_aimed <- function(
 GeomTextAimed <- ggproto(
   "GeomTextAimed", GeomText,
   default_aes = aes(
-    colour = "black", size = 3.88, angle = 0, xend = -Inf, yend = -Inf,
-    hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
+    colour = from_theme(colour %||% ink),
+    size = from_theme(fontsize),
+    family = from_theme(family),
+    angle = 0,
+    xend = -Inf,
+    yend = -Inf,
+    hjust = 0.5,
+    vjust = 0.5,
+    alpha = NA,
+    fontface = 1,
     lineheight = 1.2
   ),
   draw_panel = function(data, panel_params, coord, parse = FALSE,
