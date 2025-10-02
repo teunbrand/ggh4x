@@ -70,6 +70,7 @@ Collate:
     'help_secondary.R'
     'position_disjoint_ranges.R'
     'position_lineartrans.R'
+    'save.R'
     'scale_facet.R'
     'scale_listed.R'
     'scale_manual.R'
