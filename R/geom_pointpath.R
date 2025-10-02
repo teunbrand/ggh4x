@@ -126,8 +126,15 @@ GeomPointPath <- ggplot2::ggproto(
   },
   # Adding some defaults for lines and mult
   default_aes = ggplot2::aes(
-    shape = 19, colour = "black", size = 1.5, fill = NA, alpha = NA,
-    stroke = 0.5, linewidth = 0.5, linetype = 1, mult = 0.5
+    shape = from_theme(pointshape),
+    colour = from_theme(colour %||% ink),
+    size = from_theme(pointsize),
+    fill = from_theme(fill %||% NA),
+    alpha = NA,
+    stroke = from_theme(borderwidth),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    mult = 0.5
   ),
   non_missing_aes = c("size", "colour")
 )

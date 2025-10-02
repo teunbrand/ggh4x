@@ -99,8 +99,13 @@ GeomOutlinePoint <- ggproto(
   "GeomOutlinePoint", GeomPoint,
 
   default_aes = aes(
-    shape = 16, colour = "grey50", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5, stroke_colour = "black"
+    shape = from_theme(pointshape),
+    colour = from_theme(colour %||% col_mix(ink, paper)),
+    size = from_theme(pointsize),
+    fill = from_theme(fill %||% NA),
+    alpha = NA,
+    stroke = from_theme(borderwidth),
+    stroke_colour = from_theme(ink)
   ),
 
   draw_key = draw_key_outline_point,

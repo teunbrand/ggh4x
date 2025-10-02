@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* Incorporated `from_theme()` in many default aesthetics, allow the new layer
+  defaults to be controlled from the theme (#210)
 * New `save_plot()` function that wraps `ggsave()` but automatically defaults
   its size to innate dimensions set by `force_panelsizes()` or the new 
   `theme(panel.widths, panel.heights)` settings (#187).
