@@ -1,5 +1,8 @@
 # ggh4x (development version)
 
+* Incorporated `from_theme()` in many default aesthetics, allow the new layer
+  defaults to be controlled from the theme (#210)
+
 # ggh4x 0.3.1
 
 This is a patch release with no new features or bug fixes.
