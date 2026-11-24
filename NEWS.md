@@ -1,5 +1,7 @@
 # ggh4x (development version)
 
+* `facet_manual()` now works when the theme leaves `strip.placement` unset,
+  as in `theme_void()` (#217).
 * Incorporated `from_theme()` in many default aesthetics, allow the new layer
   defaults to be controlled from the theme (#210)
 * New `save_plot()` function that wraps `ggsave()` but automatically defaults
