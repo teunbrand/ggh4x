@@ -5,6 +5,8 @@
 * New `save_plot()` function that wraps `ggsave()` but automatically defaults
   its size to innate dimensions set by `force_panelsizes()` or the new 
   `theme(panel.widths, panel.heights)` settings (#187).
+* `weave_factors()` keeps factor codes integer when replacing missing values
+  and reuses existing empty levels (#223).
 
 # ggh4x 0.3.1
 

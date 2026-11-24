@@ -171,17 +171,10 @@ weave_factors <- function(..., drop = TRUE, sep = ".", replaceNA = TRUE) {
     args <- lapply(args, function(x) {
       # Kind of assuming factors don't have NA levels
       if (is.factor(x)) {
-        lvls <- levels(x)
+        lvls <- unique(c(levels(x), ""))
         x <- as.integer(x)
-        if (anyNA(x)) {
-          if ("" %in% lvls) {
-            i <- which("" %in% lvls)
-          } else {
-            i <- length(lvls) + 1
-          }
-          x[is.na(x)] <- i
-        }
-        structure(x, levels = c(lvls, ""), class = "factor")
+        x[is.na(x)] <- match("", lvls)
+        structure(x, levels = lvls, class = "factor")
       } else {
         ifelse(is.na(x), "", as.character(x))
       }
