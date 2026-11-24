@@ -28,3 +28,10 @@ test_that("weave_factors combines factors", {
   expect_error(eval(a), "same length")
 
 })
+
+test_that("weave_factors reuses an existing empty level", {
+  x <- factor(c("x", NA, ""), levels = c("x", ""))
+  out <- weave_factors(x, "b", drop = FALSE)
+  expect_identical(as.character(out), c("x.b", ".b", ".b"))
+  expect_identical(levels(out), c("x.b", ".b"))
+})
