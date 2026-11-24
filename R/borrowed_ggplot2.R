@@ -254,9 +254,10 @@ id <- function(.variables, drop = FALSE) {
   ndistinct <- vapply(ids, attr, "n", FUN.VALUE = numeric(1),
                       USE.NAMES = FALSE)
   n <- prod(ndistinct)
-  if (n > 2^31) {
+  if (n > .Machine$integer.max) {
     char_id <- rlang::inject(paste(!!!ids, sep = "'\r"))
-    res <- match(char_id, unique0(char_id))
+    rank_order <- do.call(order, unname(rev(ids)))
+    res <- match(char_id, unique0(char_id[rank_order]))
   } else {
     combs <- c(1, cumprod(ndistinct[-p]))
     mat   <- rlang::inject(cbind(!!!ids))

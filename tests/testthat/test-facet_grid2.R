@@ -107,3 +107,40 @@ test_that("facet_grid2 warns about inappropriate arguments", {
                 remove_labels = "y")
   )
 })
+
+test_that("large facet combinations retain row-major panel order", {
+  # The theoretical 4^16 combinations exceed the integer limit.
+  df <- expand.grid(r = 1:4, c = 1:4)
+  row_vars <- paste0("r", 1:8)
+  col_vars <- paste0("c", 1:8)
+  df[row_vars] <- rep(list(sprintf("r%02d", df$r)), length(row_vars))
+  df[col_vars] <- rep(list(sprintf("c%02d", df$c)), length(col_vars))
+  df$x <- "x"
+  df$y <- sprintf("r%02d_a", df$r)
+  df <- rbind(df, transform(df[df$r == 1L, ], y = "r01_b"))
+  df <- df[order(-df$r, -df$c), ]
+
+  for (facet in list(facet_grid2, facet_nested)) {
+    plot <- ggplot(df, aes(x, y)) + geom_tile() +
+      facet(
+        rows = vars(!!!rlang::syms(row_vars)),
+        cols = vars(!!!rlang::syms(col_vars)),
+        scales = "free", space = "free"
+      )
+    built <- ggplot_build(plot)
+    layout <- built$layout$layout
+    expect_equal(as.integer(layout$PANEL), (layout$ROW - 1L) * 4L + layout$COL)
+
+    grob <- ggplot_gtable(built)
+    heights <- as.numeric(grob$heights[panel_rows(grob)$t])
+    expect_equal(heights, c(2.2, 1.2, 1.2, 1.2))
+  }
+})
+
+test_that("facet IDs can number combinations at the integer boundary", {
+  variables <- list(
+    structure(c(32768L, 1L), n = 32768L),
+    structure(c(65536L, 1L), n = 65536L)
+  )
+  expect_identical(id(variables), structure(c(2L, 1L), n = 2^31))
+})
