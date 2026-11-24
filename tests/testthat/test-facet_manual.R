@@ -58,6 +58,16 @@ test_that("facet_manual can build correct plots", {
   expect_equal(unname(panels$t), unname(strips$t) + 1)
 })
 
+test_that("facet_manual uses inside placement when the theme leaves it unset", {
+  p <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+    geom_point() +
+    facet_manual(vars(Species), design = "#A\nB#\n#C") +
+    theme_void()
+
+  inside <- ggplotGrob(p + theme(strip.placement = "inside"))
+  expect_identical(ggplotGrob(p)$layout, inside$layout)
+})
+
 test_that("facet_manual can assume layouts", {
   design <- matrix(c(3,3,2,1), 2, 2)
   p <- ggplot(mtcars, aes(mpg, wt)) +

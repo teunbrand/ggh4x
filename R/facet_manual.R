@@ -350,9 +350,10 @@ FacetManual <- ggproto(
       left   = split_widths_cm(axes$axes_left,    split = dims$l),
       right  = split_widths_cm(axes$axes_right,   split = dims$r)
     )
+    strip_placement <- calc_element("strip.placement", theme) %||% "inside"
     panels <- self$attach_axes(
       panels, axes, sizes, params,
-      inside = calc_element("strip.placement", theme) == "inside"
+      inside = strip_placement == "inside"
     )
 
     # Deal with strips
